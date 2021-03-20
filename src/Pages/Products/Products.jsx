@@ -4,7 +4,7 @@ import dummy_data from './products.db.json'
 
 const classes = {
   wrapper: "",
-  header: "w-full px-36 py-3 bg-white flex flex-row items-center justify-between",
+  header: "w-full pr-14 pl-4 py-3 bg-white flex flex-row items-center justify-between",
   title: "text-xl text-gray-600 font-bold hidden md:block",
   buttons: "flex item-center flex-row justify-end",
   button_input: "inline-flex items-center px-4 py-2 mx-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500",
@@ -72,7 +72,7 @@ const Products = () => {
         </div>
       </div>
 
-      <div>
+      <div className={'mt-4 overflow-y-auto overflow-x-hidden'}>
         <ProductTable
           heading={Object.keys(dummy_data[0])}
           rows={dummy_data}

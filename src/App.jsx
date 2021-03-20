@@ -1,5 +1,5 @@
 import { BrowserRouter, Redirect, Route } from "react-router-dom";
-import Auth from "./Pages/Auth/Auth"
+import Auth from "./Pages/Auth/Auth";
 import Home from "./Pages/Home/Home";
 
 const classes = {
