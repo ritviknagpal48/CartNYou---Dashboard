@@ -7,7 +7,7 @@ const classes = {
   header: "w-full pr-14 pl-4 py-3 bg-white flex flex-row items-center justify-between",
   title: "text-xl text-gray-600 font-bold hidden md:block",
   buttons: "flex item-center flex-row justify-end",
-  button_input: "inline-flex items-center px-4 py-2 mx-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500",
+  button_input: "inline-flex items-center px-4 py-2 mx-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500",
   action_icons: "md:-ml-1 md:mr-2 h-5 w-5",
   button_title: "hidden md:block"
 }
