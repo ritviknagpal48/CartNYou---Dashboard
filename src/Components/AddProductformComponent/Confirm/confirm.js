@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Row, Col, Form, Input, Button, Select, Upload, label, Progress } from 'antd';
+import { Row, Col, Button, Select } from 'antd';
 import './confirm.css'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 

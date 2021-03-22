@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
-import { Row, Col, Select, Alert, Progress } from 'antd';
+import { Row, Alert } from 'antd';
 import './success.css'
 
-const { Option } = Select;
 
 export class success extends Component {
     continue = e => {

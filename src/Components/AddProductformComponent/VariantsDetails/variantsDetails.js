@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import { Row, Col, Form, Input, Button, Select, Progress, InputNumber } from 'antd';
-import './variantsDetails.css'
-
+import { Row, Col, Form, Input, Button, Select, InputNumber } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-
 import { Steps } from 'antd';
+
+
+import './variantsDetails.css'
 
 const { Step } = Steps;
 

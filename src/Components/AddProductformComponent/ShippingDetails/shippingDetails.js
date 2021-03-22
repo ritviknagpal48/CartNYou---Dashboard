@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Row, Col, Form, Input, Button, Select, Progress } from 'antd';
+import { Row, Col, Form, Input, Button, Select } from 'antd';
 import './shippingDetails.css'
 
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';

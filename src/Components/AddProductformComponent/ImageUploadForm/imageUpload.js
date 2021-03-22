@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Row, Col, Form, Input, Button, Select, Upload, label, Progress } from 'antd';
+import { Row, Col, Form, Button, Select, Upload, label, Progress } from 'antd';
 import { UploadOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 
