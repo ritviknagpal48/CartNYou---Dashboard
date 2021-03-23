@@ -172,7 +172,7 @@ const Dashboard = () => {
         </div>
       </div>
       <div class="container pl-4 pr-14 py-4 mx-auto">
-        <h3 class="block text-xl text-gray-700 font-semibold mb-3"></h3>
+        <h3 class="block text-xl text-gray-700 font-semibold mb-3">Bar Chart</h3>
         <div class="flex">
           <div class="w-1/2">
             <div class="rounded-md p-6 bg-white shadow">

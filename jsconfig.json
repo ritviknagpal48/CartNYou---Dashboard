@@ -1,0 +1,12 @@
+{
+  "extends": "./jsconfig.paths.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDirs": ["src"],
+    "jsx": "preserve",
+    "checkJs": true,
+    "target": "esnext",
+    "module": "commonjs"
+  },
+  "include": ["src", "node_modules"]
+}

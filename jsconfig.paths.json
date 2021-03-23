@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/Components/*"],
+      "@wholeseller/*": ["src/Pages/WholeSeller/*"],
+      "@retailer/*": ["src/Pages/Retailer/*"]
+    }
+  }
+}

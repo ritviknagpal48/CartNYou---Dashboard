@@ -1,8 +1,6 @@
 import React from "react";
 import ProductTable from "./ProductTable";
-import AddProductForm from "../../Components/AddProductformComponent/AddProductForm";
 import { Modal } from "antd";
-import { PlusCircleOutlined } from "@ant-design/icons";
 import dummy_data from "./products.db.json";
 import { Link } from "react-router-dom";
 

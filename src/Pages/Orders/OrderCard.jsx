@@ -24,7 +24,6 @@ const ItemRow = ({ sku, description, mrp: price, qty }) => {
 }
 
 const OrderCard = ({ orderId, items, status, tracking, orderDate, payment, totalQty, totalAmount, shipTo }) => {
-  const name = 'Card 1'
   return (
     <div className={classes.wrapper}>
       <div className={"flex flex-row mx-auto items-start pb-2"}>
