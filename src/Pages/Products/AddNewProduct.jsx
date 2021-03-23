@@ -42,10 +42,7 @@ class HeaderWithSideBar extends React.Component {
               </button> */}
             </div>
             {/*body*/}
-            <div
-              className="relative p-6 flex-auto"
-              style={{ minHeight: "400px" }}
-            >
+            <div className="relative p-6 flex-auto">
               <AddProductForm />
             </div>
             {/*footer*/}
