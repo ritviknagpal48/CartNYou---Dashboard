@@ -24,49 +24,49 @@ export class confirm extends Component {
         return (
             <div className="form container">
 
-                <h2>Confirm details-</h2>
+                <h2 style={{ fontWeight: '600' }}>Confirm details</h2>
                 <br />
                 <Row className="inline">
                     <Col md={7} offset={0}>
-                        <label>Product Name</label>
+                        <label>Product Name:</label>
                         <h4>{ProductName}</h4>
                     </Col>
                     <Col md={7}>
-                        <label>Brand</label>
+                        <label>Brand:</label>
                         <h4>{Brand}</h4>
                     </Col>
                     <Col md={6}>
-                        <label>Description</label>
+                        <label>Description:</label>
                         <h4>{Description}</h4>
                     </Col>
                 </Row>
                 <br />
                 <Row className="inline">
                     <Col md={7} offset={0}>
-                        <label>Product Main SKU</label>
+                        <label>Product Main SKU:</label>
                         <h4>{ProductMainSKU}</h4>
                     </Col>
                     <Col md={7}>
-                        <label>Product Tags</label>
+                        <label>Product Tags:</label>
                         <h4>{ProductTags}</h4>
                     </Col>
                     <Col md={6}>
-                        <label>Country Of Origin</label>
+                        <label>Country Of Origin:</label>
                         <h4>{CountryOfOrigin}</h4>
                     </Col>
                 </Row>
                 <br />
                 <Row className="inline">
                     <Col md={7} offset={0}>
-                        <label>Product SKU</label>
+                        <label>Product SKU:</label>
                         <h4>{ProductSKU}</h4>
                     </Col>
                     <Col md={7}>
-                        <label>Quantity Number</label>
+                        <label>Quantity Number:</label>
                         <h4>{Quantity}</h4>
                     </Col>
                     <Col md={6}>
-                        <label>Product MRP</label>
+                        <label>Product MRP:</label>
                         <h4>{ProductMrp}</h4>
                     </Col>
                 </Row>
@@ -74,75 +74,62 @@ export class confirm extends Component {
                 <Row className="inline">
 
                     <Col md={7}>
-                        <label>MP Price</label>
+                        <label>MP Price:</label>
                         <h4>{MPPrice}</h4>
                     </Col>
                     <Col md={6}>
-                        <label>B2B Price</label>
+                        <label>B2B Price:</label>
                         <h4>{B2BPrice}</h4>
                     </Col>
                 </Row>
 
                 <Row className="inline">
                     <Col md={7} offset={0}>
-                        <label>Shipping Charge</label>
+                        <label>Shipping Charge:</label>
                         <h4>{ShippingCharge}</h4>
                     </Col>
                     <Col md={7}>
-                        <label>Shipping Time</label>
+                        <label>Shipping Time:</label>
                         <h4>{ShippingTime}</h4>
                     </Col>
                     <Col md={6}>
-                        <label>Dimension Length</label>
+                        <label>Dimension Length:</label>
                         <h4>{DimensionLength}</h4>
                     </Col>
                 </Row>
                 <br />
                 <Row className="inline">
                     <Col md={7} offset={0}>
-                        <label>Weight</label>
+                        <label>Weight:</label>
                         <h4>{Weight}</h4>
                     </Col>
                     <Col md={7}>
-                        <label>UPC</label>
+                        <label>UPC:</label>
                         <h4>{UPC}</h4>
                     </Col>
                     <Col md={6}>
-                        <label>EAN</label>
+                        <label>EAN:</label>
                         <h4>{EAN}</h4>
                     </Col>
                 </Row>
                 <br />
-                <Row className="inline">
-                    <Col md={7} offset={0}>
-                        <label>HSN code</label>
-                        <h4>{HSNcode}</h4>
-                    </Col>
-                    <Col md={7}>
-                        <label>Tax Rate (GST)</label>
-                        <h4>{TaxRate}</h4>
-                    </Col>
 
-                </Row>
                 <br />
                 <Row className="inline">
                     <Col md={7} offset={0}>
-                        <label>Dimension height</label>
+                        <label>Dimension height:</label>
                         <h4>{DimensionHeight}</h4>
                     </Col>
                     <Col md={6}>
                         <label></label>
                         <h4>{ }</h4>
                     </Col>
-                    <Col md={7}>
-                        <label>Additional Information</label>
-                        <h4>{DimensionBreadth}</h4>
-                    </Col>
+
                 </Row>
                 <br />
                 <br />
-                <Row className="inline">
-                    <Button className="back"
+                <Row className="inline" style={{ justifyContent: "flex-end" }}>
+                    <Button className="back" style={{ marginRight: "10px" }}
                         onClick={this.back}>
                         <LeftOutlined />
                         Back

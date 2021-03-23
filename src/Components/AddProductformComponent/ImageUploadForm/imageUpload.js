@@ -108,6 +108,7 @@ export class ImageUpload extends Component {
                             </Modal>
                         </Form.Item>
                     </div>
+                    <br />
                     <Row className="inline" style={{ justifyContent: "flex-end" }}>
                         <Button className="back" style={{ marginRight: "10px" }}
                             onClick={this.back}>

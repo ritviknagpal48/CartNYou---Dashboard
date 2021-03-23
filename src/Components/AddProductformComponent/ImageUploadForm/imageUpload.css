@@ -1,6 +1,6 @@
 .form {
-  padding: 20vh 0 0 0;
-  max-width: 300px;
+  padding: 0;
+  /* max-width: 300px; */
 }
 
 .form.item {
@@ -10,25 +10,12 @@
 .container {
   margin: auto;
   /* background-color: rgb(158, 158, 158); */
-  max-width: 100vh;
+  /* max-width: 100vh; */
 }
 
 .inline {
   display: flex;
   justify-content: space-between;
-}
-
-.continue {
-  background-color: #4caf50;
-}
-
-.back {
-  padding: 0 30px 0 30px;
-  background-color: rgb(0, 195, 255);
-}
-
-h2 {
-  color: #4caf50;
 }
 
 /* you can make up upload button and sample style by using stylesheets */

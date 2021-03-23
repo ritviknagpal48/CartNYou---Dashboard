@@ -24,7 +24,7 @@ export class shippingDetails extends Component {
         const { values, handlechange } = this.props;
         return (
             <div className="container">
-                <Form onSubmit={this.continue} className="form container">
+                <Form onSubmit={this.continue} className="form container" layout="vertical">
                     <Row style={{ marginBottom: "30px" }}>
                         <Steps size="small" current={3} responsive={true}>
                             <Step title="General Details" />
@@ -35,64 +35,62 @@ export class shippingDetails extends Component {
                         </Steps>
 
                     </Row>
-                    <Row className="inline" gutter={[32, 32]}>
-                        <Col md={12} offset={0}>
-                            <label>Shipping Charge</label>
-                            <Form.Item>
+
+                    <div class="grid grid-cols-1  gap-6  md:grid-cols-2" >
+                        < div class="flex flex-col items-start justify-center w-full ">
+                            <Form.Item label="Shipping Charge (Rs)" style={{ width: "100%" }}>
                                 <Input
                                     placeholder="Shipping Charges"
                                     min={1}
                                     defaultValue={values.ShippingCharge}
                                     onChange={handlechange('ShippingCharge (in Rs)')} />
                             </Form.Item>
-                        </Col>
-                        <Col md={12}>
-                            <label>Shipping Time (days)</label>
-                            <Form.Item>
+                        </ div>
+
+                        < div class="flex flex-col items-start justify-center w-full ">
+                            <Form.Item label="Shipping Time (Days)" style={{ width: "100%" }}>
                                 <Input
                                     placeholder="Shipping Time (in days)"
                                     onChange={handlechange('ShippingTime')}
                                     defaultValue={values.ShippingTime}
                                 />
                             </Form.Item>
-                        </Col>
+                        </div>
+                    </div>
 
-                    </Row>
-                    <Row className="inline" gutter={[32, 32]}>
-
-                        <Col md={12}>
-                            <label>Product Weight</label>
-                            <Form.Item>
+                    <div class="grid grid-cols-1  gap-6  md:grid-cols-2" >
+                        < div class="flex flex-col items-start justify-center w-full ">
+                            <Form.Item label="Product Weight (grams)" style={{ width: "100%" }}>
                                 <Input
                                     placeholder="Product Weight (in grams)"
                                     onChange={handlechange('Weight')}
                                     defaultValue={values.Weight}
                                 />
                             </Form.Item>
-                        </Col>
-                        <Col md={12}>
-                            <label>Dimensions(in cm)</label>
+                        </ div>
 
-                            <Row className="inline" >
+                        < div class="flex flex-col items-start justify-center w-full ">
+                            <label class="pb-2">Dimensions (in cm)</label>
+
+                            <div class='flex flex-row'  >
 
 
-                                <Form.Item>
+                                <Form.Item style={{ maxWidth: "140px" }}>
                                     <Input
                                         placeholder="L"
                                         onChange={handlechange('DimensionLength')}
                                         defaultValue={values.DimensionLength}
                                     />
                                 </Form.Item>
-                                x
-                                <Form.Item>
+
+                                <Form.Item style={{ maxWidth: "140px", margin: '0px 2px' }}>
                                     <Input
                                         placeholder="B"
                                         onChange={handlechange('DimensionBreadth')}
                                         defaultValue={values.DimensionBreadth}
                                     />
                                 </Form.Item>
-                                x
-                                <Form.Item>
+                                <Form.Item style={{ maxWidth: "140px" }}>
                                     <Input
                                         placeholder="H"
                                         onChange={handlechange('DimensionHeight')}
@@ -100,69 +98,11 @@ export class shippingDetails extends Component {
                                     />
                                 </Form.Item>
 
-                            </Row>
-                        </Col>
-                    </Row>
-
-                    {/* <br />
-                    <h2>Bank Details-</h2>
-                    <Row className="inline">
-                        <Col md={10} offset={0}>
-                            <label>Loan UPC</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder=" enter loan UPC"
-                                    onChange={handlechange('UPC')}
-                                    defaultValue={values.UPC}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col md={5}>
-                            <label>EAN</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder=""
-                                    onChange={handlechange('EAN')}
-                                    defaultValue={values.EAN}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col md={5}>
-                            <label>HSN code</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder=""
-                                    onChange={handlechange('HSNcode')}
-                                    defaultValue={values.HSNcode}
-                                />
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                            </div>
+                        </div>
+                    </div>
                     <br />
-                    <Row className="inline">
 
-                        <Col md={6}>
-                            <label>Tax Rate (GST)</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder=""
-                                    onChange={handlechange('TaxRate')}
-                                    defaultValue={values.TaxRate}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col md={7}>
-                            <label>PAN Card Number</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder="enter PAN number"
-                                    onChange={handlechange('PAN')}
-                                    defaultValue={values.PAN}
-                                />
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <br /> */}
                     <Row className="inline" style={{ justifyContent: "flex-end" }}>
                         <Button className="back" style={{ marginRight: "10px" }}
                             onClick={this.back}>
@@ -175,7 +115,7 @@ export class shippingDetails extends Component {
                             <RightOutlined />
                         </Button>
                     </Row>
-                    <br />
+
                 </Form>
             </div>
         )

@@ -1,31 +1,23 @@
-.form{
-    padding: 20vh 0 0 0;
-    max-width: 300px;
-  }
-  
-  .form.item{
-    margin: auto;
-  }
-  
-  .container{
-    margin: auto;
-    max-width: 100vh;
-  }
-  
-  .inline{
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .continue{
-    background-color: #4CAF50;
-  }
+.form {
+  padding: 0;
+  /* max-width: 300px; */
+  color: #272727;
+}
 
-  .back{
-      padding: 0 30px 0 30px;
-      background-color: rgb(0, 195, 255);
-  }
-  
-  h2{
-    color: #4CAF50;
-  }
+.form.item {
+  margin: auto;
+}
+
+.container {
+  margin: auto;
+  /* max-width: 100vh; */
+}
+
+.inline {
+  display: flex;
+  justify-content: space-between;
+}
+
+h2 {
+  color: #272727;
+}

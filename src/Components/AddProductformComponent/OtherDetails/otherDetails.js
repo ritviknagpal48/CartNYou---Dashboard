@@ -24,7 +24,7 @@ export class otherDetails extends Component {
         const { values, handlechange } = this.props;
         return (
             <div className="container">
-                <Form onSubmit={this.continue} className="form container">
+                <Form onSubmit={this.continue} className="form container" layout="vertical">
                     <Row style={{ marginBottom: "30px" }}>
                         <Steps size="small" current={4} responsive={true}>
                             <Step title="General Details" />
@@ -35,53 +35,52 @@ export class otherDetails extends Component {
                         </Steps>
 
                     </Row>
-                    <Row className="inline" gutter={[32, 32]}>
-                        <Col md={12} offset={0}>
-                            <label>UPC</label>
-                            <Form.Item>
+
+                    <div class="grid grid-cols-1  gap-6  md:grid-cols-2" >
+                        < div class="flex flex-col items-start justify-center w-full ">
+                            <Form.Item label="UPC" style={{ width: "100%" }}>
                                 <Input
                                     placeholder="UPC"
                                     onChange={handlechange('UPC')}
                                     defaultValue={values.UPC}
                                 />
                             </Form.Item>
-                        </Col>
-                        <Col md={12}>
-                            <label>EAN</label>
-                            <Form.Item>
+                        </ div>
+
+                        < div class="flex flex-col items-start justify-center w-full ">
+                            <Form.Item label="EAN" style={{ width: "100%" }}>
                                 <Input
                                     placeholder="EAN"
                                     onChange={handlechange('EAN')}
                                     defaultValue={values.EAN}
                                 />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row className="inline" gutter={[32, 32]}>
+                        </div>
+                    </div>
 
-                        <Col md={12}>
-                            <label>HSN code</label>
-                            <Form.Item>
+                    <div class="grid grid-cols-1  gap-6  md:grid-cols-2" >
+                        < div class="flex flex-col items-start justify-center w-full ">
+                            <Form.Item label="HSN Code" style={{ width: "100%" }}>
                                 <Input
                                     placeholder="HSN"
                                     onChange={handlechange('HSNcode')}
                                     defaultValue={values.HSNcode}
                                 />
                             </Form.Item>
-                        </Col>
-                        <Col md={12}>
-                            <label>Tax Rate (GST)</label>
-                            <Form.Item>
+                        </ div>
+
+                        < div class="flex flex-col items-start justify-center w-full ">
+                            <Form.Item label="Tax Rates" style={{ width: "100%" }}>
                                 <Input
                                     placeholder="Tax Rate (GST)"
                                     onChange={handlechange('TaxRate')}
                                     defaultValue={values.TaxRate}
                                 />
                             </Form.Item>
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
 
-
+                    <br />
                     <Row className="inline" style={{ justifyContent: "flex-end" }}>
                         <Button className="back" style={{ marginRight: "10px" }}
                             onClick={this.back}>
@@ -94,9 +93,9 @@ export class otherDetails extends Component {
                             <RightOutlined />
                         </Button>
                     </Row>
-                    <br />
-                </Form>
-            </div>
+
+                </Form >
+            </div >
         )
     }
 }

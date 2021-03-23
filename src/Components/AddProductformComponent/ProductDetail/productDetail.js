@@ -22,7 +22,7 @@ export class ProductDetailForm extends Component {
         return (
             <div className="container">
                 <Form onSubmit={this.continue} className="form container" layout="vertical">
-                    {/* <Row style={{ marginBottom: "30px" }}>
+                    <Row style={{ marginBottom: "30px" }}>
                         <Steps size="small" current={0} responsive={true}>
                             <Step title="General Details" />
                             <Step title="Variants Details" />
@@ -31,7 +31,7 @@ export class ProductDetailForm extends Component {
                             <Step title="Other Details" />
                         </Steps>
 
-                    </Row> */}
+                    </Row>
 
 
 
