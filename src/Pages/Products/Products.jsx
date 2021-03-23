@@ -56,25 +56,26 @@ const Products = () => {
             </svg>
             Add new product
           </button> */}
-          <ActionButton
-            title={"Import Inventory"}
-            icon={
-              <svg
-                className={classes.action_icons}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-            }
-          />
+          <button
+            onClick={() => setShowModal(true)}
+            className={classes.button_input}
+          >
+            <svg
+              className={classes.action_icons}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            Import Inventory
+          </button>
           <ActionButton
             title={"Export"}
             icon={
@@ -147,7 +148,7 @@ const Products = () => {
       <div className={"mt-4 overflow-y-auto overflow-x-hidden"}>
         <ProductTable heading={Object.keys(dummy_data[0])} rows={dummy_data} />
       </div>
-      {/* <Modal
+      <Modal
         title="Vertically centered modal dialog"
         centered
         visible={showModal}
@@ -157,12 +158,12 @@ const Products = () => {
         <p>some contents...</p>
         <p>some contents...</p>
         <p>some contents...</p>
-      </Modal> */}
+      </Modal>
 
       {/* {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto w-4/5">
+            <div className="relative my-6 mx-auto w-4/5">
               {/*content*
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header/}
