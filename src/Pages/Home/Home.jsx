@@ -11,9 +11,9 @@ const Home = () => {
     <div className={"flex flex-col min-h-full"}>
       {/* <Navbar /> */}
       <div className={"flex flex-auto flex-row min-h-full min-w-full w-full"}>
-        <Sidebar className={"hidden md:block shadow-2xl"} />
+        <Sidebar className={"hidden md:block shadow-2xl md:fixed top-0 left-0 bottom-0"} />
         <div
-          className={"flex-auto flex-shrink-0 flex-grow"}
+          className={"flex-auto flex-shrink-0 flex-grow ml-48"}
           style={{ background: "#f2f3f3" }}
         >
           <Navbar />

@@ -1,7 +1,7 @@
 *,
 *::before,
 *::after {
-  font-family: inherit;
+  font-family: "Poppins", sans-serif;
 }
 
 body {

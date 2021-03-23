@@ -1,8 +1,8 @@
 import React from "react";
 import ProductTable from "./ProductTable";
-import AddProductForm from "../../Components/AddProductformComponent/AddProductForm";
-import { Button, Modal } from "antd";
-import { PlusCircleOutlined } from "@ant-design/icons";
+// import AddProductForm from "../../Components/AddProductformComponent/AddProductForm";
+// import { Button, Modal } from "antd";
+// import { PlusCircleOutlined } from "@ant-design/icons";
 import dummy_data from "./products.db.json";
 import { Link } from "react-router-dom";
 
@@ -27,7 +27,7 @@ const ActionButton = ({ title, icon }) => {
 };
 
 const Products = () => {
-  const [showModal, setShowModal] = React.useState(false);
+  // const [showModal, setShowModal] = React.useState(false);
 
   return (
     <div className={classes.wrapper}>

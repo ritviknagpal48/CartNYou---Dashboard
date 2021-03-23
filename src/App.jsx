@@ -3,7 +3,7 @@ import Auth from "./Pages/Auth/Auth";
 import Home from "./Pages/Home/Home";
 
 const classes = {
-  wrapper: "text-white bg-general w-screen h-screen bg-cover bg-center"
+  wrapper: "text-white bg-general w-screen min-h-screen h-full bg-cover bg-center"
 }
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
             return <Redirect to={'/auth'} />
           }} />
           <Route path={'/auth'} component={() =>
-            <div className={'bg-login-bg'}>
+            <div className={'bg-login-bg h-full'}>
               <Auth />
             </div>
           } />
