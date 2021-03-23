@@ -1,6 +1,7 @@
 import ProductTable from "../Products/ProductTable"
 // import dummy_data from './orders.db.json';
 import dummy_data from '../Products/products.db.json';
+import OrderCard from "./OrderCard";
 
 const classes = {
   wrapper: "",
@@ -15,10 +16,9 @@ const Orders = () => {
         <div className={classes.title}>Orders</div>
       </div>
 
-      <div className={'mt-4 overflow-y-auto overflow-x-hidden'}>
-        <ProductTable
-          heading={Object.keys(dummy_data[0])}
-          rows={dummy_data}
+      <div className={'mt-4 overflow-y-auto overflow-x-hidden py-3 px-4 h-full flex-auto'}>
+        <OrderCard
+          data={'Card 1'}
         />
       </div>
     </div>

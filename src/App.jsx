@@ -1,15 +1,15 @@
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import Auth from "./Pages/Auth/Auth";
 import Home from "./Pages/Home/Home";
 
 const classes = {
-  wrapper: "text-white bg-login-bg w-screen h-screen bg-cover bg-center"
+  wrapper: "text-white bg-general w-screen h-screen bg-cover bg-center"
 }
 
 function App() {
   return (
     <div className={classes.wrapper}>
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           <Route path={'/'} exact component={() => {
             const isLoggedIn = false;
@@ -20,9 +20,13 @@ function App() {
 
             return <Redirect to={'/auth'} />
           }} />
-          <Route path={'/auth'} component={Auth} />
+          <Route path={'/auth'} component={() =>
+            <div className={'bg-login-bg'}>
+              <Auth />
+            </div>
+          } />
           <Route path={'/app'} component={Home} />
-          <Route path={'/**'} component={() => {
+          <Route component={() => {
             return (
               <div className={'text-5xl text-white font-bold tracking-widest'}>
                 <span className={'text-red-500'}>404</span>
@@ -31,7 +35,7 @@ function App() {
             )
           }} />
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
