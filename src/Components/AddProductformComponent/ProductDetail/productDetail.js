@@ -21,7 +21,11 @@ export class ProductDetailForm extends Component {
     const { values, handlechange, handleCountryChange } = this.props;
     return (
       <div className="container">
-        <Form onSubmit={this.continue} className="form container">
+        <Form
+          onSubmit={this.continue}
+          className="form container"
+          layout="vertical"
+        >
           <Row style={{ marginBottom: "30px" }}>
             <Steps size="small" current={0} responsive={true}>
               <Step title="General Details" />
@@ -32,53 +36,50 @@ export class ProductDetailForm extends Component {
             </Steps>
           </Row>
 
-          <Row className="inline" gutter={[32, 32]}>
-            <Col span={12} offset={0}>
-              <label>Product Name</label>
-              <Form.Item>
+          <div class="grid grid-cols-1  gap-6 mt-4 md:grid-cols-2">
+            <div class="flex flex-col items-start justify-center w-full ">
+              <Form.Item label="Product Name" style={{ width: "100%" }}>
                 <Input
                   placeholder="Product Name"
                   onChange={handlechange("ProductName")}
                   defaultValue={values.ProductName}
                 />
               </Form.Item>
-            </Col>
-            <Col span={12}>
-              <label>Brand</label>
-              <Form.Item>
+            </div>
+
+            <div class="flex flex-col items-start justify-center w-full ">
+              <Form.Item label="Brand" style={{ width: "100%" }}>
                 <Input
                   placeholder="Product Brand"
                   onChange={handlechange("Brand")}
                   defaultValue={values.Brand}
                 />
               </Form.Item>
-            </Col>
-          </Row>
-          <Col>
-            <label>Description</label>
-            <Form.Item>
+            </div>
+          </div>
+
+          <div class="flex justify-center items-start">
+            <Form.Item label="Description" style={{ width: "100%" }}>
               <Input.TextArea
                 placeholder="Product Description (max:500 words)"
                 onChange={handlechange("Description")}
                 defaultValue={values.Description}
               />
             </Form.Item>
-          </Col>
+          </div>
 
-          <Row className="inline" gutter={[32, 32]}>
-            <Col md={12} offset={0}>
-              <label>Product Main SKU</label>
-              <Form.Item>
+          <div class="grid grid-cols-1  gap-6  md:grid-cols-2">
+            <div class="flex flex-col items-start justify-center w-full ">
+              <Form.Item label="Product Main SKU" style={{ width: "100%" }}>
                 <Input
                   placeholder="Product Main SKU"
                   onChange={handlechange("ProductMainSKU")}
                   defaultValue={values.ProductMainSKU}
                 />
               </Form.Item>
-            </Col>
-            <Col md={12} offset={0}>
-              <label>Country Of Origin</label>
-              <Form.Item>
+            </div>
+            <div class="flex flex-col items-start justify-center w-full ">
+              <Form.Item label="Country Of Origin" style={{ width: "100%" }}>
                 <Select
                   placeholder="Select Counrty of Origin"
                   onChange={handleCountryChange("CountryOfOrigin")}
@@ -97,80 +98,21 @@ export class ProductDetailForm extends Component {
                                     defaultValue={values.CountryOfOrigin}
                                 /> */}
               </Form.Item>
-            </Col>
-          </Row>
+            </div>
+          </div>
 
-          <Row className="inline">
-            <Col span={24}>
-              <label>Product Tags</label>
-              <Form.Item>
-                <Input
-                  placeholder="Product tags (seperated by coma)"
-                  onChange={handlechange("ProductTags")}
-                  defaultValue={values.ProductTags}
-                />
-              </Form.Item>
-            </Col>
-            {/* <Col md={5}>
-                            <label>MP Price</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder=""
-                                    onChange={handlechange('MPPrice')}
-                                    defaultValue={values.MPPrice}
-                                />
-                            </Form.Item>
-                        </Col> */}
-            {/* <Col md={5}>
-                            <label>B2BPrice/Minority</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder="if belongs to any minor category"
-                                    onChange={handlechange('B2BPrice')}
-                                    defaultValue={values.B2BPrice}
-                                />
-                            </Form.Item>
-                        </Col> */}
-          </Row>
+          <div class="flex justify-center items-start">
+            <Form.Item label="Product Tags" style={{ width: "100%" }}>
+              <Input
+                placeholder="Product tags (seperated by coma)"
+                onChange={handlechange("ProductTags")}
+                defaultValue={values.ProductTags}
+              />
+            </Form.Item>
+          </div>
+
           <br />
-          {/* <Row >
-                        <Col md={20} offset={1}>
-                            <label>ProductSKU</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder=" enter your permanent address belong to property"
-                                    onChange={handlechange('ProductSKU')}
-                                    defaultValue={values.ProductSKU}
-                                />
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <br />
-                    <Row className="inline">
-                        <Col md={7} offset={0}>
-                            <label>Quantity Number</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder="16-digit number"
-                                    onChange={handlechange('Quantity')}
-                                    defaultValue={values.Quantity}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col md={7}>
-                            <label>Product MRP</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder="(91+) "
-                                    onChange={handlechange('ProductMrp')}
-                                    defaultValue={values.ProductMrp}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col md={6}>
-                        </Col>
-                    </Row>
-                    <br /> */}
+
           <Row className="inline" style={{ justifyContent: "flex-end" }}>
             <Button className="continue" onClick={this.continue}>
               Next

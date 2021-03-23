@@ -74,17 +74,17 @@ export class ImageUpload extends Component {
       </div>
     );
 
-    // const { values, handlechange } = this.props;
-    // const {
-    //   Aadharcard,
-    //   PANcard,
-    //   Bankpassbook,
-    //   Incomecerti,
-    //   Cropregistercerti,
-    //   Landcerti,
-    //   Photo,
-    //   Signature,
-    // } = this.props;
+    const { values, handlechange } = this.props;
+    const {
+      Aadharcard,
+      PANcard,
+      Bankpassbook,
+      Incomecerti,
+      Cropregistercerti,
+      Landcerti,
+      Photo,
+      Signature,
+    } = this.props;
     return (
       <div className="container">
         <Form onSubmit={this.continue} className="form container">
@@ -122,6 +122,7 @@ export class ImageUpload extends Component {
               </Modal>
             </Form.Item>
           </div>
+          <br />
           <Row className="inline" style={{ justifyContent: "flex-end" }}>
             <Button
               className="back"

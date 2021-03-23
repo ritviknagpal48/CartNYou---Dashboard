@@ -23,7 +23,11 @@ export class variantsDetails extends Component {
     const { values, handlechange, handleNumberChange } = this.props;
     return (
       <div className="container">
-        <Form onSubmit={this.continue} className="form container">
+        <Form
+          onSubmit={this.continue}
+          className="form container"
+          layout="vertical"
+        >
           <Row style={{ marginBottom: "30px" }}>
             <Steps size="small" current={1} responsive={true}>
               <Step title="General Details" />
@@ -34,56 +38,42 @@ export class variantsDetails extends Component {
             </Steps>
           </Row>
 
-          <Col md={24}>
-            <label>ProductSKU</label>
-            <Form.Item>
+          <div class="flex justify-center items-start">
+            <Form.Item label="Product SKU" style={{ width: "100%" }}>
               <Input
                 placeholder="Enter Product SKU"
                 onChange={handlechange("ProductSKU")}
                 defaultValue={values.ProductSKU}
               />
             </Form.Item>
-          </Col>
+          </div>
 
-          <Row className="inline" gutter={[32, 32]}>
-            <Col md={12} offset={0}>
-              <label>Quantity</label>
-              <Form.Item>
+          <div class="grid grid-cols-1  gap-6  md:grid-cols-2">
+            <div class="flex flex-col items-start justify-center w-full ">
+              <Form.Item label="Quantity" style={{ width: "100%" }}>
                 <InputNumber
                   min={1}
                   defaultValue={1}
                   onChange={handleNumberChange("Quantity")}
                 />
-                {/* <Input
-                                    placeholder="16-digit number"
-                                    onChange={handlechange('Quantity')}
-                                    defaultValue={values.Quantity}
-                                /> */}
               </Form.Item>
-            </Col>
-            <Col md={12}>
-              <label>Product MRP</label>
-              <Form.Item>
+            </div>
+
+            <div class="flex flex-col items-start justify-center w-full ">
+              <Form.Item label="Product MRP" style={{ width: "100%" }}>
                 <InputNumber
                   placeholder="MRP"
                   min={1}
                   defaultValue={values.ProductMrp}
                   onChange={handleNumberChange("Quantity")}
                 />
-
-                {/* <Input
-                                    placeholder="(91+) "
-                                    onChange={handlechange('ProductMrp')}
-                                    defaultValue={values.ProductMrp}
-                                /> */}
               </Form.Item>
-            </Col>
-          </Row>
+            </div>
+          </div>
 
-          <Row className="inline" gutter={[32, 32]}>
-            <Col md={12}>
-              <label>MP Price</label>
-              <Form.Item>
+          <div class="grid grid-cols-1  gap-6  md:grid-cols-2">
+            <div class="flex flex-col items-start justify-center w-full ">
+              <Form.Item label="MP Price" style={{ width: "100%" }}>
                 <InputNumber
                   placeholder="Product MP Price"
                   min={1}
@@ -91,10 +81,10 @@ export class variantsDetails extends Component {
                   onChange={handleNumberChange("Quantity")}
                 />
               </Form.Item>
-            </Col>
-            <Col md={12}>
-              <label>B2B Price</label>
-              <Form.Item>
+            </div>
+
+            <div class="flex flex-col items-start justify-center w-full ">
+              <Form.Item label="B2B Price" style={{ width: "100%" }}>
                 <InputNumber
                   placeholder="B2B Price"
                   min={1}
@@ -102,122 +92,10 @@ export class variantsDetails extends Component {
                   onChange={handleNumberChange("Quantity")}
                 />
               </Form.Item>
-            </Col>
-          </Row>
+            </div>
+          </div>
 
-          {/* <Row className="inline">
-                        <Col md={6} offset={0}>
-                            <label>Total Shipping Time</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder="enter Shipping Time"
-                                    onChange={handlechange('ShippingTime')}
-                                    defaultValue={values.Investedammount}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col md={7}>
-                            <label>Sanctioned Weight</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder="enter amount of loan"
-                                    onChange={handlechange('Weight')}
-                                    defaultValue={values.ProductTags}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col md={7}>
-                            <label>Total Dimension Length</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder="Dimension Length under project"
-                                    onChange={handlechange('DimensionLength')}
-                                    defaultValue={values.DimensionLength}
-                                />
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row >
-                        <Col md={20} offset={1}>
-                            <label>Dimension Breadth-</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder="if any additional information available"
-                                    onChange={handlechange('DimensionBreadth')}
-                                    defaultValue={values.DimensionBreadth}
-                                />
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <br />
-                    <h2>Bank Details-</h2>
-                    <Row className="inline">
-                        <Col md={10} offset={0}>
-                            <label>Loan UPC</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder=" enter loan UPC"
-                                    onChange={handlechange('UPC')}
-                                    defaultValue={values.UPC}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col md={5}>
-                            <label>EAN</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder=""
-                                    onChange={handlechange('EAN')}
-                                    defaultValue={values.EAN}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col md={5}>
-                            <label>HSN code</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder=""
-                                    onChange={handlechange('HSNcode')}
-                                    defaultValue={values.HSNcode}
-                                />
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <br />
-                    <Row className="inline">
-                        <Col md={7} offset={0}>
-                            <label>Loan Acount Number</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder=" enter Dimension height"
-                                    onChange={handlechange('DimensionHeight')}
-                                    defaultValue={values.DimensionHeight}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col md={6}>
-                            <label>Tax Rate (GST)</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder=""
-                                    onChange={handlechange('TaxRate')}
-                                    defaultValue={values.TaxRate}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col md={7}>
-                            <label>PAN Card Number</label>
-                            <Form.Item>
-                                <Input
-                                    placeholder="enter PAN number"
-                                    onChange={handlechange('PAN')}
-                                    defaultValue={values.PAN}
-                                />
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <br />
-                   */}
+          <br />
           <Row className="inline" style={{ justifyContent: "flex-end" }}>
             <Button
               className="back"
@@ -232,7 +110,6 @@ export class variantsDetails extends Component {
               <RightOutlined />
             </Button>
           </Row>
-          <br />
         </Form>
       </div>
     );
