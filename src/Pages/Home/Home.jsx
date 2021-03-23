@@ -1,6 +1,8 @@
 import { Redirect, Route } from "react-router";
-import Navbar from "@components/Navbar";
-import Sidebar from "@components/Sidebar";
+import Navbar from "../../Components/Navbar";
+import Sidebar from "../../Components/Sidebar";
+// import Navbar from "@components/Navbar";
+// import Sidebar from "@components/Sidebar";
 import Dashboard from "../Dashboard/Dashboard";
 import Orders from "../Orders/Orders";
 import AddNewProduct from "../Products/AddNewProduct";
@@ -11,7 +13,11 @@ const Home = () => {
     <div className={"flex flex-col min-h-full"}>
       {/* <Navbar /> */}
       <div className={"flex flex-auto flex-row min-h-full min-w-full w-full"}>
-        <Sidebar className={"hidden md:block shadow-2xl md:fixed top-0 left-0 bottom-0"} />
+        <Sidebar
+          className={
+            "hidden md:block shadow-2xl md:fixed top-0 left-0 bottom-0"
+          }
+        />
         <div
           className={"flex-auto flex-shrink-0 flex-grow md:ml-48"}
           style={{ background: "#f2f3f3" }}
