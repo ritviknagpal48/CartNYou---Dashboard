@@ -1,3 +1,4 @@
+// @ts-nocheck
 import clsx from "clsx";
 import { Link, useHistory } from "react-router-dom";
 
@@ -44,28 +45,28 @@ const Login = ({ className }) => {
           </div>
         </div>
         <div>
-          <label for="email-address" className="sr-only">
+          <label htmlFor="email-address" className="sr-only">
             Email address
           </label>
           <input
             id="email-address"
             name="email"
             type="email"
-            autocomplete="email"
+            autoComplete="email"
             required
             className={classes.input}
             placeholder="Email address"
           />
         </div>
         <div>
-          <label for="password" className="sr-only">
+          <label htmlFor="password" className="sr-only">
             Password
           </label>
           <input
             id="password"
             name="password"
             type="password"
-            autocomplete="none"
+            autoComplete="none"
             required
             className={classes.input}
             placeholder="Password"
@@ -80,7 +81,7 @@ const Login = ({ className }) => {
           className={classes.submit_button}
           onClick={signIn}
         >
-          <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+          <span className="absolute left-0 inset-y-0 flex items-center pl-3">
             <svg
               class="h-5 w-5 text-red-500 group-hover:text-red-400"
               xmlns="http://www.w3.org/2000/svg"

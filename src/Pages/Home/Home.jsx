@@ -13,7 +13,7 @@ const Home = () => {
       <div className={"flex flex-auto flex-row min-h-full min-w-full w-full"}>
         <Sidebar className={"hidden md:block shadow-2xl md:fixed top-0 left-0 bottom-0"} />
         <div
-          className={"flex-auto flex-shrink-0 flex-grow md:ml-48"}
+          className={"flex-auto flex-shrink-0 flex-grow md:ml-20"}
           style={{ background: "#f2f3f3" }}
         >
           <Navbar />
@@ -27,11 +27,21 @@ const Home = () => {
           <Route path={"/app/orders"} component={Orders} />
           <Route path={"/app/add-new-product"} component={AddNewProduct} />
           <Route
-            path={"/app/reports"}
+            path={"/app/shipments"}
             component={() => {
               return (
-                <div className="text-2xl text-white font-bold text-center">
-                  Reports
+                <div className="text-2xl text-gray-600 font-bold text-center">
+                  Shipments
+                </div>
+              );
+            }}
+          />
+          <Route
+            path={"/app/warehouses"}
+            component={() => {
+              return (
+                <div className="text-2xl text-gray-600 font-bold text-center">
+                  Warehouses
                 </div>
               );
             }}

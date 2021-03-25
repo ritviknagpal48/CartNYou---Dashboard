@@ -21,7 +21,7 @@ function App() {
             return <Redirect to={'/auth'} />
           }} />
           <Route path={'/auth'} component={() =>
-            <div className={'bg-login-bg h-full'}>
+            <div className={'bg-login-bg h-screen'}>
               <Auth />
             </div>
           } />

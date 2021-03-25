@@ -4,7 +4,7 @@ import Register from "./Register"
 
 const classes = {
   wrapper: "w-full h-full overflow-hidden flex items-center justify-center",
-  form: "mx-auto my-auto justify-self-start w-10/12 md:w-1/4",
+  form: "flex mx-auto my-auto w-10/12 md:w-1/4",
 }
 
 const Auth = () => {

@@ -18,25 +18,18 @@ const Navbar = () => {
   return (
     <div>
       <nav className="bg-transparent">
-        <div className="w-full mx-auto px-4 sm:px-6 lg:px-14 h-20">
-          <div
-            className="flex"
-            style={{
-              justifyContent: "flex-end",
-              alignItems: "center",
-              height: "100%",
-            }}
-          >
-            {/* <div className="flex items-center">
+        <div className="w-full flex-auto mx-auto px-4 sm:pr-6 lg:pr-14 h-20">
+          <div className="flex h-full items-center justify-between">
+            <div className="flex items-center">
               <div className="flex-shrink-0">
                 <img className="h-8 w-auto" src="/images/logo.png" alt="Workflow" />
               </div>
-            </div> */}
+            </div>
             <div className="hidden md:block">
               <div className="ml-4 flex items-center md:ml-6">
                 <button className="bg-gray-200 p-1 rounded-full text-gray-400 hover:text-gray-600 focus:outline-none ">
                   <span className="sr-only">View notifications</span>
-                  <svg
+                  {/* <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -50,7 +43,7 @@ const Navbar = () => {
                   >
                     <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                     <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                  </svg>
+                  </svg> */}
                 </button>
 
                 <div className="ml-3 relative">
@@ -75,9 +68,8 @@ const Navbar = () => {
                     </button>
                   </div>
                   <div
-                    className={`origin-top-right absolute right-0 mt-2 w-48 rounded-md z-30 shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${
-                      isOpen ? "block" : "hidden"
-                    }`}
+                    className={`origin-top-right absolute right-0 mt-2 w-48 rounded-md z-30 shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${isOpen ? "block" : "hidden"
+                      }`}
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="user-menu"
@@ -230,7 +222,7 @@ const Navbar = () => {
                   aria-hidden="true"
                 >
                   <path
-                    strokeLineCap="round"
+                    strokeLinecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
                     d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
