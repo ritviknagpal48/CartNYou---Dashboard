@@ -7,6 +7,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import Orders from "../Orders/Orders";
 import AddNewProduct from "../Products/AddNewProduct";
 import Products from "../Products/Products";
+import Shipment from "../../Pages/Shipment/Shipment";
 
 const Home = () => {
   return (
@@ -31,6 +32,7 @@ const Home = () => {
           <Route path={"/app/dashboard"} component={Dashboard} />
           <Route path={"/app/products"} component={Products} />
           <Route path={"/app/orders"} component={Orders} />
+          <Route path={"/app/shipment-details"} component={Shipment} />
           <Route path={"/app/add-new-product"} component={AddNewProduct} />
           <Route
             path={"/app/reports"}
