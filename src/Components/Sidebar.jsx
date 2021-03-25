@@ -101,7 +101,30 @@ const Sidebar = ({ className }) => {
           <span className={classes.tooltip_popup}>Orders</span>
         </Link>
         <Link
-          to="/app/shipments"
+          to="/app/shipment-details"
+          className={clsx(classes.menu_item, {
+            [classes.menu_active]: activeMenu === "shipment",
+            [classes.menu_normal]: activeMenu !== "shipment",
+          })}
+        >
+          <svg
+            className={"h-5 w-5 mr-2"}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+            />
+          </svg>
+          <span>Shipment</span>
+        </Link>
+        <Link
+          to="/app/reports"
           className={clsx(classes.menu_item, {
             [classes.menu_active]: activeMenu === "shipments",
             [classes.menu_normal]: activeMenu !== "shipments",

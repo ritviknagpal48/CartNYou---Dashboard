@@ -1,12 +1,14 @@
 import React from "react";
-import ProductTable from "./ProductTable";
+// import ProductTable from "./ProductTable";
 import { Modal } from "antd";
-import dummy_data from "./products.db.json";
 import { Link } from "react-router-dom";
+import ProductTable from "../../Components/TableComponent";
+import ProductData from "./products";
+import ProductColumn from "./productTableColumns";
 
 const classes = {
-  wrapper: "",
-  header: "w-full pr-14 pl-4 py-3 flex flex-row items-center justify-between",
+  wrapper: "pr-14 pl-4",
+  header: "w-full  py-3 flex flex-row items-center justify-between",
   title: "text-2xl text-gray-600  hidden md:block font-sans-apple-system",
   buttons: "flex item-center flex-row justify-end",
   button_input:
@@ -26,6 +28,10 @@ const ActionButton = ({ title, icon }) => {
 
 const Products = () => {
   const [showModal, setShowModal] = React.useState(false);
+  const [searchedColumn, setSearchedColumn] = React.useState([
+    "sku",
+    "productInfo",
+  ]);
 
   return (
     <div className={classes.wrapper}>
@@ -144,7 +150,11 @@ const Products = () => {
       </div>
 
       <div className={"mt-4 overflow-y-auto overflow-x-hidden"}>
-        <ProductTable heading={Object.keys(dummy_data[0])} rows={dummy_data} />
+        <ProductTable
+          heading={ProductColumn}
+          data={ProductData}
+          searchedColumn={searchedColumn}
+        />
       </div>
       <Modal
         title="Vertically centered modal dialog"

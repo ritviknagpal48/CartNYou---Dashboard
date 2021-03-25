@@ -75,16 +75,16 @@ export class ImageUpload extends Component {
     );
 
     const { values, handlechange } = this.props;
-    const {
-      Aadharcard,
-      PANcard,
-      Bankpassbook,
-      Incomecerti,
-      Cropregistercerti,
-      Landcerti,
-      Photo,
-      Signature,
-    } = this.props;
+    // const {
+    //   Aadharcard,
+    //   PANcard,
+    //   Bankpassbook,
+    //   Incomecerti,
+    //   Cropregistercerti,
+    //   Landcerti,
+    //   Photo,
+    //   Signature,
+    // } = this.props;
     return (
       <div className="container">
         <Form onSubmit={this.continue} className="form container">
