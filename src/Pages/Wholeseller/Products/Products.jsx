@@ -2,8 +2,8 @@ import React from "react";
 // import ProductTable from "./ProductTable";
 import { Modal } from "antd";
 import { Link } from "react-router-dom";
-import ProductTable from "../../Components/TableComponent";
-import ProductData from "./products";
+import ProductTable from "Components/TableComponent";
+import ProductData from "./productData";
 import ProductColumn from "./productTableColumns";
 
 const classes = {
@@ -154,6 +154,7 @@ const Products = () => {
           heading={ProductColumn}
           data={ProductData}
           searchedColumn={searchedColumn}
+          defaultSearchColumn={searchedColumn[0]}
         />
       </div>
       <Modal

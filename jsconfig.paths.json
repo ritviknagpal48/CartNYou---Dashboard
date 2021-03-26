@@ -3,9 +3,9 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/Components/*"],
-      "@wholeseller/*": ["src/Pages/WholeSeller/*"],
-      "@retailer/*": ["src/Pages/Retailer/*"]
+      "Components/*": ["src/Components/*"],
+      "Wholeseller/*": ["src/Pages/WholeSeller/*"],
+      "Retailer/*": ["src/Pages/Retailer/*"]
     }
   }
 }

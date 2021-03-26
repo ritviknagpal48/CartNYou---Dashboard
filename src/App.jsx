@@ -1,9 +1,9 @@
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
-import Auth from "./Pages/Auth/Auth";
-import Home from "./Pages/Home/Home";
+import Auth from "Pages/Auth/Auth";
+import Home from "Pages/Wholeseller/Home/Home";
 
 const classes = {
-  wrapper: "text-white bg-general w-screen min-h-screen h-full bg-cover bg-center"
+  wrapper: "text-white bg-general max-w-screen min-h-screen h-full bg-cover bg-center"
 }
 
 function App() {

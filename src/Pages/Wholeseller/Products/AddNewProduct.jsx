@@ -1,5 +1,5 @@
 import React from "react";
-import AddProductForm from "../../Components/AddProductformComponent/AddProductForm";
+import AddProductForm from "Components/AddProductformComponent/AddProductForm";
 import { Link } from "react-router-dom";
 
 class HeaderWithSideBar extends React.Component {

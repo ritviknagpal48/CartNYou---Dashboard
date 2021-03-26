@@ -8,7 +8,7 @@ const productData = [
     b2b: "250.87",
     quantity: "60",
     status: true,
-    admin: "approved"
+    admin: "approved",
   },
   {
     key: "2",
@@ -19,7 +19,7 @@ const productData = [
     b2b: "278.00",
     quantity: "610",
     status: true,
-    admin: "approved"
+    admin: "approved",
   },
   {
     key: "3",
@@ -30,7 +30,7 @@ const productData = [
     b2b: "78.37",
     quantity: "789",
     status: false,
-    admin: "pending"
+    admin: "pending",
   },
   {
     key: "4",
@@ -41,7 +41,7 @@ const productData = [
     b2b: "42.47",
     quantity: "100",
     status: true,
-    admin: "rejected"
+    admin: "rejected",
   },
   {
     key: "5",
@@ -52,7 +52,7 @@ const productData = [
     b2b: "600.00",
     quantity: "180",
     status: true,
-    admin: "rejected"
+    admin: "rejected",
   },
   {
     key: "6",
@@ -63,7 +63,7 @@ const productData = [
     b2b: "850.87",
     quantity: "25",
     status: false,
-    admin: "pending"
+    admin: "pending",
   },
   {
     key: "7",
@@ -74,8 +74,8 @@ const productData = [
     b2b: "687.87",
     quantity: "500",
     status: true,
-    admin: "rejected"
+    admin: "rejected",
   },
-]
+];
 
 export default productData;

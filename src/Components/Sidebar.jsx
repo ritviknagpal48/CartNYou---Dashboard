@@ -4,13 +4,14 @@ import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 
 const classes = {
-  wrapper: "w-max bg-white shadow-md",
+  wrapper: "w-max bg-white shadow-md z-20",
   wrapper_inner: "flex flex-col items-start justify-center h-full",
   menu_item:
     "w-full text-normal font-bold px-6 py-2 my-2 flex flex-row items-center justify-start font-sans-apple-system relative",
   menu_active: "text-red-400 hover:text-red-400",
   menu_normal: "text-gray-600 hover:text-red-400",
-  tooltip_popup: "px-4 py-2 bg-white rounded-md text-sm text-gray-600 font-medium shadow-lg"
+  tooltip_popup:
+    "px-4 py-2 bg-white rounded-md text-sm text-gray-600 font-medium shadow-lg",
 };
 
 const Sidebar = ({ className }) => {
@@ -30,7 +31,7 @@ const Sidebar = ({ className }) => {
           <img width="130px" src="/images/logo.png" alt="Workflow" />
         </div>
       </div>
-      <div className={classes.wrapper_inner} id={'wrapper_inner'}>
+      <div className={classes.wrapper_inner} id={"wrapper_inner"}>
         <Link
           to="/app/dashboard"
           className={clsx(classes.menu_item, {
@@ -101,7 +102,7 @@ const Sidebar = ({ className }) => {
           <span className={classes.tooltip_popup}>Orders</span>
         </Link>
         <Link
-          to="/app/shipment-details"
+          to="/app/shipment"
           className={clsx(classes.menu_item, {
             [classes.menu_active]: activeMenu === "shipment",
             [classes.menu_normal]: activeMenu !== "shipment",
@@ -115,15 +116,19 @@ const Sidebar = ({ className }) => {
             stroke="currentColor"
           >
             <path
+              fill="#fff"
+              d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"
+            />
+            <path
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+              d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
             />
           </svg>
-          <span>Shipment</span>
+          <span className={classes.tooltip_popup}>Shipments</span>
         </Link>
-        <Link
+        {/* <Link
           to="/app/reports"
           className={clsx(classes.menu_item, {
             [classes.menu_active]: activeMenu === "shipments",
@@ -145,7 +150,7 @@ const Sidebar = ({ className }) => {
             />
           </svg>
           <span className={classes.tooltip_popup}>Shipments</span>
-        </Link>
+        </Link> */}
         <Link
           to="/app/warehouses"
           className={clsx(classes.menu_item, {

@@ -1,9 +1,7 @@
 import React from "react";
-import { Table, Input, Button, Space, Select, Collapse } from "antd";
-import Highlighter from "react-highlight-words";
+import { Table, Input, Button, Select, Collapse } from "antd";
+// import Highlighter from "react-highlight-words";
 import { SearchOutlined } from "@ant-design/icons";
-
-// import "./ProductTable.css";
 
 const { Panel } = Collapse;
 const { Option } = Select;
@@ -15,14 +13,13 @@ class ProductTable extends React.Component {
 
   state = {
     searchText: "",
-    // searchedColumn: "sku",
+    searchedColumn: this.props.searchedColumn[0],
     selectedRowKeys: [],
     filteredInfo: null,
     sortedInfo: null, // Check here to configure the default column
   };
 
   onSelectChange = (selectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", selectedRowKeys);
     this.setState({ selectedRowKeys });
   };
 
@@ -36,15 +33,18 @@ class ProductTable extends React.Component {
   }
 
   handleChange = (value) => {
-    console.log(`selected ${value}`);
     this.setState({
       searchedColumn: value,
     });
   };
 
+  // componentDidMount(props) {
+  //   const { defaultSearchColumn } = this.props
+  //   this.setState({ searchText: defaultSearchColumn })
+  // }
+
   render() {
-    console.log(this.props);
-    const { heading, data, searchedColumn } = this.props;
+    const { heading, data, searchedColumn, defaultSearchColumn } = this.props;
 
     const columns = heading;
     const { selectedRowKeys } = this.state;
@@ -105,7 +105,7 @@ class ProductTable extends React.Component {
             >
               <div className="flex my-2">
                 <Select
-                  //   defaultValue={searchedColumn[0]}
+                  defaultValue={defaultSearchColumn}
                   placeholder="Select Column"
                   style={{ width: 150 }}
                   onChange={this.handleChange}
@@ -131,7 +131,6 @@ class ProductTable extends React.Component {
                     this.setState({
                       searchText: e.target.value ? [e.target.value] : [],
                     });
-                    console.log(this.state.searchText);
                   }}
                   // onPressEnter={() =>
                   //   this.handleSearch(selectedKeys, confirm, dataIndex)
@@ -140,6 +139,14 @@ class ProductTable extends React.Component {
                   className="inputSearchBox"
                   style={{ marginLeft: "8px" }}
                 />
+
+                <Button
+                  danger
+                  style={{ marginLeft: "8px" }}
+                  onClick={() => this.setState({ searchText: [] })}
+                >
+                  Clear
+                </Button>
               </div>
             </Panel>
           </Collapse>
@@ -148,13 +155,13 @@ class ProductTable extends React.Component {
           rowSelection={rowSelection}
           columns={columns}
           dataSource={
-            this.state.searchText
+            !!this.state.searchText
               ? data.filter((x) =>
-                  x[this.state.searchedColumn].toLowerCase().includes(
-                    this.state.searchText
-                    // lowerCaseSearchText
-                  )
+                x[this.state.searchedColumn].toLowerCase().includes(
+                  this.state.searchText
+                  // lowerCaseSearchText
                 )
+              )
               : data
           }
           size="small"
@@ -164,5 +171,12 @@ class ProductTable extends React.Component {
     );
   }
 }
+
+ProductTable.defaultProps = {
+  heading: ["Col 1", "Col 2", "Col 3", "Col 4"],
+  data: ["Item 1", "Item 2", "Item 3", "Item 4"],
+  searchedColumn: "Col 1",
+  defaultSearchColumn: 'Col 1'
+};
 
 export default ProductTable;

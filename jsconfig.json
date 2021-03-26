@@ -1,8 +1,6 @@
 {
-  "extends": "./jsconfig.paths.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "rootDirs": ["src"],
+    "baseUrl": "src",
     "jsx": "preserve",
     "checkJs": true,
     "target": "esnext",

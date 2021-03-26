@@ -1,3 +1,4 @@
+// @ts-ignore
 import dummy_data from './orders.db.json';
 import OrderCard from "./OrderCard";
 

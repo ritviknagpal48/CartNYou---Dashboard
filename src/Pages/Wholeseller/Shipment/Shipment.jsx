@@ -2,7 +2,7 @@ import React from "react";
 import Highlighter from "react-highlight-words";
 import tableColummns from "./TableColumns";
 import tableData from "./TableData";
-import ProductTable from "../../Components/TableComponent";
+import ProductTable from "Components/TableComponent";
 import "./Shipment.css";
 
 class Shipment extends React.Component {
@@ -33,6 +33,7 @@ class Shipment extends React.Component {
           heading={tableColummns}
           data={tableData}
           searchedColumn={this.state.searchedColumn}
+          defaultSearchColumn={this.state.searchedColumn[0]}
         />
       </div>
     );
