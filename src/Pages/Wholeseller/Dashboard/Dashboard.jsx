@@ -7,7 +7,7 @@ const classes = {
 const Dashboard = () => {
   return (
     <div className={classes.wrapper}>
-      <div className={classes.header} style={{ background: "#f2f3f3" }}>
+      <div className={classes.header} style={{ background: "#edf2f9" }}>
         <div className={classes.title}>Dashboard</div>
       </div>
 

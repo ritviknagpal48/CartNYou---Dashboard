@@ -10,11 +10,11 @@ import Warehouses from "Pages/Wholeseller/Warehouses/Warehouses";
 import { useContext } from "react";
 import { AuthContext } from "Contexts/Auth";
 import OrderDetails from "../Orders/OrderDetails";
+import TrackOrder from "../TrackOrder/TrackOrder";
 
 const Home = () => {
-
-  const auth = useContext(AuthContext)
-  console.log(auth)
+  const auth = useContext(AuthContext);
+  console.log(auth);
 
   return (
     <div className={"flex flex-col min-h-full"}>
@@ -26,7 +26,7 @@ const Home = () => {
         />
         <div
           className={"flex-auto flex-shrink-0 flex-grow md:ml-20"}
-          style={{ background: "#f2f3f3" }}
+          style={{ background: "#edf2f9" }}
         >
           <Navbar />
           <Route
@@ -37,6 +37,7 @@ const Home = () => {
           <Route path={"/app/dashboard"} component={Dashboard} />
           <Route path={"/app/products"} component={Products} />
           <Route path={"/app/orders/:id"} exact component={OrderDetails} />
+          <Route path={"/app/track-order/:id"} exact component={TrackOrder} />
           <Route path={"/app/orders"} exact component={Orders} />
           <Route path={"/app/shipment"} component={Shipment} />
           <Route path={"/app/add-new-product"} component={AddNewProduct} />
