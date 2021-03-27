@@ -4,7 +4,7 @@ import Sidebar from "Components/Sidebar";
 import Dashboard from "Pages/Wholeseller/Dashboard/Dashboard";
 import Orders from "Pages/Wholeseller/Orders/Orders";
 import AddNewProduct from "Pages/Wholeseller/Products/AddNewProduct";
-import Products from "Pages/Wholeseller/Products/Products";
+import Products from "Pages/Wholeseller/Products/ProductsPage";
 import Shipment from "Pages/Wholeseller/Shipment/Shipment";
 import Warehouses from "Pages/Wholeseller/Warehouses/Warehouses";
 

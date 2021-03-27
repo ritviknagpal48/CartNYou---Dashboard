@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col, Form, Input, Button, Select, Progress } from 'antd';
 import RichTextEditor from '../../RichTextEdition'
 
-import { RightOutlined } from "@ant-design/icons";
+import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 
 import "./productDetail.css";
 
@@ -17,6 +17,10 @@ export class ProductDetailForm extends Component {
         e.preventDefault();
         this.props.nextstep();
     }
+    back = (e) => {
+        e.preventDefault();
+        this.props.prevstep();
+    };
     render() {
         const { values, handlechange, handleCountryChange } = this.props;
         return (
@@ -38,9 +42,9 @@ export class ProductDetailForm extends Component {
 
 
 
-                    <div class="grid grid-cols-1  gap-6 mt-4 md:grid-cols-2" >
-                        < div class="flex flex-col items-start justify-center w-full ">
-                            <label class="pb-2">Product Name <span class='text-red-400'>*</span></label>
+                    <div className="grid grid-cols-1  gap-6 mt-4 md:grid-cols-2" >
+                        < div className="flex flex-col items-start justify-center w-full ">
+                            <label className="pb-2">Product Name <span className='text-red-400'>*</span></label>
 
                             <Form.Item style={{ width: "100%" }}>
                                 <Input
@@ -51,8 +55,8 @@ export class ProductDetailForm extends Component {
                             </Form.Item>
                         </ div>
 
-                        < div class="flex flex-col items-start justify-center w-full ">
-                            <label class="pb-2">Brand <span class='text-red-400'>*</span></label>
+                        < div className="flex flex-col items-start justify-center w-full ">
+                            <label className="pb-2">Brand <span className='text-red-400'>*</span></label>
 
                             <Form.Item style={{ width: "100%" }}>
                                 <Input
@@ -64,8 +68,8 @@ export class ProductDetailForm extends Component {
                         </div>
                     </div>
 
-                    <div class="flex  items-start flex-col mb-6">
-                        <label class="pb-2">Description <span class='text-red-400'>*</span></label>
+                    <div className="flex  items-start flex-col mb-6">
+                        <label className="pb-2">Description <span className='text-red-400'>*</span></label>
 
                         <RichTextEditor />
                         {/* <Form.Item label="Description" style={{ width: '100%' }}>
@@ -77,9 +81,9 @@ export class ProductDetailForm extends Component {
                         </Form.Item> */}
                     </div>
 
-                    <div class="grid grid-cols-1  gap-6  md:grid-cols-2" >
-                        < div class="flex flex-col items-start justify-center w-full ">
-                            <label class="pb-2">Product Main SKU <span class='text-red-400'>*</span></label>
+                    <div className="grid grid-cols-1  gap-6  md:grid-cols-2" >
+                        < div className="flex flex-col items-start justify-center w-full ">
+                            <label className="pb-2">Product Main SKU <span className='text-red-400'>*</span></label>
 
                             <Form.Item style={{ width: '100%' }}>
                                 <Input
@@ -89,7 +93,7 @@ export class ProductDetailForm extends Component {
                                 />
                             </Form.Item>
                         </ div>
-                        < div class="flex flex-col items-start justify-center w-full ">
+                        < div className="flex flex-col items-start justify-center w-full ">
                             <Form.Item label="Country Of Origin" style={{ width: "100%" }}>
                                 <Select
                                     placeholder="Select Counrty of Origin"
@@ -112,7 +116,7 @@ export class ProductDetailForm extends Component {
                         </div>
                     </div>
 
-                    <div class="flex justify-center items-start">
+                    <div className="flex justify-center items-start">
                         <Form.Item label="Product Tags" style={{ width: "100%" }}>
                             <Input
                                 placeholder="Product tags (seperated by coma)"
@@ -123,13 +127,21 @@ export class ProductDetailForm extends Component {
                     </div>
 
                     <br />
-
                     <Row className="inline" style={{ justifyContent: "flex-end" }}>
+                        <Button
+                            className="back"
+                            style={{ marginRight: "10px" }}
+                            onClick={this.back}
+                        >
+                            <LeftOutlined />
+              Back
+            </Button>
                         <Button className="continue" onClick={this.continue}>
-                            Next
+                            Continue
               <RightOutlined />
                         </Button>
                     </Row>
+
                 </Form>
             </div>
         );

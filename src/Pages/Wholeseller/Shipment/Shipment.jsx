@@ -2,7 +2,8 @@ import React from "react";
 import Highlighter from "react-highlight-words";
 import tableColummns from "./TableColumns";
 import tableData from "./TableData";
-import ProductTable from "Components/TableComponent";
+// import ProductTable from "Components/TableComponent";
+import ShipmentTableCard from "./ShipmentTableCard";
 import "./Shipment.css";
 
 class Shipment extends React.Component {
@@ -29,7 +30,7 @@ class Shipment extends React.Component {
             Shipments
           </div>
         </div>
-        <ProductTable
+        <ShipmentTableCard
           heading={tableColummns}
           data={tableData}
           searchedColumn={this.state.searchedColumn}
