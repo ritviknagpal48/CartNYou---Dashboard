@@ -1,19 +1,27 @@
 import clsx from "clsx";
-import { useEffect, useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
+import { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
 
+  const { user, setAuth } = useContext(AuthContext)
+
   const { pathname } = useLocation();
-  const history = useHistory();
 
   useEffect(() => {
-    const page = pathname.split("/app")[1].split("/")[1].replace("/", "");
+    const s1 = pathname.replace("/app/", "")
+    const s2 = s1.split("/")[0]
+    const page = s2.replace("/", "");
     setActiveMenu(page);
   }, [pathname]);
+
+  const signOut = () => {
+    setAuth(AUTH_ACTIONS.LOGOUT)
+  }
 
   return (
     <div>
@@ -63,7 +71,7 @@ const Navbar = () => {
                         alt=""
                       />
                       <div className="text-sm p-3 font-medium leading-none text-gray-400">
-                        Tom Cook
+                        {user.fname}
                       </div>
                     </button>
                   </div>
@@ -94,7 +102,7 @@ const Navbar = () => {
                       to="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       role="menuitem"
-                      onClick={() => history.push("/auth/login")}
+                      onClick={signOut}
                     >
                       Sign out
                     </Link>
@@ -205,10 +213,10 @@ const Navbar = () => {
               </div>
               <div className="ml-3" onClick={() => setIsOpen((p) => !p)}>
                 <div className="text-base font-medium leading-none text-white">
-                  Tom Cook
+                  {user.fname}
                 </div>
                 <div className="text-sm font-medium leading-none text-gray-400">
-                  tom@example.com
+                  {user.email}
                 </div>
               </div>
               <button className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -251,7 +259,7 @@ const Navbar = () => {
               <Link
                 to="#"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                onClick={() => history.push("/auth/login")}
+                onClick={signOut}
               >
                 Sign out
               </Link>

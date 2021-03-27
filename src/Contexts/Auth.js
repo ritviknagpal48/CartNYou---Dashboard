@@ -1,11 +1,17 @@
 // @ts-nocheck
-import { Children, createContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
 const defaultState = {
   isLoggedIn: false,
   token: "",
-  user: {},
+  user: {
+    fname: "",
+    username: "",
+    type: "",
+    email: "",
+  },
   additionalInfo: {},
+  setAuth: (action, payload) => {},
 };
 
 export const AUTH_ACTIONS = {
@@ -20,9 +26,14 @@ export const AuthContext = createContext(defaultState);
 const authReducer = (state, action) => {
   switch (action.type) {
     case AUTH_ACTIONS.LOGIN:
-      return { ...action.payload };
+      localStorage.setItem(
+        process.env.REACT_APP_AUTH_KEY,
+        JSON.stringify({ ...state, ...action.payload })
+      );
+      return { ...state, ...action.payload };
 
     case AUTH_ACTIONS.LOGOUT:
+      localStorage.removeItem(process.env.REACT_APP_AUTH_KEY);
       return { ...state, ...defaultState };
 
     case AUTH_ACTIONS.UPDATE:
@@ -36,14 +47,32 @@ const authReducer = (state, action) => {
   }
 };
 
-export const AuthContextProvider = () => {
-  const [auth, setAuth] = useReducer(authReducer, null, () => {
+const loadInitialAuthData = () => {
+  try {
+    const items = JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_AUTH_KEY)
+    );
+
+    if (!items.token) return defaultState;
+    if (items && Object.keys(items).length > 0)
+      return { ...defaultState, ...items };
+
     return defaultState;
-  });
+  } catch (_) {
+    return defaultState;
+  }
+};
+
+export const AuthContextProvider = ({ children }) => {
+  const [auth, dispatch] = useReducer(authReducer, null, loadInitialAuthData);
+
+  const setAuth = (action, payload) => {
+    dispatch({ type: action, payload });
+  };
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
-      {Children}
+    <AuthContext.Provider value={{ ...auth, setAuth }}>
+      {children}
     </AuthContext.Provider>
   );
 };

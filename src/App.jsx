@@ -1,3 +1,5 @@
+import { AuthContext } from "Contexts/Auth";
+import { useContext } from "react";
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import Auth from "./Pages/Auth/Auth";
 import Home from "./Pages/Wholeseller/Home/Home";
@@ -8,21 +10,25 @@ const classes = {
 };
 
 function App() {
+  const { isLoggedIn } = useContext(AuthContext);
+
   return (
     <div className={classes.wrapper}>
       <HashRouter>
+        <Route
+          component={() => {
+            const red_path = isLoggedIn ? '/app' : '/auth';
+            console.log({ isLoggedIn, red_path })
+            return <Redirect to={red_path} />;
+          }}
+        />
         <Switch>
           <Route
             path={"/"}
             exact
             component={() => {
-              const isLoggedIn = false;
-
-              if (isLoggedIn) {
-                return <Redirect to={"/app/dashboard"} />;
-              }
-
-              return <Redirect to={"/auth"} />;
+              const red_path = isLoggedIn ? '/app' : '/auth';
+              return <Redirect to={red_path} />;
             }}
           />
           <Route

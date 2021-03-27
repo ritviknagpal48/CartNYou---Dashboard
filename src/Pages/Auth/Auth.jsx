@@ -1,3 +1,5 @@
+import { AuthContext } from 'Contexts/Auth'
+import { useContext } from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import Login from "./Login"
 import Register from "./Register"
@@ -8,11 +10,12 @@ const classes = {
 }
 
 const Auth = () => {
+
+  const { isLoggedIn } = useContext(AuthContext)
+
   return (
     <div className={classes.wrapper}>
       <Route path={'/auth'} exact component={() => {
-        const isLoggedIn = true;
-
         if (isLoggedIn) {
           return <Redirect to={'/app/dashboard'} />
         }
