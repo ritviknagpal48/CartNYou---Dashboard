@@ -1,4 +1,4 @@
-import { Tag } from 'antd';
+import { Button, Tag, Tooltip } from 'antd';
 
 const columns = [
     {
@@ -12,6 +12,13 @@ const columns = [
         title: "Order",
         dataIndex: "order",
         key: "order",
+        render: (order) => (
+            <Tooltip placement="top" title="Order Details">
+                <Button style={{ border: "none", padding: "0px", color: "#ff4b4b", fontSize: "13px", fontWeight: 600, background: "transparent" }} >
+                    {order}
+                </Button>
+            </Tooltip>
+        ),
         // width: "20%",
         // ...this.getColumnSearchProps("order"),
     },
@@ -77,6 +84,13 @@ const columns = [
         title: "AWB",
         dataIndex: "awb",
         key: "awb",
+        render: (order) => (
+            <Tooltip placement="top" title="Track Order">
+                <Button style={{ border: "none", padding: "0px", color: "#44a5fe", fontSize: "13px", fontWeight: 600, background: "transparent" }} >
+                    {order}
+                </Button>
+            </Tooltip>
+        ),
         // width: "20%",
         // ...this.getColumnSearchProps("awb"),
     },
@@ -92,8 +106,8 @@ const columns = [
                         color = 'volcano';
                     }
                     return (
-                        <Tag color={color} key={tag} style={{ borderRadius: "4px" }}>
-                            {tag.toUpperCase()}
+                        <Tag color={color} key={tag} style={{ borderRadius: "14px" }}>
+                            {tag}
                         </Tag>
                     );
                 })}
