@@ -1,14 +1,14 @@
-.ant-table.ant-table-small .ant-table-thead .ant-table-filter-column-title {
+.ant-table.ant-table .ant-table-thead .ant-table-filter-column-title {
   padding: 8px 2.3em 8px 8px !important;
   font-size: 13px !important;
   font-weight: 600 !important;
   color: #3f7e80 !important;
 }
-.ant-table.ant-table-small .ant-table-tbody > tr > td {
-  font-size: 12px !important;
+.ant-table.ant-table .ant-table-tbody > tr > td {
+  font-size: 13px !important;
 }
 
-.ant-table.ant-table-small .ant-table-thead > tr > th {
+.ant-table.ant-table .ant-table-thead > tr > th {
   font-size: 13px !important;
   font-weight: 600 !important;
   color: #3f7e80 !important;
@@ -28,7 +28,7 @@
   padding: 4px 11px !important;
 }
 
-.ant-table.ant-table-small {
+.ant-table.ant-table {
   /* font-size: 14px; */
   border-radius: 8px;
 }
