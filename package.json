@@ -20,8 +20,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "tailwind:build": "set NODE_ENV=production && postcss src/tailwind.css -o src/tailwind.output.css",
     "tailwind:dev": "postcss src/tailwind.css -o src/tailwind.output.css",
@@ -50,8 +50,6 @@
     "@fullhuman/postcss-purgecss": "^4.0.2",
     "concurrently": "^6.0.0",
     "postcss-cli": "^8.3.1",
-    "react-app-rewire-alias": "^1.0.2",
-    "react-app-rewired": "^2.1.8",
     "tailwindcss": "^2.0.4"
   }
 }
