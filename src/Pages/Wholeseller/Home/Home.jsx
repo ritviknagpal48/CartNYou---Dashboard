@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Redirect, Route } from "react-router";
 import Navbar from "Components/Navbar";
 import Sidebar from "Components/Sidebar";
@@ -10,11 +11,11 @@ import Warehouses from "Pages/Wholeseller/Warehouses/Warehouses";
 import { useContext } from "react";
 import { AuthContext } from "Contexts/Auth";
 import OrderDetails from "../Orders/OrderDetails";
+import PrivateRoute from "Components/PrivateRoute";
 
 const Home = () => {
 
   const auth = useContext(AuthContext)
-  console.log(auth)
 
   return (
     <div className={"flex flex-col min-h-full"}>
@@ -26,21 +27,20 @@ const Home = () => {
         />
         <div
           className={"flex-auto flex-shrink-0 flex-grow md:ml-20"}
-          style={{ background: "#f2f3f3" }}
-        >
+          style={{ background: "#f2f3f3" }}>
           <Navbar />
           <Route
             path={"/app"}
             exact
             component={() => <Redirect to={"/app/dashboard"} />}
           />
-          <Route path={"/app/dashboard"} component={Dashboard} />
-          <Route path={"/app/products"} component={Products} />
-          <Route path={"/app/orders/:id"} exact component={OrderDetails} />
-          <Route path={"/app/orders"} exact component={Orders} />
-          <Route path={"/app/shipment"} component={Shipment} />
-          <Route path={"/app/add-new-product"} component={AddNewProduct} />
-          <Route path={"/app/warehouses"} component={Warehouses} />
+          <PrivateRoute path={"/app/dashboard"} component={Dashboard} />
+          <PrivateRoute path={"/app/products"} component={Products} />
+          <PrivateRoute path={"/app/orders/:id"} exact component={OrderDetails} />
+          <PrivateRoute path={"/app/orders"} exact component={Orders} />
+          <PrivateRoute path={"/app/shipment"} component={Shipment} />
+          <PrivateRoute path={"/app/add-new-product"} component={AddNewProduct} />
+          <PrivateRoute path={"/app/warehouses"} component={Warehouses} />
         </div>
       </div>
     </div>

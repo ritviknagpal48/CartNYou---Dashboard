@@ -11,14 +11,12 @@ const classes = {
 
 const Auth = () => {
 
-  const { isLoggedIn } = useContext(AuthContext)
+  const { isLoggedIn } = useContext(AuthContext);
 
   return (
     <div className={classes.wrapper}>
-      <Route path={'/auth'} exact component={() => {
-        if (isLoggedIn) {
-          return <Redirect to={'/app/dashboard'} />
-        }
+      <Route path={['/auth', '/auth/']} exact component={() => {
+        if (isLoggedIn) return <Redirect to={'/app'} />
         return <Redirect to={'/auth/login'} />
       }} />
       <Route path={'/auth/login'} >
