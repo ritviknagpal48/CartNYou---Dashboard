@@ -12,10 +12,10 @@ import { useContext } from "react";
 import { AuthContext } from "Contexts/Auth";
 import OrderDetails from "../Orders/OrderDetails";
 import PrivateRoute from "Components/PrivateRoute";
+import TrackOrder from "../TrackOrder/TrackOrder";
 
 const Home = () => {
-
-  const auth = useContext(AuthContext)
+  const auth = useContext(AuthContext);
 
   return (
     <div className={"flex flex-col min-h-full"}>
@@ -27,7 +27,8 @@ const Home = () => {
         />
         <div
           className={"flex-auto flex-shrink-0 flex-grow md:ml-20"}
-          style={{ background: "#f2f3f3" }}>
+          style={{ background: "#edf2f9" }}
+        >
           <Navbar />
           <Route
             path={"/app"}
@@ -37,6 +38,7 @@ const Home = () => {
           <PrivateRoute path={"/app/dashboard"} component={Dashboard} />
           <PrivateRoute path={"/app/products"} component={Products} />
           <PrivateRoute path={"/app/orders/:id"} exact component={OrderDetails} />
+          <PrivateRoute path={"/app/track-order/:id"} exact component={TrackOrder} />
           <PrivateRoute path={"/app/orders"} exact component={Orders} />
           <PrivateRoute path={"/app/shipment"} component={Shipment} />
           <PrivateRoute path={"/app/add-new-product"} component={AddNewProduct} />

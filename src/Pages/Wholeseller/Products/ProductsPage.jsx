@@ -36,7 +36,7 @@ const Products = () => {
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.header} style={{ background: "#f2f3f3" }}>
+      <div className={classes.header} style={{ background: "#edf2f9" }}>
         <div className={classes.title}>Products</div>
         <div className={classes.buttons}>
           <Link
