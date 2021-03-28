@@ -1,6 +1,7 @@
+// @ts-nocheck
 import React, { Component } from "react";
 
-import { Row, Col, Form, Input, Button, InputNumber } from "antd";
+import { Row, Form, Input, Button, InputNumber } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Steps } from "antd";
 
@@ -71,7 +72,7 @@ export class variantsDetails extends Component {
             </div>
           </div>
 
-          <div class="grid grid-cols-1  gap-6  md:grid-cols-2">
+          <div className="grid grid-cols-1  gap-6  md:grid-cols-2">
             <div class="flex flex-col items-start justify-center w-full ">
               <Form.Item label="MP Price" style={{ width: "100%" }}>
                 <InputNumber

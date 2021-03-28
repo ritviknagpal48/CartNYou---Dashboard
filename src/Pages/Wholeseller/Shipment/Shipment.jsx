@@ -1,5 +1,4 @@
 import React from "react";
-import Highlighter from "react-highlight-words";
 import tableColummns from "./TableColumns";
 import tableData from "./TableData";
 // import ProductTable from "Components/TableComponent";

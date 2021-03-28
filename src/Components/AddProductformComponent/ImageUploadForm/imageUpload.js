@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from "react";
 
 import { Row, Form, Button, Upload } from "antd";
@@ -74,7 +75,7 @@ export class ImageUpload extends Component {
       </div>
     );
 
-    const { values, handlechange } = this.props;
+    // const { values, handlechange } = this.props;
     // const {
     //   Aadharcard,
     //   PANcard,

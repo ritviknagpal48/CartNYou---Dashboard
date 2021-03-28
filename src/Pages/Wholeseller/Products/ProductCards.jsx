@@ -1,18 +1,13 @@
 import React from "react";
-import { Table, Input, Button, Select, Collapse, Tooltip } from "antd";
+import { Input, Button, Select, Collapse, Tooltip } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { Switch, Space, Checkbox } from "antd";
 import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
-import { Pagination } from "antd";
 import "./ProductCards.css";
 const { Panel } = Collapse;
 const { Option } = Select;
 
 class ProductCards extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     searchText: "",
     searchedColumn: this.props.searchedColumn[0],
@@ -23,6 +18,7 @@ class ProductCards extends React.Component {
 
   onSelectChange = (selectedRowKeys) => {
     this.setState({ selectedRowKeys });
+    console.log(this.state.selectedRowKeys)
   };
 
   handleReset = (clearFilters) => {
@@ -47,57 +43,54 @@ class ProductCards extends React.Component {
   // }
 
   render() {
-    const { heading, data, searchedColumn, defaultSearchColumn } = this.props;
-
-    const columns = heading;
-    const { selectedRowKeys } = this.state;
+    const { data, defaultSearchColumn } = this.props;
 
     const dataSource = !!this.state.searchText
       ? data.filter((x) =>
-          x[this.state.searchedColumn].toLowerCase().includes(
-            this.state.searchText
-            // lowerCaseSearchText
-          )
+        x[this.state.searchedColumn].toLowerCase().includes(
+          this.state.searchText
+          // lowerCaseSearchText
         )
+      )
       : data;
 
-    const rowSelection = {
-      selectedRowKeys,
-      onChange: this.onSelectChange,
-      selections: [
-        Table.SELECTION_ALL,
-        Table.SELECTION_INVERT,
-        Table.SELECTION_NONE,
-        {
-          key: "odd",
-          text: "Select Odd Row",
-          onSelect: (changableRowKeys) => {
-            let newSelectedRowKeys = [];
-            newSelectedRowKeys = changableRowKeys.filter((key, index) => {
-              if (index % 2 !== 0) {
-                return false;
-              }
-              return true;
-            });
-            this.setState({ selectedRowKeys: newSelectedRowKeys });
-          },
-        },
-        {
-          key: "even",
-          text: "Select Even Row",
-          onSelect: (changableRowKeys) => {
-            let newSelectedRowKeys = [];
-            newSelectedRowKeys = changableRowKeys.filter((key, index) => {
-              if (index % 2 !== 0) {
-                return true;
-              }
-              return false;
-            });
-            this.setState({ selectedRowKeys: newSelectedRowKeys });
-          },
-        },
-      ],
-    };
+    // const rowSelection = {
+    //   selectedRowKeys,
+    //   onChange: this.onSelectChange,
+    //   selections: [
+    //     Table.SELECTION_ALL,
+    //     Table.SELECTION_INVERT,
+    //     Table.SELECTION_NONE,
+    //     {
+    //       key: "odd",
+    //       text: "Select Odd Row",
+    //       onSelect: (changableRowKeys) => {
+    //         let newSelectedRowKeys = [];
+    //         newSelectedRowKeys = changableRowKeys.filter((key, index) => {
+    //           if (index % 2 !== 0) {
+    //             return false;
+    //           }
+    //           return true;
+    //         });
+    //         this.setState({ selectedRowKeys: newSelectedRowKeys });
+    //       },
+    //     },
+    //     {
+    //       key: "even",
+    //       text: "Select Even Row",
+    //       onSelect: (changableRowKeys) => {
+    //         let newSelectedRowKeys = [];
+    //         newSelectedRowKeys = changableRowKeys.filter((key, index) => {
+    //           if (index % 2 !== 0) {
+    //             return true;
+    //           }
+    //           return false;
+    //         });
+    //         this.setState({ selectedRowKeys: newSelectedRowKeys });
+    //       },
+    //     },
+    //   ],
+    // };
 
     return (
       <div className="w-full ">

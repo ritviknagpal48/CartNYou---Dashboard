@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
-import { Row, Col, Form, Input, Button, Select } from "antd";
+import { Row, Form, Button, Select } from "antd";
 import productCategory from "./productCategory";
 import "./ProductCategoryForm.css";
 
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { RightOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 export class ProductCategoryForm extends Component {

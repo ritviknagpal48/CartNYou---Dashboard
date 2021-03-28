@@ -3,7 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./RichTextEditor.css";
 
-const toolbarOptions = [];
+// const toolbarOptions = [];
 
 class Richtexteditor extends React.Component {
   constructor(props) {

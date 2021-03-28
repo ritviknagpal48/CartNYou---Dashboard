@@ -40,7 +40,7 @@ const Orders = () => {
 
       <div className={'overflow-y-auto overflow-x-hidden px-4 h-full flex-auto'}>
         {
-          dummy_data.map(order => <OrderCard key={order.orderId} {...order} />)
+          dummy_data.map(order => <OrderCard key={order.orderId} {...order} collapse={true} />)
         }
       </div>
     </div>

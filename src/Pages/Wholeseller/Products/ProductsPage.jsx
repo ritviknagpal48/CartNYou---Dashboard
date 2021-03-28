@@ -29,7 +29,7 @@ const ActionButton = ({ title, icon }) => {
 
 const Products = () => {
   const [showModal, setShowModal] = React.useState(false);
-  const [searchedColumn, setSearchedColumn] = React.useState([
+  const [searchedColumn] = React.useState([
     "sku",
     "productInfo",
   ]);

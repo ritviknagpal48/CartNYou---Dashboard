@@ -1,6 +1,7 @@
+// @ts-nocheck
 import React, { Component } from "react";
 
-import { Row, Col, Form, Input, Button } from "antd";
+import { Row, Form, Input, Button } from "antd";
 import "./shippingDetails.css";
 
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
@@ -39,8 +40,14 @@ export class shippingDetails extends Component {
             </Steps>
           </Row>
 
-          <div class="grid grid-cols-1  gap-6  md:grid-cols-2">
-            <div class="flex flex-col items-start justify-center w-full ">
+          <div
+            // @ts-ignore
+            class="grid grid-cols-1  gap-6  md:grid-cols-2"
+          >
+            <div
+              // @ts-ignore
+              class="flex flex-col items-start justify-center w-full "
+            >
               <Form.Item label="Shipping Charge (Rs)" style={{ width: "100%" }}>
                 <Input
                   placeholder="Shipping Charges"
@@ -51,7 +58,10 @@ export class shippingDetails extends Component {
               </Form.Item>
             </div>
 
-            <div class="flex flex-col items-start justify-center w-full ">
+            <div
+              // @ts-ignore
+              class="flex flex-col items-start justify-center w-full "
+            >
               <Form.Item label="Shipping Time (Days)" style={{ width: "100%" }}>
                 <Input
                   placeholder="Shipping Time (in days)"
@@ -62,8 +72,14 @@ export class shippingDetails extends Component {
             </div>
           </div>
 
-          <div class="grid grid-cols-1  gap-6  md:grid-cols-2">
-            <div class="flex flex-col items-start justify-center w-full ">
+          <div
+            // @ts-ignore
+            class="grid grid-cols-1  gap-6  md:grid-cols-2"
+          >
+            <div
+              // @ts-ignore
+              class="flex flex-col items-start justify-center w-full "
+            >
               <Form.Item
                 label="Product Weight (grams)"
                 style={{ width: "100%" }}
@@ -76,10 +92,21 @@ export class shippingDetails extends Component {
               </Form.Item>
             </div>
 
-            <div class="flex flex-col items-start justify-center w-full ">
-              <label class="pb-2">Dimensions (in cm)</label>
+            <div
+              // @ts-ignore
+              class="flex flex-col items-start justify-center w-full "
+            >
+              <label
+                // @ts-ignore
+                class="pb-2"
+              >
+                Dimensions (in cm)
+              </label>
 
-              <div class="flex flex-row">
+              <div
+                // @ts-ignore
+                class="flex flex-row"
+              >
                 <Form.Item style={{ maxWidth: "140px" }}>
                   <Input
                     placeholder="L"

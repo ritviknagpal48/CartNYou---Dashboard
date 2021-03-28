@@ -5,6 +5,7 @@ import { Timeline } from "antd";
 import { CheckCircleTwoTone } from "@ant-design/icons";
 import TrackOrderDetail from "./trackOrderDummyData";
 import "./TrackOrder.css";
+import clsx from "clsx";
 
 const classes = {
   wrapper: "text-gray-500 text-lg pl-4 pr-14",
@@ -19,22 +20,16 @@ const classes = {
 const TrackOrder = () => {
   const history = useHistory();
   const { params } = useRouteMatch();
-  const reverseTracking = TrackOrderDetail.reverse();
-  console.log(reverseTracking);
+  const reverseTracking = TrackOrderDetail.slice();
 
   useEffect(() => {
     if (!params.id) history.goBack();
-  }, [params]);
+  }, [params, history]);
 
   return (
     <div className={classes.wrapper}>
       <div className={classes.header} style={{ background: "#edf2f9" }}>
-        <button
-          onClick={() => {
-            history.goBack();
-          }}
-          className={classes.button_input}
-        >
+        <button onClick={history.goBack} className={clsx(classes.button_input, 'px-2 py-2')}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -43,17 +38,17 @@ const TrackOrder = () => {
             className={classes.action_icons}
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M7 16l-4-4m0 0l4-4m-4 4h18"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
             />
           </svg>
         </button>
         <div className={classes.title}>Track Order</div>
       </div>
 
-      <div className="track-order grid grid-cols-1  gap-6 mt-4 md:grid-cols-3">
+      <div className="track-order grid grid-cols-1 gap-6 mt-4 md:grid-cols-3">
         <div>
           <div className="flex items-center p-6  w-full  bg-white rounded-md shadow-sm">
             <div className="mb-2 pb-2 w-full">
@@ -110,10 +105,10 @@ const TrackOrder = () => {
                     >
                       <div
                         className="flex items-center  w-full px-4  border-gray-200 border-solid  border py-2 rounded-xl mx-2"
-                        // style={{
-                        //   boxShadow: "0 10px 20px rgb(8 21 66 / 6%)",
-                        //   zIndex: 9,
-                        // }}
+                      // style={{
+                      //   boxShadow: "0 10px 20px rgb(8 21 66 / 6%)",
+                      //   zIndex: 9,
+                      // }}
                       >
                         <div className="grid grid-cols-1 gap-6 mt-4 md:grid-cols-2 w-full">
                           <div className="flex items-center ">

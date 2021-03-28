@@ -1,6 +1,7 @@
+// @ts-nocheck
 import React, { Component } from "react";
 
-import { Row, Col, Form, Input, Button } from "antd";
+import { Row, Form, Input, Button } from "antd";
 import "./otherDetails.css";
 
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";

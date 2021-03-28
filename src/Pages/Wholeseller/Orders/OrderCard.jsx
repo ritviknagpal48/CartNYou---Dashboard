@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const classes = {
   wrapper:
@@ -52,16 +53,20 @@ const OrderCard = ({
   orderDate,
   payment,
   shipTo,
+  className,
+  collapse
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(!collapse);
 
   return (
-    <div className={classes.wrapper}>
+    <div className={clsx(classes.wrapper, className)}>
       <div className={"flex flex-row mx-auto items-start pb-2 relative"}>
         <div className={classes.title}>
           <span className={classes.card_title}>Order Details</span>
           <div className={classes.card_info}>
-            {orderId} <br /> {orderDate}
+            <Link to={`/app/orders/${orderId}`}>{orderId}</Link>
+            <br />
+            {orderDate}
           </div>
         </div>
         <div className={classes.title}>
@@ -75,7 +80,10 @@ const OrderCard = ({
         <div className={classes.title}>
           <span className={classes.card_title}>Traking Details</span>
           <div className={classes.card_info}>
-            {!tracking ? "Unavailable" : tracking}
+            {
+              !tracking ? "Unavailable" :
+                <Link to={`/app/track-order/${tracking}`}>{tracking}</Link>
+            }
           </div>
         </div>
         <div className={classes.title}>
@@ -83,7 +91,7 @@ const OrderCard = ({
           <div className={classes.card_info}>{status}</div>
         </div>
         <div
-          className={"absolute right-4 bottom-2 cursor-pointer"}
+          className={clsx("absolute right-4 bottom-2 cursor-pointer", { "hidden": !collapse })}
           onClick={() => setIsExpanded((p) => !p)}
         >
           <svg

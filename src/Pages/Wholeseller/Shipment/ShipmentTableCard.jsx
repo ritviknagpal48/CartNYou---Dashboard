@@ -1,18 +1,11 @@
 import React from "react";
-import { Table, Input, Button, Select, Collapse, Tooltip } from "antd";
+import { Table, Input, Button, Select, Collapse } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import { Switch, Space, Checkbox } from "antd";
-import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
-import { Pagination } from "antd";
 import "./ShipmentTableCard.css";
 const { Panel } = Collapse;
 const { Option } = Select;
 
 class ShipmentTableCard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     searchText: "",
     searchedColumn: this.props.searchedColumn[0],
@@ -52,14 +45,14 @@ class ShipmentTableCard extends React.Component {
     const columns = heading;
     const { selectedRowKeys } = this.state;
 
-    const dataSource = !!this.state.searchText
-      ? data.filter((x) =>
-          x[this.state.searchedColumn].toLowerCase().includes(
-            this.state.searchText
-            // lowerCaseSearchText
-          )
-        )
-      : data;
+    // const dataSource = !!this.state.searchText
+    //   ? data.filter((x) =>
+    //     x[this.state.searchedColumn].toLowerCase().includes(
+    //       this.state.searchText
+    //       // lowerCaseSearchText
+    //     )
+    //   )
+    //   : data;
 
     const rowSelection = {
       selectedRowKeys,
@@ -165,11 +158,11 @@ class ShipmentTableCard extends React.Component {
           dataSource={
             !!this.state.searchText
               ? data.filter((x) =>
-                  x[this.state.searchedColumn].toLowerCase().includes(
-                    this.state.searchText
-                    // lowerCaseSearchText
-                  )
+                x[this.state.searchedColumn].toLowerCase().includes(
+                  this.state.searchText
+                  // lowerCaseSearchText
                 )
+              )
               : data
           }
           // size="small"

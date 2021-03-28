@@ -1,6 +1,9 @@
 // @ts-nocheck
+import clsx from "clsx";
 import { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router";
+import ordersDummyData from './orders.db.json'
+import OrderCard from "./OrderCard";
 
 const classes = {
   wrapper: "text-gray-500 text-lg pl-4 pr-14",
@@ -16,19 +19,16 @@ const OrderDetails = () => {
   const history = useHistory();
   const { params } = useRouteMatch();
 
+  const orderInfo = ordersDummyData[0]
+
   useEffect(() => {
     if (!params.id) history.goBack();
-  }, [params]);
+  }, [params, history]);
 
   return (
     <div className={classes.wrapper}>
       <div className={classes.header} style={{ background: "#edf2f9" }}>
-        <button
-          onClick={() => {
-            history.goBack();
-          }}
-          className={classes.button_input}
-        >
+        <button onClick={history.goBack} className={clsx(classes.button_input, 'px-2 py-2')}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -37,14 +37,17 @@ const OrderDetails = () => {
             className={classes.action_icons}
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M7 16l-4-4m0 0l4-4m-4 4h18"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
             />
           </svg>
         </button>
         <div className={classes.title}>Order Details</div>
+      </div>
+      <div className={'flex flex-col items-center justify-start'}>
+        <OrderCard {...orderInfo} className={'w-full'} collapse={false} />
       </div>
     </div>
   );

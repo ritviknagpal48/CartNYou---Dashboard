@@ -8,15 +8,11 @@ import AddNewProduct from "Pages/Wholeseller/Products/AddNewProduct";
 import Products from "Pages/Wholeseller/Products/ProductsPage";
 import Shipment from "Pages/Wholeseller/Shipment/Shipment";
 import Warehouses from "Pages/Wholeseller/Warehouses/Warehouses";
-import { useContext } from "react";
-import { AuthContext } from "Contexts/Auth";
 import OrderDetails from "../Orders/OrderDetails";
 import PrivateRoute from "Components/PrivateRoute";
 import TrackOrder from "../TrackOrder/TrackOrder";
 
 const Home = () => {
-  const auth = useContext(AuthContext);
-
   return (
     <div className={"flex flex-col min-h-full"}>
       <div className={"flex flex-auto flex-row min-h-full min-w-full w-full"}>
