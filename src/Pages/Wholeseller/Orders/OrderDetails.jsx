@@ -2,7 +2,7 @@
 import clsx from "clsx";
 import { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router";
-import ordersDummyData from './orders.db.json'
+import ordersDummyData from "./orders.db.json";
 import OrderCard from "./OrderCard";
 
 const classes = {
@@ -19,7 +19,7 @@ const OrderDetails = () => {
   const history = useHistory();
   const { params } = useRouteMatch();
 
-  const orderInfo = ordersDummyData[0]
+  const orderInfo = ordersDummyData[0];
 
   useEffect(() => {
     if (!params.id) history.goBack();
@@ -28,7 +28,10 @@ const OrderDetails = () => {
   return (
     <div className={classes.wrapper}>
       <div className={classes.header} style={{ background: "#edf2f9" }}>
-        <button onClick={history.goBack} className={clsx(classes.button_input, 'px-2 py-2')}>
+        <button
+          onClick={history.goBack}
+          className={clsx(classes.button_input, "px-2 py-2")}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -45,9 +48,33 @@ const OrderDetails = () => {
           </svg>
         </button>
         <div className={classes.title}>Order Details</div>
+
+        <div className="font-bold text-sm bg-white rounded-lg px-3 py-1">
+          <span className="font-normal text-sm text-gray-400"> ID:</span>{" "}
+          {params.id}
+        </div>
       </div>
-      <div className={'flex flex-col items-center justify-start'}>
-        <OrderCard {...orderInfo} className={'w-full'} collapse={false} />
+      <div className="track-order grid grid-cols-1 gap-6 mt-4 md:grid-cols-3">
+        <div className="flex items-center p-6  col-span-2 w-full  bg-white rounded-md shadow-sm  mb-5">
+          <div className="mb-2 pb-1 w-full">
+            <div className="font-semibold text-lg text-gray-600 pb-5">
+              Order Information
+            </div>
+            <hr />
+          </div>
+        </div>
+
+        <div className="flex items-center p-6  w-full  bg-white rounded-md mb-5">
+          <div className="mb-2 pb-1 w-full">
+            <div className="font-semibold text-lg text-gray-600 pb-5">
+              Warehouse Detail
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={"flex flex-col items-center justify-start"}>
+        <OrderCard {...orderInfo} className={"w-full"} collapse={false} />
       </div>
     </div>
   );
