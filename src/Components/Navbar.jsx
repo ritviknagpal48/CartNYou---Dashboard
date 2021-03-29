@@ -1,7 +1,9 @@
+// @ts-nocheck
 import clsx from "clsx";
 import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { MenuItems } from "./menuItems";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -155,49 +157,23 @@ const Navbar = () => {
         </div>
 
         <div
-          className={clsx("block md:hidden", { hidden: !isMainMenuOpen })}
+          className={clsx("block md:hidden bg-gray-700", { hidden: !isMainMenuOpen })}
           id="mobile-menu"
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link
-              to="/app/dashboard"
-              className={clsx(
-                "hover:bg-gray-700 text-gray-300 block px-3 py-2 rounded-md text-base font-medium",
-                { "bg-gray-900 text-white": activeMenu === "dashboard" }
-              )}
-            >
-              Dashboard
-            </Link>
-
-            <Link
-              to="/app/products"
-              className={clsx(
-                "hover:bg-gray-700 text-gray-300 block px-3 py-2 rounded-md text-base font-medium",
-                { "bg-gray-900 text-white": activeMenu === "products" }
-              )}
-            >
-              Products
-            </Link>
-
-            <Link
-              to="/app/orders"
-              className={clsx(
-                "hover:bg-gray-700 text-gray-300 block px-3 py-2 rounded-md text-base font-medium",
-                { "bg-gray-900 text-white": activeMenu === "orders" }
-              )}
-            >
-              Orders
-            </Link>
-
-            <Link
-              to="/app/reports"
-              className={clsx(
-                "hover:bg-gray-700 text-gray-300 block px-3 py-2 rounded-md text-base font-medium",
-                { "bg-gray-900 text-white": activeMenu === "reports" }
-              )}
-            >
-              Reports
-            </Link>
+            {
+              MenuItems.map(item => (
+                <Link
+                  to={item.path}
+                  className={clsx(
+                    "hover:bg-gray-700 text-gray-300 block px-3 py-2 rounded-md text-base font-medium",
+                    { "bg-gray-900 text-white": activeMenu === item.key }
+                  )}
+                >
+                  {item.displayName}
+                </Link>
+              ))
+            }
           </div>
           <div className="pt-4 pb-3 border-t border-gray-700">
             <div className="flex items-center px-5">
@@ -219,6 +195,9 @@ const Navbar = () => {
                   {user.email}
                 </div>
               </div>
+              <svg className={clsx('h-5 w-5 ml-2', { 'rotate-180': isOpen })} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
               <button className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                 <span className="sr-only">View notifications</span>
                 <svg

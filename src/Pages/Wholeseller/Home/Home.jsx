@@ -11,12 +11,14 @@ import Warehouses from "Pages/Wholeseller/Warehouses/Warehouses";
 import OrderDetails from "../Orders/OrderDetails";
 import PrivateRoute from "Components/PrivateRoute";
 import TrackOrder from "../TrackOrder/TrackOrder";
+import { MenuItems } from "Components/menuItems";
 
 const Home = () => {
   return (
-    <div className={"flex flex-col min-h-full"}>
+    <div className={"flex flex-col min-h-full max-w-full"}>
       <div className={"flex flex-auto flex-row min-h-full min-w-full w-full"}>
         <Sidebar
+          menuList={MenuItems}
           className={
             "hidden md:block shadow-2xl md:fixed top-0 left-0 bottom-0"
           }
@@ -27,18 +29,18 @@ const Home = () => {
         >
           <Navbar />
           <Route
-            path={"/app"}
+            path={["/wholeseller", "/wholeseller/"]}
             exact
-            component={() => <Redirect to={"/app/dashboard"} />}
+            component={() => <Redirect to={"/wholeseller/dashboard"} />}
           />
-          <PrivateRoute path={"/app/dashboard"} component={Dashboard} />
-          <PrivateRoute path={"/app/products"} component={Products} />
-          <PrivateRoute path={"/app/orders/:id"} exact component={OrderDetails} />
-          <PrivateRoute path={"/app/track-order/:id"} exact component={TrackOrder} />
-          <PrivateRoute path={"/app/orders"} exact component={Orders} />
-          <PrivateRoute path={"/app/shipment"} component={Shipment} />
-          <PrivateRoute path={"/app/add-new-product"} component={AddNewProduct} />
-          <PrivateRoute path={"/app/warehouses"} component={Warehouses} />
+          <PrivateRoute path={"/wholeseller/dashboard"} component={Dashboard} />
+          <PrivateRoute path={"/wholeseller/products"} component={Products} />
+          <PrivateRoute path={"/wholeseller/orders/:id"} exact component={OrderDetails} />
+          <PrivateRoute path={"/wholeseller/track-order/:id"} exact component={TrackOrder} />
+          <PrivateRoute path={"/wholeseller/orders"} exact component={Orders} />
+          <PrivateRoute path={"/wholeseller/shipment"} component={Shipment} />
+          <PrivateRoute path={"/wholeseller/add-new-product"} component={AddNewProduct} />
+          <PrivateRoute path={"/wholeseller/warehouses"} component={Warehouses} />
         </div>
       </div>
     </div>

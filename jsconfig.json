@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "jsx": "preserve",
-    "checkJs": true,
+    "checkJs": false,
     "target": "esnext",
     "module": "commonjs"
   },

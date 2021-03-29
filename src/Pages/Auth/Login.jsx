@@ -1,7 +1,7 @@
 // @ts-nocheck
 import clsx from "clsx";
 import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 const classes = {
@@ -21,26 +21,26 @@ const classes = {
   remember_me: "mb-4 ring-none"
 };
 
-const dummyLogin = {
-  isLoggedIn: true,
-  token: "some JWT token here",
-  user: {
-    fname: "Test",
-    username: "Test",
-    type: "wholeseller"
-  },
-  additionalInfo: {},
-}
-
 const Login = ({ className }) => {
 
   const history = useHistory()
   const { setAuth } = useContext(AuthContext)
 
+  const [userType, setUserType] = useState("")
+
   const signIn = (e) => {
     e.preventDefault();
-    setAuth(AUTH_ACTIONS.LOGIN, dummyLogin)
-    history.push('/app/dashboard')
+    setAuth(AUTH_ACTIONS.LOGIN, {
+      isLoggedIn: true,
+      token: "some JWT token here",
+      user: {
+        fname: "Test",
+        username: "Test",
+        type: userType
+      },
+      additionalInfo: {},
+    })
+    history.push(`/${userType}`)
   };
 
   return (
@@ -51,11 +51,11 @@ const Login = ({ className }) => {
         <div className={classes.divider} />
         <div className={classes.row}>
           <div className={classes.row_item}>
-            <input type="radio" name="type" id="wholeseller" className={'mr-1 text-red-500'} defaultChecked={true} />
+            <input type="radio" name="type" id="wholeseller" className={'mr-1 text-red-500'} defaultChecked={true} onChange={(e) => setUserType(p => e.target.checked ? e.target.id : p)} />
             <label htmlFor="wholeseller">WholeSeller</label>
           </div>
           <div className={classes.row_item}>
-            <input type="radio" name="type" id="retailer" className={'mr-1 text-red-500'} />
+            <input type="radio" name="type" id="retailer" className={'mr-1 text-red-500'} onChange={(e) => setUserType(p => e.target.checked ? e.target.id : p)} />
             <label htmlFor="retailer">Retailer</label>
           </div>
         </div>

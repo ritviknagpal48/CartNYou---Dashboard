@@ -7,7 +7,7 @@ import ProductData from "./productData";
 import ProductColumn from "./productTableColumns";
 
 const classes = {
-  wrapper: "pr-14 pl-4",
+  wrapper: "pr-4 md:pr-14 pl-4",
   header: "w-full  py-3 flex flex-row items-center justify-between",
   title: "text-2xl text-gray-600  hidden md:block font-sans-apple-system",
   buttons: "flex item-center flex-row justify-end",
@@ -17,9 +17,9 @@ const classes = {
   button_title: "hidden md:block",
 };
 
-const ActionButton = ({ title, icon }) => {
+const ActionButton = ({ title, icon, ...rest }) => {
   return (
-    <button type="button" className={classes.button_input}>
+    <button type="button" className={classes.button_input} {...rest}>
       {icon}
       <span className={classes.button_title}>{title ?? "Button"}</span>
     </button>
@@ -60,7 +60,7 @@ const Products = () => {
             </svg>
             Add new product
           </button> */}
-          <button
+          {/* <button
             onClick={() => setShowModal(true)}
             className={classes.button_input}
           >
@@ -79,7 +79,7 @@ const Products = () => {
               />
             </svg>
             Import Inventory
-          </button>
+          </button> */}
           <ActionButton
             title={"Export"}
             icon={
@@ -100,6 +100,7 @@ const Products = () => {
             }
           />
           <ActionButton
+            onClick={() => setShowModal(true)}
             title={"Import"}
             icon={
               <svg

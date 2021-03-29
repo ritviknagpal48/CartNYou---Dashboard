@@ -16,7 +16,7 @@ const Auth = () => {
   return (
     <div className={classes.wrapper}>
       <Route path={['/auth', '/auth/']} exact component={() => {
-        if (isLoggedIn) return <Redirect to={'/app'} />
+        if (isLoggedIn) return <Redirect to={'/'} />
         return <Redirect to={'/auth/login'} />
       }} />
       <Route path={'/auth/login'} >

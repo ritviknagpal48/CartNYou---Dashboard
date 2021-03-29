@@ -157,22 +157,23 @@ class ProductCards extends React.Component {
           dataSource.map((data, index) => {
             return (
               <div
-                className=" bg-white my-2 text-gray-700 font-medium text-base px-4 py-4 rounded-xl shadow-lg flex flex-row items-center justify-between w-full text-left "
-                style={{ color: "black" }}
-              >
-                <Checkbox onChange={this.onChange}></Checkbox>
-                <div
-                  className="card-detail"
-                  style={{ marginLeft: "-30px", width: "50px" }}
-                >
-                  <div className="head-title">SKU</div>
-                  <div className="title-body">{data.sku}</div>
+                className=" bg-white my-2 text-gray-700 font-medium text-base px-4 py-4 rounded-xl shadow-lg grid md:flex md:flex-row grid-cols-4 gap-2 items-center justify-between w-full text-left "
+                style={{ color: "black" }}>
+                <div className={'flex flex-row items-center'}>
+                  <Checkbox onChange={this.onChange}></Checkbox>
+                  <div
+                    className="card-detail ml-2"
+                    style={{ width: "50px" }}
+                  >
+                    <div className="head-title">SKU</div>
+                    <div className="title-body">{data.sku}</div>
+                  </div>
                 </div>
-                <div className="card-detail max-w-xs w-4/12">
+                <div className="card-detail max-w-xs w-full md:w-4/12 col-start-2 col-span-3">
                   <div className="head-title">Product Info</div>
                   <div className="title-body">{data.productInfo}</div>
                 </div>
-                <div className="card-detail">
+                <div className="card-detail ml-6 md:ml-0">
                   <div className="head-title">MRP</div>
                   <div className="title-body">{data.mrp}</div>
                 </div>
@@ -188,7 +189,7 @@ class ProductCards extends React.Component {
                   <div className="head-title">Quantity</div>
                   <div className="title-body">{data.quantity}</div>
                 </div>
-                <div className="card-detail">
+                <div className="card-detail w-1/2 md:w-auto ml-6 md:ml-0">
                   <div className="head-title">Status</div>
                   <Switch checked={data.status} />
                 </div>
@@ -198,28 +199,18 @@ class ProductCards extends React.Component {
                     {data.admin}
                   </div>
                 </div>
-                <div className="action">
-                  <Space size="middle">
+                <div className="action card-detail justify-self-center mx-auto col-span-2">
+                  <div className={"head-title"}>Actions</div>
+                  <Space size="middle" className={'flex flex-row items-center'}>
                     <Tooltip placement="topLeft" title={"Edit Data"}>
                       <Button
                         shape="circle"
-                        style={
-                          {
-                            // background: "rgba(178,80,0,0.1)",
-                            // border: "1px solid rgb(178,80,0)",
-                          }
-                        }
                         icon={<EditTwoTone twoToneColor="#b25000" />}
+                        className={'flex items-center justify-center'}
                       />
                     </Tooltip>
                     <Tooltip placement="topLeft" title={"Delete"}>
                       <Button
-                        style={
-                          {
-                            // border: "1px solid rgb(178,80,0)",
-                            // background: "rgba(178,80,0,0.1)",
-                          }
-                        }
                         shape="circle"
                         icon={<DeleteTwoTone twoToneColor="#b25000" />}
                       />

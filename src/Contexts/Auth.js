@@ -21,6 +21,11 @@ export const AUTH_ACTIONS = {
   VALIDATE: "auth-validate",
 };
 
+export const USER_TYPES = {
+  RETAILER: "retailer",
+  WHOLESELLER: "wholeseller",
+};
+
 export const AuthContext = createContext(defaultState);
 
 const authReducer = (state, action) => {

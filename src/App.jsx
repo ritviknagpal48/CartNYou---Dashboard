@@ -1,10 +1,12 @@
 // @ts-nocheck
-import PrivateRoute from "Components/PrivateRoute";
+import PrivateRoute from 'Components/PrivateRoute';
 import { AuthContext } from "Contexts/Auth";
 import { useContext } from "react";
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import Auth from "./Pages/Auth/Auth";
-import Home from "./Pages/Wholeseller/Home/Home";
+import AppDirector from "./Pages/AppDirector";
+import WholesellerHome from "./Pages/Wholeseller/Home/Home";
+import RetailerHome from "./Pages/Retailer/Home/Home";
 
 const classes = {
   wrapper:
@@ -22,8 +24,9 @@ function App() {
             path={"/"}
             exact
             component={() => {
-              const red_path = isLoggedIn ? '/app' : '/auth';
-              return <Redirect to={red_path} />;
+              return !isLoggedIn ?
+                <Redirect to={"/auth"} />
+                : <AppDirector />
             }}
           />
           <Route
@@ -34,7 +37,14 @@ function App() {
               </div>
             )}
           />
-          <PrivateRoute path={"/app"} component={Home} />
+          <PrivateRoute
+            path={"/wholeseller"}
+            component={WholesellerHome}
+          />
+          <PrivateRoute
+            path={"/retailer"}
+            component={RetailerHome}
+          />
           <Route
             component={() => {
               return (

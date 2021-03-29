@@ -11,9 +11,9 @@ const Dashboard = () => {
         <div className={classes.title}>Dashboard</div>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 mt-6 sm:grid-cols-2 lg:grid-cols-4 pr-14 pl-4">
+      <div className="grid grid-cols-1 gap-5 mt-6 sm:grid-cols-2 lg:grid-cols-4 pr-4 md:pr-14 pl-4">
         <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white">
-          <div className="flex items-start justify-between">
+          <div className="flex items-start justify-between mx-auto">
             <div className="flex flex-col space-y-1">
               <span className="text-gray-500">Total Shipment</span>
               <span className="text-2xl font-bold text-gray-900">1841</span>
@@ -157,7 +157,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 pr-14 pl-4 gap-6 mt-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 pr-4 md:pr-14 pl-4 gap-6 mt-4 md:grid-cols-2">
         <div className="flex items-center p-6 justify-center w-full h-32 bg-white rounded-md shadow-sm">
           <div className="mb-2 pb-2">
             <h3 className="font-semibold text-lg text-gray-600">Bar Chart</h3>
@@ -185,8 +185,8 @@ const Dashboard = () => {
           ></div>
         </div>
       </div>
-      <div className="container pl-4 pr-14 py-4 mx-auto">
-        <h3 className="block text-xl text-gray-700 font-semibold mb-3">
+      <div className="container pl-4 pr-4 md:pr-14 py-4 mx-auto">
+        <h3 className="block text-center md:text-left text-xl text-gray-700 font-semibold mb-3">
           Bar Chart
         </h3>
         <div className="flex">
