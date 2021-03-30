@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Redirect, Route } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import Navbar from "Components/Navbar";
 import Sidebar from "Components/Sidebar";
 import PrivateRoute from "Components/PrivateRoute";
@@ -7,6 +7,7 @@ import Dashboard from "Pages/Retailer/Dashboard/Dashboard";
 
 import { MenuItems } from "Components/menuItemsRetailer";
 import Products from "Pages/Retailer/Products/Products";
+import ProductDetails from "Pages/Retailer/Products/ProductDetails";
 
 const DummyComponent = () => {
   return <h1>Dummy Component for Route Handling</h1>;
@@ -27,14 +28,17 @@ const Home = () => {
           style={{ background: "#edf2f9" }}
         >
           <Navbar />
-          <Route
-            path={["/retailer", "/retailer/"]}
-            exact
-            component={() => <Redirect to={"/retailer/dashboard"} />}
-          />
-
-          <PrivateRoute path={"/retailer/dashboard"} component={Dashboard} />
-          <PrivateRoute path={"/retailer/products"} component={Products} />
+          <Switch>
+            <Route
+              path={["/retailer", "/retailer/"]}
+              exact
+              component={() => <Redirect to={"/retailer/dashboard"} />}
+            />
+            <PrivateRoute path={"/retailer/dashboard"} component={Dashboard} />
+            <PrivateRoute path={"/retailer/products"} exact component={Products} />
+            <PrivateRoute path={"/retailer/products/:id"} component={ProductDetails} />
+            <PrivateRoute path={'/retailer/*'} component={DummyComponent} />
+          </Switch>
         </div>
       </div>
     </div>
