@@ -26,7 +26,7 @@ const Login = ({ className }) => {
   const history = useHistory()
   const { setAuth } = useContext(AuthContext)
 
-  const [userType, setUserType] = useState("")
+  const [userType, setUserType] = useState("wholeseller")
 
   const signIn = (e) => {
     e.preventDefault();
@@ -51,11 +51,11 @@ const Login = ({ className }) => {
         <div className={classes.divider} />
         <div className={classes.row}>
           <div className={classes.row_item}>
-            <input type="radio" name="type" id="wholeseller" className={'mr-1 text-red-500'} defaultChecked={true} onChange={(e) => setUserType(p => e.target.checked ? e.target.id : p)} />
+            <input type="radio" name="type" id="wholeseller" className={'mr-1 text-red-500'} checked={userType === 'wholeseller'} onChange={(e) => setUserType(p => e.target.checked ? e.target.id : p)} />
             <label htmlFor="wholeseller">WholeSeller</label>
           </div>
           <div className={classes.row_item}>
-            <input type="radio" name="type" id="retailer" className={'mr-1 text-red-500'} onChange={(e) => setUserType(p => e.target.checked ? e.target.id : p)} />
+            <input type="radio" name="type" id="retailer" className={'mr-1 text-red-500'} checked={userType === 'retailer'} onChange={(e) => setUserType(p => e.target.checked ? e.target.id : p)} />
             <label htmlFor="retailer">Retailer</label>
           </div>
         </div>

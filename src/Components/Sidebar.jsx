@@ -23,10 +23,9 @@ const Sidebar = ({ className, menuList }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const s1 = pathname.replace(`/${type}`, "")
-    const s2 = s1.split("/")[1]
+    const s1 = pathname.replace(`/${type}/`, "")
+    const s2 = s1.split("/")[0]
     const page = s2.replace("/", "");
-    console.log({ page })
     setActiveMenu(page);
   }, [pathname, type]);
 
