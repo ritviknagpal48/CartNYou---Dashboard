@@ -8,7 +8,7 @@ const PrivateRoute = ({ component: Component, path: pathProp, exact, redirectPat
   const { pathname } = useLocation()
   const { isLoggedIn, user: { type } } = useContext(AuthContext)
 
-  if (!isLoggedIn) return <Redirect to={redirectPath} />
+  if (!isLoggedIn || !type) return <Redirect to={redirectPath} />
 
   if (type === pathname.split('/')[1])
     return (

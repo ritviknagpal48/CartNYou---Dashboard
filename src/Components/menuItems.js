@@ -22,7 +22,7 @@ export const MenuItems = [
   },
   {
     displayName: "Products",
-    key: "produucts",
+    key: "products",
     path: "/wholeseller/products",
     icon: (
       <svg

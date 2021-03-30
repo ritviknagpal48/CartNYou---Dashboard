@@ -24,12 +24,12 @@ const Home = () => {
           }
         />
         <div
-          className={"flex-auto flex-shrink-0 flex-grow md:ml-20"}
+          className={"flex-auto flex-shrink-0 flex-grow md:pl-20"}
           style={{ background: "#edf2f9" }}
         >
           <Navbar />
           <Route
-            path={["/wholeseller", "/wholeseller/"]}
+            path={"/wholeseller"}
             exact
             component={() => <Redirect to={"/wholeseller/dashboard"} />}
           />

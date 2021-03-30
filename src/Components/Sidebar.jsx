@@ -1,6 +1,7 @@
 // @ts-nocheck
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { AuthContext } from "Contexts/Auth";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 
@@ -18,14 +19,16 @@ const classes = {
 const Sidebar = ({ className, menuList }) => {
   const [activeMenu, setActiveMenu] = useState("");
 
+  const { user: { type } } = useContext(AuthContext)
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // const s1 = pathname.replace("/app/", "")
-    const s2 = pathname.split("/")[0]
+    const s1 = pathname.replace(`/${type}`, "")
+    const s2 = s1.split("/")[1]
     const page = s2.replace("/", "");
+    console.log({ page })
     setActiveMenu(page);
-  }, [pathname]);
+  }, [pathname, type]);
 
   return (
     <div className={clsx(classes.wrapper, className)}>

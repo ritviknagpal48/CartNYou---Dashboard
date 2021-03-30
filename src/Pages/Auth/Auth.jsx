@@ -15,7 +15,8 @@ const Auth = () => {
 
   return (
     <div className={classes.wrapper}>
-      <Route path={['/auth', '/auth/']} exact component={() => {
+      <Route path={"/auth"} exact component={() => {
+        console.log({ isLoggedIn, path: window.location })
         if (isLoggedIn) return <Redirect to={'/'} />
         return <Redirect to={'/auth/login'} />
       }} />

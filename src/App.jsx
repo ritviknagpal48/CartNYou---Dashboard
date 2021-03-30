@@ -2,7 +2,7 @@
 import PrivateRoute from 'Components/PrivateRoute';
 import { AuthContext } from "Contexts/Auth";
 import { useContext } from "react";
-import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Auth from "./Pages/Auth/Auth";
 import AppDirector from "./Pages/AppDirector";
 import WholesellerHome from "./Pages/Wholeseller/Home/Home";
@@ -18,14 +18,14 @@ function App() {
 
   return (
     <div className={classes.wrapper}>
-      <HashRouter>
+      <BrowserRouter>
         <Switch>
           <Route
             path={"/"}
             exact
             component={() => {
               return !isLoggedIn ?
-                <Redirect to={"/auth"} />
+                <Redirect to={"/auth/login"} />
                 : <AppDirector />
             }}
           />
@@ -58,7 +58,7 @@ function App() {
             }}
           />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
     </div>
   );
 }

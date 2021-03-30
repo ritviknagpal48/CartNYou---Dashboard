@@ -157,7 +157,7 @@ class ProductCards extends React.Component {
           dataSource.map((data, index) => {
             return (
               <div
-                className=" bg-white my-2 text-gray-700 font-medium text-base px-4 py-4 rounded-xl shadow-lg grid md:flex md:flex-row grid-cols-4 gap-2 items-center justify-between w-full text-left "
+                className="bg-white my-2 text-gray-700 font-medium text-base px-4 py-4 rounded-xl shadow-lg grid grid-cols-4 gap-2 items-center md:justify-between w-full text-left md:flex md:flex-row"
                 style={{ color: "black" }}>
                 <div className={'flex flex-row items-center'}>
                   <Checkbox onChange={this.onChange}></Checkbox>
@@ -169,7 +169,7 @@ class ProductCards extends React.Component {
                     <div className="title-body">{data.sku}</div>
                   </div>
                 </div>
-                <div className="card-detail max-w-xs w-full md:w-4/12 col-start-2 col-span-3">
+                <div className="card-detail max-w-xs w-full md:w-4/12 col-start-2 col-span-3 md:flex-auto">
                   <div className="head-title">Product Info</div>
                   <div className="title-body">{data.productInfo}</div>
                 </div>
@@ -199,7 +199,7 @@ class ProductCards extends React.Component {
                     {data.admin}
                   </div>
                 </div>
-                <div className="action card-detail justify-self-center mx-auto col-span-2">
+                <div className="action card-detail justify-self-center mx-auto md:mx-0 col-span-2">
                   <div className={"head-title"}>Actions</div>
                   <Space size="middle" className={'flex flex-row items-center'}>
                     <Tooltip placement="topLeft" title={"Edit Data"}>

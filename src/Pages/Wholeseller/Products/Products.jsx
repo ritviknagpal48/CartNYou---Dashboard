@@ -39,7 +39,7 @@ const Products = () => {
         <div className={classes.title}>Products</div>
         <div className={classes.buttons}>
           <Link
-            to="/app/add-new-product"
+            to="/wholeseller/add-new-product"
             className={`${classes.button_input} hover:text-red-400`}
           >
             <svg
