@@ -3,13 +3,14 @@ import { Redirect, Route } from "react-router";
 import Navbar from "Components/Navbar";
 import Sidebar from "Components/Sidebar";
 import PrivateRoute from "Components/PrivateRoute";
-import { MenuItems } from "Components/menuItems";
+import Dashboard from "Pages/Retailer/Dashboard/Dashboard";
+
+import { MenuItems } from "Components/menuItemsRetailer";
+import Products from "Pages/Retailer/Products/Products";
 
 const DummyComponent = () => {
-  return (
-    <h1>Dummy Component for Route Handling</h1>
-  )
-}
+  return <h1>Dummy Component for Route Handling</h1>;
+};
 
 const Home = () => {
   return (
@@ -31,7 +32,9 @@ const Home = () => {
             exact
             component={() => <Redirect to={"/retailer/dashboard"} />}
           />
-          <PrivateRoute path={"/retailer/dashboard"} component={DummyComponent} />
+
+          <PrivateRoute path={"/retailer/dashboard"} component={Dashboard} />
+          <PrivateRoute path={"/retailer/products"} component={Products} />
         </div>
       </div>
     </div>
