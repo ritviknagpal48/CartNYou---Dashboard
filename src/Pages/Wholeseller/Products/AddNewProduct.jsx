@@ -27,7 +27,7 @@ class HeaderWithSideBar extends React.Component {
             <div className="flex items-start text-black justify-between p-5 border-b border-solid border-gray-300 rounded-t">
               <h3 className="text-3l font-semibold">Add New Product</h3>
               <Link
-                to="/app/products"
+                to="/wholeseller/products"
                 className={"text-sm font-medium text-gray-500"}
               >
                 Cancel

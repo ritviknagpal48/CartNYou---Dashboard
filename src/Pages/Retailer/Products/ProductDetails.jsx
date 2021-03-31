@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { ProductData } from "./productData";
+import { ProductData } from "./productDataDetails";
 import { Tabs } from "antd";
 
 const classes = {
@@ -29,7 +29,7 @@ const parseKey = (key) => {
 
 const ProductDetails = () => {
   const { id } = useParams();
-  console.log(id)
+  console.log(id);
   const {
     images,
     category,
@@ -77,9 +77,10 @@ const ProductDetails = () => {
               <img
                 src={image.url}
                 alt={image.alt}
-                className={
-                  clsx("h-12 w-12 object-cover mx-2 my-2 cursor-pointer rounded-lg shadow-lg", { 'ring-2 ring-red-500': idx === imageIndex })
-                }
+                className={clsx(
+                  "h-12 w-12 object-cover mx-2 my-2 cursor-pointer rounded-lg shadow-lg",
+                  { "ring-2 ring-red-500": idx === imageIndex }
+                )}
                 onClick={() => setImageIndex(idx)}
               />
             ))}
@@ -236,8 +237,7 @@ const ProductDetails = () => {
           </TabPane>
           <TabPane tab={"Product Variants"} key={"2"}>
             <div>
-              {
-                variants && variants.length > 0 &&
+              {variants && variants.length > 0 && (
                 <div
                   className={clsx(
                     "grid grid-cols-2 md:grid-cols-4 gap-2 w-full py-2 px-4"
@@ -256,43 +256,49 @@ const ProductDetails = () => {
                     Price
                   </label>
                 </div>
-              }
-              {
-                variants && variants.length > 0 ?
-                  variants.map((variant, idx) => {
-                    return (
-                      <div
-                        className={clsx(
-                          "grid grid-cols-2 md:grid-cols-4 gap-2 w-full py-2 px-4",
-                          { "bg-gray-100": idx % 2 === 0 }
-                        )}
+              )}
+              {variants && variants.length > 0 ? (
+                variants.map((variant, idx) => {
+                  return (
+                    <div
+                      className={clsx(
+                        "grid grid-cols-2 md:grid-cols-4 gap-2 w-full py-2 px-4",
+                        { "bg-gray-100": idx % 2 === 0 }
+                      )}
+                    >
+                      <span
+                        className={"text-gray-600 font-normal text-sm mt-1"}
                       >
-                        <span className={"text-gray-600 font-normal text-sm mt-1"}>
-                          {variant.sku}
-                        </span>
-                        <span className={"text-gray-600 font-normal text-sm mt-1"}>
-                          {variant.name}
-                        </span>
-                        <span className={"text-gray-600 font-normal text-sm mt-1"}>
-                          {variant.quantity}
-                        </span>
-                        <span className={"text-red-500 font-normal text-sm mt-1"}>
-                          ₹ {variant.price}
-                        </span>
-                      </div>
-                    );
-                  }) :
-                  <span className={"text-gray-600 font-normal text-sm mt-1 py-2"}>
-                    No Varaints Available for this Product
-                  </span>
-              }
+                        {variant.sku}
+                      </span>
+                      <span
+                        className={"text-gray-600 font-normal text-sm mt-1"}
+                      >
+                        {variant.name}
+                      </span>
+                      <span
+                        className={"text-gray-600 font-normal text-sm mt-1"}
+                      >
+                        {variant.quantity}
+                      </span>
+                      <span className={"text-red-500 font-normal text-sm mt-1"}>
+                        ₹ {variant.price}
+                      </span>
+                    </div>
+                  );
+                })
+              ) : (
+                <span className={"text-gray-600 font-normal text-sm mt-1 py-2"}>
+                  No Varaints Available for this Product
+                </span>
+              )}
             </div>
           </TabPane>
           <TabPane tab={"Product Description"} key={"3"}>
             <div
               className={"text-sm font-normal flex-wrap text-gray-500 w-full"}
             >
-              {longDescription || description || 'No Description Available'}
+              {longDescription || description || "No Description Available"}
             </div>
           </TabPane>
         </Tabs>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { Row, Form, Button, Select } from "antd";
-import productCategory from "./productCategory";
+import productCategory from "../../productCategory";
 import "./ProductCategoryForm.css";
 
 import { RightOutlined } from "@ant-design/icons";

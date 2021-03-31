@@ -29,10 +29,7 @@ const ActionButton = ({ title, icon, ...rest }) => {
 
 const Products = () => {
   const [showModal, setShowModal] = React.useState(false);
-  const [searchedColumn] = React.useState([
-    "sku",
-    "productInfo",
-  ]);
+  const [searchedColumn] = React.useState(["sku", "productInfo"]);
 
   return (
     <div className={classes.wrapper}>
@@ -40,7 +37,7 @@ const Products = () => {
         <div className={classes.title}>Products</div>
         <div className={classes.buttons}>
           <Link
-            to="/app/add-new-product"
+            to="/wholeseller/add-new-product"
             className={`${classes.button_input} hover:text-red-400`}
           >
             <svg
