@@ -5,7 +5,7 @@ import { DownCircleTwoTone } from "@ant-design/icons";
 import ProductCategory from "./productSearchCategories";
 import CategoryList from "../../../Components/productCategory";
 import ProductCard from "../../../Components/Retailer/ProductCard";
-import ProductData from "./productsData";
+import ProductData from "./productDataDetails";
 import "./Product.css";
 
 const { Panel } = Collapse;
@@ -96,9 +96,9 @@ class Products extends React.Component {
                 }
                 key="1"
                 className="site-collapse-custom-panel rounded-xl shadow-lg "
-              // extra={({ isActive }) => (
-              //   <DownOutlined rotate={isActive ? 180 : 0} />
-              // )}
+                // extra={({ isActive }) => (
+                //   <DownOutlined rotate={isActive ? 180 : 0} />
+                // )}
               >
                 <Form
                   layout="vertical"
@@ -125,7 +125,7 @@ class Products extends React.Component {
                       // }
                       // value={this.state.searchText}
                       className="inputSearchBox"
-                    //   style={{ marginLeft: "8px" }}
+                      //   style={{ marginLeft: "8px" }}
                     />
                   </Form.Item>
 
@@ -142,7 +142,7 @@ class Products extends React.Component {
                       // }
                       // value={this.state.searchText}
                       className="inputSearchBox"
-                    //   style={{ marginLeft: "8px" }}
+                      //   style={{ marginLeft: "8px" }}
                     />
                   </Form.Item>
 
@@ -150,8 +150,8 @@ class Products extends React.Component {
                     <Select
                       // defaultValue={defaultSearchColumn}
                       placeholder="Select Column"
-                    // style={{ width: 150 }}
-                    // onChange={this.handleChange}
+                      // style={{ width: 150 }}
+                      // onChange={this.handleChange}
                     >
                       {CategoryList.map((Category) => {
                         return (
@@ -166,8 +166,8 @@ class Products extends React.Component {
                     <Select
                       // defaultValue={defaultSearchColumn}
                       placeholder="Select Column"
-                    // style={{ width: 150 }}
-                    // onChange={this.handleChange}
+                      // style={{ width: 150 }}
+                      // onChange={this.handleChange}
                     >
                       {CategoryList.map((Category) => {
                         return (

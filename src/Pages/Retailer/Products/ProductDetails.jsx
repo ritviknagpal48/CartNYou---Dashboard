@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import { ProductData } from "./productDataDetails";
+import { useHistory, useParams, useLocation } from "react-router-dom";
+import ProductData from "./productDataDetails";
 import { Tabs } from "antd";
 
 const classes = {
@@ -28,6 +28,8 @@ const parseKey = (key) => {
 };
 
 const ProductDetails = () => {
+  const location = useLocation();
+  // console.log(location.state.detail);
   const { id } = useParams();
   console.log(id);
   const {
@@ -42,18 +44,34 @@ const ProductDetails = () => {
     supplier,
     variants,
     "long-description": longDescription,
-  } = ProductData[1];
+  } = location.state.detail;
 
-  const history = useHistory()
+  const history = useHistory();
 
   const [imageIndex, setImageIndex] = useState(0);
 
   return (
     <div className={classes.wrapper}>
       {/* Card Here */}
-      <button className={'m-4 px-3 py-3 text-gray-600 bg-white rounded-full shadow-lg focus:outline-none'} onClick={() => history.goBack()}>
-        <svg className={'h-5 w-5'} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+      <button
+        className={
+          "m-4 px-3 py-3 text-gray-600 bg-white rounded-full shadow-lg focus:outline-none"
+        }
+        onClick={() => history.goBack()}
+      >
+        <svg
+          className={"h-5 w-5"}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 19l-7-7 7-7"
+          />
         </svg>
       </button>
       <div
@@ -217,7 +235,7 @@ const ProductDetails = () => {
       {/* Tabs Here */}
       <div
         className={
-          "text-gray-700 font-bold text-lg w-11/12 md:w-10/12 mx-auto mt-6 bg-white px-4 pt-2 pb-4 rounded-lg"
+          "text-gray-700 font-normal text-lg w-11/12 md:w-10/12 mx-auto mt-6 bg-white px-4 pt-2 pb-4 rounded-lg"
         }
       >
         <Tabs defaultActiveKey={"1"}>

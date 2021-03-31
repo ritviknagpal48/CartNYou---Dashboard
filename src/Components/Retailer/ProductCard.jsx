@@ -3,14 +3,14 @@ import { Checkbox, Tag, Button } from "antd";
 import { Link } from "react-router-dom";
 
 class ProductCard extends React.Component {
-
   render() {
     const productCard = this.props.ProductData;
+    console.log(this.props);
 
     return (
       <div
         className="product-card shadow-xl my-2 bg-white rounded cursor-pointer hover:shadow-2xl"
-        style={{ maxWidth: "260px" }}
+        style={{ maxWidth: "100%" }}
       >
         <div className="layout">
           <div
@@ -26,13 +26,20 @@ class ProductCard extends React.Component {
           >
             <Checkbox />
             <Tag
-              color={productCard.tagColor}
+              // color={productCard.tagColor}
               style={{ borderRadius: "4px", margin: "4px 0px" }}
             >
-              {productCard.categoryTag}
+              {productCard.category}
             </Tag>
           </div>
-          <Link to="/retailer/products/producyId">
+          {/* <Link to="/retailer/products/producyId"> */}
+          <Link
+            to={{
+              pathname: "/retailer/products/productId",
+              search: `?id=${productCard.id}+sku=${productCard.sku}`,
+              state: { detail: productCard },
+            }}
+          >
             <div
               className="image-layout"
               style={{
@@ -41,8 +48,16 @@ class ProductCard extends React.Component {
                 borderRadius: "4px 4px 0 0",
                 overflow: "hidden",
               }}
+              // onClick={() => {
+              //   this.props.history.push(`${productCard.sku}`);
+              // }}
             >
-              <img width="260px" src={productCard.image} alt="" />
+              <img
+                width="100%"
+                // style={{ height: "fit-content" }}
+                src={productCard.images[0].url}
+                alt=""
+              />
             </div>
 
             <div className="body" style={{ padding: "10px" }}>
@@ -74,7 +89,7 @@ class ProductCard extends React.Component {
                     //   padding: "8px 0px",
                   }}
                 >
-                  &#x20b9; {productCard.Price}
+                  &#x20b9; {productCard.price}
                 </span>
               </div>
             </div>
