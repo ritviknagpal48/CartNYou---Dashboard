@@ -9,10 +9,6 @@ import { MenuItems } from "Components/menuItemsRetailer";
 import Products from "Pages/Retailer/Products/Products";
 import ProductDetails from "Pages/Retailer/Products/ProductDetails";
 
-const DummyComponent = () => {
-  return <h1>Dummy Component for Route Handling</h1>;
-};
-
 const Home = () => {
   return (
     <div className={"flex flex-col min-h-full max-w-full"}>
@@ -27,7 +23,7 @@ const Home = () => {
           className={"flex-auto flex-shrink-0 flex-grow md:ml-20"}
           style={{ background: "#edf2f9" }}
         >
-          <Navbar />
+          <Navbar menuList={MenuItems} />
           <Switch>
             <Route
               path={["/retailer", "/retailer/"]}
@@ -37,7 +33,6 @@ const Home = () => {
             <PrivateRoute path={"/retailer/dashboard"} component={Dashboard} />
             <PrivateRoute path={"/retailer/products"} exact component={Products} />
             <PrivateRoute path={"/retailer/products/:id"} component={ProductDetails} />
-            <PrivateRoute path={'/retailer/*'} component={DummyComponent} />
           </Switch>
         </div>
       </div>

@@ -3,9 +3,8 @@ import clsx from "clsx";
 import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { MenuItems } from "./menuItems";
 
-const Navbar = () => {
+const Navbar = ({ menuList }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
@@ -39,7 +38,7 @@ const Navbar = () => {
               <div className="ml-4 flex items-center md:ml-6">
                 <button className="bg-gray-200 p-1 rounded-full text-gray-400 hover:text-gray-600 focus:outline-none ">
                   <span className="sr-only">View notifications</span>
-                  {/* <svg
+                  <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -53,7 +52,7 @@ const Navbar = () => {
                   >
                     <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                     <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                  </svg> */}
+                  </svg>
                 </button>
 
                 <div className="ml-3 relative">
@@ -162,7 +161,7 @@ const Navbar = () => {
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {
-              MenuItems.map(item => (
+              menuList.map(item => (
                 <Link
                   to={item.path}
                   className={clsx(

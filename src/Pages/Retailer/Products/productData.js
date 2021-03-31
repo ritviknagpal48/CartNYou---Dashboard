@@ -15,14 +15,7 @@ export const ProductData = [
       weight: "450 gms",
       dimensions: "8 x 7 x 10",
     },
-    variants: [
-      {
-        name: "Variant 1",
-        sku: "SKU-V-34234",
-        quantity: 43,
-        price: 153.25,
-      },
-    ],
+
     images: [
       {
         url:
@@ -64,6 +57,12 @@ export const ProductData = [
         quantity: 43,
         price: 153.25,
       },
+      {
+        name: "Variant 2",
+        sku: "SKU-V-23423",
+        quantity: 87,
+        price: 136.75,
+      },
     ],
     images: [
       {
@@ -73,12 +72,12 @@ export const ProductData = [
       },
       {
         url:
-          "https://images.unsplash.com/photo-1527632911563-ee5b6d53465b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+          "https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
         alt: "Alternate Text for the Image",
       },
       {
         url:
-          "https://images.unsplash.com/photo-1527632911563-ee5b6d53465b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+          "https://images.unsplash.com/photo-1598662972299-5408ddb8a3dc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
         alt: "Alternate Text for the Image",
       },
     ],

@@ -27,7 +27,7 @@ const Home = () => {
           className={"flex-auto flex-shrink-0 flex-grow md:pl-20"}
           style={{ background: "#edf2f9" }}
         >
-          <Navbar />
+          <Navbar menuList={MenuItems} />
           <Route
             path={"/wholeseller"}
             exact
