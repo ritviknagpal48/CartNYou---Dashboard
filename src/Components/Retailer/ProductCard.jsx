@@ -48,12 +48,13 @@ class ProductCard extends React.Component {
                 borderRadius: "4px 4px 0 0",
                 overflow: "hidden",
               }}
-              // onClick={() => {
-              //   this.props.history.push(`${productCard.sku}`);
-              // }}
+            // onClick={() => {
+            //   this.props.history.push(`${productCard.sku}`);
+            // }}
             >
               <img
                 width="100%"
+                className={'object-cover object-top'}
                 // style={{ height: "fit-content" }}
                 src={productCard.images[0].url}
                 alt=""
