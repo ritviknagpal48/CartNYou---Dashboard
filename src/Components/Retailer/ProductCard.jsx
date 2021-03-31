@@ -3,9 +3,6 @@ import { Checkbox, Tag, Button } from "antd";
 import { Link } from "react-router-dom";
 
 class ProductCard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const productCard = this.props.ProductData;

@@ -1,11 +1,11 @@
 import clsx from "clsx";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { ProductData } from "./productDataDetails";
 import { Tabs } from "antd";
 
 const classes = {
-  wrapper: "pr-4 md:pr-14 pl-4",
+  wrapper: "pr-2 md:pr-14 md:pl-4 pl-2 mb-8",
   header: "w-full py-3 flex flex-row items-center justify-between",
   title:
     "text-2xl text-gray-600  hidden md:block font-sans-apple-system md:flex flex-row",
@@ -44,14 +44,21 @@ const ProductDetails = () => {
     "long-description": longDescription,
   } = ProductData[1];
 
+  const history = useHistory()
+
   const [imageIndex, setImageIndex] = useState(0);
 
   return (
     <div className={classes.wrapper}>
       {/* Card Here */}
+      <button className={'m-4 px-3 py-3 text-gray-600 bg-white rounded-full shadow-lg focus:outline-none'} onClick={() => history.goBack()}>
+        <svg className={'h-5 w-5'} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
       <div
         className={
-          "bg-white grid grid-cols-12 grid-rows-6 w-10/12 mx-auto rounded-lg overflow-hidden px-4 py-4"
+          "bg-white grid grid-cols-6 md:grid-cols-12 row-auto md:grid-rows-6 w-11/12 md:w-10/12 mx-auto rounded-lg overflow-hidden px-4 py-4"
         }
       >
         <div
@@ -87,7 +94,7 @@ const ProductDetails = () => {
         </div>
         <div
           className={
-            "col-span-6 col-start-7 row-start-1 row-span-full text-gray-700 flex flex-col items-start justify-start"
+            "col-span-6 col-start-1 mt-8 md:mt-0 md:col-start-7 md:row-start-1 md:row-span-full text-gray-700 flex flex-col items-start justify-start"
           }
         >
           <span className={"text-xl font-semibold text-gray-800"}>{name}</span>
@@ -162,7 +169,7 @@ const ProductDetails = () => {
           >
             <button
               className={
-                "px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md w-5/12 mx-2 focus:outline-none ring-0 flex flex-row items-center justify-center"
+                "px-4 py-2 hover:bg-red-50 text-red-600 border border-red-600 rounded-md w-auto md:w-5/12 mx-2 focus:outline-none ring-0 flex flex-row items-center justify-center"
               }
             >
               <svg
@@ -183,7 +190,7 @@ const ProductDetails = () => {
             </button>
             <button
               className={
-                "px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md w-5/12 mx-2 focus:outline-none ring-0 flex flex-row items-center justify-center"
+                "px-4 py-2 hover:bg-gray-50 border-gray-600 border text-gray-600 rounded-md w-auto md:w-5/12 mx-2 focus:outline-none ring-0 flex flex-row items-center justify-center"
               }
             >
               <svg
@@ -210,7 +217,7 @@ const ProductDetails = () => {
       {/* Tabs Here */}
       <div
         className={
-          "text-gray-700 font-bold text-lg w-10/12 mx-auto mt-6 bg-white px-4 pt-2 pb-4"
+          "text-gray-700 font-bold text-lg w-11/12 md:w-10/12 mx-auto mt-6 bg-white px-4 pt-2 pb-4 rounded-lg"
         }
       >
         <Tabs defaultActiveKey={"1"}>
@@ -296,7 +303,7 @@ const ProductDetails = () => {
           </TabPane>
           <TabPane tab={"Product Description"} key={"3"}>
             <div
-              className={"text-sm font-normal flex-wrap text-gray-500 w-full"}
+              className={"text-sm font-normal flex-wrap text-gray-500 max-w-sm"}
             >
               {longDescription || description || "No Description Available"}
             </div>
