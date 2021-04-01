@@ -18,7 +18,7 @@ const ImportList = () => {
       <div className={classes.header} style={{ background: "#edf2f9" }}>
         <div className={classes.title}>Import List</div>
       </div>
-      <div className={'px-3 py-3 text-gray-700 bg-white rounded-md shadow-lg w-10/12'}>
+      <div className={'px-3 py-3 text-gray-700 bg-white rounded-md shadow-lg w-full'}>
         <div className={'flex flex-row text-sm text-gray-500 mb-2'}>
           <span className={'w-9/12'}>Product</span>
           <span className={'w-1/12 text-center'}>Quantity</span>

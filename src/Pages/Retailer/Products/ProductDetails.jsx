@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory, useParams, useLocation } from "react-router-dom";
 import { Tabs } from "antd";
 
@@ -29,7 +29,7 @@ const parseKey = (key) => {
 const ProductDetails = () => {
   const location = useLocation();
   // console.log(location.state.detail);
-  const { id } = useParams();
+  const { id, sku: paramSKU } = useParams();
   console.log(id);
   const {
     images,

@@ -7,10 +7,6 @@ const { Panel } = Collapse;
 const { Option } = Select;
 
 class ProductTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     searchText: "",
     searchedColumn: this.props.searchedColumn[0],
@@ -167,11 +163,11 @@ class ProductTable extends React.Component {
           dataSource={
             !!this.state.searchText
               ? data.filter((x) =>
-                  x[this.state.searchedColumn].toLowerCase().includes(
-                    this.state.searchText
-                    // lowerCaseSearchText
-                  )
+                x[this.state.searchedColumn].toLowerCase().includes(
+                  this.state.searchText
+                  // lowerCaseSearchText
                 )
+              )
               : data
           }
           size="small"
