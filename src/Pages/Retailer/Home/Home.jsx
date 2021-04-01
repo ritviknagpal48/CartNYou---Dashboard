@@ -8,6 +8,7 @@ import Dashboard from "Pages/Retailer/Dashboard/Dashboard";
 import { MenuItems } from "Components/menuItemsRetailer";
 import Products from "Pages/Retailer/Products/Products";
 import ProductDetails from "Pages/Retailer/Products/ProductDetails";
+import ImportList from "../ImportList/ImportList";
 
 const Home = () => {
   return (
@@ -33,6 +34,7 @@ const Home = () => {
             <PrivateRoute path={"/retailer/dashboard"} component={Dashboard} />
             <PrivateRoute path={"/retailer/products"} exact component={Products} />
             <PrivateRoute path={"/retailer/products/:id"} component={ProductDetails} />
+            <PrivateRoute path={"/retailer/import-list"} component={ImportList} />
           </Switch>
         </div>
       </div>
