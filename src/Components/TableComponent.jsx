@@ -44,7 +44,13 @@ class ProductTable extends React.Component {
   // }
 
   render() {
-    const { heading, data, searchedColumn, defaultSearchColumn } = this.props;
+    const {
+      heading,
+      data,
+      searchedColumn,
+      defaultSearchColumn,
+      isActiveSearch,
+    } = this.props;
 
     const columns = heading;
     const { selectedRowKeys } = this.state;
@@ -90,66 +96,70 @@ class ProductTable extends React.Component {
     return (
       <div className="w-full ">
         <div className="mb-2">
-          <Collapse
-            bordered={false}
-            defaultActiveKey={["0"]}
-            expandIcon={({ isActive }) => (
-              <SearchOutlined rotate={isActive ? 90 : 0} />
-            )}
-            className="site-collapse-custom-collapse "
-          >
-            <Panel
-              header="Search"
-              key="1"
-              className="site-collapse-custom-panel"
+          {isActiveSearch ? (
+            <Collapse
+              bordered={false}
+              defaultActiveKey={["0"]}
+              expandIcon={({ isActive }) => (
+                <SearchOutlined rotate={isActive ? 90 : 0} />
+              )}
+              className="site-collapse-custom-collapse "
             >
-              <div className="flex my-2">
-                <Select
-                  defaultValue={defaultSearchColumn}
-                  placeholder="Select Column"
-                  style={{ width: 150 }}
-                  onChange={this.handleChange}
-                >
-                  {searchedColumn.map((searchedColumn) => {
-                    return (
-                      <Option key={searchedColumn} value={searchedColumn}>
-                        {searchedColumn}
-                      </Option>
-                    );
-                  })}
-                  {/* <Option value="sku">SKU</Option> */}
-                  {/* <Option value="productInfo">Product Info</Option> */}
-                  {/* <Option value="admin">Admin Status</Option>
+              <Panel
+                header="Search"
+                key="1"
+                className="site-collapse-custom-panel"
+              >
+                <div className="flex my-2">
+                  <Select
+                    defaultValue={defaultSearchColumn}
+                    placeholder="Select Column"
+                    style={{ width: 150 }}
+                    onChange={this.handleChange}
+                  >
+                    {searchedColumn.map((searchedColumn) => {
+                      return (
+                        <Option key={searchedColumn} value={searchedColumn}>
+                          {searchedColumn}
+                        </Option>
+                      );
+                    })}
+                    {/* <Option value="sku">SKU</Option>
+                  <Option value="productInfo">Product Info</Option> */}
+                    {/* <Option value="admin">Admin Status</Option>
                   <Option value="method">Payment Method</Option>
                   <Option value="carrier">Carrier</Option>
                   <Option value="awb">AWB Number</Option> */}
-                </Select>
+                  </Select>
 
-                <Input
-                  placeholder={`Search by ${this.state.searchedColumn}`}
-                  onChange={(e) => {
-                    this.setState({
-                      searchText: e.target.value ? [e.target.value] : [],
-                    });
-                  }}
-                  // onPressEnter={() =>
-                  //   this.handleSearch(selectedKeys, confirm, dataIndex)
-                  // }
-                  value={this.state.searchText}
-                  className="inputSearchBox"
-                  style={{ marginLeft: "8px" }}
-                />
+                  <Input
+                    placeholder={`Search by ${this.state.searchedColumn}`}
+                    onChange={(e) => {
+                      this.setState({
+                        searchText: e.target.value ? [e.target.value] : [],
+                      });
+                    }}
+                    // onPressEnter={() =>
+                    //   this.handleSearch(selectedKeys, confirm, dataIndex)
+                    // }
+                    value={this.state.searchText}
+                    className="inputSearchBox"
+                    style={{ marginLeft: "8px" }}
+                  />
 
-                <Button
-                  danger
-                  style={{ marginLeft: "8px" }}
-                  onClick={() => this.setState({ searchText: [] })}
-                >
-                  Clear
-                </Button>
-              </div>
-            </Panel>
-          </Collapse>
+                  <Button
+                    danger
+                    style={{ marginLeft: "8px" }}
+                    onClick={() => this.setState({ searchText: [] })}
+                  >
+                    Clear
+                  </Button>
+                </div>
+              </Panel>
+            </Collapse>
+          ) : (
+            <></>
+          )}
         </div>
         <Table
           rowSelection={rowSelection}
@@ -157,11 +167,11 @@ class ProductTable extends React.Component {
           dataSource={
             !!this.state.searchText
               ? data.filter((x) =>
-                x[this.state.searchedColumn].toLowerCase().includes(
-                  this.state.searchText
-                  // lowerCaseSearchText
+                  x[this.state.searchedColumn].toLowerCase().includes(
+                    this.state.searchText
+                    // lowerCaseSearchText
+                  )
                 )
-              )
               : data
           }
           size="small"
@@ -176,7 +186,7 @@ ProductTable.defaultProps = {
   heading: ["Col 1", "Col 2", "Col 3", "Col 4"],
   data: ["Item 1", "Item 2", "Item 3", "Item 4"],
   searchedColumn: "Col 1",
-  defaultSearchColumn: 'Col 1'
+  defaultSearchColumn: "Col 1",
 };
 
 export default ProductTable;

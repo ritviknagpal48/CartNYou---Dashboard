@@ -320,7 +320,9 @@ const ProductDetails = () => {
           </TabPane>
           <TabPane tab={"Product Description"} key={"3"}>
             <div
-              className={"text-sm font-normal flex-wrap text-gray-500 max-w-sm md:max-w-full"}
+              className={
+                "text-sm font-normal flex-wrap text-gray-500 max-w-sm md:max-w-full"
+              }
             >
               {longDescription || description || "No Description Available"}
             </div>

@@ -8,6 +8,8 @@ import Dashboard from "Pages/Retailer/Dashboard/Dashboard";
 import { MenuItems } from "Components/menuItemsRetailer";
 import Products from "Pages/Retailer/Products/Products";
 import ProductDetails from "Pages/Retailer/Products/ProductDetails";
+import Shipment from "Pages/Retailer/Shipment/Shipment";
+import Orders from "Pages/Retailer/Orders/Orders";
 
 const Home = () => {
   return (
@@ -31,8 +33,17 @@ const Home = () => {
               component={() => <Redirect to={"/retailer/dashboard"} />}
             />
             <PrivateRoute path={"/retailer/dashboard"} component={Dashboard} />
-            <PrivateRoute path={"/retailer/products"} exact component={Products} />
-            <PrivateRoute path={"/retailer/products/:id"} component={ProductDetails} />
+            <PrivateRoute
+              path={"/retailer/products"}
+              exact
+              component={Products}
+            />
+            <PrivateRoute
+              path={"/retailer/products/:id"}
+              component={ProductDetails}
+            />
+            <PrivateRoute path={"/retailer/orders"} component={Orders} />
+            <PrivateRoute path={"/retailer/shipments"} component={Shipment} />
           </Switch>
         </div>
       </div>
