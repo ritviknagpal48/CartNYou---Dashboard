@@ -1,0 +1,20 @@
+.retailer-order-page
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  z-index: 1;
+  background: #ef4444 !important;
+  color: #fff !important;
+  border-color: #dc2626 !important;
+  padding: 0px 10px !important;
+}
+.retailer-order-page .ant-radio-button-wrapper:hover {
+  color: #fff !important;
+  position: relative;
+  background: #ef4444 !important;
+}
+
+.retailer-order-page
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+  background: #ef4444 !important;
+  padding: 0px 10px !important;
+  /* background-color: #1890ff; */
+}

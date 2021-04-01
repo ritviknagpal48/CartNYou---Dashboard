@@ -9,6 +9,9 @@ import { MenuItems } from "Components/menuItemsRetailer";
 import Products from "Pages/Retailer/Products/Products";
 import ProductDetails from "Pages/Retailer/Products/ProductDetails";
 import ImportList from "../ImportList/ImportList";
+import Shipment from "Pages/Retailer/Shipment/Shipment";
+import Orders from "Pages/Retailer/Orders/Orders";
+import Billing from "Pages/Retailer/BIlling/Billing";
 
 const Home = () => {
   return (
@@ -32,8 +35,19 @@ const Home = () => {
               component={() => <Redirect to={"/retailer/dashboard"} />}
             />
             <PrivateRoute path={"/retailer/dashboard"} component={Dashboard} />
-            <PrivateRoute path={"/retailer/products"} exact component={Products} />
-            <PrivateRoute path={"/retailer/products/:id"} component={ProductDetails} />
+            <PrivateRoute
+              path={"/retailer/products"}
+              exact
+              component={Products}
+            />
+            <PrivateRoute
+              path={"/retailer/products/:id"}
+              component={ProductDetails}
+            />
+            <PrivateRoute path={"/retailer/orders"} component={Orders} />
+            <PrivateRoute path={"/retailer/shipments"} component={Shipment} />
+            <PrivateRoute path={"/retailer/shipments"} component={Shipment} />
+            <PrivateRoute path={"/retailer/billing"} component={Billing} />
             <PrivateRoute path={"/retailer/import-list"} component={ImportList} />
           </Switch>
         </div>

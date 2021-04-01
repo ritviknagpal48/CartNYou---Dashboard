@@ -1,0 +1,26 @@
+.retailer-billing-page .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #fc573b !important;
+  font-weight: 500;
+}
+
+.ant-tabs-tab:hover {
+  color: #fc573b !important;
+}
+
+.retailer-billing-page
+  .shippingTable
+  .ant-table.ant-table
+  .ant-table-thead
+  > tr
+  > th {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #3f7e80 !important;
+}
+
+.retailer-billing-page
+  .ant-tabs-card.ant-tabs-top
+  > .ant-tabs-nav
+  .ant-tabs-tab {
+  color: #9ca3af !important;
+}
