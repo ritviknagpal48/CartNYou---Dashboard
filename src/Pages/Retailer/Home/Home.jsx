@@ -10,6 +10,7 @@ import Products from "Pages/Retailer/Products/Products";
 import ProductDetails from "Pages/Retailer/Products/ProductDetails";
 import Shipment from "Pages/Retailer/Shipment/Shipment";
 import Orders from "Pages/Retailer/Orders/Orders";
+import Billing from "Pages/Retailer/BIlling/Billing";
 
 const Home = () => {
   return (
@@ -44,6 +45,8 @@ const Home = () => {
             />
             <PrivateRoute path={"/retailer/orders"} component={Orders} />
             <PrivateRoute path={"/retailer/shipments"} component={Shipment} />
+            <PrivateRoute path={"/retailer/shipments"} component={Shipment} />
+            <PrivateRoute path={"/retailer/billing"} component={Billing} />
           </Switch>
         </div>
       </div>

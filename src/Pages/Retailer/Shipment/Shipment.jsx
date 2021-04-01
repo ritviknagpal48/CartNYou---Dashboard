@@ -20,7 +20,7 @@ const onClick = ({ key }) => {
   message.info(`Click on item ${key}`);
 };
 const menu = (
-  <Menu onClick={onClick}>
+  <Menu onClick={onClick} style={{ border: "1px solid #ebebeb" }}>
     <Menu.Item key="1">1st menu item</Menu.Item>
     <Menu.Item key="2">2nd menu item</Menu.Item>
     <Menu.Item key="3">3rd menu item</Menu.Item>
@@ -116,7 +116,7 @@ class Orders extends React.Component {
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-md shadow-xl">
+        <div className="bg-white  px-4 py-6  rounded-md shadow-xl">
           <div className="tabs-group pb-5">
             <Radio.Group value={size} onChange={this.handleSizeChange}>
               <Radio.Button value="all">All</Radio.Button>
@@ -133,7 +133,7 @@ class Orders extends React.Component {
               <Radio.Button value="dropdown">
                 <Dropdown overlay={menu}>
                   <a
-                    className="ant-dropdown-link"
+                    className="ant-dropdown-link hover:text-white"
                     style={{ display: "flex", alignItems: "center" }}
                     onClick={(e) => e.preventDefault()}
                   >

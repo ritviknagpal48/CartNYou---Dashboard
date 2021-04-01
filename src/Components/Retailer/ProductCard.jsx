@@ -48,13 +48,13 @@ class ProductCard extends React.Component {
                 borderRadius: "4px 4px 0 0",
                 overflow: "hidden",
               }}
-            // onClick={() => {
-            //   this.props.history.push(`${productCard.sku}`);
-            // }}
+              // onClick={() => {
+              //   this.props.history.push(`${productCard.sku}`);
+              // }}
             >
               <img
                 width="100%"
-                className={'object-cover object-top'}
+                className={"object-cover object-top"}
                 // style={{ height: "fit-content" }}
                 src={productCard.images[0].url}
                 alt=""
@@ -65,7 +65,7 @@ class ProductCard extends React.Component {
               <div
                 className="name text-gray-500"
                 style={{
-                  fontSize: "15px",
+                  fontSize: "14px",
                   // fontFamily: "poppins",
                   fontWeight: "500",
                   padding: "8px 0px 5px 0",
@@ -85,7 +85,7 @@ class ProductCard extends React.Component {
                 <span
                   className="text-gray-700"
                   style={{
-                    fontSize: "22px",
+                    fontSize: "18px",
                     fontWeight: "500",
                     //   padding: "8px 0px",
                   }}

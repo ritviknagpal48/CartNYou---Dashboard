@@ -138,7 +138,7 @@ class Orders extends React.Component {
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-md shadow-xl">
+        <div className="bg-white px-4 py-6  rounded-md shadow-xl">
           <div className="tabs-group pb-5">
             <Radio.Group value={size} onChange={this.handleSizeChange}>
               <Radio.Button value="all">All</Radio.Button>
