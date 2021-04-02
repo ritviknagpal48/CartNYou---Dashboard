@@ -10,6 +10,7 @@ import {
   Tabs,
   DatePicker,
   Select,
+  Descriptions,
   Space,
 } from "antd";
 import CODTableHeading from "./CODRemittanceIDHeading";
@@ -112,7 +113,51 @@ class Billing extends React.Component {
                   </span>
                 }
                 key="1"
-              ></TabPane>
+              >
+                <div className="text-right lg:w-2/3 md:w-full">
+                  <Descriptions
+                    labelStyle={{ color: "black" }}
+                    style={{
+                      background: "white",
+                      textAlign: "center",
+                      padding: "10px",
+                    }}
+                    title="Shipment Charges"
+                    bordered
+                    column={{ md: 1, sm: 1, xs: 1 }}
+                    // className=" "
+                  >
+                    <Descriptions.Item label="Shipment Charge (FWD)">
+                      ₹ 0<br />
+                      <span className="text-xs text-gray-400 ">
+                        (per 500 gm)
+                      </span>
+                    </Descriptions.Item>
+                    <Descriptions.Item label="COD Charge & Percent">
+                      {" "}
+                      ₹ 0.00 or 0%
+                      <br />
+                      <span className="text-xs text-gray-400 ">
+                        (whichever is higher)
+                      </span>
+                    </Descriptions.Item>
+                  </Descriptions>
+                  <span
+                    className="px-2.5 w-full text-xs text-gray-500"
+                    style={{ textAlign: "right" }}
+                  >
+                    *GST inclusive
+                  </span>
+                </div>
+
+                <div className="text-xs text-gray-500 p-3">
+                  <span className="text-xs text-gray-500">Note:</span>
+                  <br />
+                  RTO will be the same as forward shipment charge. <br />
+                  Processing and Packages fee will be applicable on all
+                  dispatched shipments.
+                </div>
+              </TabPane>
               <TabPane
                 tab={
                   <span className="flex  hover:text-red-400 ">
