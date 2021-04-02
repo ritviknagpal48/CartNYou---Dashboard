@@ -21,7 +21,9 @@ const Toolbar = ({
         <div className={classes.title}>{title}</div>
         <div className={classes.buttons}>
           {
-            actions && actions.map(({ onClick, name, icon: ActionIcon, redirect }) => {
+            !!actions &&
+            !!actions.length &&
+            actions.map(({ onClick, name, icon: ActionIcon, redirect }) => {
               if (typeof onClick === 'function') {
                 return (
                   <button
