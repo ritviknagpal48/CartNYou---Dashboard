@@ -18,7 +18,7 @@ class ProductCards extends React.Component {
 
   onSelectChange = (selectedRowKeys) => {
     this.setState({ selectedRowKeys });
-    console.log(this.state.selectedRowKeys)
+    console.log(this.state.selectedRowKeys);
   };
 
   handleReset = (clearFilters) => {
@@ -47,11 +47,11 @@ class ProductCards extends React.Component {
 
     const dataSource = !!this.state.searchText
       ? data.filter((x) =>
-        x[this.state.searchedColumn].toLowerCase().includes(
-          this.state.searchText
-          // lowerCaseSearchText
+          x[this.state.searchedColumn].toString().toLowerCase().includes(
+            this.state.searchText.toString().toLowerCase()
+            // lowerCaseSearchText
+          )
         )
-      )
       : data;
 
     // const rowSelection = {
@@ -158,13 +158,11 @@ class ProductCards extends React.Component {
             return (
               <div
                 className="bg-white my-2 text-gray-700 font-medium text-base px-4 py-4 rounded-xl shadow-lg grid grid-cols-4 gap-2 items-center md:justify-between w-full text-left md:flex md:flex-row"
-                style={{ color: "black" }}>
-                <div className={'flex flex-row items-center'}>
+                style={{ color: "black" }}
+              >
+                <div className={"flex flex-row items-center"}>
                   <Checkbox onChange={this.onChange}></Checkbox>
-                  <div
-                    className="card-detail ml-2"
-                    style={{ width: "50px" }}
-                  >
+                  <div className="card-detail ml-2" style={{ width: "50px" }}>
                     <div className="head-title">SKU</div>
                     <div className="title-body">{data.sku}</div>
                   </div>
@@ -201,12 +199,12 @@ class ProductCards extends React.Component {
                 </div>
                 <div className="action card-detail justify-self-center mx-auto md:mx-0 col-span-2">
                   <div className={"head-title"}>Actions</div>
-                  <Space size="middle" className={'flex flex-row items-center'}>
+                  <Space size="middle" className={"flex flex-row items-center"}>
                     <Tooltip placement="topLeft" title={"Edit Data"}>
                       <Button
                         shape="circle"
                         icon={<EditTwoTone twoToneColor="#b25000" />}
-                        className={'flex items-center justify-center'}
+                        className={"flex items-center justify-center"}
                       />
                     </Tooltip>
                     <Tooltip placement="topLeft" title={"Delete"}>

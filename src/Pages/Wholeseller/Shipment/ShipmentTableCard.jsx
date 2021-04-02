@@ -158,11 +158,14 @@ class ShipmentTableCard extends React.Component {
           dataSource={
             !!this.state.searchText
               ? data.filter((x) =>
-                x[this.state.searchedColumn].toLowerCase().includes(
-                  this.state.searchText
-                  // lowerCaseSearchText
+                  x[this.state.searchedColumn]
+                    .toString()
+                    .toLowerCase()
+                    .includes(
+                      this.state.searchText.toString().toLowerCase()
+                      // lowerCaseSearchText
+                    )
                 )
-              )
               : data
           }
           // size="small"
@@ -257,7 +260,7 @@ class ShipmentTableCard extends React.Component {
 ShipmentTableCard.defaultProps = {
   heading: ["Col 1", "Col 2", "Col 3", "Col 4"],
   data: ["Item 1", "Item 2", "Item 3", "Item 4"],
-  searchedColumn: "Col 1",
+  searchedColumn: ["Col 1"],
   defaultSearchColumn: "Col 1",
 };
 
