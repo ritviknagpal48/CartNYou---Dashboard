@@ -13,18 +13,20 @@ const classes = {
   menu_active: "text-red-400 hover:text-red-400",
   menu_normal: "text-gray-600 hover:text-red-400",
   tooltip_popup:
-    "px-4 py-2 bg-white rounded-md text-sm text-gray-600 font-medium shadow-lg w-max",
+    "px-4 py-2 bg-gray-600 rounded-md border border-gray-300 text-sm text-white font-medium shadow-xl w-max",
 };
 
 const Sidebar = ({ className, menuList }) => {
   const [activeMenu, setActiveMenu] = useState("");
 
-  const { user: { type } } = useContext(AuthContext)
+  const {
+    user: { type },
+  } = useContext(AuthContext);
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const s1 = pathname.replace(`/${type}/`, "")
-    const s2 = s1.split("/")[0]
+    const s1 = pathname.replace(`/${type}/`, "");
+    const s2 = s1.split("/")[0];
     const page = s2.replace("/", "");
     setActiveMenu(page);
   }, [pathname, type]);
@@ -37,10 +39,9 @@ const Sidebar = ({ className, menuList }) => {
         </div>
       </div>
       <div className={classes.wrapper_inner} id={"wrapper_inner"}>
-        {
-          menuList &&
+        {menuList &&
           menuList.length > 0 &&
-          menuList.map(item => (
+          menuList.map((item) => (
             <Link
               to={item.path}
               className={clsx(classes.menu_item, {
@@ -51,8 +52,7 @@ const Sidebar = ({ className, menuList }) => {
               {item.icon}
               <span className={classes.tooltip_popup}>{item.displayName}</span>
             </Link>
-          ))
-        }
+          ))}
       </div>
     </div>
   );

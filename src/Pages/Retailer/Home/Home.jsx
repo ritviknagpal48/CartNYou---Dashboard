@@ -13,6 +13,7 @@ import LiveList from "Pages/Retailer/LiveList/LiveList";
 import Shipment from "Pages/Retailer/Shipment/Shipment";
 import Orders from "Pages/Retailer/Orders/Orders";
 import Billing from "Pages/Retailer/BIlling/Billing";
+import Support from "Pages/Retailer/Support/Support";
 
 const Home = () => {
   return (
@@ -49,8 +50,12 @@ const Home = () => {
             <PrivateRoute path={"/retailer/shipments"} component={Shipment} />
             <PrivateRoute path={"/retailer/shipments"} component={Shipment} />
             <PrivateRoute path={"/retailer/billing"} component={Billing} />
-            <PrivateRoute path={"/retailer/import-list"} component={ImportList} />
+            <PrivateRoute
+              path={"/retailer/import-list"}
+              component={ImportList}
+            />
             <PrivateRoute path={"/retailer/live-list"} component={LiveList} />
+            <PrivateRoute path={"/retailer/support"} component={Support} />
           </Switch>
         </div>
       </div>
