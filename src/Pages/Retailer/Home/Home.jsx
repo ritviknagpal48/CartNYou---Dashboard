@@ -3,9 +3,9 @@ import { Redirect, Route, Switch } from "react-router";
 import Navbar from "Components/Navbar";
 import Sidebar from "Components/Sidebar";
 import PrivateRoute from "Components/PrivateRoute";
-import Dashboard from "Pages/Retailer/Dashboard/Dashboard";
-
 import { MenuItems } from "Components/menuItemsRetailer";
+
+import Dashboard from "Pages/Retailer/Dashboard/Dashboard";
 import Products from "Pages/Retailer/Products/Products";
 import ProductDetails from "Pages/Retailer/Products/ProductDetails";
 import ImportList from "Pages/Retailer/ImportList/ImportList";
