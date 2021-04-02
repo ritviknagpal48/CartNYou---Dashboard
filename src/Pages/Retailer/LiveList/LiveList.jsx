@@ -1,7 +1,7 @@
-import { message } from 'antd';
-import Toolbar from 'Components/Toolbar';
-import ImportListCard from "Pages/Retailer/ImportList/ImportListCard";
-import { ImportListData } from "./importListData";
+import { message } from "antd";
+import Toolbar from "Components/Toolbar";
+import LiveListCard from "Pages/Retailer/LiveList/LiveListCard";
+import { LiveListData } from "./LiveListData";
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4 ",
@@ -14,10 +14,10 @@ const classes = {
   button_title: "hidden md:block",
 };
 
-const ImportListActions = [
+const LiveListActions = [
   {
     onClick: () => {
-      message.success('List Cleared', 1)
+      message.success('List Cleared')
     },
     icon: (
       <svg className={classes.action_icons} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -28,24 +28,24 @@ const ImportListActions = [
   }
 ]
 
-const ImportList = () => {
+const LiveList = () => {
   return (
     <div className={classes.wrapper}>
-      <Toolbar title={'Import List'} actions={ImportListActions} />
+      <Toolbar title={'Live List'} actions={LiveListActions} />
       <div className={'px-3 py-3 text-gray-700 bg-white rounded-md shadow-lg w-full'}>
         <div className={'flex flex-row text-sm text-gray-500 mb-2'}>
           <span className={'w-9/12'}>Product</span>
           <span className={'w-1/12 text-center'}>Quantity</span>
-          <span className={'w-1/12 text-center'}>Amount</span>
-          <span className={'w-1/12 text-center'}>Actions</span>
+          {/* <span className={'w-1/12 text-center'}>Amount</span> */}
+          <span className={'w-2/12 text-center'}>Actions</span>
         </div>
         <div className={'w-full h-px bg-gray-200'} />
         {
-          ImportListData.map(ilistItem => <ImportListCard {...ilistItem} />)
+          LiveListData.map(ilistItem => <LiveListCard {...ilistItem} />)
         }
       </div>
     </div>
   )
 }
 
-export default ImportList
+export default LiveList

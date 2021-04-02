@@ -8,7 +8,8 @@ import Dashboard from "Pages/Retailer/Dashboard/Dashboard";
 import { MenuItems } from "Components/menuItemsRetailer";
 import Products from "Pages/Retailer/Products/Products";
 import ProductDetails from "Pages/Retailer/Products/ProductDetails";
-import ImportList from "../ImportList/ImportList";
+import ImportList from "Pages/Retailer/ImportList/ImportList";
+import LiveList from "Pages/Retailer/LiveList/LiveList";
 import Shipment from "Pages/Retailer/Shipment/Shipment";
 import Orders from "Pages/Retailer/Orders/Orders";
 import Billing from "Pages/Retailer/BIlling/Billing";
@@ -49,6 +50,7 @@ const Home = () => {
             <PrivateRoute path={"/retailer/shipments"} component={Shipment} />
             <PrivateRoute path={"/retailer/billing"} component={Billing} />
             <PrivateRoute path={"/retailer/import-list"} component={ImportList} />
+            <PrivateRoute path={"/retailer/live-list"} component={LiveList} />
           </Switch>
         </div>
       </div>
