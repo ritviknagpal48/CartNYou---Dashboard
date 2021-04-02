@@ -1,6 +1,6 @@
 import { skuGenerator } from "Contexts/utils";
 
-export const ImportListData = [
+export const LiveListData = [
   {
     sku: skuGenerator(),
     displayName: "Product #1",

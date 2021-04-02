@@ -13,7 +13,7 @@ const classes = {
   menu_active: "text-red-400 hover:text-red-400",
   menu_normal: "text-gray-600 hover:text-red-400",
   tooltip_popup:
-    "px-4 py-2 bg-white rounded-md text-sm text-gray-600 font-medium shadow-lg w-auto",
+    "px-4 py-2 bg-white rounded-md text-sm text-gray-600 font-medium shadow-lg w-max",
 };
 
 const Sidebar = ({ className, menuList }) => {
