@@ -1,5 +1,5 @@
 {
-  "name": "strapi-app",
+  "name": "newstrapi",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -11,25 +11,21 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "knex": "0.21.18",
-    "mongoose": "^5.12.2",
-    "sqlite3": "5.0.0",
     "strapi": "3.5.4",
     "strapi-admin": "3.5.4",
-    "strapi-connector-bookshelf": "3.5.4",
-    "strapi-connector-mongoose": "^3.5.4",
-    "strapi-plugin-content-manager": "3.5.4",
+    "strapi-utils": "3.5.4",
     "strapi-plugin-content-type-builder": "3.5.4",
+    "strapi-plugin-content-manager": "3.5.4",
+    "strapi-plugin-users-permissions": "3.5.4",
     "strapi-plugin-email": "3.5.4",
     "strapi-plugin-upload": "3.5.4",
-    "strapi-plugin-users-permissions": "3.5.4",
-    "strapi-utils": "3.5.4"
+    "strapi-connector-mongoose": "3.5.4"
   },
   "author": {
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "b6dc4f6d-651e-4e2f-a14f-4e799e570f3e"
+    "uuid": "8dce592b-8b11-47c8-8cf5-41d0f13d8d73"
   },
   "engines": {
     "node": ">=10.16.0 <=14.x.x",
