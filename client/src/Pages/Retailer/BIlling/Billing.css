@@ -1,0 +1,50 @@
+.retailer-billing-page .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #fc573b !important;
+  font-weight: 500;
+}
+
+.ant-tabs-tab:hover {
+  color: #fc573b !important;
+}
+
+.retailer-billing-page
+  .shippingTable
+  .ant-table.ant-table
+  .ant-table-thead
+  > tr
+  > th {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #3f7e80 !important;
+}
+
+.retailer-billing-page
+  .ant-tabs-card.ant-tabs-top
+  > .ant-tabs-nav
+  .ant-tabs-tab {
+  font-size: 14px !important;
+  color: #6b7280 !important;
+}
+
+.retailer-billing-page .ant-descriptions-header {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-top: 20px;
+  padding: 12px 20px !important;
+  background: #ffeae7 !important;
+  border-radius: 6px !important;
+  color: white !important;
+  /* border: 1px solid #fc573b !important; */
+}
+
+.retailer-billing-page .ant-descriptions-title {
+  overflow: hidden;
+  color: #fc573b !important;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 1.5715;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
