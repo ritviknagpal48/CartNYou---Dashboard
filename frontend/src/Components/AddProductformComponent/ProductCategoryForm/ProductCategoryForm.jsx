@@ -5,9 +5,23 @@ import productCategory from "../../productCategory";
 import "./ProductCategoryForm.css";
 
 import { RightOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const { Option } = Select;
 export class ProductCategoryForm extends Component {
+  state = {
+    categories: [],
+  };
+
+  componentDidMount() {
+    axios.get("http://localhost:1337/product-categories").then((res) => {
+      console.log("axios response", res);
+      this.setState({
+        categories: res.data,
+      });
+    });
+  }
+
   continue = (e) => {
     e.preventDefault();
     this.props.nextstep();
