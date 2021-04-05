@@ -59,9 +59,11 @@ class AddProductForm extends Component {
 
   nextstep = () => {
     const { step } = this.state;
-    this.setState({
-      step: parseInt(this.state.step) + 1,
-    });
+    if (parseInt(this.state.step) != 5) {
+      this.setState({
+        step: parseInt(this.state.step) + 1,
+      });
+    }
   };
 
   prevstep = () => {
@@ -106,7 +108,7 @@ class AddProductForm extends Component {
     e.preventDefault();
     // console.log("this si state data", this.state);
     axios
-      .post("http://localhost:1337/product-details", this.state)
+      .post("https://backend-cartnyou.herokuapp.com/product-details", this.state)
       .then(resp => {
         if (resp.status === 200) {
           message.success(`Product Added Successfully`);
@@ -191,10 +193,21 @@ class AddProductForm extends Component {
         activeKey={`${this.state.step}`}
         onChange={this.callback}
         tabBarExtraContent={
-          step === 5 ? <Button className="continue-form-button" onClick={this.submitHandler}>
-            Submit
+          this.state.step === 5 ?
+            <div className='flex'>
+              <Button
+                className="back-form-button"
+                style={{ marginRight: "10px" }}
+                onClick={this.prevstep}
+                disabled={step === 1 || step === 0}
+              >
+                <LeftOutlined />
+           Back
+        </Button>
+              <Button className="continue-form-button" onClick={this.submitHandler}>
+                Submit
           <RightOutlined />
-          </Button> :
+              </Button></div> :
             <div className='flex'>
               <Button
                 className="back-form-button"
