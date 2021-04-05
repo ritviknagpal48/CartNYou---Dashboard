@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, Redirect, useHistory, withRouter } from "react-router-dom";
 import clsx from "clsx";
 import { Spin, message } from "antd";
 
-import useAxios from "Contexts/useAxios";
+import { axiosInstance as axios } from "Contexts/useAxios";
 import { Tabs } from "antd";
 import ProductDetail from "./ProductDetail/productDetail";
 import VariantsDetails from "./VariantsDetails/variantsDetails";
