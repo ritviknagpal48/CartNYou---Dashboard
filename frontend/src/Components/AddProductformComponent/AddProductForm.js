@@ -55,9 +55,12 @@ class AddProductForm extends Component {
   }
 
   nextstep = () => {
-    this.setState({
-      step: parseInt(this.state.step) + 1,
-    });
+    const { step } = this.state;
+    if (parseInt(this.state.step) != 5) {
+      this.setState({
+        step: parseInt(this.state.step) + 1,
+      });
+    }
   };
 
   prevstep = () => {
@@ -194,14 +197,25 @@ class AddProductForm extends Component {
           console.log({ key, newStep, step: this.state.step });
         }}
         tabBarExtraContent={
-          step === 5 ? (
-            <Button
-              className="continue-form-button"
-              onClick={this.submitHandler}
-            >
-              Submit
-              <RightOutlined />
-            </Button>
+          this.state.step === 5 ? (
+            <div className="flex">
+              <Button
+                className="back-form-button"
+                style={{ marginRight: "10px" }}
+                onClick={this.prevstep}
+                disabled={step === 1 || step === 0}
+              >
+                <LeftOutlined />
+                Back
+              </Button>
+              <Button
+                className="continue-form-button"
+                onClick={this.submitHandler}
+              >
+                Submit
+                <RightOutlined />
+              </Button>
+            </div>
           ) : (
             <div className="flex">
               <Button

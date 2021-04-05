@@ -38,4 +38,5 @@ const useAxios = () => {
   return { axios: axiosInstance, isLoading, error };
 };
 
+export { axiosInstance };
 export default useAxios;

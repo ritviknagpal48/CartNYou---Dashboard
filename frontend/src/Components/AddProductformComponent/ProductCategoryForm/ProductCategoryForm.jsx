@@ -3,10 +3,9 @@ import React, { Component } from "react";
 import { Row, Form, Button, Select } from "antd";
 import productCategory from "../../productCategory";
 import "./ProductCategoryForm.css";
-
+import { axiosInstance } from "../../../Contexts/useAxios";
 import { RightOutlined } from "@ant-design/icons";
 import axios from "axios";
-
 const { Option } = Select;
 export class ProductCategoryForm extends Component {
   constructor(props) {
@@ -18,7 +17,7 @@ export class ProductCategoryForm extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:1337/product-categories").then((res) => {
+    axiosInstance.get("/product-categories").then((res) => {
       this.setState({
         categories: res.data,
       });

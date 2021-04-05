@@ -10,7 +10,7 @@ const DEFAULT_TEMPLATE = "SSSDDDDDD";
  * @returns SKU string in specified(or default) template
  */
 const skuGenerator = (template) => {
-  console.log({ template, DEFAULT_TEMPLATE });
+  // console.log({ template, DEFAULT_TEMPLATE });
 
   return (template || DEFAULT_TEMPLATE).replaceAll(/\w/g, (x) => {
     switch (x) {
