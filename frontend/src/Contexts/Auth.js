@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { createContext, useReducer } from "react";
+import useAxios from "./useAxios";
 
 const defaultState = {
   isLoggedIn: false,
@@ -27,7 +28,6 @@ export const USER_TYPES = {
 };
 
 export const AuthContext = createContext(defaultState);
-
 const authReducer = (state, action) => {
   switch (action.type) {
     case AUTH_ACTIONS.LOGIN:

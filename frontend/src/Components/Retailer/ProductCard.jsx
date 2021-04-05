@@ -5,12 +5,10 @@ import { Link } from "react-router-dom";
 class ProductCard extends React.Component {
   render() {
     const productCard = this.props.ProductData;
-    console.log(this.props);
 
     return (
       <div
-        className="product-card shadow-xl my-2 bg-white rounded cursor-pointer hover:shadow-2xl"
-        style={{ maxWidth: "100%" }}
+        className="product-card shadow-xl my-2 bg-white rounded cursor-pointer hover:shadow-2xl max-w-xs"
       >
         <div className="layout">
           <div
@@ -48,9 +46,9 @@ class ProductCard extends React.Component {
                 borderRadius: "4px 4px 0 0",
                 overflow: "hidden",
               }}
-              // onClick={() => {
-              //   this.props.history.push(`${productCard.sku}`);
-              // }}
+            // onClick={() => {
+            //   this.props.history.push(`${productCard.sku}`);
+            // }}
             >
               <img
                 width="100%"

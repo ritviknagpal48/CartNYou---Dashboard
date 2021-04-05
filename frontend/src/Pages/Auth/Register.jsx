@@ -49,7 +49,7 @@ const Register = ({ className }) => {
 
       message.success(`Welcome, ${user.username}`, 1);
       axios.defaults.headers = {
-        'authorization': `Bearer ${jwt}`
+        'Authorization': `Bearer ${jwt}`
       }
       setAuth(AUTH_ACTIONS.LOGIN, {
         isLoggedIn: true,
@@ -65,6 +65,8 @@ const Register = ({ className }) => {
         },
       })
       history.push(`/${payload.type}/dashboard`)
+    }).catch(err => {
+      message.error(err.message)
     });
   };
 
