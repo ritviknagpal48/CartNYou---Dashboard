@@ -30,50 +30,53 @@ export class otherDetails extends Component {
           className="form container"
           layout="vertical"
         >
-          <Row style={{ marginBottom: "30px" }}>
-            <Steps size="small" current={4} responsive={true}>
-              <Step title="General Details" />
-              <Step title="Variants Details" />
-              <Step title="Product Images" />
-              <Step title="Shipping Details" />
-              <Step title="Other Details" />
-            </Steps>
-          </Row>
 
-          <div class="grid grid-cols-1  gap-6  md:grid-cols-2">
-            <div class="flex flex-col items-start justify-center w-full ">
-              <Form.Item label="UPC" style={{ width: "100%" }}>
+          <div className="grid grid-cols-1  gap-6  md:grid-cols-2">
+            <div className="flex flex-col items-start justify-center w-full ">
+
+              <label className="pb-2">
+                UPC <span className="text-red-400">*</span>
+              </label>
+              <Form.Item style={{ width: "100%" }}>
                 <Input
                   placeholder="UPC"
-                  onChange={handlechange("UPC")}
-                  defaultValue={values.UPC}
+                  onChange={handlechange("upc_number")}
+                  defaultValue={values.upc_number}
                 />
               </Form.Item>
             </div>
 
-            <div class="flex flex-col items-start justify-center w-full ">
-              <Form.Item label="EAN" style={{ width: "100%" }}>
+            <div className="flex flex-col items-start justify-center w-full ">
+
+              <label className="pb-2">
+                EAN <span className="text-red-400">*</span>
+              </label>
+              <Form.Item style={{ width: "100%" }}>
                 <Input
                   placeholder="EAN"
-                  onChange={handlechange("EAN")}
-                  defaultValue={values.EAN}
+                  onChange={handlechange("ean_number")}
+                  defaultValue={values.ean_number}
                 />
               </Form.Item>
             </div>
           </div>
 
-          <div class="grid grid-cols-1  gap-6  md:grid-cols-2">
-            <div class="flex flex-col items-start justify-center w-full ">
-              <Form.Item label="HSN Code" style={{ width: "100%" }}>
+          <div className="grid grid-cols-1  gap-6  md:grid-cols-2">
+            <div className="flex flex-col items-start justify-center w-full ">
+
+              <label className="pb-2">
+                HSN Code <span className="text-red-400">*</span>
+              </label>
+              <Form.Item style={{ width: "100%" }}>
                 <Input
                   placeholder="HSN"
-                  onChange={handlechange("HSNcode")}
-                  defaultValue={values.HSNcode}
+                  onChange={handlechange("hsn_code")}
+                  defaultValue={values.hsn_code}
                 />
               </Form.Item>
             </div>
 
-            <div class="flex flex-col items-start justify-center w-full ">
+            {/* <div className="flex flex-col items-start justify-center w-full ">
               <Form.Item label="Tax Rates" style={{ width: "100%" }}>
                 <Input
                   placeholder="Tax Rate (GST)"
@@ -81,11 +84,11 @@ export class otherDetails extends Component {
                   defaultValue={values.TaxRate}
                 />
               </Form.Item>
-            </div>
+            </div> */}
           </div>
 
           <br />
-          <Row className="inline" style={{ justifyContent: "flex-end" }}>
+          {/* <Row className="inline" style={{ justifyContent: "flex-end" }}>
             <Button
               className="back"
               style={{ marginRight: "10px" }}
@@ -98,7 +101,7 @@ export class otherDetails extends Component {
               Continue
               <RightOutlined />
             </Button>
-          </Row>
+          </Row> */}
         </Form>
       </div>
     );

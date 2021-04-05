@@ -24,49 +24,52 @@ export class shippingDetails extends Component {
   render() {
     const { values, handlechange } = this.props;
     return (
-      <div className="container">
+      <div className="container shipping-charge-container">
         <Form
           onSubmit={this.continue}
           className="form container"
           layout="vertical"
         >
-          <Row style={{ marginBottom: "30px" }}>
-            <Steps size="small" current={3} responsive={true}>
-              <Step title="General Details" />
-              <Step title="Variants Details" />
-              <Step title="Product Images" />
-              <Step title="Shipping Details" />
-              <Step title="Other Details" />
-            </Steps>
-          </Row>
 
           <div
             // @ts-ignore
-            class="grid grid-cols-1  gap-6  md:grid-cols-2"
+            className="grid grid-cols-1  gap-6  md:grid-cols-2"
           >
             <div
               // @ts-ignore
-              class="flex flex-col items-start justify-center w-full "
+              className="flex flex-col items-start justify-center w-full "
             >
-              <Form.Item label="Shipping Charge (Rs)" style={{ width: "100%" }}>
-                <Input
+              <label className="pb-2">
+                Shipping Charge (Rs) <span className="text-red-400">*</span>
+              </label>
+              <Form.Item style={{ width: "100%" }}>
+                <input
+                  className="input-number"
+
+                  type="number"
                   placeholder="Shipping Charges"
                   min={1}
-                  defaultValue={values.ShippingCharge}
-                  onChange={handlechange("ShippingCharge (in Rs)")}
+                  defaultValue={values.shipping_charge}
+                  onChange={handlechange("shipping_charge (in Rs)")}
                 />
               </Form.Item>
             </div>
 
             <div
               // @ts-ignore
-              class="flex flex-col items-start justify-center w-full "
+              className="flex flex-col items-start justify-center w-full "
             >
-              <Form.Item label="Shipping Time (Days)" style={{ width: "100%" }}>
-                <Input
+              <label className="pb-2">
+                Shipping Time (Days) <span className="text-red-400">*</span>
+              </label>
+              <Form.Item style={{ width: "100%" }}>
+                <input
+                  className="input-number"
+                  min={1}
+                  type="number"
                   placeholder="Shipping Time (in days)"
-                  onChange={handlechange("ShippingTime")}
-                  defaultValue={values.ShippingTime}
+                  onChange={handlechange("shipping_time")}
+                  defaultValue={values.shipping_time}
                 />
               </Form.Item>
             </div>
@@ -74,66 +77,80 @@ export class shippingDetails extends Component {
 
           <div
             // @ts-ignore
-            class="grid grid-cols-1  gap-6  md:grid-cols-2"
+            className="grid grid-cols-1  gap-6  md:grid-cols-2"
           >
             <div
               // @ts-ignore
-              class="flex flex-col items-start justify-center w-full "
-            >
+              className="flex flex-col items-start justify-center w-full "
+            > <label className="pb-2">
+                Product Weight (grams) <span className="text-red-400">*</span>
+              </label>
               <Form.Item
-                label="Product Weight (grams)"
+
                 style={{ width: "100%" }}
               >
-                <Input
+                <input
+                  className="input-number"
+                  type="number"
+                  min={1}
                   placeholder="Product Weight (in grams)"
-                  onChange={handlechange("Weight")}
-                  defaultValue={values.Weight}
+                  onChange={handlechange("weight")}
+                  defaultValue={values.weight}
                 />
               </Form.Item>
             </div>
 
             <div
               // @ts-ignore
-              class="flex flex-col items-start justify-center w-full "
+              className="flex flex-col items-start justify-center w-full "
             >
               <label
                 // @ts-ignore
-                class="pb-2"
+                className="pb-2"
               >
-                Dimensions (in cm)
+                Dimensions (in cm) <span className="text-red-400">*</span>
               </label>
 
               <div
                 // @ts-ignore
-                class="flex flex-row"
+                className="flex flex-row"
               >
                 <Form.Item style={{ maxWidth: "140px" }}>
-                  <Input
+                  <input
+                    className="input-number"
+                    min={1}
+                    type="number"
                     placeholder="L"
-                    onChange={handlechange("DimensionLength")}
-                    defaultValue={values.DimensionLength}
+                    onChange={handlechange("dem_length")}
+                    defaultValue={values.dem_length}
                   />
                 </Form.Item>
 
                 <Form.Item style={{ maxWidth: "140px", margin: "0px 2px" }}>
-                  <Input
+                  <input
+                    className="input-number"
+                    min={1}
+                    type="number"
                     placeholder="B"
-                    onChange={handlechange("DimensionBreadth")}
-                    defaultValue={values.DimensionBreadth}
+                    onChange={handlechange("dem_breadth")}
+                    defaultValue={values.dem_breadth}
                   />
                 </Form.Item>
                 <Form.Item style={{ maxWidth: "140px" }}>
-                  <Input
+                  <input
+                    className="input-number"
+                    min={1}
+                    type="number"
                     placeholder="H"
-                    onChange={handlechange("DimensionHeight")}
-                    defaultValue={values.DimensionHeight}
+                    onChange={handlechange("dem_height")}
+                    defaultValue={values.dem_height}
                   />
                 </Form.Item>
               </div>
             </div>
           </div>
           <br />
-
+          {/* 
           <Row className="inline" style={{ justifyContent: "flex-end" }}>
             <Button
               className="back"
@@ -147,7 +164,7 @@ export class shippingDetails extends Component {
               Next
               <RightOutlined />
             </Button>
-          </Row>
+          </Row> */}
         </Form>
       </div>
     );

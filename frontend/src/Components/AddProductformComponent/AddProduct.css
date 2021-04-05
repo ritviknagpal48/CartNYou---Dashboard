@@ -40,7 +40,7 @@
   background-image: none !important;
   border: 1px solid #dce4ec !important;
   border-radius: 4px !important;
-  transition: all 0.3s !important;
+  transition: 0s !important;
 }
 
 .ant-input-number {
@@ -60,4 +60,53 @@
   background-color: #fff;
   border: 1px solid #dce4ec !important;
   border-radius: 4px !important;
+}
+
+.ant-tabs-tab {
+  color: #6b7280 !important;
+}
+.ant-tabs-tab :hover {
+  color: #ef4444 !important;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #ef4444 !important;
+  text-shadow: 0 0 0.25px currentColor;
+}
+
+.ant-tabs-ink-bar {
+  position: absolute;
+  background: #ef4444 !important;
+  border-radius: 4px !important;
+  pointer-events: none;
+}
+
+.continue-form-button {
+  background: #ef4444 !important;
+  color: white !important;
+  border-radius: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  border: 1px solid transparent !important;
+}
+
+.continue-form-button :hover {
+  border-color: transparent !important;
+}
+.back-form-button {
+  border-radius: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  background-color: #f8f7f7;
+  /* border-color: #f54444 !important; */
+}
+
+.ant-btn .continue-form-button :hover {
+  border-color: #f54444 !important;
+  color: white !important;
+}
+
+.back-form-button .ant-btn :hover {
+  border: 1px solid #ef4444 !important;
+  color: #ef4444 !important;
 }

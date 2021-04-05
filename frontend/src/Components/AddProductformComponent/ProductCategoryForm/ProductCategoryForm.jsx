@@ -9,13 +9,16 @@ import axios from "axios";
 
 const { Option } = Select;
 export class ProductCategoryForm extends Component {
-  state = {
-    categories: [],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: [],
+      selectedCategory: "",
+    };
+  }
 
   componentDidMount() {
     axios.get("http://localhost:1337/product-categories").then((res) => {
-      console.log("axios response", res);
       this.setState({
         categories: res.data,
       });
@@ -31,70 +34,82 @@ export class ProductCategoryForm extends Component {
     this.props.prevstep();
   };
 
-  onChange(value) {
-    console.log(`selected ${value}`);
-  }
+  onChange = (value) => {
+    // console.log(`selected ${value}`);
+    this.setState({
+      selectedCategory: value,
+    });
+  };
 
   onBlur() {
-    console.log("blur");
+    // console.log("blur");
   }
 
   onFocus() {
-    console.log("focus");
+    // console.log("focus");
   }
 
   onSearch(val) {
-    console.log("search:", val);
+    // console.log("search:", val);
   }
   render() {
+    const { categories, selectedCategory } = this.state;
+
+    const { values, handleValueChange } = this.props;
+    // console.log(this.props);
+
     return (
-      <div className="container">
+      <div className="container category-container">
         <Form
-          //   onSubmit={this.continue}
+          onSubmit={this.continue}
           className="form container"
           layout="vertical"
         >
-          <div className="grid grid-cols-1  gap-6  md:grid-cols-1">
-            <div className="flex flex-col items-start justify-center w-full ">
-              <label className="pb-2">Select Product Category </label>
-              <Select
-                showSearch
-                style={{ width: "100%" }}
-                placeholder="Select a category"
-                optionFilterProp="children"
-                onChange={this.onChange}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-                onSearch={this.onSearch}
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
-                  0
-                }
-              >
-                {productCategory.map((productCategory) => {
-                  return (
-                    <Option
-                      key={productCategory.key}
-                      value={productCategory.title}
-                    >
-                      {productCategory.title}
-                    </Option>
-                  );
-                })}
-                {/* <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="tom">Tom</Option> */}
-              </Select>
-            </div>
-            <br />
-
-            <Row className="inline" style={{ justifyContent: "flex-end" }}>
-              <Button className="continue" onClick={this.continue}>
-                Continue
-                <RightOutlined />
-              </Button>
-            </Row>
-          </div>
+          <Form.Item label="Select Product Category">
+            <Select
+              showSearch
+              style={{ width: "100%" }}
+              placeholder="Select a category"
+              optionFilterProp="children"
+              onChange={handleValueChange("category")}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              onSearch={this.onSearch}
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              allowClear
+            >
+              {categories ? (
+                categories.map((productCategory, index) => {
+                  if (
+                    productCategory.categoryName != "All" &&
+                    productCategory.categoryName != "Deals"
+                  ) {
+                    return (
+                      <Option key={index} value={productCategory.categoryName}>
+                        {productCategory.categoryName}
+                      </Option>
+                    );
+                  }
+                })
+              ) : (
+                <></>
+              )}
+            </Select>
+            {/* </div> */}
+          </Form.Item>
+          <Form.Item shouldUpdate>
+            <Button
+              type="primary"
+              className="continue-category-button"
+              onClick={this.continue}
+              disabled={values.category === ""}
+            >
+              Continue
+              <RightOutlined />
+            </Button>
+          </Form.Item>
         </Form>
       </div>
     );

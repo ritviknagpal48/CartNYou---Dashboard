@@ -19,26 +19,26 @@ export class confirm extends Component {
         // const { values, handlechange } = this.props;
         const {
             values: {
-                ProductName,
-                Brand,
+                product_name,
+                product_brand,
                 Description,
                 ProductMainSKU,
                 ProductTags,
-                CountryOfOrigin,
+                counrty_origin,
                 ProductSKU,
                 Quantity,
-                ProductMrp,
-                MPPrice,
+                product_mrp,
+                product_mp,
                 B2BPrice,
-                ShippingCharge,
-                ShippingTime,
-                DimensionHeight,
-                Weight,
-                DimensionLength,
-                DimensionBreadth,
-                UPC,
-                EAN,
-                HSNcode,
+                shipping_charge,
+                shipping_time,
+                dem_height,
+                weight,
+                dem_length,
+                dem_breadth,
+                upc_number,
+                ean_number,
+                hsn_code,
                 TaxRate,
             },
         } = this.props;
@@ -49,16 +49,16 @@ export class confirm extends Component {
                 <Row className="inline">
                     <Col md={7} offset={0}>
                         <label>Product Name</label>
-                        <h4>{ProductName}</h4>
+                        <h4>{product_name}</h4>
                     </Col>
                     <Col md={7}>
-                        <label>Brand</label>
-                        <h4>{Brand}</h4>
+                        <label>product_brand</label>
+                        <h4>{product_brand}</h4>
                     </Col>
-                    <Col md={6}>
+                    {/* <Col md={6}>
                         <label>Description</label>
                         <h4>{Description}</h4>
-                    </Col>
+                    </Col> */}
                 </Row>
                 <br />
                 <Row className="inline">
@@ -70,10 +70,10 @@ export class confirm extends Component {
                         <label>Product Tags</label>
                         <h4>{ProductTags}</h4>
                     </Col>
-                    <Col md={6}>
+                    {/* <Col md={6}>
                         <label>Country Of Origin</label>
-                        <h4>{CountryOfOrigin}</h4>
-                    </Col>
+                        <h4>{counrty_origin}</h4>
+                    </Col> */}
                 </Row>
                 <br />
                 <Row className="inline">
@@ -87,14 +87,14 @@ export class confirm extends Component {
                     </Col>
                     <Col md={6}>
                         <label>Product MRP</label>
-                        <h4>{ProductMrp}</h4>
+                        <h4>{product_mrp}</h4>
                     </Col>
                 </Row>
                 <br />
                 <Row className="inline">
                     <Col md={7}>
                         <label>MP Price</label>
-                        <h4>{MPPrice}</h4>
+                        <h4>{product_mp}</h4>
                     </Col>
                     <Col md={6}>
                         <label>B2B Price</label>
@@ -105,37 +105,37 @@ export class confirm extends Component {
                 <Row className="inline">
                     <Col md={7} offset={0}>
                         <label>Shipping Charge</label>
-                        <h4>{ShippingCharge}</h4>
+                        <h4>{shipping_charge}</h4>
                     </Col>
                     <Col md={7}>
                         <label>Shipping Time</label>
-                        <h4>{ShippingTime}</h4>
+                        <h4>{shipping_time}</h4>
                     </Col>
                     <Col md={6}>
                         <label>Dimension Length</label>
-                        <h4>{DimensionLength}</h4>
+                        <h4>{dem_length}</h4>
                     </Col>
                 </Row>
                 <br />
                 <Row className="inline">
                     <Col md={7} offset={0}>
-                        <label>Weight</label>
-                        <h4>{Weight}</h4>
+                        <label>weight</label>
+                        <h4>{weight}</h4>
                     </Col>
                     <Col md={7}>
-                        <label>UPC</label>
-                        <h4>{UPC}</h4>
+                        <label>upc_number</label>
+                        <h4>{upc_number}</h4>
                     </Col>
                     <Col md={6}>
-                        <label>EAN</label>
-                        <h4>{EAN}</h4>
+                        <label>ean_number</label>
+                        <h4>{ean_number}</h4>
                     </Col>
                 </Row>
                 <br />
                 <Row className="inline">
                     <Col md={7} offset={0}>
                         <label>HSN code</label>
-                        <h4>{HSNcode}</h4>
+                        <h4>{hsn_code}</h4>
                     </Col>
                     <Col md={7}>
                         <label>Tax Rate (GST)</label>
@@ -146,7 +146,7 @@ export class confirm extends Component {
                 <Row className="inline">
                     <Col md={7} offset={0}>
                         <label>Dimension height</label>
-                        <h4>{DimensionHeight}</h4>
+                        <h4>{dem_height}</h4>
                     </Col>
                     <Col md={6}>
                         <label></label>
@@ -154,17 +154,17 @@ export class confirm extends Component {
                     </Col>
                     <Col md={7}>
                         <label>Additional Information</label>
-                        <h4>{DimensionBreadth}</h4>
+                        <h4>{dem_breadth}</h4>
                     </Col>
                 </Row>
                 <br />
                 <br />
                 <Row className="inline" style={{ justifyContent: 'flex-end' }}>
-                    <Button className="back" style={{ marginRight: "10px" }}
+                    {/* <Button className="back" style={{ marginRight: "10px" }}
                         onClick={this.back}>
                         <LeftOutlined />
             Back
-          </Button>
+          </Button> */}
                     <Button className="continue" onClick={this.continue}>
                         Submit
             <RightOutlined />

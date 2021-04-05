@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "product_details",
   "info": {
-    "name": "ProductDetails"
+    "name": "ProductDetails",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -24,15 +25,7 @@
       "required": true,
       "unique": false
     },
-    "product_description": {
-      "type": "richtext",
-      "required": true
-    },
     "product_brand": {
-      "type": "string",
-      "required": true
-    },
-    "counrty_origin": {
       "type": "string",
       "required": true
     },
@@ -42,7 +35,7 @@
     },
     "product_status": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "product_mrp": {
       "required": true,
@@ -58,7 +51,7 @@
     },
     "admin_status": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "images": {
       "collection": "file",
@@ -103,6 +96,20 @@
     "hsn_code": {
       "type": "biginteger",
       "required": true
+    },
+    "sku": {
+      "type": "string"
+    },
+    "product_description": {
+      "type": "json",
+      "required": true
+    },
+    "category": {
+      "type": "json",
+      "required": true
+    },
+    "counrty_origin": {
+      "type": "json"
     }
   }
 }

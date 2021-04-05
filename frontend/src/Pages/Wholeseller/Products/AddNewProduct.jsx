@@ -28,8 +28,24 @@ class HeaderWithSideBar extends React.Component {
               <h3 className="text-3l font-semibold">Add New Product</h3>
               <Link
                 to="/wholeseller/products"
-                className={"text-sm font-medium text-gray-500"}
+                className={
+                  "text-sm  text-red-400  font-semibold flex hover:text-red-600"
+                }
               >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
                 Cancel
               </Link>
               {/* <button

@@ -87,9 +87,9 @@ export class ImageUpload extends Component {
     //   Signature,
     // } = this.props;
     return (
-      <div className="container">
+      <div className="container my-5">
         <Form onSubmit={this.continue} className="form container">
-          <Row style={{ marginBottom: "30px" }}>
+          {/* <Row style={{ marginBottom: "30px" }}>
             <Steps size="small" current={2} responsive={true}>
               <Step title="General Details" />
               <Step title="Variants Details" />
@@ -97,14 +97,14 @@ export class ImageUpload extends Component {
               <Step title="Shipping Details" />
               <Step title="Other Details" />
             </Steps>
-          </Row>
+          </Row> */}
 
           <div className="clearfix">
             <Form.Item label="Product Images">
               <Upload
                 action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                 listType="picture-card"
-                fileList={fileList}
+                // fileList={fileList}
                 onPreview={this.handlePreview}
                 onChange={this.handleChange}
               >
@@ -124,7 +124,7 @@ export class ImageUpload extends Component {
             </Form.Item>
           </div>
           <br />
-          <Row className="inline" style={{ justifyContent: "flex-end" }}>
+          {/* <Row className="inline" style={{ justifyContent: "flex-end" }}>
             <Button
               className="back"
               style={{ marginRight: "10px" }}
@@ -137,7 +137,7 @@ export class ImageUpload extends Component {
               Next
               <RightOutlined />
             </Button>
-          </Row>
+          </Row> */}
         </Form>
       </div>
     );

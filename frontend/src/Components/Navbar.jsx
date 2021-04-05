@@ -9,20 +9,20 @@ const Navbar = ({ menuList }) => {
   const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
 
-  const { user, setAuth } = useContext(AuthContext)
+  const { user, setAuth } = useContext(AuthContext);
 
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const s1 = pathname.replace("/app/", "")
-    const s2 = s1.split("/")[0]
+    const s1 = pathname.replace("/app/", "");
+    const s2 = s1.split("/")[0];
     const page = s2.replace("/", "");
     setActiveMenu(page);
   }, [pathname]);
 
   const signOut = () => {
-    setAuth(AUTH_ACTIONS.LOGOUT)
-  }
+    setAuth(AUTH_ACTIONS.LOGOUT);
+  };
 
   return (
     <div>
@@ -31,7 +31,11 @@ const Navbar = ({ menuList }) => {
           <div className="flex h-full items-center justify-between">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <img className="h-8 w-auto" src="/images/logo.png" alt="Workflow" />
+                <img
+                  className="h-8 w-auto"
+                  src="/images/logo.png"
+                  alt="Workflow"
+                />
               </div>
             </div>
             <div className="hidden md:block">
@@ -45,10 +49,10 @@ const Navbar = ({ menuList }) => {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="feather feather-bell align-middle"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-bell align-middle"
                   >
                     <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                     <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
@@ -77,8 +81,9 @@ const Navbar = ({ menuList }) => {
                     </button>
                   </div>
                   <div
-                    className={`origin-top-right absolute right-0 mt-2 w-48 rounded-md z-30 shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${isOpen ? "block" : "hidden"
-                      }`}
+                    className={`origin-top-right absolute right-0 mt-2 w-48 rounded-md z-30 shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${
+                      isOpen ? "block" : "hidden"
+                    }`}
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="user-menu"
@@ -129,9 +134,9 @@ const Navbar = ({ menuList }) => {
                   aria-hidden="true"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M4 6h16M4 12h16M4 18h16"
                   />
                 </svg>
@@ -144,9 +149,9 @@ const Navbar = ({ menuList }) => {
                   aria-hidden="true"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
@@ -156,23 +161,24 @@ const Navbar = ({ menuList }) => {
         </div>
 
         <div
-          className={clsx("block md:hidden bg-gray-700", { hidden: !isMainMenuOpen })}
+          className={clsx("block md:hidden bg-gray-700", {
+            hidden: !isMainMenuOpen,
+          })}
           id="mobile-menu"
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {
-              menuList.map(item => (
-                <Link
-                  to={item.path}
-                  className={clsx(
-                    "hover:bg-gray-700 text-gray-300 block px-3 py-2 rounded-md text-base font-medium",
-                    { "bg-gray-900 text-white": activeMenu === item.key }
-                  )}
-                >
-                  {item.displayName}
-                </Link>
-              ))
-            }
+            {menuList.map((item, index) => (
+              <Link
+                key={index}
+                to={item.path}
+                className={clsx(
+                  "hover:bg-gray-700 text-gray-300 block px-3 py-2 rounded-md text-base font-medium",
+                  { "bg-gray-900 text-white": activeMenu === item.key }
+                )}
+              >
+                {item.displayName}
+              </Link>
+            ))}
           </div>
           <div className="pt-4 pb-3 border-t border-gray-700">
             <div className="flex items-center px-5">
@@ -194,8 +200,19 @@ const Navbar = ({ menuList }) => {
                   {user.email}
                 </div>
               </div>
-              <svg className={clsx('h-5 w-5 ml-2', { 'rotate-180': isOpen })} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <svg
+                className={clsx("h-5 w-5 ml-2", { "rotate-180": isOpen })}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
               <button className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                 <span className="sr-only">View notifications</span>
@@ -209,8 +226,8 @@ const Navbar = ({ menuList }) => {
                 >
                   <path
                     strokeLinecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                   />
                 </svg>

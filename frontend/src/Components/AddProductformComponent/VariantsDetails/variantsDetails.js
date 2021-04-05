@@ -23,13 +23,13 @@ export class variantsDetails extends Component {
   render() {
     const { values, handlechange, handleNumberChange } = this.props;
     return (
-      <div className="container">
+      <div className="container varient-container">
         <Form
           onSubmit={this.continue}
           className="form container"
           layout="vertical"
         >
-          <Row style={{ marginBottom: "30px" }}>
+          {/* <Row style={{ marginBottom: "30px" }}>
             <Steps size="small" current={1} responsive={true}>
               <Step title="General Details" />
               <Step title="Variants Details" />
@@ -37,80 +37,99 @@ export class variantsDetails extends Component {
               <Step title="Shipping Details" />
               <Step title="Other Details" />
             </Steps>
-          </Row>
+          </Row> */}
 
-          <div class="flex justify-center items-start">
-            <Form.Item label="Product SKU" style={{ width: "100%" }}>
-              <Input
-                placeholder="Enter Product SKU"
-                onChange={handlechange("ProductSKU")}
-                defaultValue={values.ProductSKU}
-              />
-            </Form.Item>
+          <div className="flex justify-center items-start">
+
           </div>
 
-          <div class="grid grid-cols-1  gap-6  md:grid-cols-2">
-            <div class="flex flex-col items-start justify-center w-full ">
-              <Form.Item label="Quantity" style={{ width: "100%" }}>
-                <InputNumber
-                  min={1}
-                  defaultValue={1}
-                  onChange={handleNumberChange("Quantity")}
+          <div className="grid grid-cols-1  gap-6  md:grid-cols-2">
+            <div className="flex flex-col items-start justify-center w-full ">
+
+              <label className="pb-2">
+                Product SKU <span className="text-red-400">*</span>
+              </label>
+              <Form.Item style={{ width: "100%" }}>
+                <Input
+                  placeholder="Enter Product SKU"
+                  onChange={handlechange("sku")}
+                  defaultValue={values.sku}
                 />
               </Form.Item>
             </div>
 
-            <div class="flex flex-col items-start justify-center w-full ">
-              <Form.Item label="Product MRP" style={{ width: "100%" }}>
-                <InputNumber
+            <div className="flex flex-col items-start justify-center w-full ">
+
+              <label className="pb-2">
+                Quantity <span className="text-red-400">*</span>
+              </label>
+              <Form.Item style={{ width: "100%" }}>
+                <input type="number"
+                  className="input-number"
+                  min={1}
+                  placeholder="Quantity"
+                  defaultValue={values.qunatity}
+                  onChange={handlechange("qunatity")}
+                />
+              </Form.Item>
+            </div>
+          </div>
+          <div className="grid grid-cols-1  gap-6  md:grid-cols-2">
+            <div className="flex flex-col items-start justify-center w-full ">
+
+              <label className="pb-2">
+                Product MRP <span className="text-red-400">*</span>
+              </label>
+              <Form.Item style={{ width: "100%" }}>
+                <input type="number"
+                  className="input-number"
+
                   placeholder="MRP"
                   min={1}
-                  defaultValue={values.ProductMrp}
-                  onChange={handleNumberChange("Quantity")}
+                  defaultValue={values.product_mrp}
+                  onChange={handlechange("product_mrp")}
+                />
+              </Form.Item>
+            </div>
+
+            <div className="flex flex-col items-start justify-center w-full ">
+
+              <label className="pb-2">
+                MP Price <span className="text-red-400">*</span>
+              </label>
+              <Form.Item style={{ width: "100%" }}>
+                <input
+                  className="input-number"
+
+                  type="number"
+                  placeholder="Product MP Price"
+                  min={1}
+                  defaultValue={values.product_mp}
+                  onChange={handlechange("product_mp")}
                 />
               </Form.Item>
             </div>
           </div>
 
           <div className="grid grid-cols-1  gap-6  md:grid-cols-2">
-            <div class="flex flex-col items-start justify-center w-full ">
-              <Form.Item label="MP Price" style={{ width: "100%" }}>
-                <InputNumber
-                  placeholder="Product MP Price"
-                  min={1}
-                  defaultValue={values.MPPrice}
-                  onChange={handleNumberChange("Quantity")}
-                />
-              </Form.Item>
+            <div className="flex flex-col items-start justify-center w-full ">
+
             </div>
 
-            <div class="flex flex-col items-start justify-center w-full ">
+            {/* <div className="flex flex-col items-start justify-center w-full ">
               <Form.Item label="B2B Price" style={{ width: "100%" }}>
                 <InputNumber
                   placeholder="B2B Price"
                   min={1}
                   defaultValue={values.B2BPrice}
-                  onChange={handleNumberChange("Quantity")}
+                  onChange={handleNumberChange("qunatity")}
                 />
               </Form.Item>
-            </div>
+            </div> */}
           </div>
 
           <br />
-          <Row className="inline" style={{ justifyContent: "flex-end" }}>
-            <Button
-              className="back"
-              style={{ marginRight: "10px" }}
-              onClick={this.back}
-            >
-              <LeftOutlined />
-              Back
-            </Button>
-            <Button className="continue" onClick={this.continue}>
-              Next
-              <RightOutlined />
-            </Button>
-          </Row>
+
         </Form>
       </div>
     );

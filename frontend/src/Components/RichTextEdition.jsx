@@ -9,7 +9,6 @@ class Richtexteditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = { text: "" }; // You can also pass a Quill Delta here
-    this.handleChange = this.handleChange.bind(this);
   }
 
   modules = {
@@ -48,19 +47,21 @@ class Richtexteditor extends React.Component {
     "background",
   ];
 
-  handleChange(value) {
-    this.setState({ text: value });
-  }
+  // handleChange(value) {
+  //   this.setState({ text: value });
+  // }
 
   render() {
+    const { values, handleValueChange } = this.props;
+
     return (
       <ReactQuill
         theme="snow"
         modules={this.modules}
         formats={this.formats}
         style={{ width: "100%" }}
-        value={this.state.text}
-        onChange={this.handleChange}
+        // value={values.product_description}
+        onChange={handleValueChange("product_description")}
       />
     );
   }

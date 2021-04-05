@@ -41,8 +41,9 @@ const Sidebar = ({ className, menuList }) => {
       <div className={classes.wrapper_inner} id={"wrapper_inner"}>
         {menuList &&
           menuList.length > 0 &&
-          menuList.map((item) => (
+          menuList.map((item, index) => (
             <Link
+              key={index}
               to={item.path}
               className={clsx(classes.menu_item, {
                 [classes.menu_active]: activeMenu === item.key,
