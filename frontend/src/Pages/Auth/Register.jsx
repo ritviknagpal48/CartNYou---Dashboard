@@ -43,7 +43,7 @@ const Register = ({ className }) => {
     const { confirm, password } = payload
     if (confirm !== password) return message.error("Passwords do not match", 1);
 
-    axios.post("http://localhost:1337/auth/local/register", payload).then(res => {
+    axios.post("/auth/local/register", payload).then(res => {
       if (!res.data) return message.error(`Could not Complete registration. Please try again.`)
       const { jwt, user } = res.data;
 

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import axios from "axios"
+import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, Redirect, useHistory, withRouter } from "react-router-dom";
 import clsx from "clsx";
 import { Spin, message } from "antd";
 
 import useAxios from "Contexts/useAxios";
-import { Tabs } from 'antd';
+import { Tabs } from "antd";
 import ProductDetail from "./ProductDetail/productDetail";
 import VariantsDetails from "./VariantsDetails/variantsDetails";
 import ImageUpload from "./ImageUploadForm/imageUpload";
@@ -16,12 +16,10 @@ import Confirm from "./Confirm/confirm";
 import Success from "./Success/success";
 import { Row, Form, Input, Button } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import ProductCategoryForm from "./ProductCategoryForm/ProductCategoryForm"
+import ProductCategoryForm from "./ProductCategoryForm/ProductCategoryForm";
 import "./AddProduct.css";
 
 const { TabPane } = Tabs;
-
-
 
 class AddProductForm extends Component {
   constructor(props) {
@@ -53,19 +51,16 @@ class AddProductForm extends Component {
       product_status: "",
       TaxRate: "",
       Photo: "",
-    }
+    };
   }
 
-
   nextstep = () => {
-    const { step } = this.state;
     this.setState({
       step: parseInt(this.state.step) + 1,
     });
   };
 
   prevstep = () => {
-    const { step } = this.state;
     this.setState({
       step: parseInt(this.state.step) - 1,
     });
@@ -91,32 +86,27 @@ class AddProductForm extends Component {
     });
   };
 
-
   callback = (key) => {
     this.setState({
       step: key,
     });
-
-  }
-
+  };
 
   submitHandler = (e) => {
-
-
     e.preventDefault();
     // console.log("this si state data", this.state);
     axios
-      .post("http://localhost:1337/product-details", this.state)
-      .then(resp => {
+      .post("/product-details", this.state)
+      .then((resp) => {
         if (resp.status === 200) {
           message.success(`Product Added Successfully`);
           window.location = "/wholeseller/products";
         }
       })
-      .catch(error => {
+      .catch((error) => {
         message.error(`Please fill all the required fields`);
-      })
-  }
+      });
+  };
 
   render() {
     const { step } = this.state;
@@ -172,10 +162,13 @@ class AddProductForm extends Component {
     };
 
     if (step === 0) {
-      return <ProductCategoryForm
-        nextstep={this.nextstep}
-        handleValueChange={this.handleValueChange}
-        values={values} />
+      return (
+        <ProductCategoryForm
+          nextstep={this.nextstep}
+          handleValueChange={this.handleValueChange}
+          values={values}
+        />
+      );
     }
 
     // if (step === 6) {
@@ -187,15 +180,30 @@ class AddProductForm extends Component {
     //   />
     // }
     return (
-      <Tabs defaultActiveKey={1}
+      <Tabs
+        defaultActiveKey={"1"}
         activeKey={`${this.state.step}`}
         onChange={this.callback}
+        onTabClick={(key) => {
+          const newStep = parseInt(key);
+          if (newStep > 0) {
+            this.setState({ step: newStep });
+          } else {
+            this.setState({ step: 1 });
+          }
+          console.log({ key, newStep, step: this.state.step });
+        }}
         tabBarExtraContent={
-          step === 5 ? <Button className="continue-form-button" onClick={this.submitHandler}>
-            Submit
-          <RightOutlined />
-          </Button> :
-            <div className='flex'>
+          step === 5 ? (
+            <Button
+              className="continue-form-button"
+              onClick={this.submitHandler}
+            >
+              Submit
+              <RightOutlined />
+            </Button>
+          ) : (
+            <div className="flex">
               <Button
                 className="back-form-button"
                 style={{ marginRight: "10px" }}
@@ -203,15 +211,17 @@ class AddProductForm extends Component {
                 disabled={step === 1 || step === 0}
               >
                 <LeftOutlined />
-               Back
-            </Button>
+                Back
+              </Button>
               <Button className="continue-form-button" onClick={this.nextstep}>
                 Next
-              <RightOutlined />
+                <RightOutlined />
               </Button>
-            </div>}>
-
-        <TabPane tab="General Details" key="1" >
+            </div>
+          )
+        }
+      >
+        <TabPane tab="General Details" key="1">
           <ProductDetail
             nextstep={this.nextstep}
             handlechange={this.handlechange}
@@ -220,7 +230,7 @@ class AddProductForm extends Component {
           />
         </TabPane>
 
-        <TabPane tab="Varient Details" key="2" >
+        <TabPane tab="Varient Details" key="2">
           <VariantsDetails
             nextstep={this.nextstep}
             prevstep={this.prevstep}

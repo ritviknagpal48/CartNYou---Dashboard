@@ -40,7 +40,7 @@ const Login = ({ className }) => {
   const signIn = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:1337/auth/local', {
+    axios.post('/auth/local', {
       identifier: username,
       password: password
     }).then(res => {
