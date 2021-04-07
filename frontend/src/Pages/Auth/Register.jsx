@@ -89,13 +89,29 @@ const Register = ({ className }) => {
           </div>
           <div>
             <label htmlFor="full-name" className="sr-only">
-              Username
+              Fullname
             </label>
             <input
               id="full-name"
               name="fullname"
               type="text"
-              autoComplete="name"
+              autoComplete="fullname"
+              required
+              className={classes.input}
+              placeholder="Fullname"
+              value={payload.fullname}
+              onChange={e => setPayload(p => ({ ...p, fullname: e.target.value }))}
+            />
+          </div>
+          <div>
+            <label htmlFor="full-name" className="sr-only">
+              Username
+            </label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              autoComplete="username"
               required
               className={classes.input}
               placeholder="Username"
@@ -117,6 +133,23 @@ const Register = ({ className }) => {
               placeholder="Email address"
               value={payload.email}
               onChange={e => setPayload(p => ({ ...p, email: e.target.value }))}
+            />
+          </div>
+          <div>
+            <label htmlFor="email-address" className="sr-only">
+              Mobile
+            </label>
+            <input
+              id="mobile"
+              name="mobile"
+              type="text"
+              maxLength={13}
+              autoComplete="mobile"
+              required
+              className={classes.input}
+              placeholder="Mobile Number"
+              value={payload.mobile}
+              onChange={e => setPayload(p => ({ ...p, mobile: e.target.value }))}
             />
           </div>
           <div>
