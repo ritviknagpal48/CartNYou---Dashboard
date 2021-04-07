@@ -42,7 +42,7 @@ const Products = () => {
   };
 
   useEffect(() => {
-    axios.get('/products').then(res => {
+    axios.get('/product-details').then(res => {
       if (!res.data) return message.error('Could not load products.', 1)
       message.info('Product List loaded in console.', 1)
       console.log(res.data)

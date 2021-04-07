@@ -20,6 +20,7 @@ export const AUTH_ACTIONS = {
   LOGOUT: "auth-logout",
   UPDATE: "auth-update",
   VALIDATE: "auth-validate",
+  REMOVE_LOCAL: "auth-remove-local",
 };
 
 export const USER_TYPES = {
@@ -45,6 +46,10 @@ const authReducer = (state, action) => {
       return { ...state, ...action.payload };
 
     case AUTH_ACTIONS.VALIDATE:
+      return state;
+
+    case AUTH_ACTIONS.REMOVE_LOCAL:
+      localStorage.removeItem(process.env.REACT_APP_AUTH_KEY);
       return state;
 
     default:

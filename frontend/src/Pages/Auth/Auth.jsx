@@ -1,6 +1,7 @@
 import { AuthContext } from 'Contexts/Auth'
 import { useContext } from 'react'
 import { Redirect, Route } from 'react-router-dom'
+import GoogleCallback from './GoogleCallback'
 import Login from "./Login"
 import Register from "./Register"
 
@@ -25,6 +26,9 @@ const Auth = () => {
       </Route>
       <Route path={'/auth/register'} >
         <Register className={classes.form} />
+      </Route>
+      <Route path={'/auth/callback/google'} >
+        <GoogleCallback className={classes.form} />
       </Route>
     </div>
   )
