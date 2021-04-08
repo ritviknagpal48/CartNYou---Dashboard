@@ -34,8 +34,7 @@ const Login = ({ className }) => {
   const [userType, setUserType] = useState("wholeseller")
   const [password, setPassword] = useState("")
   const [username, setUsername] = useState("")
-
-  const rememberMeRef = useRef()
+  const [rememberMe, setRememberMe] = useState(false)
 
   const { axios, isLoading } = useAxios()
 
@@ -85,7 +84,9 @@ const Login = ({ className }) => {
         },
       })
 
-      if (!rememberMeRef.current.target.checked) {
+      console.log(rememberMe)
+
+      if (!rememberMe) {
         setAuth(AUTH_ACTIONS.REMOVE_LOCAL);
       }
       message.success(`Welcome Back, ${user.username}`, 1)
@@ -145,7 +146,7 @@ const Login = ({ className }) => {
             />
           </div>
           <div className={classes.remember_me}>
-            <input ref={rememberMeRef} type="checkbox" name="remember-me" id="remember-me" className={'mr-1 text-red-500 border-red-500'} />
+            <input type="checkbox" name="remember-me" id="remember-me" className={'mr-1 text-red-500 border-red-500'} onChange={(e) => setRememberMe(e.target.checked)} />
             <label htmlFor="remember-me">Remember Me</label>
           </div>
           <button
