@@ -50,5 +50,20 @@
 }
 
 .ant-switch-checked {
-  background-color: rgb(100, 210, 255) !important;
+  background-color: #f74343 !important;
+}
+
+.ant-modal-footer .ant-btn + .ant-btn {
+  margin-bottom: 0;
+  margin-left: 8px;
+  border-radius: 6px;
+  background-color: #ef4444;
+  color: white;
+  border-color: #ef4444;
+  margin-right: 10px;
+}
+.ant-modal-footer .ant-btn {
+  margin-bottom: 0;
+  margin-left: 8px;
+  border-radius: 6px;
 }

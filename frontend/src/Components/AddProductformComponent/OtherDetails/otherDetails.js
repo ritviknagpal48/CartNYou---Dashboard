@@ -1,16 +1,7 @@
-// @ts-nocheck
+
 import React, { Component } from "react";
-
-import { Row, Form, Input, Button } from "antd";
+import { Form, Input } from "antd";
 import "./otherDetails.css";
-
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-
-import { Steps } from "antd";
-
-const { Step } = Steps;
-
-// const { Option } = Select;
 
 export class otherDetails extends Component {
   continue = (e) => {
@@ -88,20 +79,7 @@ export class otherDetails extends Component {
           </div>
 
           <br />
-          {/* <Row className="inline" style={{ justifyContent: "flex-end" }}>
-            <Button
-              className="back"
-              style={{ marginRight: "10px" }}
-              onClick={this.back}
-            >
-              <LeftOutlined />
-              Back
-            </Button>
-            <Button className="continue" onClick={this.continue}>
-              Continue
-              <RightOutlined />
-            </Button>
-          </Row> */}
+
         </Form>
       </div>
     );

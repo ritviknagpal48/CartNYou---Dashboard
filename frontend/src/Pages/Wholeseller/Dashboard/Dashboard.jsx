@@ -37,9 +37,9 @@ const Dashboard = () => {
                 <path
                   d="M18 15L12 9L6 15"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
               </svg>
               14%
@@ -72,9 +72,9 @@ const Dashboard = () => {
                 <path
                   d="M6 9L12 15L18 9"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
               </svg>
               5%
@@ -108,9 +108,9 @@ const Dashboard = () => {
                 <path
                   d="M18 15L12 9L6 15"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
               </svg>
               8%
@@ -145,9 +145,9 @@ const Dashboard = () => {
                 <path
                   d="M18 15L12 9L6 15"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
               </svg>
               20%

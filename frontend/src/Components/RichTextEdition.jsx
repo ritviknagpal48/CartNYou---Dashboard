@@ -53,6 +53,12 @@ class Richtexteditor extends React.Component {
 
   render() {
     const { values, handleValueChange } = this.props;
+    const description =
+      values && values.product_description && values.product_description.value
+        ? values.product_description.value
+        : values.product_description;
+    // console.log("values desc: ", values.product_description);
+    // console.log("only: ", description);
 
     return (
       <ReactQuill
@@ -60,6 +66,7 @@ class Richtexteditor extends React.Component {
         modules={this.modules}
         formats={this.formats}
         style={{ width: "100%" }}
+        defaultValue={description}
         // value={values.product_description}
         onChange={handleValueChange("product_description")}
       />

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { Row, Col, Button } from "antd";
 import "./confirm.css";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { RightOutlined } from "@ant-design/icons";
 
 // const { Option } = Select;
 
@@ -21,10 +21,10 @@ export class confirm extends Component {
             values: {
                 product_name,
                 product_brand,
-                Description,
+                // Description,
                 ProductMainSKU,
                 ProductTags,
-                counrty_origin,
+                // counrty_origin,
                 ProductSKU,
                 Quantity,
                 product_mrp,

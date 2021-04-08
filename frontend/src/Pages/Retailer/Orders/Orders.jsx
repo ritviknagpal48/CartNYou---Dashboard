@@ -3,7 +3,6 @@ import { Radio } from "antd";
 import OrderTableHeading from "./orderTableHeading";
 import TableComponent from "../../../Components/TableComponent";
 import { OrdersMenuButton } from "./OrdersMenuButton";
-import { message } from "antd";
 import Toolbar from "Components/Toolbar";
 import "./Orders.css";
 
@@ -27,7 +26,6 @@ class Orders extends React.Component {
 
   handleSizeChange = (e) => {
     this.setState({ size: e.target.value });
-    console.log(this.state.size);
   };
 
   render() {

@@ -1,88 +1,33 @@
 // @ts-nocheck
 import React, { Component } from "react";
-
-import { Row, Form, Input, Button } from "antd";
+import { Form } from "antd";
 import "./shippingDetails.css";
 
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-
-import { Steps } from "antd";
-
-const { Step } = Steps;
-
-// const { Option } = Select;
-
 export class shippingDetails extends Component {
+
   continue = (e) => {
     e.preventDefault();
     this.props.nextstep();
   };
+
   back = (e) => {
     e.preventDefault();
     this.props.prevstep();
   };
+
   render() {
     const { values, handlechange } = this.props;
     return (
       <div className="container shipping-charge-container">
+        <br />
         <Form
           onSubmit={this.continue}
           className="form container"
           layout="vertical"
         >
-
-          <div
-            // @ts-ignore
-            className="grid grid-cols-1  gap-6  md:grid-cols-2"
-          >
-            <div
-              // @ts-ignore
-              className="flex flex-col items-start justify-center w-full "
-            >
+          <div className="grid grid-cols-1 gap-6  gap-y-2  md:grid-cols-2">
+            <div className="flex flex-col items-start justify-center w-full ">
               <label className="pb-2">
-                Shipping Charge (Rs) <span className="text-red-400">*</span>
-              </label>
-              <Form.Item style={{ width: "100%" }}>
-                <input
-                  className="input-number"
-
-                  type="number"
-                  placeholder="Shipping Charges"
-                  min={1}
-                  defaultValue={values.shipping_charge}
-                  onChange={handlechange("shipping_charge (in Rs)")}
-                />
-              </Form.Item>
-            </div>
-
-            <div
-              // @ts-ignore
-              className="flex flex-col items-start justify-center w-full "
-            >
-              <label className="pb-2">
-                Shipping Time (Days) <span className="text-red-400">*</span>
-              </label>
-              <Form.Item style={{ width: "100%" }}>
-                <input
-                  className="input-number"
-                  min={1}
-                  type="number"
-                  placeholder="Shipping Time (in days)"
-                  onChange={handlechange("shipping_time")}
-                  defaultValue={values.shipping_time}
-                />
-              </Form.Item>
-            </div>
-          </div>
-
-          <div
-            // @ts-ignore
-            className="grid grid-cols-1  gap-6  md:grid-cols-2"
-          >
-            <div
-              // @ts-ignore
-              className="flex flex-col items-start justify-center w-full "
-            > <label className="pb-2">
                 Product Weight (grams) <span className="text-red-400">*</span>
               </label>
               <Form.Item
@@ -99,21 +44,12 @@ export class shippingDetails extends Component {
                 />
               </Form.Item>
             </div>
-
-            <div
-              // @ts-ignore
-              className="flex flex-col items-start justify-center w-full "
+            <div className="flex flex-col items-start justify-center w-full "
             >
-              <label
-                // @ts-ignore
-                className="pb-2"
-              >
+              <label className="pb-2">
                 Dimensions (in cm) <span className="text-red-400">*</span>
               </label>
-
-              <div
-                // @ts-ignore
-                className="flex flex-row"
+              <div className="flex flex-row"
               >
                 <Form.Item style={{ maxWidth: "140px" }}>
                   <input
@@ -149,23 +85,8 @@ export class shippingDetails extends Component {
               </div>
             </div>
           </div>
-          <br />
-          {/* 
-          <Row className="inline" style={{ justifyContent: "flex-end" }}>
-            <Button
-              className="back"
-              style={{ marginRight: "10px" }}
-              onClick={this.back}
-            >
-              <LeftOutlined />
-              Back
-            </Button>
-            <Button className="continue" onClick={this.continue}>
-              Next
-              <RightOutlined />
-            </Button>
-          </Row> */}
         </Form>
+        <br />
       </div>
     );
   }

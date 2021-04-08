@@ -4,7 +4,6 @@ import { Modal } from "antd";
 import { Link } from "react-router-dom";
 // import ProductTable from "Components/TableComponent";
 import ProductCards from "./ProductCards";
-import ProductData from "./ProductTableData";
 import ProductColumn from "./productTableColumns";
 
 const classes = {
@@ -28,6 +27,7 @@ const ActionButton = ({ title, icon, ...rest }) => {
 };
 
 const Products = () => {
+  // const [products, setProducts] = React.useState([]);
   const [showModal, setShowModal] = React.useState(false);
   const [searchedColumn] = React.useState(["sku", "productInfo"]);
 
@@ -142,11 +142,12 @@ const Products = () => {
       <div className={"mt-4 overflow-y-auto overflow-x-hidden"}>
         <ProductCards
           heading={ProductColumn}
-          data={ProductData}
+          // data={products}
           searchedColumn={searchedColumn}
           defaultSearchColumn={searchedColumn[0]}
         />
       </div>
+
       <Modal
         title="Vertically centered modal dialog"
         centered

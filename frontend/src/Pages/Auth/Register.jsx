@@ -20,13 +20,12 @@ const classes = {
     "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none",
   row: "flex flex-row justify-center items-center",
   row_item: "mx-3 my-2 flex items-center justify-start",
-  remember_me: "mb-4 ring-none"
+  remember_me: "mb-4 ring-none",
 };
 
 const Register = ({ className }) => {
-
-  const history = useHistory()
-  const { setAuth } = useContext(AuthContext)
+  const history = useHistory();
+  const { setAuth } = useContext(AuthContext);
 
   const { axios, isLoading } = useAxios();
 
@@ -35,39 +34,45 @@ const Register = ({ className }) => {
     email: "",
     password: "",
     confirm: "",
-    type: "retailer"
-  })
+    type: "retailer",
+  });
 
   const register = () => {
-    console.log({ payload })
-    const { confirm, password } = payload
+    // console.log({ payload })
+    const { confirm, password } = payload;
     if (confirm !== password) return message.error("Passwords do not match", 1);
 
-    axios.post("/auth/local/register", payload).then(res => {
-      if (!res.data) return message.error(`Could not Complete registration. Please try again.`)
-      const { jwt, user } = res.data;
+    axios
+      .post("/auth/local/register", payload)
+      .then((res) => {
+        if (!res.data)
+          return message.error(
+            `Could not Complete registration. Please try again.`
+          );
+        const { jwt, user } = res.data;
 
-      message.success(`Welcome, ${user.username}`, 1);
-      axios.defaults.headers = {
-        'Authorization': `Bearer ${jwt}`
-      }
-      setAuth(AUTH_ACTIONS.LOGIN, {
-        isLoggedIn: true,
-        token: jwt,
-        user: {
-          fname: user.username,
-          username: user.username,
-          email: user.email,
-          type: payload.type
-        },
-        additionalInfo: {
-          ...user
-        },
+        message.success(`Welcome, ${user.username}`, 1);
+        axios.defaults.headers = {
+          Authorization: `Bearer ${jwt}`,
+        };
+        setAuth(AUTH_ACTIONS.LOGIN, {
+          isLoggedIn: true,
+          token: jwt,
+          user: {
+            fname: user.username,
+            username: user.username,
+            email: user.email,
+            type: payload.type,
+          },
+          additionalInfo: {
+            ...user,
+          },
+        });
+        history.push(`/${payload.type}/dashboard`);
       })
-      history.push(`/${payload.type}/dashboard`)
-    }).catch(err => {
-      message.error(err.message)
-    });
+      .catch((err) => {
+        message.error(err.message);
+      });
   };
 
   return (
@@ -79,11 +84,35 @@ const Register = ({ className }) => {
         <Spin spinning={isLoading} size={"large"}>
           <div className={classes.row}>
             <div className={classes.row_item}>
-              <input type="radio" name="type" id="wholeseller" className={'mr-1 text-red-500'} checked={payload.type === 'wholeseller'} onChange={(e) => setPayload(p => ({ ...p, type: e.target.checked ? e.target.id : p.type }))} />
+              <input
+                type="radio"
+                name="type"
+                id="wholeseller"
+                className={"mr-1 text-red-500"}
+                checked={payload.type === "wholeseller"}
+                onChange={(e) =>
+                  setPayload((p) => ({
+                    ...p,
+                    type: e.target.checked ? e.target.id : p.type,
+                  }))
+                }
+              />
               <label htmlFor="wholeseller">WholeSeller</label>
             </div>
             <div className={classes.row_item}>
-              <input type="radio" name="type" id="retailer" className={'mr-1 text-red-500'} checked={payload.type === 'retailer'} onChange={(e) => setPayload(p => ({ ...p, type: e.target.checked ? e.target.id : p.type }))} />
+              <input
+                type="radio"
+                name="type"
+                id="retailer"
+                className={"mr-1 text-red-500"}
+                checked={payload.type === "retailer"}
+                onChange={(e) =>
+                  setPayload((p) => ({
+                    ...p,
+                    type: e.target.checked ? e.target.id : p.type,
+                  }))
+                }
+              />
               <label htmlFor="retailer">Retailer</label>
             </div>
           </div>
@@ -100,7 +129,9 @@ const Register = ({ className }) => {
               className={classes.input}
               placeholder="Fullname"
               value={payload.fullname}
-              onChange={e => setPayload(p => ({ ...p, fullname: e.target.value }))}
+              onChange={(e) =>
+                setPayload((p) => ({ ...p, fullname: e.target.value }))
+              }
             />
           </div>
           <div>
@@ -116,7 +147,9 @@ const Register = ({ className }) => {
               className={classes.input}
               placeholder="Username"
               value={payload.username}
-              onChange={e => setPayload(p => ({ ...p, username: e.target.value }))}
+              onChange={(e) =>
+                setPayload((p) => ({ ...p, username: e.target.value }))
+              }
             />
           </div>
           <div>
@@ -132,7 +165,9 @@ const Register = ({ className }) => {
               className={classes.input}
               placeholder="Email address"
               value={payload.email}
-              onChange={e => setPayload(p => ({ ...p, email: e.target.value }))}
+              onChange={(e) =>
+                setPayload((p) => ({ ...p, email: e.target.value }))
+              }
             />
           </div>
           <div>
@@ -149,7 +184,9 @@ const Register = ({ className }) => {
               className={classes.input}
               placeholder="Mobile Number"
               value={payload.mobile}
-              onChange={e => setPayload(p => ({ ...p, mobile: e.target.value }))}
+              onChange={(e) =>
+                setPayload((p) => ({ ...p, mobile: e.target.value }))
+              }
             />
           </div>
           <div>
@@ -165,7 +202,9 @@ const Register = ({ className }) => {
               className={classes.input}
               placeholder="Password"
               value={payload.password}
-              onChange={e => setPayload(p => ({ ...p, password: e.target.value }))}
+              onChange={(e) =>
+                setPayload((p) => ({ ...p, password: e.target.value }))
+              }
             />
           </div>
           <div>
@@ -181,10 +220,16 @@ const Register = ({ className }) => {
               className={classes.input}
               placeholder="Confirm Password"
               value={payload.confirm}
-              onChange={e => setPayload(p => ({ ...p, confirm: e.target.value }))}
+              onChange={(e) =>
+                setPayload((p) => ({ ...p, confirm: e.target.value }))
+              }
             />
           </div>
-          <button type="submit" className={classes.submit_button} onClick={register}>
+          <button
+            type="submit"
+            className={classes.submit_button}
+            onClick={register}
+          >
             <span className="absolute left-0 inset-y-0 flex items-center pl-3">
               <svg
                 className="h-5 w-5 text-red-500 group-hover:text-red-400"
