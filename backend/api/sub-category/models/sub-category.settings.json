@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sub_categories",
+  "info": {
+    "name": "SubCategory",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "product_category": {
+      "via": "sub_categories",
+      "model": "product-categories"
+    },
+    "sub_sub_categories": {
+      "collection": "sub-sub-category",
+      "via": "sub_category"
+    },
+    "commision_percent": {
+      "type": "integer",
+      "default": 0,
+      "max": 100,
+      "min": 0
+    },
+    "product_details": {
+      "via": "sub_category",
+      "collection": "product-details"
+    }
+  }
+}

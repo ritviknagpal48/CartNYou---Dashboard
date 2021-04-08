@@ -1,17 +1,12 @@
 // @ts-nocheck
 import React, { Component } from "react";
 
-import { Row, Form, Button, Upload } from "antd";
-import { UploadOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { Form, Upload } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
 
 import "./imageUpload.css";
 
-import { Steps } from "antd";
-
-const { Step } = Steps;
-
-// const { Option } = Select;
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -35,22 +30,7 @@ export class ImageUpload extends Component {
   state = {
     previewVisible: false,
     previewImage: "",
-    fileList: [
-      {
-        uid: "-1",
-        name: "image.png",
-        status: "done",
-        url:
-          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      },
-      {
-        uid: "-2",
-        name: "image.png",
-        status: "done",
-        url:
-          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      },
-    ],
+    fileList: [],
   };
 
   handleCancel = () => this.setState({ previewVisible: false });
@@ -59,14 +39,21 @@ export class ImageUpload extends Component {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
-
     this.setState({
       previewImage: file.url || file.preview,
       previewVisible: true,
     });
   };
 
+  handleChange = ({ fileList }) => {
+
+    this.setState({ fileList });
+    this.props.handleImageUpload(fileList)
+
+  }
+
   render() {
+
     const { previewVisible, previewImage, fileList } = this.state;
     const uploadButton = (
       <div>
@@ -75,30 +62,9 @@ export class ImageUpload extends Component {
       </div>
     );
 
-    // const { values, handlechange } = this.props;
-    // const {
-    //   Aadharcard,
-    //   PANcard,
-    //   Bankpassbook,
-    //   Incomecerti,
-    //   Cropregistercerti,
-    //   Landcerti,
-    //   Photo,
-    //   Signature,
-    // } = this.props;
     return (
       <div className="container my-5">
         <Form onSubmit={this.continue} className="form container">
-          {/* <Row style={{ marginBottom: "30px" }}>
-            <Steps size="small" current={2} responsive={true}>
-              <Step title="General Details" />
-              <Step title="Variants Details" />
-              <Step title="Product Images" />
-              <Step title="Shipping Details" />
-              <Step title="Other Details" />
-            </Steps>
-          </Row> */}
-
           <div className="clearfix">
             <Form.Item label="Product Images">
               <Upload
@@ -123,21 +89,7 @@ export class ImageUpload extends Component {
               </Modal>
             </Form.Item>
           </div>
-          <br />
-          {/* <Row className="inline" style={{ justifyContent: "flex-end" }}>
-            <Button
-              className="back"
-              style={{ marginRight: "10px" }}
-              onClick={this.back}
-            >
-              <LeftOutlined />
-              Back
-            </Button>
-            <Button className="continue" onClick={this.continue}>
-              Next
-              <RightOutlined />
-            </Button>
-          </Row> */}
+
         </Form>
       </div>
     );

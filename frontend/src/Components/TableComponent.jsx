@@ -25,7 +25,7 @@ class ProductTable extends React.Component {
   };
 
   onChange(pagination, filters, sorter, extra) {
-    console.log("params", pagination, filters, sorter, extra);
+    // console.log("params", pagination, filters, sorter, extra);
   }
 
   handleChange = (value) => {
@@ -163,11 +163,11 @@ class ProductTable extends React.Component {
           dataSource={
             !!this.state.searchText
               ? data.filter((x) =>
-                x[this.state.searchedColumn].toLowerCase().includes(
-                  this.state.searchText
-                  // lowerCaseSearchText
+                  x[this.state.searchedColumn].toLowerCase().includes(
+                    this.state.searchText
+                    // lowerCaseSearchText
+                  )
                 )
-              )
               : data
           }
           size="small"

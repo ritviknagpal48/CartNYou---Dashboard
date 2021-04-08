@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "measurement_units",
+  "info": {
+    "name": "measurement_unit"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "units": {
+      "type": "enumeration",
+      "enum": [
+        "Piece",
+        "Kilogram",
+        "Gram"
+      ],
+      "required": true
+    },
+    "product_details": {
+      "via": "measurement_unit",
+      "collection": "product-details"
+    }
+  }
+}

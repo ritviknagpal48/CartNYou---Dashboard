@@ -31,7 +31,6 @@ class ShipmentTableCard extends React.Component {
     this.setState({
       searchedColumn: value,
     });
-    console.log(this.state.searchText);
   };
 
   // componentDidMount(props) {

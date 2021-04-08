@@ -16,14 +16,13 @@
       "required": true
     },
     "product_category": {
-      "unique": true,
       "model": "product-categories",
       "via": "product_details"
     },
     "product_main_sku": {
       "type": "string",
       "required": true,
-      "unique": false
+      "unique": true
     },
     "product_brand": {
       "type": "string",
@@ -41,10 +40,6 @@
       "required": true,
       "type": "integer"
     },
-    "product_mp": {
-      "type": "integer",
-      "required": true
-    },
     "qunatity": {
       "type": "integer",
       "required": true
@@ -60,15 +55,7 @@
         "images"
       ],
       "plugin": "upload",
-      "required": true
-    },
-    "shipping_charge": {
-      "type": "integer",
-      "required": true
-    },
-    "shipping_time": {
-      "type": "integer",
-      "required": true
+      "required": false
     },
     "weight": {
       "type": "integer",
@@ -97,19 +84,38 @@
       "type": "biginteger",
       "required": true
     },
-    "sku": {
-      "type": "string"
-    },
-    "product_description": {
-      "type": "json",
-      "required": true
-    },
-    "category": {
-      "type": "json",
-      "required": true
-    },
     "counrty_origin": {
       "type": "json"
+    },
+    "product_description": {
+      "type": "richtext",
+      "required": true
+    },
+    "custom_attribute": {
+      "type": "json"
+    },
+    "colour": {
+      "type": "string"
+    },
+    "gst_percentage": {
+      "type": "integer",
+      "max": 100,
+      "min": 0
+    },
+    "measurement_unit": {
+      "model": "measurement-unit",
+      "via": "product_details"
+    },
+    "gst_type": {
+      "type": "json"
+    },
+    "sub_category": {
+      "model": "sub-category",
+      "via": "product_details"
+    },
+    "sub_sub_category": {
+      "model": "sub-sub-category",
+      "via": "product_details"
     }
   }
 }

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { createContext, useReducer } from "react";
-import useAxios from "./useAxios";
+
 
 const defaultState = {
   isLoggedIn: false,
@@ -12,7 +12,7 @@ const defaultState = {
     email: "",
   },
   additionalInfo: {},
-  setAuth: (action, payload) => {},
+  setAuth: (action, payload) => { },
 };
 
 export const AUTH_ACTIONS = {

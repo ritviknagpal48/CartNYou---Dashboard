@@ -7,6 +7,16 @@
   flex-direction: row;
 }
 
+.ant-switch-checked {
+  background-color: #ef4444 !important;
+}
+
+.ant-modal-footer .ant-btn + .ant-btn {
+  margin-bottom: 0;
+  margin-left: 8px;
+  border-radius: 8px;
+}
+
 .card-detail {
   font-size: 11px;
   color: #bbb;
@@ -48,7 +58,12 @@
   color: rgba(255, 69, 58, 1);
   text-align: center;
 }
+.product-card-page .ant-btn .ant-btn-primary {
+  color: #fff !important;
 
-.ant-switch-checked {
-  background-color: rgb(100, 210, 255) !important;
+  border-radius: 6px !important;
+  background: #ef4444 !important;
+  border-color: #ef4444 !important;
+  text-shadow: none !important;
+  box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
 }

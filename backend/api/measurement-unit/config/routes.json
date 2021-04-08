@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/measurement-units",
+      "handler": "measurement-unit.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/measurement-units/count",
+      "handler": "measurement-unit.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/measurement-units/:id",
+      "handler": "measurement-unit.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/measurement-units",
+      "handler": "measurement-unit.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/measurement-units/:id",
+      "handler": "measurement-unit.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/measurement-units/:id",
+      "handler": "measurement-unit.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

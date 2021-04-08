@@ -26,12 +26,12 @@ const classes = {
 
 const Products = () => {
   const formRef = useRef();
-  const [productList, setProductList] = useState([])
-  const { axios, isLoading } = useAxios()
+  const [productList, setProductList] = useState([]);
+  const { axios, isLoading } = useAxios();
 
-  const onChange = (value) => {
-    formRef.current.setFieldsValue = value;
-  };
+  // const onChange = (value) => {
+  //   formRef.current.setFieldsValue = value;
+  // };
 
   const onFinish = (values) => {
     console.log(values);
@@ -42,16 +42,18 @@ const Products = () => {
   };
 
   useEffect(() => {
-    axios.get('/product-details').then(res => {
-      if (!res.data) return message.error('Could not load products.', 1)
-      message.info('Product List loaded in console.', 1)
-      console.log(res.data)
-      setProductList([])
-    }).catch(err => {
-      message.error('Oops! Something went wrong.', 1);
-      console.log({ productList, err })
-    })
-  }, [])
+    axios
+      .get("/product-details")
+      .then((res) => {
+        if (!res.data) return message.error("Could not load products.", 1);
+        message.info("Product List loaded in console.", 1);
+        setProductList([]);
+      })
+      .catch((err) => {
+        message.error("Oops! Something went wrong.", 1);
+        console.log({ productList, err });
+      });
+  }, []);
 
   // const defaultSearchColumn = "Sun glases";
   return (
@@ -101,9 +103,9 @@ const Products = () => {
                     stroke="currentColor"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
                   </svg>
@@ -112,9 +114,9 @@ const Products = () => {
               }
               key="1"
               className="site-collapse-custom-panel rounded-xl shadow-lg "
-            // extra={({ isActive }) => (
-            //   <DownOutlined rotate={isActive ? 180 : 0} />
-            // )}
+              // extra={({ isActive }) => (
+              //   <DownOutlined rotate={isActive ? 180 : 0} />
+              // )}
             >
               <Form
                 layout="vertical"
@@ -141,7 +143,7 @@ const Products = () => {
                     // }
                     // value={this.state.searchText}
                     className="inputSearchBox"
-                  //   style={{ marginLeft: "8px" }}
+                    //   style={{ marginLeft: "8px" }}
                   />
                 </Form.Item>
 
@@ -158,7 +160,7 @@ const Products = () => {
                     // }
                     // value={this.state.searchText}
                     className="inputSearchBox"
-                  //   style={{ marginLeft: "8px" }}
+                    //   style={{ marginLeft: "8px" }}
                   />
                 </Form.Item>
 
@@ -166,8 +168,8 @@ const Products = () => {
                   <Select
                     // defaultValue={defaultSearchColumn}
                     placeholder="Select Column"
-                  // style={{ width: 150 }}
-                  // onChange={this.handleChange}
+                    // style={{ width: 150 }}
+                    // onChange={this.handleChange}
                   >
                     {CategoryList.map((Category) => {
                       return (
@@ -182,8 +184,8 @@ const Products = () => {
                   <Select
                     // defaultValue={defaultSearchColumn}
                     placeholder="Select Column"
-                  // style={{ width: 150 }}
-                  // onChange={this.handleChange}
+                    // style={{ width: 150 }}
+                    // onChange={this.handleChange}
                   >
                     {CategoryList.map((Category) => {
                       return (
@@ -277,7 +279,7 @@ const Products = () => {
           View All
         </Button>
       </div>
-      <Spin size={'large'} spinning={isLoading}>
+      <Spin size={"large"} spinning={isLoading}>
         <div
           className="product-grid"
           style={{
@@ -329,7 +331,7 @@ const Products = () => {
           View All
         </Button>
       </div>
-      <Spin size={'large'} spinning={isLoading}>
+      <Spin size={"large"} spinning={isLoading}>
         <div
           className="product-grid"
           style={{
@@ -344,22 +346,20 @@ const Products = () => {
             borderRadius: "4px",
             margin: "30px 0px",
             marginLeft: "6px",
-          }}>
-          {
-            ProductData ? (
-              ProductData.map((data) => {
+          }}
+        >
+          {ProductData
+            ? ProductData.map((data) => {
                 return (
                   <ProductCard key={data.id} ProductData={data} className="" />
                 );
               })
-            ) : null
-          }
+            : null}
         </div>
       </Spin>
     </div>
     //   </div>
   );
-}
-
+};
 
 export default Products;

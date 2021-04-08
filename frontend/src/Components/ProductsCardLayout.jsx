@@ -13,11 +13,10 @@ class ProductCardLayout extends React.Component {
   }
 
   onChange(e) {
-    console.log(`checked = ${e.target.checked}`);
+    // console.log(`checked = ${e.target.checked}`);
   }
 
   render() {
-    console.log(this.state.dataSource);
     const dataSource = this.state.dataSource;
 
     return (

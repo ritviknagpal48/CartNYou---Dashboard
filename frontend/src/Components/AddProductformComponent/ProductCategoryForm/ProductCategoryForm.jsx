@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import { Spin, Form, Button, Select, message } from "antd";
-import productCategory from "../../productCategory";
 import "./ProductCategoryForm.css";
 import { axiosInstance } from "../../../Contexts/useAxios";
 import { RightOutlined } from "@ant-design/icons";
@@ -13,20 +12,37 @@ export class ProductCategoryForm extends Component {
     this.state = {
       categories: [],
       selectedCategory: "",
-      isLoading: true
+      isLoading: true,
     };
   }
 
-  componentDidMount() {
-    axiosInstance.get("/product-categories").then((res) => {
-      this.setState({
-        categories: res.data,
-        isLoading: false
+  async componentDidMount() {
+    // await Promise.all([
+    //   axiosInstance.get("/product-categories"),
+
+    //   // getCategories(),
+    //   // getSubCategories(),
+    //   // getSubSubCategories(),
+    // ]).then(([cate, subcat, subsubcat]) => {
+    //   this.setState({
+    //     categories: cate.data,
+    //     subCategories: subcat.data,
+    //     subSubCategories: subsubcat.data,
+    //     isLoading: false,
+    //   });
+    // });
+    await axiosInstance
+      .get("/product-categories")
+      .then((res) => {
+        this.setState({
+          categories: res.data,
+          isLoading: false,
+        });
+      })
+      .catch((err) => {
+        message.error(err.message);
+        this.setState({ isLoading: false });
       });
-    }).catch(err => {
-      message.error(err.message);
-      this.setState({ isLoading: false });
-    });
   }
 
   continue = (e) => {
@@ -36,13 +52,6 @@ export class ProductCategoryForm extends Component {
   back = (e) => {
     e.preventDefault();
     this.props.prevstep();
-  };
-
-  onChange = (value) => {
-    // console.log(`selected ${value}`);
-    this.setState({
-      selectedCategory: value,
-    });
   };
 
   onBlur() {
@@ -56,47 +65,45 @@ export class ProductCategoryForm extends Component {
   onSearch(val) {
     // console.log("search:", val);
   }
-  render() {
-    const { categories, selectedCategory } = this.state;
 
+  render() {
+    const { categories } = this.state;
     const { values, handleValueChange } = this.props;
-    // console.log(this.props);
 
     return (
       <div className="container category-container">
-        <Spin spinning={this.state.isLoading} size={'large'}>
+        <Spin spinning={this.state.isLoading} size={"large"}>
           <Form
             onSubmit={this.continue}
             className="form container"
             layout="vertical"
           >
-            <Form.Item label="Select Product Category">
+            <Form.Item required>
+              <label className="pb-2">
+                Select Product Category <span className="text-red-400">*</span>
+              </label>
               <Select
                 showSearch
                 style={{ width: "100%" }}
                 placeholder="Select a category"
                 optionFilterProp="children"
-                onChange={handleValueChange("category")}
+                onChange={handleValueChange("product_category")}
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
                 onSearch={this.onSearch}
                 filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
                 }
                 allowClear
               >
                 {categories ? (
                   categories.map((productCategory, index) => {
-                    if (
-                      productCategory.categoryName != "All" &&
-                      productCategory.categoryName != "Deals"
-                    ) {
-                      return (
-                        <Option key={index} value={productCategory.categoryName}>
-                          {productCategory.categoryName}
-                        </Option>
-                      );
-                    }
+                    return (
+                      <Option key={index} value={productCategory.id}>
+                        {productCategory.categoryName}
+                      </Option>
+                    );
                   })
                 ) : (
                   <></>
@@ -104,12 +111,84 @@ export class ProductCategoryForm extends Component {
               </Select>
               {/* </div> */}
             </Form.Item>
+            {values.product_category === "" ? (
+              <></>
+            ) : (
+              <Form.Item>
+                <label className="pb-2">Select Sub Category</label>
+                <Select
+                  showSearch
+                  style={{ width: "100%" }}
+                  placeholder="Select a category"
+                  optionFilterProp="children"
+                  onChange={handleValueChange("sub_category")}
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}
+                  onSearch={this.onSearch}
+                  filterOption={(input, option) =>
+                    option.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                  allowClear
+                >
+                  {values.subCatArray ? (
+                    values.subCatArray.map((productCategory, index) => {
+                      return (
+                        <Option key={index} value={productCategory.id}>
+                          {productCategory.name}
+                        </Option>
+                      );
+                    })
+                  ) : (
+                    <></>
+                  )}
+                </Select>
+                {/* </div> */}
+              </Form.Item>
+            )}
+            {values.sub_category === "" ? (
+              <></>
+            ) : (
+              <Form.Item>
+                <label className="pb-2">Select Detailed Category</label>
+                <Select
+                  showSearch
+                  style={{ width: "100%" }}
+                  placeholder="Select a category"
+                  optionFilterProp="children"
+                  onChange={handleValueChange("sub_sub_category")}
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}
+                  onSearch={this.onSearch}
+                  filterOption={(input, option) =>
+                    option.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                  allowClear
+                >
+                  {values.subSubCatArray ? (
+                    values.subSubCatArray.map((productCategory, index) => {
+                      return (
+                        <Option key={index} value={productCategory.id}>
+                          {productCategory.name}
+                        </Option>
+                      );
+                    })
+                  ) : (
+                    <></>
+                  )}
+                </Select>
+                {/* </div> */}
+              </Form.Item>
+            )}
             <Form.Item shouldUpdate>
               <Button
                 type="primary"
                 className="continue-category-button"
                 onClick={this.continue}
-                disabled={values.category === ""}
+                disabled={values.product_category === ""}
               >
                 Continue
                 <RightOutlined />

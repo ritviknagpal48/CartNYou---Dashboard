@@ -35,12 +35,30 @@ const Home = () => {
           />
           <PrivateRoute path={"/wholeseller/dashboard"} component={Dashboard} />
           <PrivateRoute path={"/wholeseller/products"} component={Products} />
-          <PrivateRoute path={"/wholeseller/orders/:id"} exact component={OrderDetails} />
-          <PrivateRoute path={"/wholeseller/track-order/:id"} exact component={TrackOrder} />
+          <PrivateRoute
+            path={"/wholeseller/orders/:id"}
+            exact
+            component={OrderDetails}
+          />
+          <PrivateRoute
+            path={"/wholeseller/track-order/:id"}
+            exact
+            component={TrackOrder}
+          />
           <PrivateRoute path={"/wholeseller/orders"} exact component={Orders} />
           <PrivateRoute path={"/wholeseller/shipment"} component={Shipment} />
-          <PrivateRoute path={"/wholeseller/add-new-product"} component={AddNewProduct} />
-          <PrivateRoute path={"/wholeseller/warehouses"} component={Warehouses} />
+          <PrivateRoute
+            path={"/wholeseller/add-new-product"}
+            component={AddNewProduct}
+          />
+          <PrivateRoute
+            path={"/wholeseller/edit-product/:productID"}
+            component={AddNewProduct}
+          />
+          <PrivateRoute
+            path={"/wholeseller/warehouses"}
+            component={Warehouses}
+          />
         </div>
       </div>
     </div>
