@@ -48,7 +48,7 @@ const GoogleCallback = () => {
         }
 
         axios.defaults.headers = {
-          'authorization': `Bearer ${jwt}`
+          'Authorization': `Bearer ${jwt}`
         }
 
         axios.put(`/users/${user.id}`, { type: userType }).then(() => {
@@ -69,7 +69,7 @@ const GoogleCallback = () => {
           history.push(`/${userType}/dashboard`)
         })
       })
-  }, [location])
+  }, [location, axios, history, setAuth])
 
   if (isLoading) return <Spin size={'large'} className={'text-red-500'} spinning={isLoading} tip={'Waiting for Pending Operations to complete.'}></Spin>
   return null;

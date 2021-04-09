@@ -53,7 +53,7 @@ const Products = () => {
         message.error("Oops! Something went wrong.", 1);
         console.log({ productList, err });
       });
-  }, []);
+  }, [productList, axios]);
 
   // const defaultSearchColumn = "Sun glases";
   return (
@@ -114,9 +114,9 @@ const Products = () => {
               }
               key="1"
               className="site-collapse-custom-panel rounded-xl shadow-lg "
-              // extra={({ isActive }) => (
-              //   <DownOutlined rotate={isActive ? 180 : 0} />
-              // )}
+            // extra={({ isActive }) => (
+            //   <DownOutlined rotate={isActive ? 180 : 0} />
+            // )}
             >
               <Form
                 layout="vertical"
@@ -143,7 +143,7 @@ const Products = () => {
                     // }
                     // value={this.state.searchText}
                     className="inputSearchBox"
-                    //   style={{ marginLeft: "8px" }}
+                  //   style={{ marginLeft: "8px" }}
                   />
                 </Form.Item>
 
@@ -160,7 +160,7 @@ const Products = () => {
                     // }
                     // value={this.state.searchText}
                     className="inputSearchBox"
-                    //   style={{ marginLeft: "8px" }}
+                  //   style={{ marginLeft: "8px" }}
                   />
                 </Form.Item>
 
@@ -168,8 +168,8 @@ const Products = () => {
                   <Select
                     // defaultValue={defaultSearchColumn}
                     placeholder="Select Column"
-                    // style={{ width: 150 }}
-                    // onChange={this.handleChange}
+                  // style={{ width: 150 }}
+                  // onChange={this.handleChange}
                   >
                     {CategoryList.map((Category) => {
                       return (
@@ -184,8 +184,8 @@ const Products = () => {
                   <Select
                     // defaultValue={defaultSearchColumn}
                     placeholder="Select Column"
-                    // style={{ width: 150 }}
-                    // onChange={this.handleChange}
+                  // style={{ width: 150 }}
+                  // onChange={this.handleChange}
                   >
                     {CategoryList.map((Category) => {
                       return (
@@ -350,10 +350,10 @@ const Products = () => {
         >
           {ProductData
             ? ProductData.map((data) => {
-                return (
-                  <ProductCard key={data.id} ProductData={data} className="" />
-                );
-              })
+              return (
+                <ProductCard key={data.id} ProductData={data} className="" />
+              );
+            })
             : null}
         </div>
       </Spin>

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { Spin, message } from "antd";
 import clsx from "clsx";
 import { Link, useHistory } from "react-router-dom";
@@ -54,6 +54,7 @@ const Login = ({ className }) => {
       identifier: username,
       password: password
     }).then(res => {
+      console.log({ authData: res.data })
       if (!res.data) {
         return message.error(`No ${capitalize(userType)} found with given credentials.`, 1)
       }
@@ -63,12 +64,15 @@ const Login = ({ className }) => {
       if (user.type !== userType) {
         return message.error(`No ${capitalize(userType)} found with given credentials.`, 1)
       }
-      if (user.isBlocked) {
+      if (user.blocked) {
         return message.error('This account is Blocked. Please contact Support Team for more information.', 1)
+      }
+      if (!user.confirmed) {
+        return message.error('Please check your email for verification.', 1)
       }
 
       axios.defaults.headers = {
-        'authorization': `Bearer ${jwt}`
+        'Authorization': `Bearer ${jwt}`
       }
       setAuth(AUTH_ACTIONS.LOGIN, {
         isLoggedIn: true,
@@ -83,8 +87,6 @@ const Login = ({ className }) => {
           ...user
         },
       })
-
-      console.log(rememberMe)
 
       if (!rememberMe) {
         setAuth(AUTH_ACTIONS.REMOVE_LOCAL);
@@ -146,7 +148,7 @@ const Login = ({ className }) => {
             />
           </div>
           <div className={classes.remember_me}>
-            <input type="checkbox" name="remember-me" id="remember-me" className={'mr-1 text-red-500 border-red-500'} onChange={(e) => setRememberMe(e.target.checked)} />
+            <input type="checkbox" name="remember-me" id="remember-me" className={'mr-1 text-red-500 border-red-500'} onChange={(e) => setRememberMe(e.target.checked)} checked={rememberMe} />
             <label htmlFor="remember-me">Remember Me</label>
           </div>
           <button
