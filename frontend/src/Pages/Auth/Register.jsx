@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import clsx from "clsx";
-import { Spin, message } from "antd";
+import { Spin, message, Button } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
 import useAxios from "Contexts/useAxios";
@@ -27,7 +27,7 @@ const classes = {
 const Register = ({ className }) => {
   const history = useHistory();
   const { setAuth } = useContext(AuthContext);
-
+  const [showPass, setShowPass] = useState(false);
   const { axios, isLoading } = useAxios();
 
   const [payload, setPayload] = useState({
@@ -214,7 +214,7 @@ const Register = ({ className }) => {
             <input
               id="password"
               name="password"
-              type="password"
+              type={!showPass ? "text" : "password"}
               autoComplete="none"
               required
               className={classes.input}
@@ -225,23 +225,50 @@ const Register = ({ className }) => {
               }
             />
           </div>
-          <div>
+          <div style={{ textAlign: "end" }}>
             <label htmlFor="password" className="sr-only">
               Confirm Password
             </label>
             <input
               id="password"
               name="password"
-              type="password"
+              type={!showPass ? "text" : "password"}
               autoComplete="none"
               required
-              className={classes.input}
+              className={`${classes.input}  mt-6 mb-0 my-0`}
               placeholder="Confirm Password"
               value={payload.confirm}
               onChange={(e) =>
                 setPayload((p) => ({ ...p, confirm: e.target.value }))
               }
             />
+            {showPass ? (
+              <Button
+                style={{
+                  fontSize: "12px",
+                  color: "#ef4444",
+                  paddingRight: "0px",
+                  marginBottom: "10px",
+                }}
+                type="link"
+                onClick={() => setShowPass(!showPass)}
+              >
+                Show Password
+              </Button>
+            ) : (
+              <Button
+                style={{
+                  fontSize: "12px",
+                  color: "#ef4444",
+                  paddingRight: "0px",
+                  marginBottom: "10px",
+                }}
+                type="link"
+                onClick={() => setShowPass(!showPass)}
+              >
+                Hide Password
+              </Button>
+            )}
           </div>
           <button
             type="submit"

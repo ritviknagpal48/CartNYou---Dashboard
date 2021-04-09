@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { Link, useHistory } from "react-router-dom";
 import { LoadingOutlined } from "@ant-design/icons";
 import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
+import { Button } from "antd";
 import useAxios from "Contexts/useAxios";
 
 const classes = {
@@ -36,6 +37,7 @@ const Login = ({ className }) => {
 
   const [userType, setUserType] = useState("wholeseller");
   const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
   const [username, setUsername] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -172,21 +174,47 @@ const Login = ({ className }) => {
               placeholder="Username"
             />
           </div>
-          <div>
+          <div style={{ textAlign: "end" }}>
             <label htmlFor="password" className="sr-only">
               Password
             </label>
             <input
               id="password"
               name="password"
-              type="password"
+              type={!showPass ? "text" : "password"}
               autoComplete="none"
               required
-              className={classes.input}
+              className={`${classes.input}  mt-6 mb-0 my-0`}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+
+            {showPass ? (
+              <Button
+                style={{
+                  fontSize: "12px",
+                  color: "#ef4444",
+                  paddingRight: "0px",
+                }}
+                type="link"
+                onClick={() => setShowPass(!showPass)}
+              >
+                Show Password
+              </Button>
+            ) : (
+              <Button
+                style={{
+                  fontSize: "12px",
+                  color: "#ef4444",
+                  paddingRight: "0px",
+                }}
+                type="link"
+                onClick={() => setShowPass(!showPass)}
+              >
+                Hide Password
+              </Button>
+            )}
           </div>
           <div className={classes.remember_me}>
             <input

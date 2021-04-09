@@ -13,7 +13,7 @@ export class ProductCategoryForm extends Component {
     this.state = {
       categories: [],
       selectedCategory: "",
-      isLoading: true,
+      isLoading: this.props.loading || true,
     };
   }
 
@@ -69,7 +69,7 @@ export class ProductCategoryForm extends Component {
 
   render() {
     const { categories } = this.state;
-    const { values, handleValueChange } = this.props;
+    const { values, handleValueChange, loading } = this.props;
 
     return (
       <div className="container category-container">
