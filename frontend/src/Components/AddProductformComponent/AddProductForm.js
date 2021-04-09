@@ -8,9 +8,8 @@ import ProductDetail from "./ProductDetail/productDetail";
 import VariantsDetails from "./VariantsDetails/variantsDetails";
 import ImageUpload from "./ImageUploadForm/imageUpload";
 import ShippingDetails from "./ShippingDetails/shippingDetails";
-import { axiosInstance } from "../../Contexts/useAxios"
-import AttributeDetail from "./AttributeDetail/AttributeDetail"
-import { LoadingOutlined } from '@ant-design/icons';
+import AttributeDetail from "./AttributeDetail/AttributeDetail";
+import { LoadingOutlined } from "@ant-design/icons";
 import ProductCategoryForm from "./ProductCategoryForm/ProductCategoryForm";
 import "./AddProduct.css";
 
@@ -57,142 +56,161 @@ class AddProductForm extends Component {
       //attributes
       custom_attribute: {},
 
-
       admin_status: "",
       product_status: "",
 
       subCatArray: [],
       subSubCatArray: [],
-      loading: false
+      loading: false,
     };
   }
 
   async componentDidMount() {
-    const productId = this.props && this.props.match && this.props.match.params && this.props.match.params.productID ? this.props.match.params.productID : "";
-    const edit = this.props && this.props.location &&
+    const productId =
+      this.props &&
+      this.props.match &&
+      this.props.match.params &&
+      this.props.match.params.productID
+        ? this.props.match.params.productID
+        : "";
+    const edit =
+      this.props &&
+      this.props.location &&
       this.props.location.state &&
       this.props.location.state.edit
-      ? this.props.location.state.edit
-      : false;;
+        ? this.props.location.state.edit
+        : false;
 
     if (edit) {
-
-      await axiosInstance
+      await axios
         .get(`/product-details/`, {
           params: {
-            id: productId
-          }
+            id: productId,
+          },
         })
         .then((res) => {
-
           this.setState({
             step: 1,
-            product_category: res.data[0] &&
+            product_category:
+              res.data[0] &&
               res.data[0].product_category &&
-              res.data[0].product_category.id ?
-              res.data[0].product_category.id : "",
+              res.data[0].product_category.id
+                ? res.data[0].product_category.id
+                : "",
 
-            product_name: res.data[0] &&
-              res.data[0].product_name ?
-              res.data[0].product_name : "",
+            product_name:
+              res.data[0] && res.data[0].product_name
+                ? res.data[0].product_name
+                : "",
 
-            product_brand: res.data[0] &&
-              res.data[0].product_brand ?
-              res.data[0].product_brand : "",
+            product_brand:
+              res.data[0] && res.data[0].product_brand
+                ? res.data[0].product_brand
+                : "",
 
-            product_description: res.data[0] &&
-              res.data[0].product_description ?
-              res.data[0].product_description : "",
+            product_description:
+              res.data[0] && res.data[0].product_description
+                ? res.data[0].product_description
+                : "",
 
-            product_main_sku: res.data[0] &&
-              res.data[0].product_main_sku ?
-              res.data[0].product_main_sku : "",
+            product_main_sku:
+              res.data[0] && res.data[0].product_main_sku
+                ? res.data[0].product_main_sku
+                : "",
 
-            product_tags: res.data[0] &&
-              res.data[0].product_tags ?
-              res.data[0].product_tags : "",
+            product_tags:
+              res.data[0] && res.data[0].product_tags
+                ? res.data[0].product_tags
+                : "",
 
-            counrty_origin: res.data[0] &&
-              res.data[0].counrty_origin ?
-              res.data[0].counrty_origin : "",
+            counrty_origin:
+              res.data[0] && res.data[0].counrty_origin
+                ? res.data[0].counrty_origin
+                : "",
 
-            qunatity: res.data[0] &&
-              res.data[0].qunatity ?
-              res.data[0].qunatity : "",
+            qunatity:
+              res.data[0] && res.data[0].qunatity ? res.data[0].qunatity : "",
 
-            product_mrp: res.data[0] &&
-              res.data[0].product_mrp ?
-              res.data[0].product_mrp : "",
+            product_mrp:
+              res.data[0] && res.data[0].product_mrp
+                ? res.data[0].product_mrp
+                : "",
 
-            weight: res.data[0] &&
-              res.data[0].weight ?
-              res.data[0].weight : "",
+            weight: res.data[0] && res.data[0].weight ? res.data[0].weight : "",
 
-            dem_length: res.data[0] &&
-              res.data[0].dem_length ?
-              res.data[0].dem_length : "",
+            dem_length:
+              res.data[0] && res.data[0].dem_length
+                ? res.data[0].dem_length
+                : "",
 
-            dem_breadth: res.data[0] &&
-              res.data[0].dem_breadth ?
-              res.data[0].dem_breadth : "",
+            dem_breadth:
+              res.data[0] && res.data[0].dem_breadth
+                ? res.data[0].dem_breadth
+                : "",
 
-            dem_height: res.data[0] &&
-              res.data[0].dem_height ?
-              res.data[0].dem_height : "",
+            dem_height:
+              res.data[0] && res.data[0].dem_height
+                ? res.data[0].dem_height
+                : "",
 
-            upc_number: res.data[0] &&
-              res.data[0].upc_number ?
-              res.data[0].upc_number : "",
+            upc_number:
+              res.data[0] && res.data[0].upc_number
+                ? res.data[0].upc_number
+                : "",
 
-            hsn_code: res.data[0] &&
-              res.data[0].hsn_code ?
-              res.data[0].hsn_code : "",
+            hsn_code:
+              res.data[0] && res.data[0].hsn_code ? res.data[0].hsn_code : "",
 
-            ean_number: res.data[0] &&
-              res.data[0].ean_number ?
-              res.data[0].ean_number : "",
+            ean_number:
+              res.data[0] && res.data[0].ean_number
+                ? res.data[0].ean_number
+                : "",
 
-            colour: res.data[0] &&
-              res.data[0].colour ?
-              res.data[0].colour : "",
+            colour: res.data[0] && res.data[0].colour ? res.data[0].colour : "",
 
-            gst_percentage: res.data[0]
-              && res.data[0].gst_percentage ?
-              res.data[0].gst_percentage : "",
+            gst_percentage:
+              res.data[0] && res.data[0].gst_percentage
+                ? res.data[0].gst_percentage
+                : "",
 
-            gst_type: res.data[0] &&
-              res.data[0].gst_type ?
-              res.data[0].gst_type : "",
+            gst_type:
+              res.data[0] && res.data[0].gst_type ? res.data[0].gst_type : "",
 
-            measurement_unit: res.data[0] &&
+            measurement_unit:
+              res.data[0] &&
               res.data[0].measurement_unit &&
-              res.data[0].measurement_unit.id ?
-              res.data[0].measurement_unit.id : "",
+              res.data[0].measurement_unit.id
+                ? res.data[0].measurement_unit.id
+                : "",
 
-            custom_attribute: res.data[0] &&
-              res.data[0].custom_attribute ?
-              res.data[0].custom_attribute : "",
+            custom_attribute:
+              res.data[0] && res.data[0].custom_attribute
+                ? res.data[0].custom_attribute
+                : "",
 
-            sub_category: res.data[0] &&
+            sub_category:
+              res.data[0] &&
               res.data[0].sub_category &&
-              res.data[0].sub_category.id ?
-              res.data[0].sub_category.id : "",
+              res.data[0].sub_category.id
+                ? res.data[0].sub_category.id
+                : "",
 
-            sub_sub_category: res.data[0] &&
+            sub_sub_category:
+              res.data[0] &&
               res.data[0].sub_sub_category &&
-              res.data[0].sub_sub_category.id ?
-              res.data[0].sub_sub_category.id : ""
+              res.data[0].sub_sub_category.id
+                ? res.data[0].sub_sub_category.id
+                : "",
           });
         })
         .catch((err) => {
-          message.error(err.message)
+          message.error(err.message);
         });
 
       this.setState({
         editProduct: edit,
-        step: 1
-      })
-
+        step: 1,
+      });
     }
   }
 
@@ -226,8 +244,9 @@ class AddProductForm extends Component {
     });
 
     if (input === "product_category") {
-      await axiosInstance
-        .get(`/product-categories/${value}`
+      await axios
+        .get(
+          `/product-categories/${value}`
           // , {
           //   headers: {
           //     Authorization:
@@ -237,17 +256,20 @@ class AddProductForm extends Component {
         )
         .then((res) => {
           this.setState({
-            subCatArray: res.data && res.data.sub_categories ? res.data.sub_categories : ""
+            subCatArray:
+              res.data && res.data.sub_categories
+                ? res.data.sub_categories
+                : "",
             // isLoading: false,
           });
         })
         .catch((err) => {
-          message.error(err.message)
+          message.error(err.message);
         });
-    }
-    else if (input === "sub_category") {
-      await axiosInstance
-        .get(`/sub-categories/${value}`
+    } else if (input === "sub_category") {
+      await axios
+        .get(
+          `/sub-categories/${value}`
           // , {
           //   headers: {
           //     Authorization:
@@ -257,29 +279,31 @@ class AddProductForm extends Component {
         )
         .then((res) => {
           this.setState({
-            subSubCatArray: res.data && res.data.sub_sub_categories ? res.data.sub_sub_categories : ""
+            subSubCatArray:
+              res.data && res.data.sub_sub_categories
+                ? res.data.sub_sub_categories
+                : "",
             // isLoading: false,
           });
         })
         .catch((err) => {
-          message.error(err.message)
+          message.error(err.message);
         });
     }
   };
 
-
   handleCustomAttribute = (value) => {
     this.setState({
-      custom_attribute: value ? value : {}
-    })
+      custom_attribute: value ? value : {},
+    });
     message.success(`Attributes Added Successfully`);
-  }
+  };
   handleImageUpload = (value) => {
     // console.log("img add", value);
     // this.setState({
     //   images: value ? value : []
     // })
-  }
+  };
 
   callback = (key) => {
     this.setState({
@@ -292,7 +316,13 @@ class AddProductForm extends Component {
   // }
 
   updateProduct = () => {
-    const productId = this.props && this.props.match && this.props.match.params && this.props.match.params.productID ? this.props.match.params.productID : "";
+    const productId =
+      this.props &&
+      this.props.match &&
+      this.props.match.params &&
+      this.props.match.params.productID
+        ? this.props.match.params.productID
+        : "";
 
     const {
       product_category,
@@ -314,130 +344,113 @@ class AddProductForm extends Component {
       dem_breadth,
     } = this.state;
 
-
     const error = {};
     let isError = false;
 
-    if (product_category === "") {
-      error.product_category = 'select a category';
+    if (!product_category.trim()) {
+      error.product_category = "select a category";
       isError = true;
-      this.openNotificationWithIcon("select a category")
+      this.openNotificationWithIcon("select a category");
     }
 
-    if (product_name === "") {
-      error.product_name = 'Product name is required';
+    if (!product_name.trim()) {
+      error.product_name = "Product name is required";
       isError = true;
-      this.openNotificationWithIcon("Product Name is required")
+      this.openNotificationWithIcon("Product Name is required");
     }
-    if (product_description === "") {
-      error.product_description = 'Product description is required';
+    if (!product_description.trim()) {
+      error.product_description = "Product description is required";
       isError = true;
-      this.openNotificationWithIcon("Product description is required")
-
+      this.openNotificationWithIcon("Product description is required");
     }
-    if (product_brand === "") {
-      error.product_brand = 'Product Brand name is required';
+    if (!product_brand.trim()) {
+      error.product_brand = "Product Brand name is required";
       isError = true;
-      this.openNotificationWithIcon("Product Brand name  is required")
-
+      this.openNotificationWithIcon("Product Brand name  is required");
     }
-    if (counrty_origin === "") {
-      error.counrty_origin = 'Product country of origin is required';
+    if (!counrty_origin.trim()) {
+      error.counrty_origin = "Product country of origin is required";
       isError = true;
-      this.openNotificationWithIcon("Product country of origin is required")
-
+      this.openNotificationWithIcon("Product country of origin is required");
     }
-    if (product_tags === "") {
-      error.product_tags = 'Product tags are Required';
+    if (!product_tags.trim()) {
+      error.product_tags = "Product tags are Required";
       isError = true;
-      this.openNotificationWithIcon("Product tags is required")
-
+      this.openNotificationWithIcon("Product tags is required");
     }
-    if (hsn_code === "") {
-      error.hsn_code = 'HSN code is required';
+    if (!hsn_code.trim()) {
+      error.hsn_code = "HSN code is required";
       isError = true;
-      this.openNotificationWithIcon("HSN coden is required")
-
+      this.openNotificationWithIcon("HSN coden is required");
     }
-    if (upc_number === "") {
-      error.upc_number = 'UPC number is required';
+    if (!upc_number.trim()) {
+      error.upc_number = "UPC number is required";
       isError = true;
-      this.openNotificationWithIcon("UPC number is required")
-
+      this.openNotificationWithIcon("UPC number is required");
     }
-    if (ean_number === "") {
-      error.ean_number = 'EAN number is required';
+    if (!ean_number.trim()) {
+      error.ean_number = "EAN number is required";
       isError = true;
-      this.openNotificationWithIcon("EAN number is required")
-
+      this.openNotificationWithIcon("EAN number is required");
     }
-    if (hsn_code === "") {
-      error.hsn_code = 'HSN code is required';
+    if (!hsn_code.trim()) {
+      error.hsn_code = "HSN code is required";
       isError = true;
-      this.openNotificationWithIcon("HSN code is required")
-
+      this.openNotificationWithIcon("HSN code is required");
     }
-    if (gst_type === "") {
-      error.gst_type = 'GST type is required';
+    if (!gst_type.trim()) {
+      error.gst_type = "GST type is required";
       isError = true;
-      this.openNotificationWithIcon("GST type is required")
-
+      this.openNotificationWithIcon("GST type is required");
     }
-    if (measurement_unit === "") {
-      error.measurement_unit = 'Measurement unit is required';
+    if (!measurement_unit.trim()) {
+      error.measurement_unit = "Measurement unit is required";
       isError = true;
-      this.openNotificationWithIcon("Measurement unit is required")
-
+      this.openNotificationWithIcon("Measurement unit is required");
     }
-    if (product_main_sku === "") {
-      error.product_main_sku = 'Product SKU is required';
+    if (!product_main_sku.trim()) {
+      error.product_main_sku = "Product SKU is required";
       isError = true;
-      this.openNotificationWithIcon("Product SKU is required")
-
+      this.openNotificationWithIcon("Product SKU is required");
     }
-    if (qunatity === "") {
-      error.qunatity = 'Qunatity is required';
+    if (!qunatity.trim()) {
+      error.qunatity = "Qunatity is required";
       isError = true;
-      this.openNotificationWithIcon("Qunatity is required")
-
+      this.openNotificationWithIcon("Qunatity is required");
     }
-    if (product_mrp === "") {
-      error.product_mrp = 'Product MRP is required';
+    if (!product_mrp.trim()) {
+      error.product_mrp = "Product MRP is required";
       isError = true;
-      this.openNotificationWithIcon("Product MRP is required")
-
+      this.openNotificationWithIcon("Product MRP is required");
     }
-    if (weight === "") {
-      error.weight = 'Product Weight is required';
+    if (!weight.trim()) {
+      error.weight = "Product Weight is required";
       isError = true;
-      this.openNotificationWithIcon("Product Weightn is required")
-
+      this.openNotificationWithIcon("Product Weightn is required");
     }
-    if (dem_length === "") {
-      error.dem_length = 'Length deminsion is required';
+    if (!dem_length.trim()) {
+      error.dem_length = "Length deminsion is required";
       isError = true;
-      this.openNotificationWithIcon("Length deminsion is required")
-
+      this.openNotificationWithIcon("Length deminsion is required");
     }
-    if (dem_breadth === "") {
-      error.dem_breadth = 'Breadth deminsion is required';
+    if (!dem_breadth.trim()) {
+      error.dem_breadth = "Breadth deminsion is required";
       isError = true;
-      this.openNotificationWithIcon("Breadth deminsion  is required")
-
+      this.openNotificationWithIcon("Breadth deminsion  is required");
     }
 
     if (!isError) {
       this.setState({
-        loading: true
-      })
+        loading: true,
+      });
       axios
         .put(`/product-details/${productId}`, this.state)
         .then((resp) => {
           if (resp.status === 200) {
             message.success(`Product Editted Successfully`);
             this.setState({
-              editProduct: false
-            })
+              editProduct: false,
+            });
             // window.location = "/wholeseller/products";
             this.props.history.push("/wholeseller/products");
           }
@@ -450,9 +463,7 @@ class AddProductForm extends Component {
       console.log(error);
       // this.setState({ error })
     }
-
-  }
-
+  };
 
   openNotificationWithIcon = (error) => {
     notification["error"]({
@@ -460,13 +471,12 @@ class AddProductForm extends Component {
     });
   };
 
-
   submitHandler = (e) => {
     e.preventDefault();
 
     this.setState({
       editProduct: false,
-    })
+    });
 
     const {
       product_category,
@@ -488,122 +498,105 @@ class AddProductForm extends Component {
       dem_breadth,
     } = this.state;
 
-
     const error = {};
     let isError = false;
 
     if (product_category === "") {
-      error.product_category = 'select a category';
+      error.product_category = "select a category";
       isError = true;
-      this.openNotificationWithIcon("select a category")
+      this.openNotificationWithIcon("select a category");
     }
 
     if (product_name === "") {
-      error.product_name = 'Product name is required';
+      error.product_name = "Product name is required";
       isError = true;
-      this.openNotificationWithIcon("Product Name is required")
+      this.openNotificationWithIcon("Product Name is required");
     }
     if (product_description === "") {
-      error.product_description = 'Product description is required';
+      error.product_description = "Product description is required";
       isError = true;
-      this.openNotificationWithIcon("Product description is required")
-
+      this.openNotificationWithIcon("Product description is required");
     }
     if (product_brand === "") {
-      error.product_brand = 'Product Brand name is required';
+      error.product_brand = "Product Brand name is required";
       isError = true;
-      this.openNotificationWithIcon("Product Brand name  is required")
-
+      this.openNotificationWithIcon("Product Brand name  is required");
     }
     if (counrty_origin === "") {
-      error.counrty_origin = 'Product country of origin is required';
+      error.counrty_origin = "Product country of origin is required";
       isError = true;
-      this.openNotificationWithIcon("Product country of origin is required")
-
+      this.openNotificationWithIcon("Product country of origin is required");
     }
     if (product_tags === "") {
-      error.product_tags = 'Product tags are Required';
+      error.product_tags = "Product tags are Required";
       isError = true;
-      this.openNotificationWithIcon("Product tags is required")
-
+      this.openNotificationWithIcon("Product tags is required");
     }
     if (hsn_code === "") {
-      error.hsn_code = 'HSN code is required';
+      error.hsn_code = "HSN code is required";
       isError = true;
-      this.openNotificationWithIcon("HSN coden is required")
-
+      this.openNotificationWithIcon("HSN coden is required");
     }
     if (upc_number === "") {
-      error.upc_number = 'UPC number is required';
+      error.upc_number = "UPC number is required";
       isError = true;
-      this.openNotificationWithIcon("UPC number is required")
-
+      this.openNotificationWithIcon("UPC number is required");
     }
     if (ean_number === "") {
-      error.ean_number = 'EAN number is required';
+      error.ean_number = "EAN number is required";
       isError = true;
-      this.openNotificationWithIcon("EAN number is required")
-
+      this.openNotificationWithIcon("EAN number is required");
     }
     if (hsn_code === "") {
-      error.hsn_code = 'HSN code is required';
+      error.hsn_code = "HSN code is required";
       isError = true;
-      this.openNotificationWithIcon("HSN code is required")
-
+      this.openNotificationWithIcon("HSN code is required");
     }
     if (gst_type === "") {
-      error.gst_type = 'GST type is required';
+      error.gst_type = "GST type is required";
       isError = true;
-      this.openNotificationWithIcon("GST type is required")
-
+      this.openNotificationWithIcon("GST type is required");
     }
     if (measurement_unit === "") {
-      error.measurement_unit = 'Measurement unit is required';
+      error.measurement_unit = "Measurement unit is required";
       isError = true;
-      this.openNotificationWithIcon("Measurement unit is required")
-
+      this.openNotificationWithIcon("Measurement unit is required");
     }
     if (product_main_sku === "") {
-      error.product_main_sku = 'Product SKU is required';
+      error.product_main_sku = "Product SKU is required";
       isError = true;
-      this.openNotificationWithIcon("Product SKU is required")
-
+      this.openNotificationWithIcon("Product SKU is required");
     }
     if (qunatity === "") {
-      error.qunatity = 'Qunatity is required';
+      error.qunatity = "Qunatity is required";
       isError = true;
-      this.openNotificationWithIcon("Qunatity is required")
-
+      this.openNotificationWithIcon("Qunatity is required");
     }
     if (product_mrp === "") {
-      error.product_mrp = 'Product MRP is required';
+      error.product_mrp = "Product MRP is required";
       isError = true;
-      this.openNotificationWithIcon("Product MRP is required")
-
+      this.openNotificationWithIcon("Product MRP is required");
     }
     if (weight === "") {
-      error.weight = 'Product Weight is required';
+      error.weight = "Product Weight is required";
       isError = true;
-      this.openNotificationWithIcon("Product Weightn is required")
-
+      this.openNotificationWithIcon("Product Weightn is required");
     }
     if (dem_length === "") {
-      error.dem_length = 'Length deminsion is required';
+      error.dem_length = "Length deminsion is required";
       isError = true;
-      this.openNotificationWithIcon("Length deminsion is required")
-
+      this.openNotificationWithIcon("Length deminsion is required");
     }
     if (dem_breadth === "") {
-      error.dem_breadth = 'Breadth deminsion is required';
+      error.dem_breadth = "Breadth deminsion is required";
       isError = true;
-      this.openNotificationWithIcon("Breadth deminsion  is required")
-
+      this.openNotificationWithIcon("Breadth deminsion  is required");
     }
 
     if (!isError) {
       this.setState({
-        loading: true
-      })
+        loading: true,
+      });
       axios
         .post("/product-details", this.state)
         .then((resp) => {
@@ -618,18 +611,13 @@ class AddProductForm extends Component {
           message.error(`Please fill all the required fields`);
         });
     } else {
-
       console.log(error);
       // this.setState({ error })
     }
   };
 
-
-
   render() {
-
-    const { step, subCatArray,
-      subSubCatArray, } = this.state;
+    const { step, subCatArray, subSubCatArray } = this.state;
     const {
       //general details
       product_category,
@@ -663,8 +651,7 @@ class AddProductForm extends Component {
       dem_height,
 
       //attributes
-      custom_attribute
-
+      custom_attribute,
     } = this.state;
     const values = {
       //general details
@@ -701,10 +688,8 @@ class AddProductForm extends Component {
       //attributes
       custom_attribute,
 
-
       subCatArray,
       subSubCatArray,
-
     };
 
     if (step === 0) {
@@ -726,7 +711,12 @@ class AddProductForm extends Component {
     //   />
     // }
     return (
-      <Spin spinning={this.state.loading} indicator={<LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />}>
+      <Spin
+        spinning={this.state.loading}
+        indicator={
+          <LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />
+        }
+      >
         <Tabs
           defaultActiveKey={"1"}
           activeKey={`${this.state.step}`}
@@ -741,7 +731,6 @@ class AddProductForm extends Component {
             // console.log({ key, newStep, step: this.state.step });
           }}
           tabBarExtraContent={
-
             <div className="flex">
               <Button
                 className="back-form-button"
@@ -755,14 +744,17 @@ class AddProductForm extends Component {
               <Button
                 className="continue-form-button"
                 onClick={
-                  this.state.editProduct && this.state.step === 5 ? this.updateProduct :
-                    this.state.step === 5 ? this.submitHandler : this.nextstep}
+                  this.state.editProduct && this.state.step === 5
+                    ? this.updateProduct
+                    : this.state.step === 5
+                    ? this.submitHandler
+                    : this.nextstep
+                }
               >
                 {this.state.step === 5 ? "Submit" : "Next"}
                 <RightOutlined />
               </Button>
             </div>
-
           }
         >
           <TabPane tab="General Details" key="1">
