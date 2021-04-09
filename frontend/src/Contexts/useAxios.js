@@ -12,6 +12,13 @@ const useAxios = () => {
   axiosInstance.interceptors.request.use(
     (req) => {
       setIsLoading(true);
+      if (!req.headers["Authorization"]) {
+        let jwt = sessionStorage.getItem(process.env.REACT_APP_JWT_KEY);
+        req.headers = {
+          ...req.headers,
+          Authorization: `Bearer ${jwt}`,
+        };
+      }
       setError(null);
       return req;
     },

@@ -43,8 +43,11 @@ const Login = ({ className }) => {
 
     sessionStorage.setItem('CARTNYOU_SESSION_LOGIN_MODE', userType);
 
-    if (process.env.NODE_ENV === 'production') history.push('/connect/google')
-    else window.location = 'http://localhost:1337/connect/google'
+    let BASE_URL = process.env.REACT_APP_API_URL;
+    // if (process.env.NODE_ENV === 'production') BASE_URL = process.env.REACT_APP_API_URL
+    // else BASE_URL = 'http://localhost:1337'
+
+    window.location = `${BASE_URL}/connect/google`
   }
 
   const signIn = (e) => {

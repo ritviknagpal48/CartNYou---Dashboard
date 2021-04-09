@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { createContext, useReducer } from "react";
 
-
 const defaultState = {
   isLoggedIn: false,
   token: "",
@@ -12,7 +11,7 @@ const defaultState = {
     email: "",
   },
   additionalInfo: {},
-  setAuth: (action, payload) => { },
+  setAuth: (action, payload) => {},
 };
 
 export const AUTH_ACTIONS = {
@@ -36,10 +35,15 @@ const authReducer = (state, action) => {
         process.env.REACT_APP_AUTH_KEY,
         JSON.stringify({ ...state, ...action.payload })
       );
+      sessionStorage.setItem(
+        process.env.REACT_APP_JWT_KEY,
+        action.payload.token
+      );
       return { ...state, ...action.payload };
 
     case AUTH_ACTIONS.LOGOUT:
       localStorage.removeItem(process.env.REACT_APP_AUTH_KEY);
+      sessionStorage.removeItem(process.env.REACT_APP_JWT_KEY);
       return { ...state, ...defaultState };
 
     case AUTH_ACTIONS.UPDATE:
