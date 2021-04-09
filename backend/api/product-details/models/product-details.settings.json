@@ -51,9 +51,7 @@
     "images": {
       "collection": "file",
       "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "plugin": "upload",
       "required": false
     },
@@ -121,6 +119,9 @@
       "plugin": "users-permissions",
       "model": "user",
       "via": "product_details"
+    },
+    "userId": {
+      "type": "string"
     }
   }
 }

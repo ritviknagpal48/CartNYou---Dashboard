@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/09/2021 6:51:22 PM"
+    "x-generation-date": "04/10/2021 12:33:45 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1615,6 +1615,63 @@
             }
           }
         ]
+      }
+    },
+    "/product-details/owned": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Retrieve product-details document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Product-details"
+        ],
+        "parameters": []
       }
     },
     "/sub-categories": {
@@ -5018,6 +5075,9 @@
                 "users_detail": {
                   "type": "string"
                 },
+                "userId": {
+                  "type": "string"
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -5251,6 +5311,9 @@
                   "type": "string"
                 },
                 "users_detail": {
+                  "type": "string"
+                },
+                "userId": {
                   "type": "string"
                 },
                 "published_at": {
@@ -5721,6 +5784,9 @@
               }
             }
           },
+          "userId": {
+            "type": "string"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -5820,6 +5886,9 @@
             "type": "string"
           },
           "users_detail": {
+            "type": "string"
+          },
+          "userId": {
             "type": "string"
           },
           "published_at": {
@@ -6034,6 +6103,9 @@
                   "type": "string"
                 },
                 "users_detail": {
+                  "type": "string"
+                },
+                "userId": {
                   "type": "string"
                 },
                 "published_at": {
@@ -6255,6 +6327,9 @@
                   "type": "string"
                 },
                 "users_detail": {
+                  "type": "string"
+                },
+                "userId": {
                   "type": "string"
                 },
                 "published_at": {
@@ -6652,6 +6727,9 @@
                   "type": "string"
                 },
                 "users_detail": {
+                  "type": "string"
+                },
+                "userId": {
                   "type": "string"
                 },
                 "published_at": {

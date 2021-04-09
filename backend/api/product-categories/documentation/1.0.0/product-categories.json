@@ -713,6 +713,9 @@
                 "users_detail": {
                   "type": "string"
                 },
+                "userId": {
+                  "type": "string"
+                },
                 "published_at": {
                   "type": "string"
                 },
