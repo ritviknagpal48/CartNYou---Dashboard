@@ -68,16 +68,16 @@ class AddProductForm extends Component {
   async componentDidMount() {
     const productId =
       this.props &&
-      this.props.match &&
-      this.props.match.params &&
-      this.props.match.params.productID
+        this.props.match &&
+        this.props.match.params &&
+        this.props.match.params.productID
         ? this.props.match.params.productID
         : "";
     const edit =
       this.props &&
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.edit
+        this.props.location &&
+        this.props.location.state &&
+        this.props.location.state.edit
         ? this.props.location.state.edit
         : false;
 
@@ -93,8 +93,8 @@ class AddProductForm extends Component {
             step: 1,
             product_category:
               res.data[0] &&
-              res.data[0].product_category &&
-              res.data[0].product_category.id
+                res.data[0].product_category &&
+                res.data[0].product_category.id
                 ? res.data[0].product_category.id
                 : "",
 
@@ -178,8 +178,8 @@ class AddProductForm extends Component {
 
             measurement_unit:
               res.data[0] &&
-              res.data[0].measurement_unit &&
-              res.data[0].measurement_unit.id
+                res.data[0].measurement_unit &&
+                res.data[0].measurement_unit.id
                 ? res.data[0].measurement_unit.id
                 : "",
 
@@ -190,18 +190,27 @@ class AddProductForm extends Component {
 
             sub_category:
               res.data[0] &&
-              res.data[0].sub_category &&
-              res.data[0].sub_category.id
+                res.data[0].sub_category &&
+                res.data[0].sub_category.id
                 ? res.data[0].sub_category.id
                 : "",
 
             sub_sub_category:
               res.data[0] &&
-              res.data[0].sub_sub_category &&
-              res.data[0].sub_sub_category.id
+                res.data[0].sub_sub_category &&
+                res.data[0].sub_sub_category.id
                 ? res.data[0].sub_sub_category.id
                 : "",
           });
+
+          if (this.state.product_description === "<p><br></p>") {
+            // const desc = this.state.product_description.trim();
+            const desc = this.state.product_description.replace(/<p><br[\/]?><[\/]?p>/gm, '');
+            this.setState({
+              product_description: desc,
+            })
+
+          }
         })
         .catch((err) => {
           message.error(err.message);
@@ -242,7 +251,12 @@ class AddProductForm extends Component {
     this.setState({
       [input]: value,
     });
-
+    if (this.state.product_description === "<p><br></p>") {
+      const desc = this.state.product_description.replace(/<p><br[\/]?><[\/]?p>/gm, '');
+      this.setState({
+        product_description: desc,
+      })
+    }
     if (input === "product_category") {
       await axios
         .get(
@@ -318,12 +332,18 @@ class AddProductForm extends Component {
   updateProduct = () => {
     const productId =
       this.props &&
-      this.props.match &&
-      this.props.match.params &&
-      this.props.match.params.productID
+        this.props.match &&
+        this.props.match.params &&
+        this.props.match.params.productID
         ? this.props.match.params.productID
         : "";
 
+    if (this.state.product_description === "<p><br></p>") {
+      const desc = this.state.product_description.replace(/<p><br[\/]?><[\/]?p>/gm, '');
+      this.setState({
+        product_description: desc,
+      })
+    }
     const {
       product_category,
       product_name,
@@ -698,6 +718,7 @@ class AddProductForm extends Component {
           nextstep={this.nextstep}
           handleValueChange={this.handleValueChange}
           values={values}
+          loading={this.state.editProduct}
         />
       );
     }
@@ -747,8 +768,8 @@ class AddProductForm extends Component {
                   this.state.editProduct && this.state.step === 5
                     ? this.updateProduct
                     : this.state.step === 5
-                    ? this.submitHandler
-                    : this.nextstep
+                      ? this.submitHandler
+                      : this.nextstep
                 }
               >
                 {this.state.step === 5 ? "Submit" : "Next"}

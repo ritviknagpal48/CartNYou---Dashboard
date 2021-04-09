@@ -14,7 +14,7 @@ class HeaderWithSideBar extends React.Component {
 
   async componentDidMount() {
     const edit =
-      (await this.props) &&
+      this.props &&
       this.props.location &&
       this.props.location.state &&
       this.props.location.state.edit
