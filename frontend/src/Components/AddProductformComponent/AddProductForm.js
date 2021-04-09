@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { message, Button } from "antd";
+import { message, Button, Spin } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { axiosInstance as axios } from "Contexts/useAxios";
 import { Tabs, notification } from "antd";
@@ -10,6 +10,7 @@ import ImageUpload from "./ImageUploadForm/imageUpload";
 import ShippingDetails from "./ShippingDetails/shippingDetails";
 import { axiosInstance } from "../../Contexts/useAxios"
 import AttributeDetail from "./AttributeDetail/AttributeDetail"
+import { LoadingOutlined } from '@ant-design/icons';
 import ProductCategoryForm from "./ProductCategoryForm/ProductCategoryForm";
 import "./AddProduct.css";
 
@@ -62,6 +63,7 @@ class AddProductForm extends Component {
 
       subCatArray: [],
       subSubCatArray: [],
+      loading: false
     };
   }
 
@@ -195,7 +197,6 @@ class AddProductForm extends Component {
   }
 
   nextstep = () => {
-    // const { step } = this.state;
     if (parseInt(this.state.step) !== 5) {
       this.setState({
         step: parseInt(this.state.step) + 1,
@@ -215,17 +216,13 @@ class AddProductForm extends Component {
 
   handleNumberChange = (input) => (value) => {
     this.setState({
-      [input]: {
-        value,
-      },
+      [input]: value,
     });
   };
 
   handleValueChange = (input) => async (value) => {
     this.setState({
-      [input]: {
-        value,
-      },
+      [input]: value,
     });
 
     if (input === "product_category") {
@@ -239,7 +236,6 @@ class AddProductForm extends Component {
           // }
         )
         .then((res) => {
-          console.log(res);
           this.setState({
             subCatArray: res.data && res.data.sub_categories ? res.data.sub_categories : ""
             // isLoading: false,
@@ -296,60 +292,10 @@ class AddProductForm extends Component {
   // }
 
   updateProduct = () => {
+    console.log(":update product");
     const productId = this.props && this.props.match && this.props.match.params && this.props.match.params.productID ? this.props.match.params.productID : "";
 
     console.log("Update", this.state);
-    const measur = this.state.measurement_unit && this.state.measurement_unit.value ? this.state.measurement_unit.value : this.state.measurement_unit;
-    const desc = this.state.product_description && this.state.product_description.value ? this.state.product_description.value : this.state.product_description;
-
-    this.setState({
-      measurement_unit: measur,
-      product_description: desc,
-      editProduct: false,
-    })
-    axios
-      .put(`/product-details/${productId}`, this.state)
-      .then((resp) => {
-        if (resp.status === 200) {
-          message.success(`Product Editted Successfully`);
-          this.setState({
-            editProduct: false
-          })
-          window.location = "/wholeseller/products";
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
-        message.error(`Please fill all the required fields`);
-      });
-
-  }
-
-
-  openNotificationWithIcon = (error) => {
-    notification["error"]({
-      message: `${error}`,
-    });
-  };
-
-
-  submitHandler = (e) => {
-    e.preventDefault();
-    const desc = this.state.product_description && this.state.product_description.value ? this.state.product_description.value : "";
-    const cat = this.state.product_category && this.state.product_category.value ? this.state.product_category.value : "";
-    const subcat = this.state.sub_category && this.state.sub_category.value ? this.state.sub_category.value : "";
-    const subsubcat = this.state.sub_sub_category && this.state.sub_sub_category.value ? this.state.sub_sub_category.value : "";
-    const measur = this.state.measurement_unit && this.state.measurement_unit.value ? this.state.measurement_unit.value : "";
-
-    this.setState({
-      editProduct: false,
-      product_description: desc,
-      product_category: cat,
-      sub_category: subcat,
-      sub_sub_category: subsubcat,
-      measurement_unit: measur
-    })
-
     const {
       product_category,
       product_name,
@@ -368,8 +314,8 @@ class AddProductForm extends Component {
       weight,
       dem_length,
       dem_breadth,
-
     } = this.state;
+
 
     const error = {};
     let isError = false;
@@ -377,6 +323,7 @@ class AddProductForm extends Component {
     if (product_category === "") {
       error.product_category = 'select a category';
       isError = true;
+      this.openNotificationWithIcon("select a category")
     }
 
     if (product_name === "") {
@@ -385,7 +332,7 @@ class AddProductForm extends Component {
       this.openNotificationWithIcon("Product Name is required")
     }
     if (product_description === "") {
-      error.product_category = 'Product description is required';
+      error.product_description = 'Product description is required';
       isError = true;
       this.openNotificationWithIcon("Product description is required")
 
@@ -480,13 +427,194 @@ class AddProductForm extends Component {
       this.openNotificationWithIcon("Breadth deminsion  is required")
 
     }
+
     if (!isError) {
+      this.setState({
+        loading: true
+      })
+      axios
+        .put(`/product-details/${productId}`, this.state)
+        .then((resp) => {
+          if (resp.status === 200) {
+            message.success(`Product Editted Successfully`);
+            this.setState({
+              editProduct: false
+            })
+            // window.location = "/wholeseller/products";
+            this.props.history.push("/wholeseller/products");
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+          message.error(`Please fill all the required fields`);
+        });
+    } else {
+      console.log(error);
+      // this.setState({ error })
+    }
+
+  }
+
+
+  openNotificationWithIcon = (error) => {
+    notification["error"]({
+      message: `${error}`,
+    });
+  };
+
+
+  submitHandler = (e) => {
+    console.log("new product");
+    e.preventDefault();
+
+    this.setState({
+      editProduct: false,
+    })
+
+    const {
+      product_category,
+      product_name,
+      product_description,
+      product_brand,
+      counrty_origin,
+      product_tags,
+      hsn_code,
+      upc_number,
+      ean_number,
+      gst_type,
+      measurement_unit,
+      product_main_sku,
+      qunatity,
+      product_mrp,
+      weight,
+      dem_length,
+      dem_breadth,
+    } = this.state;
+
+
+    const error = {};
+    let isError = false;
+
+    if (product_category === "") {
+      error.product_category = 'select a category';
+      isError = true;
+      this.openNotificationWithIcon("select a category")
+    }
+
+    if (product_name === "") {
+      error.product_name = 'Product name is required';
+      isError = true;
+      this.openNotificationWithIcon("Product Name is required")
+    }
+    if (product_description === "") {
+      error.product_description = 'Product description is required';
+      isError = true;
+      this.openNotificationWithIcon("Product description is required")
+
+    }
+    if (product_brand === "") {
+      error.product_brand = 'Product Brand name is required';
+      isError = true;
+      this.openNotificationWithIcon("Product Brand name  is required")
+
+    }
+    if (counrty_origin === "") {
+      error.counrty_origin = 'Product country of origin is required';
+      isError = true;
+      this.openNotificationWithIcon("Product country of origin is required")
+
+    }
+    if (product_tags === "") {
+      error.product_tags = 'Product tags are Required';
+      isError = true;
+      this.openNotificationWithIcon("Product tags is required")
+
+    }
+    if (hsn_code === "") {
+      error.hsn_code = 'HSN code is required';
+      isError = true;
+      this.openNotificationWithIcon("HSN coden is required")
+
+    }
+    if (upc_number === "") {
+      error.upc_number = 'UPC number is required';
+      isError = true;
+      this.openNotificationWithIcon("UPC number is required")
+
+    }
+    if (ean_number === "") {
+      error.ean_number = 'EAN number is required';
+      isError = true;
+      this.openNotificationWithIcon("EAN number is required")
+
+    }
+    if (hsn_code === "") {
+      error.hsn_code = 'HSN code is required';
+      isError = true;
+      this.openNotificationWithIcon("HSN code is required")
+
+    }
+    if (gst_type === "") {
+      error.gst_type = 'GST type is required';
+      isError = true;
+      this.openNotificationWithIcon("GST type is required")
+
+    }
+    if (measurement_unit === "") {
+      error.measurement_unit = 'Measurement unit is required';
+      isError = true;
+      this.openNotificationWithIcon("Measurement unit is required")
+
+    }
+    if (product_main_sku === "") {
+      error.product_main_sku = 'Product SKU is required';
+      isError = true;
+      this.openNotificationWithIcon("Product SKU is required")
+
+    }
+    if (qunatity === "") {
+      error.qunatity = 'Qunatity is required';
+      isError = true;
+      this.openNotificationWithIcon("Qunatity is required")
+
+    }
+    if (product_mrp === "") {
+      error.product_mrp = 'Product MRP is required';
+      isError = true;
+      this.openNotificationWithIcon("Product MRP is required")
+
+    }
+    if (weight === "") {
+      error.weight = 'Product Weight is required';
+      isError = true;
+      this.openNotificationWithIcon("Product Weightn is required")
+
+    }
+    if (dem_length === "") {
+      error.dem_length = 'Length deminsion is required';
+      isError = true;
+      this.openNotificationWithIcon("Length deminsion is required")
+
+    }
+    if (dem_breadth === "") {
+      error.dem_breadth = 'Breadth deminsion is required';
+      isError = true;
+      this.openNotificationWithIcon("Breadth deminsion  is required")
+
+    }
+
+    if (!isError) {
+      console.log(this.state);
+      this.setState({
+        loading: true
+      })
       axios
         .post("/product-details", this.state)
         .then((resp) => {
           if (resp.status === 200) {
             message.success(`Product Added Successfully`);
-            window.location = "/wholeseller/products";
+            // window.location = "/wholeseller/products";
+            this.props.history.push("/wholeseller/products");
           }
         })
         .catch((error) => {
@@ -496,7 +624,7 @@ class AddProductForm extends Component {
     } else {
 
       console.log(error);
-      this.setState({ error })
+      // this.setState({ error })
     }
   };
 
@@ -504,7 +632,7 @@ class AddProductForm extends Component {
 
   render() {
 
-
+    console.log("this.state.product_category", this.state.product_category);
 
     const { step, subCatArray,
       subSubCatArray, } = this.state;
@@ -585,6 +713,8 @@ class AddProductForm extends Component {
 
     };
 
+    console.log("yo yo yo", values);
+
     if (step === 0) {
       return (
         <ProductCategoryForm
@@ -604,89 +734,91 @@ class AddProductForm extends Component {
     //   />
     // }
     return (
-      <Tabs
-        defaultActiveKey={"1"}
-        activeKey={`${this.state.step}`}
-        onChange={this.callback}
-        onTabClick={(key) => {
-          const newStep = parseInt(key);
-          if (newStep > 0) {
-            this.setState({ step: newStep });
-          } else {
-            this.setState({ step: 1 });
-          }
-          // console.log({ key, newStep, step: this.state.step });
-        }}
-        tabBarExtraContent={
+      <Spin spinning={this.state.loading} indicator={<LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />}>
+        <Tabs
+          defaultActiveKey={"1"}
+          activeKey={`${this.state.step}`}
+          onChange={this.callback}
+          onTabClick={(key) => {
+            const newStep = parseInt(key);
+            if (newStep > 0) {
+              this.setState({ step: newStep });
+            } else {
+              this.setState({ step: 1 });
+            }
+            // console.log({ key, newStep, step: this.state.step });
+          }}
+          tabBarExtraContent={
 
-          <div className="flex">
-            <Button
-              className="back-form-button"
-              style={{ marginRight: "10px" }}
-              onClick={this.prevstep}
-              disabled={step === 1 || step === 0}
-            >
-              <LeftOutlined />
+            <div className="flex">
+              <Button
+                className="back-form-button"
+                style={{ marginRight: "10px" }}
+                onClick={this.prevstep}
+                disabled={step === 1 || step === 0}
+              >
+                <LeftOutlined />
                 Back
               </Button>
-            <Button
-              className="continue-form-button"
-              onClick={
-                this.state.editProduct && this.state.step === 5 ? this.updateProduct :
-                  this.state.step === 5 ? this.submitHandler : this.nextstep}
-            >
-              {this.state.step === 5 ? "Submit" : "Next"}
-              <RightOutlined />
-            </Button>
-          </div>
+              <Button
+                className="continue-form-button"
+                onClick={
+                  this.state.editProduct && this.state.step === 5 ? this.updateProduct :
+                    this.state.step === 5 ? this.submitHandler : this.nextstep}
+              >
+                {this.state.step === 5 ? "Submit" : "Next"}
+                <RightOutlined />
+              </Button>
+            </div>
 
-        }
-      >
-        <TabPane tab="General Details" key="1">
-          <ProductDetail
-            nextstep={this.nextstep}
-            handlechange={this.handlechange}
-            handleValueChange={this.handleValueChange}
-            values={values}
-          />
-        </TabPane>
+          }
+        >
+          <TabPane tab="General Details" key="1">
+            <ProductDetail
+              nextstep={this.nextstep}
+              handlechange={this.handlechange}
+              handleValueChange={this.handleValueChange}
+              values={values}
+            />
+          </TabPane>
 
-        <TabPane tab="Varient Details" key="2">
-          <VariantsDetails
-            nextstep={this.nextstep}
-            prevstep={this.prevstep}
-            handlechange={this.handlechange}
-            handleNumberChange={this.handleNumberChange}
-            values={values}
-          />
-        </TabPane>
-        <TabPane tab="Images" key="3">
-          <ImageUpload
-            nextstep={this.nextstep}
-            prevstep={this.prevstep}
-            handlechange={this.handlechange}
-            handleImageUpload={this.handleImageUpload}
-            values={values}
-          />
-        </TabPane>
-        <TabPane tab="Shipping Details" key="4">
-          <ShippingDetails
-            nextstep={this.nextstep}
-            prevstep={this.prevstep}
-            handlechange={this.handlechange}
-            values={values}
-          />
-        </TabPane>
-        <TabPane tab="Attribute Details" key="5">
-          <AttributeDetail
-            nextstep={this.nextstep}
-            prevstep={this.prevstep}
-            handlechange={this.handlechange}
-            values={values}
-            handleCustomAttribute={this.handleCustomAttribute}
-          />
-        </TabPane>
-      </Tabs>
+          <TabPane tab="Varient Details" key="2">
+            <VariantsDetails
+              nextstep={this.nextstep}
+              prevstep={this.prevstep}
+              handlechange={this.handlechange}
+              handleNumberChange={this.handleNumberChange}
+              values={values}
+            />
+          </TabPane>
+          <TabPane tab="Images" key="3">
+            <ImageUpload
+              nextstep={this.nextstep}
+              prevstep={this.prevstep}
+              handlechange={this.handlechange}
+              handleImageUpload={this.handleImageUpload}
+              values={values}
+            />
+          </TabPane>
+          <TabPane tab="Shipping Details" key="4">
+            <ShippingDetails
+              nextstep={this.nextstep}
+              prevstep={this.prevstep}
+              handlechange={this.handlechange}
+              values={values}
+            />
+          </TabPane>
+          <TabPane tab="Attribute Details" key="5">
+            <AttributeDetail
+              nextstep={this.nextstep}
+              prevstep={this.prevstep}
+              handlechange={this.handlechange}
+              values={values}
+              handleCustomAttribute={this.handleCustomAttribute}
+            />
+          </TabPane>
+        </Tabs>
+      </Spin>
     );
   }
 }

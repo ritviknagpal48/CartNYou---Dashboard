@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { UserOutlined } from "@ant-design/icons";
 
 const Navbar = ({ menuList }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -70,12 +71,21 @@ const Navbar = ({ menuList }) => {
                       onClick={() => setIsOpen((p) => !p)}
                     >
                       <span className="sr-only">Open user menu</span>
-                      <img
+                      {/* <img
                         className="h-8 w-8 rounded-full"
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
+                      /> */}
+                      <UserOutlined
+                        style={{
+                          fontSize: "20px",
+                          color: "#939cab",
+                          border: "2px solid #939cab",
+                          padding: "2px",
+                          borderRadius: "50px",
+                        }}
                       />
-                      <div className="text-sm p-3 font-medium leading-none text-gray-400">
+                      <div className="text-sm p-3 font-medium leading-none text-gray-500">
                         {user.fname}
                       </div>
                     </button>
@@ -186,10 +196,19 @@ const Navbar = ({ menuList }) => {
                 className="flex-shrink-0"
                 onClick={() => setIsOpen((p) => !p)}
               >
-                <img
+                {/* <img
                   className="h-10 w-10 rounded-full"
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   alt=""
+                /> */}
+                <UserOutlined
+                  style={{
+                    fontSize: "20px",
+                    color: "#939cab",
+                    border: "2px solid #939cab",
+                    padding: "2px",
+                    borderRadius: "50px",
+                  }}
                 />
               </div>
               <div className="ml-3" onClick={() => setIsOpen((p) => !p)}>

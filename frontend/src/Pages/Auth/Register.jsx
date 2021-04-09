@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import clsx from "clsx";
 import { Spin, message } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import useAxios from "Contexts/useAxios";
 import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
@@ -81,7 +82,12 @@ const Register = ({ className }) => {
         <div className={classes.logo}>CartNYou</div>
         <h2 className={classes.title}>Register</h2>
         <div className={classes.divider} />
-        <Spin spinning={isLoading} size={"large"}>
+        <Spin
+          spinning={isLoading}
+          indicator={
+            <LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />
+          }
+        >
           <div className={classes.row}>
             <div className={classes.row_item}>
               <input

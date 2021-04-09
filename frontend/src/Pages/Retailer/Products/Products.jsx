@@ -6,6 +6,7 @@ import CategoryList from "Components/productCategory";
 import ProductCard from "Components/Retailer/ProductCard";
 import ProductData from "./productDataDetails";
 import ProductCategory from "./productSearchCategories";
+import { LoadingOutlined } from "@ant-design/icons";
 import "./Product.css";
 import useAxios from "Contexts/useAxios";
 import { useEffect } from "react";
@@ -34,7 +35,7 @@ const Products = () => {
   // };
 
   const onFinish = (values) => {
-    console.log(values);
+    // console.log(values);
   };
 
   const onReset = () => {
@@ -279,7 +280,12 @@ const Products = () => {
           View All
         </Button>
       </div>
-      <Spin size={"large"} spinning={isLoading}>
+      <Spin
+        indicator={
+          <LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />
+        }
+        spinning={isLoading}
+      >
         <div
           className="product-grid"
           style={{
@@ -331,7 +337,12 @@ const Products = () => {
           View All
         </Button>
       </div>
-      <Spin size={"large"} spinning={isLoading}>
+      <Spin
+        indicator={
+          <LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />
+        }
+        spinning={isLoading}
+      >
         <div
           className="product-grid"
           style={{

@@ -9,7 +9,6 @@ class AttributeDetail extends React.Component {
 
   render() {
     const { values } = this.props;
-    console.log("values", this.props);
 
     const initialValue = values.custom_attribute ? values.custom_attribute : "";
     return (
