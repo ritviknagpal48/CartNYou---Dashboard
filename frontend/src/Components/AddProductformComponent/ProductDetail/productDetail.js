@@ -19,12 +19,14 @@ export class ProductDetailForm extends Component {
 
 
   async componentDidMount() {
-    await axiosInstance.get("/measurement-units", {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
-      },
-    }).then((res) => {
+    await axiosInstance.get("/measurement-units"
+      // , {
+      // headers: {
+      //   Authorization:
+      //     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+      // },
+      // }
+    ).then((res) => {
 
       this.setState({
         isLoading: false,
