@@ -14,10 +14,12 @@ const useAxios = () => {
       setIsLoading(true);
       if (!req.headers["Authorization"]) {
         let jwt = sessionStorage.getItem(process.env.REACT_APP_JWT_KEY);
-        req.headers = {
-          ...req.headers,
-          Authorization: `Bearer ${jwt}`,
-        };
+        if (!!jwt) {
+          req.headers = {
+            ...req.headers,
+            Authorization: `Bearer ${jwt}`,
+          };
+        }
       }
       setError(null);
       return req;
