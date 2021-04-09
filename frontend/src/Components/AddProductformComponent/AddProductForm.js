@@ -221,7 +221,7 @@ class AddProductForm extends Component {
     });
   };
 
-  handleValueChange = (input) => (value) => {
+  handleValueChange = (input) => async (value) => {
     this.setState({
       [input]: {
         value,
@@ -229,16 +229,19 @@ class AddProductForm extends Component {
     });
 
     if (input === "product_category") {
-      axiosInstance
-        .get(`/product-categories/${value}`, {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
-          },
-        })
+      await axiosInstance
+        .get(`/product-categories/${value}`
+          // , {
+          //   headers: {
+          //     Authorization:
+          //       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+          //   },
+          // }
+        )
         .then((res) => {
+          console.log(res);
           this.setState({
-            subCatArray: res.data.sub_categories
+            subCatArray: res.data && res.data.sub_categories ? res.data.sub_categories : ""
             // isLoading: false,
           });
         })
@@ -247,16 +250,18 @@ class AddProductForm extends Component {
         });
     }
     else if (input === "sub_category") {
-      axiosInstance
-        .get(`/sub-categories/${value}`, {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
-          },
-        })
+      await axiosInstance
+        .get(`/sub-categories/${value}`
+          // , {
+          //   headers: {
+          //     Authorization:
+          //       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+          //   },
+          // }
+        )
         .then((res) => {
           this.setState({
-            subSubCatArray: res.data.sub_sub_categories
+            subSubCatArray: res.data && res.data.sub_sub_categories ? res.data.sub_sub_categories : ""
             // isLoading: false,
           });
         })
