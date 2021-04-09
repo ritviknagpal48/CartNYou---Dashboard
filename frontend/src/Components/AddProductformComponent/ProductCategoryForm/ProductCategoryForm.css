@@ -1,0 +1,26 @@
+.ant-form input[type="search"] {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: none !important;
+  --tw-ring-color: transparent !important;
+}
+
+.category-container .ant-btn[disabled] {
+  color: #ef4444 !important;
+  background: #fff5f5 !important;
+  border-color: #ffa8a8 !important;
+  text-shadow: none;
+  box-shadow: none;
+  border-radius: 6px !important;
+}
+
+.category-container .ant-btn-primary {
+  display: flex !important;
+  align-items: center !important;
+  border-radius: 6px !important;
+  color: #fff !important;
+  background: #ef4444 !important;
+  border-color: #ef4444 !important;
+  text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+  box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+}
