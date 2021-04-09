@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { message, Button } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { axiosInstance as axios } from "Contexts/useAxios";
-import { Tabs } from "antd";
+import { Tabs, notification } from "antd";
 import ProductDetail from "./ProductDetail/productDetail";
 import VariantsDetails from "./VariantsDetails/variantsDetails";
 import ImageUpload from "./ImageUploadForm/imageUpload";
@@ -221,7 +221,7 @@ class AddProductForm extends Component {
     });
   };
 
-  handleValueChange = (input) => (value) => {
+  handleValueChange = (input) => async (value) => {
     this.setState({
       [input]: {
         value,
@@ -229,16 +229,19 @@ class AddProductForm extends Component {
     });
 
     if (input === "product_category") {
-      axiosInstance
-        .get(`/product-categories/${value}`, {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
-          },
-        })
+      await axiosInstance
+        .get(`/product-categories/${value}`
+          // , {
+          //   headers: {
+          //     Authorization:
+          //       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+          //   },
+          // }
+        )
         .then((res) => {
+          console.log(res);
           this.setState({
-            subCatArray: res.data.sub_categories
+            subCatArray: res.data && res.data.sub_categories ? res.data.sub_categories : ""
             // isLoading: false,
           });
         })
@@ -247,16 +250,18 @@ class AddProductForm extends Component {
         });
     }
     else if (input === "sub_category") {
-      axiosInstance
-        .get(`/sub-categories/${value}`, {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
-          },
-        })
+      await axiosInstance
+        .get(`/sub-categories/${value}`
+          // , {
+          //   headers: {
+          //     Authorization:
+          //       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+          //   },
+          // }
+        )
         .then((res) => {
           this.setState({
-            subSubCatArray: res.data.sub_sub_categories
+            subSubCatArray: res.data && res.data.sub_sub_categories ? res.data.sub_sub_categories : ""
             // isLoading: false,
           });
         })
@@ -319,6 +324,15 @@ class AddProductForm extends Component {
       });
 
   }
+
+
+  openNotificationWithIcon = (error) => {
+    notification["error"]({
+      message: `${error}`,
+    });
+  };
+
+
   submitHandler = (e) => {
     e.preventDefault();
     const desc = this.state.product_description && this.state.product_description.value ? this.state.product_description.value : "";
@@ -335,19 +349,158 @@ class AddProductForm extends Component {
       sub_sub_category: subsubcat,
       measurement_unit: measur
     })
-    axios
-      .post("/product-details", this.state)
-      .then((resp) => {
-        if (resp.status === 200) {
-          message.success(`Product Added Successfully`);
-          window.location = "/wholeseller/products";
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
-        message.error(`Please fill all the required fields`);
-      });
+
+    const {
+      product_category,
+      product_name,
+      product_description,
+      product_brand,
+      counrty_origin,
+      product_tags,
+      hsn_code,
+      upc_number,
+      ean_number,
+      gst_type,
+      measurement_unit,
+      product_main_sku,
+      qunatity,
+      product_mrp,
+      weight,
+      dem_length,
+      dem_breadth,
+
+    } = this.state;
+
+    const error = {};
+    let isError = false;
+
+    if (product_category === "") {
+      error.product_category = 'select a category';
+      isError = true;
+    }
+
+    if (product_name === "") {
+      error.product_name = 'Product name is required';
+      isError = true;
+      this.openNotificationWithIcon("Product Name is required")
+    }
+    if (product_description === "") {
+      error.product_category = 'Product description is required';
+      isError = true;
+      this.openNotificationWithIcon("Product description is required")
+
+    }
+    if (product_brand === "") {
+      error.product_brand = 'Product Brand name is required';
+      isError = true;
+      this.openNotificationWithIcon("Product Brand name  is required")
+
+    }
+    if (counrty_origin === "") {
+      error.counrty_origin = 'Product country of origin is required';
+      isError = true;
+      this.openNotificationWithIcon("Product country of origin is required")
+
+    }
+    if (product_tags === "") {
+      error.product_tags = 'Product tags are Required';
+      isError = true;
+      this.openNotificationWithIcon("Product tags is required")
+
+    }
+    if (hsn_code === "") {
+      error.hsn_code = 'HSN code is required';
+      isError = true;
+      this.openNotificationWithIcon("HSN coden is required")
+
+    }
+    if (upc_number === "") {
+      error.upc_number = 'UPC number is required';
+      isError = true;
+      this.openNotificationWithIcon("UPC number is required")
+
+    }
+    if (ean_number === "") {
+      error.ean_number = 'EAN number is required';
+      isError = true;
+      this.openNotificationWithIcon("EAN number is required")
+
+    }
+    if (hsn_code === "") {
+      error.hsn_code = 'HSN code is required';
+      isError = true;
+      this.openNotificationWithIcon("HSN code is required")
+
+    }
+    if (gst_type === "") {
+      error.gst_type = 'GST type is required';
+      isError = true;
+      this.openNotificationWithIcon("GST type is required")
+
+    }
+    if (measurement_unit === "") {
+      error.measurement_unit = 'Measurement unit is required';
+      isError = true;
+      this.openNotificationWithIcon("Measurement unit is required")
+
+    }
+    if (product_main_sku === "") {
+      error.product_main_sku = 'Product SKU is required';
+      isError = true;
+      this.openNotificationWithIcon("Product SKU is required")
+
+    }
+    if (qunatity === "") {
+      error.qunatity = 'Qunatity is required';
+      isError = true;
+      this.openNotificationWithIcon("Qunatity is required")
+
+    }
+    if (product_mrp === "") {
+      error.product_mrp = 'Product MRP is required';
+      isError = true;
+      this.openNotificationWithIcon("Product MRP is required")
+
+    }
+    if (weight === "") {
+      error.weight = 'Product Weight is required';
+      isError = true;
+      this.openNotificationWithIcon("Product Weightn is required")
+
+    }
+    if (dem_length === "") {
+      error.dem_length = 'Length deminsion is required';
+      isError = true;
+      this.openNotificationWithIcon("Length deminsion is required")
+
+    }
+    if (dem_breadth === "") {
+      error.dem_breadth = 'Breadth deminsion is required';
+      isError = true;
+      this.openNotificationWithIcon("Breadth deminsion  is required")
+
+    }
+    if (!isError) {
+      axios
+        .post("/product-details", this.state)
+        .then((resp) => {
+          if (resp.status === 200) {
+            message.success(`Product Added Successfully`);
+            window.location = "/wholeseller/products";
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+          message.error(`Please fill all the required fields`);
+        });
+    } else {
+
+      console.log(error);
+      this.setState({ error })
+    }
   };
+
+
 
   render() {
 
