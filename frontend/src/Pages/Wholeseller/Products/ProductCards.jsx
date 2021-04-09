@@ -19,6 +19,7 @@ import {
   DeleteTwoTone,
   EditTwoTone,
   ExclamationCircleOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 
 // import "./ProductCards.css";
@@ -35,7 +36,7 @@ class ProductCards extends React.Component {
       deleteProductID: "",
       data: [],
       searchText: "",
-      searchedColumn: this.props.searchedColumn[0],
+      searchedColumn: "product_main_sku",
       selectedRowKeys: [],
       filteredInfo: null,
       sortedInfo: null, // Check here to configure the default column
@@ -76,7 +77,6 @@ class ProductCards extends React.Component {
   };
 
   showModal = (data) => {
-    console.log("sad", data);
     this.setState({
       deleteProductModal: true,
       deleteProductID: data,
@@ -96,7 +96,6 @@ class ProductCards extends React.Component {
   };
 
   confirmDelete = () => {
-    console.log("dDEd");
     this.setState({
       isLoading: true,
     });
@@ -119,7 +118,7 @@ class ProductCards extends React.Component {
   };
 
   render() {
-    const { defaultSearchColumn } = this.props;
+    // const { defaultSearchColumn } = this.props;
     const { data } = this.state;
     const dataSource = !!this.state.searchText
       ? data.filter((x) =>
@@ -133,9 +132,10 @@ class ProductCards extends React.Component {
     return (
       <div className="w-full product-card-page">
         <Spin
-          style={{ color: "#5f4444" }}
           spinning={this.state.isLoading}
-          size={"large"}
+          indicator={
+            <LoadingOutlined style={{ fontSize: 24, color: "#ef4444" }} />
+          }
         >
           <div className="mb-2">
             <Collapse
@@ -153,7 +153,7 @@ class ProductCards extends React.Component {
               >
                 <div className="flex my-2">
                   <Select
-                    defaultValue={defaultSearchColumn}
+                    defaultValue={this.state.searchedColumn}
                     placeholder="Select Column"
                     style={{ width: 150 }}
                     onChange={this.handleChange}
@@ -165,12 +165,16 @@ class ProductCards extends React.Component {
                       </Option>
                     );
                   })} */}
-                    <Option value="sku">SKU</Option>
-                    <Option value="productInfo">Product Info</Option>
+                    <Option value="product_main_sku">SKU</Option>
+                    <Option value="product_name">Product Info</Option>
                   </Select>
 
                   <Input
-                    placeholder={`Search by ${this.state.searchedColumn}`}
+                    placeholder={
+                      this.state.searchedColumn === "product_main_sku"
+                        ? `Search by product SKU`
+                        : "Search by product info"
+                    }
                     onChange={(e) => {
                       this.setState({
                         searchText: e.target.value ? [e.target.value] : [],
@@ -315,11 +319,11 @@ class ProductCards extends React.Component {
   }
 }
 
-ProductCards.defaultProps = {
-  heading: ["Col 1", "Col 2", "Col 3", "Col 4"],
-  data: ["Item 1", "Item 2", "Item 3", "Item 4"],
-  searchedColumn: "Col 1",
-  defaultSearchColumn: "Col 1",
-};
+// ProductCards.defaultProps = {
+//   heading: ["Col 1", "Col 2", "Col 3", "Col 4"],
+//   data: ["Item 1", "Item 2", "Item 3", "Item 4"],
+//   searchedColumn: "Col 1",
+//   defaultSearchColumn: "Col 1",
+// };
 
 export default withRouter(ProductCards);

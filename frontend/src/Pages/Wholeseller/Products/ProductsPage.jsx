@@ -141,23 +141,23 @@ const Products = () => {
 
       <div className={"mt-4 overflow-y-auto overflow-x-hidden"}>
         <ProductCards
-          heading={ProductColumn}
-          // data={products}
-          searchedColumn={searchedColumn}
-          defaultSearchColumn={searchedColumn[0]}
+        // heading={ProductColumn}
+        // data={products}
+        // searchedColumn={searchedColumn}
+        // defaultSearchColumn={searchedColumn[0]}
         />
       </div>
 
       <Modal
-        title="Vertically centered modal dialog"
+        title="Import"
         centered
         visible={showModal}
         onOk={() => setShowModal(false)}
         onCancel={() => setShowModal(false)}
       >
+        {/* <p>some contents...</p>
         <p>some contents...</p>
-        <p>some contents...</p>
-        <p>some contents...</p>
+        <p>some contents...</p> */}
       </Modal>
     </div>
   );

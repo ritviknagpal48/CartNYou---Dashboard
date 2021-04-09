@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form, Input, message, Select, Spin } from "antd";
 import RichTextEditor from "../../RichTextEdition";
 import { axiosInstance } from "../../../Contexts/useAxios";
+import { LoadingOutlined } from '@ant-design/icons';
 
 import "./productDetail.css";
 
@@ -51,7 +52,7 @@ export class ProductDetailForm extends Component {
     const { isLoading, measurment_array } = this.state;
     return (
       <div className="container">
-        <Spin spinning={isLoading} size={"large"}>
+        <Spin spinning={isLoading} indicator={<LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />}>
           <Form
             // onSubmit={this.continue}
             className="form container"

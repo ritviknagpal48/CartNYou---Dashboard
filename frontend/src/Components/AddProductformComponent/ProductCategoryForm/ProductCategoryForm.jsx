@@ -4,6 +4,7 @@ import { Spin, Form, Button, Select, message } from "antd";
 import "./ProductCategoryForm.css";
 import { axiosInstance } from "../../../Contexts/useAxios";
 import { RightOutlined } from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 export class ProductCategoryForm extends Component {
@@ -72,7 +73,12 @@ export class ProductCategoryForm extends Component {
 
     return (
       <div className="container category-container">
-        <Spin spinning={this.state.isLoading} size={"large"}>
+        <Spin
+          spinning={this.state.isLoading}
+          indicator={
+            <LoadingOutlined style={{ fontSize: 30, color: "#ef4444" }} spin />
+          }
+        >
           <Form
             onSubmit={this.continue}
             className="form container"
