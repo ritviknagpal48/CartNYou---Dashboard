@@ -1261,6 +1261,125 @@
               "guest",
               "admin"
             ]
+          },
+          "product_details": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "product_name",
+                "product_main_sku",
+                "product_brand",
+                "product_tags",
+                "product_mrp",
+                "qunatity",
+                "weight",
+                "dem_length",
+                "dem_breadth",
+                "upc_number",
+                "ean_number",
+                "hsn_code",
+                "product_description"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "product_name": {
+                  "type": "string"
+                },
+                "product_category": {
+                  "type": "string"
+                },
+                "product_main_sku": {
+                  "type": "string"
+                },
+                "product_brand": {
+                  "type": "string"
+                },
+                "product_tags": {
+                  "type": "string"
+                },
+                "product_status": {
+                  "type": "string"
+                },
+                "product_mrp": {
+                  "type": "integer"
+                },
+                "qunatity": {
+                  "type": "integer"
+                },
+                "admin_status": {
+                  "type": "string"
+                },
+                "images": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "weight": {
+                  "type": "integer"
+                },
+                "dem_length": {
+                  "type": "integer"
+                },
+                "dem_breadth": {
+                  "type": "integer"
+                },
+                "dem_height": {
+                  "type": "integer"
+                },
+                "upc_number": {
+                  "type": "integer"
+                },
+                "ean_number": {
+                  "type": "integer"
+                },
+                "hsn_code": {
+                  "type": "integer"
+                },
+                "counrty_origin": {
+                  "type": "object"
+                },
+                "product_description": {
+                  "type": "string"
+                },
+                "custom_attribute": {
+                  "type": "object"
+                },
+                "colour": {
+                  "type": "string"
+                },
+                "gst_percentage": {
+                  "type": "integer"
+                },
+                "measurement_unit": {
+                  "type": "string"
+                },
+                "gst_type": {
+                  "type": "object"
+                },
+                "sub_category": {
+                  "type": "string"
+                },
+                "sub_sub_category": {
+                  "type": "string"
+                },
+                "users_detail": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -1313,6 +1432,12 @@
               "guest",
               "admin"
             ]
+          },
+          "product_details": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "created_by": {
             "type": "string"

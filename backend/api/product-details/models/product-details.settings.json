@@ -116,6 +116,11 @@
     "sub_sub_category": {
       "model": "sub-sub-category",
       "via": "product_details"
+    },
+    "users_detail": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "product_details"
     }
   }
 }

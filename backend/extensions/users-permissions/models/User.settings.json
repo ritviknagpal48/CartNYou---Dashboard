@@ -69,6 +69,10 @@
       ],
       "required": true,
       "default": "retailer"
+    },
+    "product_details": {
+      "via": "users_detail",
+      "collection": "product-details"
     }
   }
 }

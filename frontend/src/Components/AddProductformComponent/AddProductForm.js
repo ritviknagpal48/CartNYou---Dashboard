@@ -292,10 +292,8 @@ class AddProductForm extends Component {
   // }
 
   updateProduct = () => {
-    console.log(":update product");
     const productId = this.props && this.props.match && this.props.match.params && this.props.match.params.productID ? this.props.match.params.productID : "";
 
-    console.log("Update", this.state);
     const {
       product_category,
       product_name,
@@ -445,8 +443,8 @@ class AddProductForm extends Component {
           }
         })
         .catch((error) => {
-          console.log(error.message);
           message.error(`Please fill all the required fields`);
+          console.log(error.message);
         });
     } else {
       console.log(error);
@@ -464,7 +462,6 @@ class AddProductForm extends Component {
 
 
   submitHandler = (e) => {
-    console.log("new product");
     e.preventDefault();
 
     this.setState({
@@ -604,7 +601,6 @@ class AddProductForm extends Component {
     }
 
     if (!isError) {
-      console.log(this.state);
       this.setState({
         loading: true
       })
@@ -631,8 +627,6 @@ class AddProductForm extends Component {
 
 
   render() {
-
-    console.log("this.state.product_category", this.state.product_category);
 
     const { step, subCatArray,
       subSubCatArray, } = this.state;
@@ -712,8 +706,6 @@ class AddProductForm extends Component {
       subSubCatArray,
 
     };
-
-    console.log("yo yo yo", values);
 
     if (step === 0) {
       return (

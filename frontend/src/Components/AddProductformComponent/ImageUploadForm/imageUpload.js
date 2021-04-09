@@ -47,6 +47,7 @@ export class ImageUpload extends Component {
 
   handleChange = ({ fileList }) => {
 
+    console.log(fileList);
     this.setState({ fileList });
     this.props.handleImageUpload(fileList)
 
@@ -55,6 +56,7 @@ export class ImageUpload extends Component {
   render() {
 
     const { previewVisible, previewImage, fileList } = this.state;
+    console.log("files:", this.state.fileList);
     const uploadButton = (
       <div>
         <UploadOutlined />

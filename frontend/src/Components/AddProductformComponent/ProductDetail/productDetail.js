@@ -51,7 +51,7 @@ export class ProductDetailForm extends Component {
     const { values, handlechange, handleValueChange } = this.props;
     const { isLoading, measurment_array } = this.state;
     return (
-      <div className="container">
+      <div className="container product-detail">
         <Spin spinning={isLoading} indicator={<LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />}>
           <Form
             // onSubmit={this.continue}
@@ -176,8 +176,10 @@ export class ProductDetailForm extends Component {
                   HSN Code <span className="text-red-400">*</span>
                 </label>
                 <Form.Item style={{ width: "100%" }}>
-                  <Input
-                    placeholder="HSN"
+                  <input type="number"
+                    className="input-number"
+                    min={0}
+                    placeholder="HSN code"
                     onChange={handlechange("hsn_code")}
                     defaultValue={values.hsn_code}
                   />
@@ -188,8 +190,10 @@ export class ProductDetailForm extends Component {
                   UPC <span className="text-red-400">*</span>
                 </label>
                 <Form.Item style={{ width: "100%" }}>
-                  <Input
-                    placeholder="UPC"
+                  <input type="number"
+                    className="input-number"
+                    min={0}
+                    placeholder="UPC number"
                     onChange={handlechange("upc_number")}
                     defaultValue={values.upc_number}
                   />
@@ -200,8 +204,10 @@ export class ProductDetailForm extends Component {
                   EAN <span className="text-red-400">*</span>
                 </label>
                 <Form.Item style={{ width: "100%" }}>
-                  <Input
-                    placeholder="EAN"
+                  <input type="number"
+                    className="input-number"
+                    min={0}
+                    placeholder="EAN number"
                     onChange={handlechange("ean_number")}
                     defaultValue={values.ean_number}
                   />

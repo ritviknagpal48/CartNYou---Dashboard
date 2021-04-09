@@ -201,87 +201,93 @@ class ProductCards extends React.Component {
           </div>
 
           {dataSource ? (
-            dataSource.map((data, index) => {
-              return (
-                <div
-                  key={index}
-                  className="bg-white my-2 text-gray-700 font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-4 gap-2 items-center md:justify-between w-full text-left md:flex md:flex-row"
-                  style={{ color: "black" }}
-                >
-                  <div className={"flex flex-row items-center"}>
-                    <Checkbox onChange={this.onChange}></Checkbox>
-                    <div
-                      className="card-detail ml-2"
-                      style={{ width: "150px", paddingLeft: "6px" }}
-                    >
-                      <div className="head-title">SKU</div>
-                      <div className="title-body">{data.product_main_sku}</div>
+            dataSource
+              .slice(0)
+              .reverse()
+              .map((data, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="bg-white my-2 text-gray-700 font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-4 gap-2 items-center md:justify-between w-full text-left md:flex md:flex-row"
+                    style={{ color: "black" }}
+                  >
+                    <div className={"flex flex-row items-center"}>
+                      <Checkbox onChange={this.onChange}></Checkbox>
+                      <div
+                        className="card-detail ml-2"
+                        style={{ width: "150px", paddingLeft: "6px" }}
+                      >
+                        <div className="head-title">SKU</div>
+                        <div className="title-body">
+                          {data.product_main_sku}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="card-detail max-w-xs w-full md:w-4/12 col-start-2 col-span-3 md:flex-auto">
-                    <div className="head-title">Product Info</div>
-                    <div className="title-body">{data.product_name}</div>
-                  </div>
-                  <div className="card-detail ml-6 md:ml-0">
-                    <div className="head-title">MRP</div>
-                    <div className="title-body">{data.product_mrp}</div>
-                  </div>
-                  <div className="card-detail">
-                    <div className="head-title">Quantity</div>
-                    <div className="title-body">{data.qunatity}</div>
-                  </div>
-                  <div className="card-detail w-1/2 md:w-auto ml-6 md:ml-0">
-                    <div className="head-title">Status</div>
-                    <Switch
-                      checked={data.status}
-                      size={"small"}
-                      defaultChecked
-                    />
-                  </div>
-                  <div className="card-detail">
-                    <div className="head-title">Admin Status</div>
-                    <div className={`{title-body Approved`}>
-                      {/* {data.admin} */}
-                      Approved
+                    <div className="card-detail max-w-xs w-full md:w-4/12 col-start-2 col-span-3 md:flex-auto">
+                      <div className="head-title">Product Info</div>
+                      <div className="title-body">{data.product_name}</div>
                     </div>
-                  </div>
-                  <div className="action card-detail justify-self-center mx-auto md:mx-0 col-span-2">
-                    <div className={"head-title"}>Actions</div>
-                    <Space size="small">
-                      <Tooltip placement="topLeft" title={"Edit Data"}>
-                        <Link
-                          to={{
-                            pathname: `/wholeseller/edit-product/${data.id}`,
-                            // search: `?id=${data.id}`,
-                            state: { edit: true },
-                          }}
-                        >
+                    <div className="card-detail ml-6 md:ml-0">
+                      <div className="head-title">MRP</div>
+                      <div className="title-body">{data.product_mrp}</div>
+                    </div>
+                    <div className="card-detail">
+                      <div className="head-title">Quantity</div>
+                      <div className="title-body">{data.qunatity}</div>
+                    </div>
+                    <div className="card-detail w-1/2 md:w-auto ml-6 md:ml-0">
+                      <div className="head-title">Status</div>
+                      <Switch
+                        checked={data.status}
+                        size={"small"}
+                        defaultChecked
+                      />
+                    </div>
+                    <div className="card-detail">
+                      <div className="head-title">Admin Status</div>
+                      <div className={`{title-body Approved`}>
+                        {/* {data.admin} */}
+                        Approved
+                      </div>
+                    </div>
+                    <div className="action card-detail justify-self-center mx-auto md:mx-0 col-span-2">
+                      <div className={"head-title"}>Actions</div>
+                      <Space size="small">
+                        <Tooltip placement="topLeft" title={"Edit Data"}>
+                          <Link
+                            to={{
+                              pathname: `/wholeseller/edit-product/${data.id}`,
+                              // search: `?id=${data.id}`,
+                              state: { edit: true },
+                            }}
+                          >
+                            <Button
+                              type="link"
+                              icon={
+                                <EditTwoTone
+                                  twoToneColor="#ef4444"
+                                  size={"large"}
+                                />
+                              }
+                            />
+                          </Link>
+                        </Tooltip>
+                        <Tooltip placement="topLeft" title={"Delete"}>
                           <Button
                             type="link"
-                            icon={
-                              <EditTwoTone
-                                twoToneColor="#ef4444"
-                                size={"large"}
-                              />
-                            }
+                            onClick={() => this.showModal(data.id)}
+                            icon={<DeleteTwoTone twoToneColor="#ef4444" />}
                           />
-                        </Link>
-                      </Tooltip>
-                      <Tooltip placement="topLeft" title={"Delete"}>
-                        <Button
-                          type="link"
-                          onClick={() => this.showModal(data.id)}
-                          icon={<DeleteTwoTone twoToneColor="#ef4444" />}
-                        />
-                      </Tooltip>
-                    </Space>
+                        </Tooltip>
+                      </Space>
+                    </div>
                   </div>
-                </div>
-              );
-            })
+                );
+              })
           ) : (
             <></>
           )}
+
           <Modal
             title={
               <div className="flex gap-x-2">

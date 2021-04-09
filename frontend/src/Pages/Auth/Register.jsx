@@ -35,7 +35,7 @@ const Register = ({ className }) => {
     email: "",
     password: "",
     confirm: "",
-    type: "retailer",
+    type: "wholeseller",
   });
 
   const register = () => {

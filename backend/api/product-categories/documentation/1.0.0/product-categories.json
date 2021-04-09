@@ -710,6 +710,9 @@
                 "sub_sub_category": {
                   "type": "string"
                 },
+                "users_detail": {
+                  "type": "string"
+                },
                 "published_at": {
                   "type": "string"
                 },
