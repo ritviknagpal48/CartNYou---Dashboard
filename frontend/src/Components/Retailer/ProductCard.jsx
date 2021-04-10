@@ -26,7 +26,8 @@ class ProductCard extends React.Component {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              width: "260px",
+              maxWidth: "260px",
+              width: "100%",
             }}
           >
             <Checkbox />
@@ -34,7 +35,11 @@ class ProductCard extends React.Component {
               // color={productCard.tagColor}
               style={{ borderRadius: "4px", margin: "4px 0px" }}
             >
-              {productCard.product_category.categoryName}
+              {productCard &&
+              productCard.product_category &&
+              productCard.product_category.categoryName
+                ? productCard.product_category.categoryName
+                : ""}
             </Tag>
           </div>
           {/* <Link to="/retailer/products/producyId"> */}

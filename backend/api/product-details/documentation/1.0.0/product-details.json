@@ -602,17 +602,11 @@
           "product_tags": {
             "type": "string"
           },
-          "product_status": {
-            "type": "string"
-          },
           "product_mrp": {
             "type": "integer"
           },
           "qunatity": {
             "type": "integer"
-          },
-          "admin_status": {
-            "type": "string"
           },
           "images": {
             "type": "array",
@@ -894,6 +888,19 @@
           "gst_type": {
             "type": "string"
           },
+          "admin_status": {
+            "type": "string",
+            "default": "Pending",
+            "enum": [
+              "Approved",
+              "Pending",
+              "Rejected"
+            ]
+          },
+          "product_status": {
+            "type": "boolean",
+            "default": true
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -933,17 +940,11 @@
           "product_tags": {
             "type": "string"
           },
-          "product_status": {
-            "type": "string"
-          },
           "product_mrp": {
             "type": "integer"
           },
           "qunatity": {
             "type": "integer"
-          },
-          "admin_status": {
-            "type": "string"
           },
           "weight": {
             "type": "integer"
@@ -995,6 +996,19 @@
           },
           "gst_type": {
             "type": "string"
+          },
+          "admin_status": {
+            "type": "string",
+            "default": "Pending",
+            "enum": [
+              "Approved",
+              "Pending",
+              "Rejected"
+            ]
+          },
+          "product_status": {
+            "type": "boolean",
+            "default": true
           },
           "published_at": {
             "type": "string",

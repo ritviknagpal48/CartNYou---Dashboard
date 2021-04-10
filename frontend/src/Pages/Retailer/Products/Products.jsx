@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   Input,
   Button,
@@ -10,12 +9,9 @@ import {
   message,
   Pagination,
   Empty,
-  Tag,
 } from "antd";
 import { DownCircleTwoTone } from "@ant-design/icons";
-import CategoryList from "Components/productCategory";
 import ProductCard from "Components/Retailer/ProductCard";
-import ProductCategory from "./productSearchCategories";
 import { LoadingOutlined } from "@ant-design/icons";
 import AllIcon from "../../../assets/RetailCategoryIcons/wireframe.png";
 // import "./Product.css";

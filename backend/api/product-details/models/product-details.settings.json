@@ -32,10 +32,6 @@
       "type": "string",
       "required": true
     },
-    "product_status": {
-      "type": "string",
-      "required": false
-    },
     "product_mrp": {
       "required": true,
       "type": "integer"
@@ -43,10 +39,6 @@
     "qunatity": {
       "type": "integer",
       "required": true
-    },
-    "admin_status": {
-      "type": "string",
-      "required": false
     },
     "images": {
       "collection": "file",
@@ -122,6 +114,19 @@
     },
     "gst_type": {
       "type": "string"
+    },
+    "admin_status": {
+      "type": "enumeration",
+      "enum": [
+        "Approved",
+        "Pending",
+        "Rejected"
+      ],
+      "default": "Pending"
+    },
+    "product_status": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

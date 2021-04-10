@@ -56,9 +56,6 @@ class AddProductForm extends Component {
       //attributes
       custom_attribute: {},
 
-      admin_status: "",
-      product_status: "",
-
       subCatArray: [],
       subSubCatArray: [],
       loading: false,
@@ -89,6 +86,7 @@ class AddProductForm extends Component {
           },
         })
         .then((res) => {
+          console.log("YYY", res.data);
           this.setState({
             step: 1,
             product_category:
@@ -256,6 +254,10 @@ class AddProductForm extends Component {
       this.setState({
         product_description: desc,
       })
+    } else if (this.state.product_description === "<p> </p>") {
+      this.setState({
+        product_description: '',
+      })
     }
     if (input === "product_category") {
       await axios
@@ -346,6 +348,8 @@ class AddProductForm extends Component {
     }
     const {
       product_category,
+      sub_category,
+      sub_sub_category,
       product_name,
       product_description,
       product_brand,
@@ -356,18 +360,49 @@ class AddProductForm extends Component {
       ean_number,
       gst_type,
       measurement_unit,
+      colour,
       product_main_sku,
       qunatity,
       product_mrp,
+      gst_percentage,
+      images,
       weight,
       dem_length,
       dem_breadth,
+      dem_height,
+      custom_attribute,
     } = this.state;
 
+    const productData = {
+      product_category,
+      sub_category,
+      sub_sub_category,
+      product_name,
+      product_description,
+      product_brand,
+      counrty_origin,
+      product_tags,
+      hsn_code,
+      upc_number,
+      ean_number,
+      gst_type,
+      measurement_unit,
+      colour,
+      product_main_sku,
+      qunatity,
+      product_mrp,
+      gst_percentage,
+      images,
+      weight,
+      dem_length,
+      dem_breadth,
+      dem_height,
+      custom_attribute,
+    }
     const error = {};
     let isError = false;
 
-    if (!product_category === "") {
+    if (product_category === "") {
       error.product_category = "select a category";
       isError = true;
       this.openNotificationWithIcon("select a category");
@@ -378,7 +413,7 @@ class AddProductForm extends Component {
       isError = true;
       this.openNotificationWithIcon("Product Name is required");
     }
-    if (!product_description.trim()) {
+    if (product_description === "") {
       error.product_description = "Product description is required";
       isError = true;
       this.openNotificationWithIcon("Product description is required");
@@ -455,27 +490,32 @@ class AddProductForm extends Component {
     }
 
     if (!isError) {
-      this.setState({
-        loading: true,
-      });
-      axios
-        .put(`/product-details/${productId}`, this.state)
-        .then((resp) => {
-          if (resp.status === 200) {
-            message.success(`Product Editted Successfully`);
-            this.setState({
-              editProduct: false,
-            });
-            // window.location = "/wholeseller/products";
-            this.props.history.push("/wholeseller/products");
-          }
-        })
-        .catch((error) => {
-          message.error(`Please fill all the required fields`);
-          console.log(error.message);
+      if (productData) {
+        this.setState({
+          loading: true,
         });
+        axios
+          .put(`/product-details/${productId}`, productData)
+          .then((resp) => {
+            if (resp.status === 200) {
+              message.success(`Product Editted Successfully`);
+              this.setState({
+                editProduct: false,
+              });
+              // window.location = "/wholeseller/products";
+              this.props.history.push("/wholeseller/products");
+            }
+          })
+          .catch((error) => {
+            message.error(`Please fill all the required fields`);
+            console.log(error.message);
+          });
+      }
     } else {
       console.log(error);
+      if (error.status === 500) {
+        message.error("Something went wrong")
+      }
       // this.setState({ error })
     }
   };
@@ -495,6 +535,8 @@ class AddProductForm extends Component {
 
     const {
       product_category,
+      sub_category,
+      sub_sub_category,
       product_name,
       product_description,
       product_brand,
@@ -505,17 +547,48 @@ class AddProductForm extends Component {
       ean_number,
       gst_type,
       measurement_unit,
+      colour,
       product_main_sku,
       qunatity,
       product_mrp,
+      gst_percentage,
+      images,
       weight,
       dem_length,
       dem_breadth,
+      dem_height,
+      custom_attribute,
     } = this.state;
 
+    const productData = {
+      product_category,
+      sub_category,
+      sub_sub_category,
+      product_name,
+      product_description,
+      product_brand,
+      counrty_origin,
+      product_tags,
+      hsn_code,
+      upc_number,
+      ean_number,
+      gst_type,
+      measurement_unit,
+      colour,
+      product_main_sku,
+      qunatity,
+      product_mrp,
+      gst_percentage,
+      images,
+      weight,
+      dem_length,
+      dem_breadth,
+      dem_height,
+      custom_attribute,
+    }
     const error = {};
     let isError = false;
-
+    console.log(productData);
     if (product_category === "") {
       error.product_category = "select a category";
       isError = true;
@@ -527,7 +600,7 @@ class AddProductForm extends Component {
       isError = true;
       this.openNotificationWithIcon("Product Name is required");
     }
-    if (product_description.trim()) {
+    if (product_description === "") {
       error.product_description = "Product description is required";
       isError = true;
       this.openNotificationWithIcon("Product description is required");
@@ -609,30 +682,36 @@ class AddProductForm extends Component {
     }
 
     if (!isError) {
-      this.setState({
-        loading: true,
-      });
-      axios
-        .post("/product-details", this.state)
-        .then((resp) => {
-          if (resp.status === 200) {
-            message.success(`Product Added Successfully`);
-            // window.location = "/wholeseller/products";
-            this.props.history.push("/wholeseller/products");
-          }
-        })
-        .catch((error) => {
-          console.log(error.message);
-          message.error(`Please fill all the required fields`);
+      if (productData) {
+        this.setState({
+          loading: true,
         });
+        axios
+          .post("/product-details", productData)
+          .then((resp) => {
+            if (resp.status === 200) {
+              message.success(`Product Added Successfully`);
+              // window.location = "/wholeseller/products";
+              this.props.history.push("/wholeseller/products");
+            }
+          })
+          .catch((error) => {
+            console.log(error.message);
+            message.error(`Please fill all the required fields`);
+          });
+      }
     } else {
       console.log(error);
+      if (error.status === 500) {
+        message.error("Something went wrong")
+      }
       // this.setState({ error })
     }
   };
 
   render() {
     const { step, subCatArray, subSubCatArray } = this.state;
+    console.log(this.state);
     const {
       //general details
       product_category,

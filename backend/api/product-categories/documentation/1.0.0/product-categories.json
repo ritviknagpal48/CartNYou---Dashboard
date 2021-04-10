@@ -645,17 +645,11 @@
                 "product_tags": {
                   "type": "string"
                 },
-                "product_status": {
-                  "type": "string"
-                },
                 "product_mrp": {
                   "type": "integer"
                 },
                 "qunatity": {
                   "type": "integer"
-                },
-                "admin_status": {
-                  "type": "string"
                 },
                 "images": {
                   "type": "array",
@@ -713,6 +707,17 @@
                 },
                 "gst_type": {
                   "type": "string"
+                },
+                "admin_status": {
+                  "type": "string",
+                  "enum": [
+                    "Approved",
+                    "Pending",
+                    "Rejected"
+                  ]
+                },
+                "product_status": {
+                  "type": "boolean"
                 },
                 "published_at": {
                   "type": "string"
