@@ -1279,7 +1279,8 @@
                 "upc_number",
                 "ean_number",
                 "hsn_code",
-                "product_description"
+                "product_description",
+                "counrty_origin"
               ],
               "properties": {
                 "id": {
@@ -1339,9 +1340,6 @@
                 "hsn_code": {
                   "type": "integer"
                 },
-                "counrty_origin": {
-                  "type": "object"
-                },
                 "product_description": {
                   "type": "string"
                 },
@@ -1357,9 +1355,6 @@
                 "measurement_unit": {
                   "type": "string"
                 },
-                "gst_type": {
-                  "type": "object"
-                },
                 "sub_category": {
                   "type": "string"
                 },
@@ -1367,6 +1362,12 @@
                   "type": "string"
                 },
                 "users_detail": {
+                  "type": "string"
+                },
+                "counrty_origin": {
+                  "type": "string"
+                },
+                "gst_type": {
                   "type": "string"
                 },
                 "published_at": {

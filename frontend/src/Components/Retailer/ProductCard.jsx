@@ -41,7 +41,7 @@ class ProductCard extends React.Component {
           <Link
             to={{
               pathname: "/retailer/products/productId",
-              search: `?id=${productCard.id}+sku=${productCard.sku}`,
+              search: `?id=${productCard.id}+Sku=${productCard.product_main_sku}`,
               state: { detail: productCard },
             }}
           >

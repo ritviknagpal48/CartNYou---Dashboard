@@ -27,7 +27,7 @@ const classes = {
 const Register = ({ className }) => {
   const history = useHistory();
   const { setAuth } = useContext(AuthContext);
-  const [showPass, setShowPass] = useState(false);
+  const [showPass, setShowPass] = useState(true);
   const { axios, isLoading } = useAxios();
 
   const [payload, setPayload] = useState({
@@ -282,7 +282,7 @@ const Register = ({ className }) => {
           </button>
           <div className={clsx(classes.divider, "mt-6 mb-4")} />
           <span className={classes.create_account}>
-            Already Registered? &nbsp;
+            Already have an account? &nbsp;
             <Link to="/auth/login" className={classes.create_account_inner}>
               Login
             </Link>

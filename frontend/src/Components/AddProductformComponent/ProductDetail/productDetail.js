@@ -134,7 +134,7 @@ export class ProductDetailForm extends Component {
               </div>
               <div className="flex flex-col items-start justify-center w-full ">
                 <label className="pb-2">
-                  Measurment Unit <span className="text-red-400">*</span>
+                  Measurement Unit <span className="text-red-400">*</span>
                 </label>
                 <Form.Item style={{ width: "100%" }}>
                   <Select

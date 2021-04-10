@@ -10,6 +10,7 @@ import {
   message,
   Pagination,
   Empty,
+  Tag,
 } from "antd";
 import { DownCircleTwoTone } from "@ant-design/icons";
 import CategoryList from "Components/productCategory";
@@ -17,8 +18,9 @@ import ProductCard from "Components/Retailer/ProductCard";
 import ProductCategory from "./productSearchCategories";
 import { LoadingOutlined } from "@ant-design/icons";
 import AllIcon from "../../../assets/RetailCategoryIcons/wireframe.png";
-import "./Product.css";
-import { axiosInstance } from "../../../Contexts/useAxios";
+// import "./Product.css";
+import "./productStyles.css";
+import { axiosInstance as axios } from "../../../Contexts/useAxios";
 
 const { Panel } = Collapse;
 const { Option } = Select;
@@ -32,6 +34,9 @@ const classes = {
     "inline-flex items-center px-4 py-1 mx-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-500 bg-white hover:text-red-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-red-500",
   action_icons: "md:-ml-1 md:mr-2 h-5 w-5",
   button_title: "hidden md:block",
+  activeSearchBtn: "bg-red-500 text-white",
+  single_category:
+    " single-category  bg-white text-gray-500  w-full overflow-hidden shadow-xl hover:bg-red-100 transition-all",
 };
 
 class Products extends React.Component {
@@ -40,45 +45,41 @@ class Products extends React.Component {
     this.state = {
       productList: [],
       categoryList: [],
-      isLoading: true,
+      isfetching: true,
       searchText: "",
-      isSearchBtnActive: true,
       searchedColumn: "product_main_sku",
-      activeCategoryBtnId: "",
-      selectedService: "",
+      isSearchBtnActive: true,
+      activeSearchBtnId: "",
+      selectedCategory: "All Categories",
       currentPage: 1,
       pageSize: 20,
     };
   }
 
   async componentDidMount() {
-    console.log("COmponent");
     await Promise.all([
-      axiosInstance.get("/product-categories"),
-      axiosInstance.get("/product-details"),
+      axios.get("/product-categories"),
+      axios.get("/product-details"),
     ])
       .then(([cate, products]) => {
-        console.log(cate.data);
         this.setState({
           categoryList: cate.data,
           productList: products.data,
           // subSubCategories: subsubcat.data,
-          isLoading: false,
+          isfetching: false,
         });
       })
       .catch((err) => {
-        console.log("erroe");
         message.error(err.message);
-        this.setState({ isLoading: false });
+        this.setState({ isfetching: false });
       });
   }
 
   onFinish = (values) => {
-    console.log(values);
+    // console.log(values);
   };
 
   onChange = (value) => {
-    console.log("change---", value);
     // formRef.current.setFieldsValue = value;
   };
   handleReset = (clearFilters) => {
@@ -96,32 +97,103 @@ class Products extends React.Component {
     // this.formRef.current.resetFields();
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get("/product-details")
-  //     .then((res) => {
-  //       if (!res.data) return message.error("Could not load products.", 1);
-  //       message.info("Product List loaded in console.", 1);
-  //       setProductList([]);
-  //     })
-  //     .catch((err) => {
-  //       message.error("Oops! Something went wrong.", 1);
-  //       console.log({ productList, err });
-  //     });
-  // }, [productList, axios]);
+  axiosReturn = (option) => {
+    try {
+      if (!option) {
+        axios.get(`/product-details`).then((res) =>
+          this.setState({
+            productList: res.data,
+            isfetching: false,
+          })
+        );
+      } else {
+        axios.get(`/product-details?product_category=` + option).then((res) =>
+          this.setState({
+            productList: res.data,
+            isfetching: false,
+          })
+        );
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  // const defaultSearchColumn = "Sun glases";
+  handlePageChange = (page, pageSize) => {
+    this.setState({
+      currentPage: page,
+      pageSize: pageSize,
+    });
+  };
+
+  handleSelectCategory = (value) => {
+    this.handleClickByCategory(value);
+  };
+
+  handleClickByCategory = (option) => {
+    const proId = option && option.id ? option.id : option;
+    // if (!option || proId) {
+    if (!proId) {
+      this.setState({
+        currentPage: 1,
+        isSearchBtnActive: true,
+        activeSearchBtnId: "",
+        searchText: "",
+        selectedCategory: "All Categories",
+      });
+      this.setState(
+        {
+          productList: [],
+          isfetching: true,
+        },
+        () => this.axiosReturn()
+      );
+    } else {
+      this.setState({
+        currentPage: 1,
+        activeSearchBtnId: proId,
+        isSearchBtnActive: false,
+        searchText: "",
+        selectedCategory: proId,
+        // option && option.categoryName ? option.categoryName : option,
+      });
+      this.setState(
+        {
+          productList: [],
+          isfetching: true,
+        },
+        () => this.axiosReturn(proId)
+      );
+    }
+  };
+
   render() {
-    const { isLoading, categoryList, productList } = this.state;
+    const { isfetching, categoryList, productList } = this.state;
     // const { data } = this.state;
     const dataSource = !!this.state.searchText
       ? productList.filter((x) =>
-          x[this.state.searchedColumn].toString().toLowerCase().includes(
-            this.state.searchText.toString().toLowerCase()
-            // lowerCaseSearchText
-          )
+          x[this.state.searchedColumn]
+            .toString()
+            .toLowerCase()
+            .includes(this.state.searchText.toString().toLowerCase())
         )
       : productList;
+
+    const {
+      isSearchBtnActive,
+      activeSearchBtnId,
+      selectedCategory,
+    } = this.state;
+
+    // const filteredProductList =
+    // dataSource &&
+    // dataSource.length &&
+    // dataSource.filter((e) => e.admin_status.published - e.admin_status.locked > 0);
+
+    const productListLength = dataSource && dataSource.length;
+    const index = (this.state.currentPage - 1) * this.state.pageSize;
+    const totalPages = Math.ceil(productListLength / this.state.pageSize);
+
     return (
       <div className={classes.wrapper}>
         <div className={classes.header} style={{ background: "#edf2f9" }}>
@@ -168,23 +240,12 @@ class Products extends React.Component {
                 //   <DownOutlined rotate={isActive ? 180 : 0} />
                 // )}
               >
-                {/* <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                  }}
-                > */}
-                {/* <div className="flex my-2 h-9"> */}
                 <Form
                   layout="vertical"
-                  // ref={this.formRef}
                   name="control-ref"
                   onFinish={this.onFinish}
                   style={{
                     display: "grid",
-                    // flexDirection: "row",
-                    // justifyContent: "space-between",
                     gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
                     columnGap: "8px",
                     rowGap: "8px",
@@ -197,13 +258,6 @@ class Products extends React.Component {
                       // style={{ width: 150 }}
                       onChange={this.handleChange}
                     >
-                      {/* {searchedColumn.map((searchedColumn, index) => {
-                    return (
-                      <Option key={index} value={searchedColumn}>
-                        {searchedColumn}
-                      </Option>
-                    );
-                  })} */}
                       <Option value="product_main_sku">SKU</Option>
                       <Option value="product_name">Product name</Option>
                     </Select>
@@ -225,7 +279,6 @@ class Products extends React.Component {
                       // }
                       value={this.state.searchText}
                       className="inputSearchBox"
-                      // style={{ marginLeft: "8px" }}
                     />
                   </Form.Item>
                   {/* <Button
@@ -237,13 +290,16 @@ class Products extends React.Component {
                   </Button> */}
                   {/* </div> */}
 
-                  <Form.Item name="category" label="Category">
+                  <Form.Item shouldUpdate name="category" label="Category">
                     <Select
-                      // defaultValue={defaultSearchColumn}
+                      defaultValue={this.state.selectedCategory}
+                      shouldUpdate
                       placeholder="Select Column"
+                      onChange={this.handleSelectCategory}
                       // style={{ width: 150 }}
-                      // onChange={this.handleChange}
+                      // onChange={this.handleCategoryChange}
                     >
+                      <Option value="">All Categories</Option>
                       {categoryList.map((Category, index) => {
                         return (
                           <Option key={index} value={Category.id}>
@@ -258,15 +314,15 @@ class Products extends React.Component {
                       // defaultValue={defaultSearchColumn}
                       placeholder="Select Column"
                       // style={{ width: 150 }}
-                      // onChange={this.handleChange}
+                      // onChange={this.handleCategoryChange}
                     >
-                      {CategoryList.map((Category) => {
-                        return (
-                          <Option key={Category.key} value={Category.title}>
-                            {Category.title}
-                          </Option>
-                        );
-                      })}
+                      <Option value="allCategory">All Vendor</Option>
+                      <Option value="allCategory">Vendor 1</Option>
+                      <Option value="allCategory">Vendor 2</Option>
+                      <Option value="allCategory">Vendor 3</Option>
+                      <Option value="allCategory">Vendor 4</Option>
+                      <Option value="allCategory">Vendor 5</Option>
+                      <Option value="allCategory">Vendor 6</Option>
                     </Select>
                   </Form.Item>
 
@@ -309,34 +365,46 @@ class Products extends React.Component {
         </div>
         {/* <div className="category-box overflow-x-auto max-w-screen-xl"> */}
         <div className="product-category ">
-          <Link to="">
-            <div
-              className=" single-category  bg-white text-gray-500  w-full overflow-hidden shadow-xl hover:bg-red-100 transition-all" // sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6"
-            >
-              <img width="60px" src={AllIcon} alt="" />
-              All Categories
-            </div>
-          </Link>
+          {/* <Link to=""> */}
+          <div
+            onClick={() => this.handleClickByCategory()}
+            className={`single-category  ${
+              isSearchBtnActive ? "activeSearchBtn" : ""
+            }`}
+          >
+            <img
+              width="60px"
+              src={AllIcon}
+              alt=""
+              className={`${isSearchBtnActive ? `active-image` : ``}`}
+            />
+            All Categories
+          </div>
+          {/* </Link> */}
           {categoryList ? (
             categoryList.map((category, index) => {
               return (
-                <Link to="">
-                  <div
-                    key={index}
-                    className=" single-category  bg-white text-gray-500  w-full overflow-hidden shadow-xl hover:bg-red-100 transition-all" // sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6"
-                  >
-                    <img
-                      width="60px"
-                      src={
-                        category.CategoryImage && category.CategoryImage.url
-                          ? `https://backend-cartnyou.herokuapp.com${category.CategoryImage.url}`
-                          : ""
-                      }
-                      alt=""
-                    />
-                    {category.categoryName}
-                  </div>
-                </Link>
+                <div
+                  key={index}
+                  onClick={() => this.handleClickByCategory(category)}
+                  className={`single-category ${
+                    activeSearchBtnId === category.id ? "activeSearchBtn" : ""
+                  }`}
+                >
+                  <img
+                    className={`${
+                      isSearchBtnActive === category.id ? `active-image` : ``
+                    }`}
+                    width="60px"
+                    src={
+                      category.CategoryImage && category.CategoryImage.url
+                        ? `https://backend-cartnyou.herokuapp.com${category.CategoryImage.url}`
+                        : ""
+                    }
+                    alt=""
+                  />
+                  {category.categoryName}
+                </div>
               );
             })
           ) : (
@@ -355,8 +423,8 @@ class Products extends React.Component {
             width: "100%",
           }}
         >
-          Most Popular
-          <Button
+          {productListLength} Products
+          {/* <Button
             style={{
               border: "none",
               background: "none",
@@ -367,45 +435,63 @@ class Products extends React.Component {
           >
             {" "}
             View All
-          </Button>
+          </Button> */}
         </div>
         <Spin
           indicator={
             <LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />
           }
-          spinning={isLoading}
+          spinning={isfetching}
         >
-          <div
-            className="product-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-              justifySelf: "center",
-              columnGap: "8px",
-              rowGap: "8px",
+          {dataSource && dataSource.length ? (
+            <div style={{ marginBottom: "50px" }}>
+              <div
+                className="product-grid"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+                  justifySelf: "center",
+                  columnGap: "8px",
+                  rowGap: "8px",
+                  color: "black",
+                  borderRadius: "4px",
+                  margin: "30px 0px",
+                  marginLeft: "6px",
+                }}
+              >
+                {dataSource
+                  .slice(index, index + this.state.pageSize)
+                  .map((data) => {
+                    return <ProductCard key={data.id} ProductData={data} />;
+                  })}
+              </div>
 
-              color: "black",
-
-              borderRadius: "4px",
-              margin: "30px 0px",
-              marginLeft: "6px",
-            }}
-          >
-            {dataSource ? (
-              dataSource.map((data, index) => {
-                return <ProductCard key={index} ProductData={data} />;
-              })
-            ) : (
-              <></>
-            )}
-          </div>
+              <Pagination
+                total={productListLength}
+                defaultCurrent={1}
+                pageSizeOptions={[1, 5, 50, 100]}
+                pageSize={this.state.pageSize}
+                current={this.state.currentPage}
+                onChange={this.handlePageChange}
+                showSizeChanger
+                showQuickJumper
+                responsive
+                style={{ textAlign: "end" }}
+                // showTotal={(total) => `Total ${total} products`}
+              />
+            </div>
+          ) : (
+            <div className="bg-white py-14 mb-8">
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                imageStyle={{
+                  height: 80,
+                }}
+                description={<span>No product found</span>}
+              />
+            </div>
+          )}
         </Spin>
-        {/* <Pagination
-          total={85}
-          showSizeChanger
-          showQuickJumper
-          showTotal={(total) => `Total ${total} items`}
-        /> */}
       </div>
     );
   }

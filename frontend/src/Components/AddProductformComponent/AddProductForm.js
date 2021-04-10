@@ -388,7 +388,7 @@ class AddProductForm extends Component {
       isError = true;
       this.openNotificationWithIcon("Product Brand name  is required");
     }
-    if (!counrty_origin.trim()) {
+    if (!counrty_origin) {
       error.counrty_origin = "Product country of origin is required";
       isError = true;
       this.openNotificationWithIcon("Product country of origin is required");
@@ -398,32 +398,27 @@ class AddProductForm extends Component {
       isError = true;
       this.openNotificationWithIcon("Product tags is required");
     }
-    if (!hsn_code.trim()) {
+    if (!hsn_code) {
       error.hsn_code = "HSN code is required";
       isError = true;
       this.openNotificationWithIcon("HSN coden is required");
     }
-    if (!upc_number.trim()) {
+    if (!upc_number) {
       error.upc_number = "UPC number is required";
       isError = true;
       this.openNotificationWithIcon("UPC number is required");
     }
-    if (!ean_number.trim()) {
+    if (!ean_number) {
       error.ean_number = "EAN number is required";
       isError = true;
       this.openNotificationWithIcon("EAN number is required");
     }
-    if (!hsn_code.trim()) {
-      error.hsn_code = "HSN code is required";
-      isError = true;
-      this.openNotificationWithIcon("HSN code is required");
-    }
-    if (!gst_type.trim()) {
+    if (!gst_type) {
       error.gst_type = "GST type is required";
       isError = true;
       this.openNotificationWithIcon("GST type is required");
     }
-    if (!measurement_unit.trim()) {
+    if (!measurement_unit) {
       error.measurement_unit = "Measurement unit is required";
       isError = true;
       this.openNotificationWithIcon("Measurement unit is required");
@@ -433,27 +428,27 @@ class AddProductForm extends Component {
       isError = true;
       this.openNotificationWithIcon("Product SKU is required");
     }
-    if (!qunatity.trim()) {
+    if (!qunatity) {
       error.qunatity = "Qunatity is required";
       isError = true;
       this.openNotificationWithIcon("Qunatity is required");
     }
-    if (!product_mrp.trim()) {
+    if (!product_mrp) {
       error.product_mrp = "Product MRP is required";
       isError = true;
       this.openNotificationWithIcon("Product MRP is required");
     }
-    if (!weight.trim()) {
+    if (!weight) {
       error.weight = "Product Weight is required";
       isError = true;
       this.openNotificationWithIcon("Product Weightn is required");
     }
-    if (!dem_length.trim()) {
+    if (!dem_length) {
       error.dem_length = "Length deminsion is required";
       isError = true;
       this.openNotificationWithIcon("Length deminsion is required");
     }
-    if (!dem_breadth.trim()) {
+    if (!dem_breadth) {
       error.dem_breadth = "Breadth deminsion is required";
       isError = true;
       this.openNotificationWithIcon("Breadth deminsion  is required");

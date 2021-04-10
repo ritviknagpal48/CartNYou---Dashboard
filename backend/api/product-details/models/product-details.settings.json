@@ -84,9 +84,6 @@
       "type": "biginteger",
       "required": true
     },
-    "counrty_origin": {
-      "type": "json"
-    },
     "product_description": {
       "type": "richtext",
       "required": true
@@ -106,9 +103,6 @@
       "model": "measurement-unit",
       "via": "product_details"
     },
-    "gst_type": {
-      "type": "json"
-    },
     "sub_category": {
       "model": "sub-category",
       "via": "product_details"
@@ -121,6 +115,13 @@
       "plugin": "users-permissions",
       "model": "user",
       "via": "product_details"
+    },
+    "counrty_origin": {
+      "type": "string",
+      "required": true
+    },
+    "gst_type": {
+      "type": "string"
     }
   }
 }

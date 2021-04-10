@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/09/2021 6:51:22 PM"
+    "x-generation-date": "04/10/2021 12:12:36 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -4928,7 +4928,8 @@
                 "upc_number",
                 "ean_number",
                 "hsn_code",
-                "product_description"
+                "product_description",
+                "counrty_origin"
               ],
               "properties": {
                 "id": {
@@ -4988,9 +4989,6 @@
                 "hsn_code": {
                   "type": "integer"
                 },
-                "counrty_origin": {
-                  "type": "object"
-                },
                 "product_description": {
                   "type": "string"
                 },
@@ -5006,9 +5004,6 @@
                 "measurement_unit": {
                   "type": "string"
                 },
-                "gst_type": {
-                  "type": "object"
-                },
                 "sub_category": {
                   "type": "string"
                 },
@@ -5016,6 +5011,12 @@
                   "type": "string"
                 },
                 "users_detail": {
+                  "type": "string"
+                },
+                "counrty_origin": {
+                  "type": "string"
+                },
+                "gst_type": {
                   "type": "string"
                 },
                 "published_at": {
@@ -5163,7 +5164,8 @@
                 "upc_number",
                 "ean_number",
                 "hsn_code",
-                "product_description"
+                "product_description",
+                "counrty_origin"
               ],
               "properties": {
                 "id": {
@@ -5223,9 +5225,6 @@
                 "hsn_code": {
                   "type": "integer"
                 },
-                "counrty_origin": {
-                  "type": "object"
-                },
                 "product_description": {
                   "type": "string"
                 },
@@ -5241,9 +5240,6 @@
                 "measurement_unit": {
                   "type": "string"
                 },
-                "gst_type": {
-                  "type": "object"
-                },
                 "sub_category": {
                   "type": "string"
                 },
@@ -5251,6 +5247,12 @@
                   "type": "string"
                 },
                 "users_detail": {
+                  "type": "string"
+                },
+                "counrty_origin": {
+                  "type": "string"
+                },
+                "gst_type": {
                   "type": "string"
                 },
                 "published_at": {
@@ -5370,7 +5372,8 @@
           "upc_number",
           "ean_number",
           "hsn_code",
-          "product_description"
+          "product_description",
+          "counrty_origin"
         ],
         "properties": {
           "id": {
@@ -5532,9 +5535,6 @@
           "hsn_code": {
             "type": "integer"
           },
-          "counrty_origin": {
-            "type": "object"
-          },
           "product_description": {
             "type": "string"
           },
@@ -5580,9 +5580,6 @@
                 "type": "string"
               }
             }
-          },
-          "gst_type": {
-            "type": "object"
           },
           "sub_category": {
             "required": [
@@ -5721,6 +5718,12 @@
               }
             }
           },
+          "counrty_origin": {
+            "type": "string"
+          },
+          "gst_type": {
+            "type": "string"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -5741,7 +5744,8 @@
           "upc_number",
           "ean_number",
           "hsn_code",
-          "product_description"
+          "product_description",
+          "counrty_origin"
         ],
         "properties": {
           "product_name": {
@@ -5792,9 +5796,6 @@
           "hsn_code": {
             "type": "integer"
           },
-          "counrty_origin": {
-            "type": "object"
-          },
           "product_description": {
             "type": "string"
           },
@@ -5810,9 +5811,6 @@
           "measurement_unit": {
             "type": "string"
           },
-          "gst_type": {
-            "type": "object"
-          },
           "sub_category": {
             "type": "string"
           },
@@ -5820,6 +5818,12 @@
             "type": "string"
           },
           "users_detail": {
+            "type": "string"
+          },
+          "counrty_origin": {
+            "type": "string"
+          },
+          "gst_type": {
             "type": "string"
           },
           "published_at": {
@@ -5946,7 +5950,8 @@
                 "upc_number",
                 "ean_number",
                 "hsn_code",
-                "product_description"
+                "product_description",
+                "counrty_origin"
               ],
               "properties": {
                 "id": {
@@ -6006,9 +6011,6 @@
                 "hsn_code": {
                   "type": "integer"
                 },
-                "counrty_origin": {
-                  "type": "object"
-                },
                 "product_description": {
                   "type": "string"
                 },
@@ -6024,9 +6026,6 @@
                 "measurement_unit": {
                   "type": "string"
                 },
-                "gst_type": {
-                  "type": "object"
-                },
                 "sub_category": {
                   "type": "string"
                 },
@@ -6034,6 +6033,12 @@
                   "type": "string"
                 },
                 "users_detail": {
+                  "type": "string"
+                },
+                "counrty_origin": {
+                  "type": "string"
+                },
+                "gst_type": {
                   "type": "string"
                 },
                 "published_at": {
@@ -6167,7 +6172,8 @@
                 "upc_number",
                 "ean_number",
                 "hsn_code",
-                "product_description"
+                "product_description",
+                "counrty_origin"
               ],
               "properties": {
                 "id": {
@@ -6227,9 +6233,6 @@
                 "hsn_code": {
                   "type": "integer"
                 },
-                "counrty_origin": {
-                  "type": "object"
-                },
                 "product_description": {
                   "type": "string"
                 },
@@ -6245,9 +6248,6 @@
                 "measurement_unit": {
                   "type": "string"
                 },
-                "gst_type": {
-                  "type": "object"
-                },
                 "sub_category": {
                   "type": "string"
                 },
@@ -6255,6 +6255,12 @@
                   "type": "string"
                 },
                 "users_detail": {
+                  "type": "string"
+                },
+                "counrty_origin": {
+                  "type": "string"
+                },
+                "gst_type": {
                   "type": "string"
                 },
                 "published_at": {
@@ -6564,7 +6570,8 @@
                 "upc_number",
                 "ean_number",
                 "hsn_code",
-                "product_description"
+                "product_description",
+                "counrty_origin"
               ],
               "properties": {
                 "id": {
@@ -6624,9 +6631,6 @@
                 "hsn_code": {
                   "type": "integer"
                 },
-                "counrty_origin": {
-                  "type": "object"
-                },
                 "product_description": {
                   "type": "string"
                 },
@@ -6642,9 +6646,6 @@
                 "measurement_unit": {
                   "type": "string"
                 },
-                "gst_type": {
-                  "type": "object"
-                },
                 "sub_category": {
                   "type": "string"
                 },
@@ -6652,6 +6653,12 @@
                   "type": "string"
                 },
                 "users_detail": {
+                  "type": "string"
+                },
+                "counrty_origin": {
+                  "type": "string"
+                },
+                "gst_type": {
                   "type": "string"
                 },
                 "published_at": {
