@@ -24,8 +24,8 @@ class AddProductForm extends Component {
 
       //general details
       product_category: "",
-      sub_category: "",
-      sub_sub_category: "",
+      sub_category: '',
+      sub_sub_category: '',
       product_name: "",
       product_description: "",
       product_brand: "",
@@ -86,7 +86,7 @@ class AddProductForm extends Component {
           },
         })
         .then((res) => {
-          console.log("YYY", res.data);
+
           this.setState({
             step: 1,
             product_category:
@@ -373,10 +373,9 @@ class AddProductForm extends Component {
       custom_attribute,
     } = this.state;
 
+
     const productData = {
       product_category,
-      sub_category,
-      sub_sub_category,
       product_name,
       product_description,
       product_brand,
@@ -399,6 +398,15 @@ class AddProductForm extends Component {
       dem_height,
       custom_attribute,
     }
+
+    if (!sub_category === '') {
+      productData = { sub_category }
+    }
+
+    if (!sub_sub_category === '') {
+      productData = { sub_sub_category }
+    }
+
     const error = {};
     let isError = false;
 
@@ -562,8 +570,6 @@ class AddProductForm extends Component {
 
     const productData = {
       product_category,
-      sub_category,
-      sub_sub_category,
       product_name,
       product_description,
       product_brand,
@@ -586,9 +592,17 @@ class AddProductForm extends Component {
       dem_height,
       custom_attribute,
     }
+
+    if (!sub_category === '') {
+      productData = { sub_category }
+    }
+
+    if (!sub_sub_category === '') {
+      productData = { sub_sub_category }
+    }
     const error = {};
     let isError = false;
-    // console.log(productData);
+
     if (product_category === "") {
       error.product_category = "select a category";
       isError = true;
@@ -711,7 +725,7 @@ class AddProductForm extends Component {
 
   render() {
     const { step, subCatArray, subSubCatArray } = this.state;
-    console.log(this.state);
+
     const {
       //general details
       product_category,
