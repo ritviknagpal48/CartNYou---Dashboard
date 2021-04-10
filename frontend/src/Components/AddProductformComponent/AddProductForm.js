@@ -367,7 +367,7 @@ class AddProductForm extends Component {
     const error = {};
     let isError = false;
 
-    if (!product_category.trim()) {
+    if (!product_category === "") {
       error.product_category = "select a category";
       isError = true;
       this.openNotificationWithIcon("select a category");
@@ -388,7 +388,7 @@ class AddProductForm extends Component {
       isError = true;
       this.openNotificationWithIcon("Product Brand name  is required");
     }
-    if (!counrty_origin) {
+    if (counrty_origin === "") {
       error.counrty_origin = "Product country of origin is required";
       isError = true;
       this.openNotificationWithIcon("Product country of origin is required");
@@ -398,27 +398,27 @@ class AddProductForm extends Component {
       isError = true;
       this.openNotificationWithIcon("Product tags is required");
     }
-    if (!hsn_code) {
+    if (hsn_code === "") {
       error.hsn_code = "HSN code is required";
       isError = true;
       this.openNotificationWithIcon("HSN coden is required");
     }
-    if (!upc_number) {
+    if (upc_number === "") {
       error.upc_number = "UPC number is required";
       isError = true;
       this.openNotificationWithIcon("UPC number is required");
     }
-    if (!ean_number) {
+    if (ean_number === "") {
       error.ean_number = "EAN number is required";
       isError = true;
       this.openNotificationWithIcon("EAN number is required");
     }
-    if (!gst_type) {
+    if (gst_type === "") {
       error.gst_type = "GST type is required";
       isError = true;
       this.openNotificationWithIcon("GST type is required");
     }
-    if (!measurement_unit) {
+    if (measurement_unit === "") {
       error.measurement_unit = "Measurement unit is required";
       isError = true;
       this.openNotificationWithIcon("Measurement unit is required");
@@ -428,27 +428,27 @@ class AddProductForm extends Component {
       isError = true;
       this.openNotificationWithIcon("Product SKU is required");
     }
-    if (!qunatity) {
+    if (qunatity === "") {
       error.qunatity = "Qunatity is required";
       isError = true;
       this.openNotificationWithIcon("Qunatity is required");
     }
-    if (!product_mrp) {
+    if (product_mrp === "") {
       error.product_mrp = "Product MRP is required";
       isError = true;
       this.openNotificationWithIcon("Product MRP is required");
     }
-    if (!weight) {
+    if (weight === "") {
       error.weight = "Product Weight is required";
       isError = true;
       this.openNotificationWithIcon("Product Weightn is required");
     }
-    if (!dem_length) {
+    if (dem_length === "") {
       error.dem_length = "Length deminsion is required";
       isError = true;
       this.openNotificationWithIcon("Length deminsion is required");
     }
-    if (!dem_breadth) {
+    if (dem_breadth === "") {
       error.dem_breadth = "Breadth deminsion is required";
       isError = true;
       this.openNotificationWithIcon("Breadth deminsion  is required");
@@ -522,17 +522,17 @@ class AddProductForm extends Component {
       this.openNotificationWithIcon("select a category");
     }
 
-    if (product_name === "") {
+    if (!product_name.trim()) {
       error.product_name = "Product name is required";
       isError = true;
       this.openNotificationWithIcon("Product Name is required");
     }
-    if (product_description === "") {
+    if (product_description.trim()) {
       error.product_description = "Product description is required";
       isError = true;
       this.openNotificationWithIcon("Product description is required");
     }
-    if (product_brand === "") {
+    if (!product_brand.trim()) {
       error.product_brand = "Product Brand name is required";
       isError = true;
       this.openNotificationWithIcon("Product Brand name  is required");
@@ -542,7 +542,7 @@ class AddProductForm extends Component {
       isError = true;
       this.openNotificationWithIcon("Product country of origin is required");
     }
-    if (product_tags === "") {
+    if (!product_tags.trim()) {
       error.product_tags = "Product tags are Required";
       isError = true;
       this.openNotificationWithIcon("Product tags is required");
@@ -577,7 +577,7 @@ class AddProductForm extends Component {
       isError = true;
       this.openNotificationWithIcon("Measurement unit is required");
     }
-    if (product_main_sku === "") {
+    if (!product_main_sku.trim()) {
       error.product_main_sku = "Product SKU is required";
       isError = true;
       this.openNotificationWithIcon("Product SKU is required");
