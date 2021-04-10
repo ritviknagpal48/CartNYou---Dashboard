@@ -588,7 +588,7 @@ class AddProductForm extends Component {
     }
     const error = {};
     let isError = false;
-    console.log(productData);
+    // console.log(productData);
     if (product_category === "") {
       error.product_category = "select a category";
       isError = true;
