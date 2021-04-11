@@ -162,9 +162,7 @@ export class ProductDetailForm extends Component {
                     defaultValue={values.gst_type.value || values.gst_type}
                     allowClear
                   >
-                    <Option value="cgst">CGST</Option>
-                    <Option value="sgst">SGST</Option>
-                    <Option value="utgst">UTGST</Option>
+                    <Option value="cgst/sgst">CGST / SGST</Option>
                     <Option value="igst">IGST</Option>
 
                   </Select>
