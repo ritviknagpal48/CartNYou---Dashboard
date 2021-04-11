@@ -35,7 +35,7 @@ class ProductCards extends React.Component {
     this.state = {
       // product_status: false,
       isLoading: true,
-
+      statusChange: false,
       deleteProductModal: false,
       deleteProductID: "",
       data: [],
@@ -125,10 +125,10 @@ class ProductCards extends React.Component {
 
   handleStatus = (id) => (value) => {
     console.log(id, "==", value);
-    // this.setState({ product_status: value });
-    // const product_status = this.state.product_status;
     const change = { product_status: value };
-
+    this.setState({
+      statusChange: true,
+    });
     if (id) {
       axiosInstance
         .put(`/product-details/${id}`, change)
@@ -139,6 +139,9 @@ class ProductCards extends React.Component {
             message.warning("Product Unpublished successfully", 2);
           }
           this.componentDidMount();
+          this.setState({
+            statusChange: false,
+          });
         })
         .catch((err) => {
           // message.error(err.message);
@@ -291,7 +294,7 @@ class ProductCards extends React.Component {
                           >
                             <Switch
                               checked={data.product_status}
-                              // size={"small"}
+                              loading={this.state.statusChange}
                               defaultChecked
                               onChange={this.handleStatus(data.id)}
                             />
