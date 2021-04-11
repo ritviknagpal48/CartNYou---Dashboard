@@ -8,7 +8,7 @@ import useAxios from "Contexts/useAxios";
 import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
 
 const classes = {
-  wrapper: "",
+  wrapper: "py-6",
   card: "rounded overflow-hidden shadow-lg text-black p-6 bg-white w-full pb-8",
   input:
     "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm my-6",
@@ -41,7 +41,7 @@ const Register = ({ className }) => {
   const signInWithGoogle = (e) => {
     e.preventDefault();
 
-    sessionStorage.setItem("CARTNYOU_SESSION_LOGIN_MODE", payload.type);
+    localStorage.setItem("CARTNYOU_SESSION_LOGIN_MODE", payload.type);
 
     let BASE_URL = process.env.REACT_APP_API_URL;
     // if (process.env.NODE_ENV === 'production') BASE_URL = process.env.REACT_APP_API_URL
@@ -243,7 +243,7 @@ const Register = ({ className }) => {
               Confirm Password
             </label>
             <input
-              id="password"
+              id="confirm-password"
               name="password"
               type={!showPass ? "text" : "password"}
               autoComplete="none"

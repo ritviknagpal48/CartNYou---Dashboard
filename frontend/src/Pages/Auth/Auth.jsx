@@ -1,12 +1,12 @@
 import { AuthContext } from 'Contexts/Auth'
 import { useContext } from 'react'
 import { Redirect, Route } from 'react-router-dom'
-import GoogleCallback from './GoogleCallback'
+// import GoogleCallback from './GoogleCallback'
 import Login from "./Login"
 import Register from "./Register"
 
 const classes = {
-  wrapper: "w-full h-full overflow-hidden flex items-center justify-center",
+  wrapper: "w-full h-full min-h-screen overflow-hidden flex items-center justify-center",
   form: "flex mx-auto my-auto w-10/12 md:w-1/4",
 }
 

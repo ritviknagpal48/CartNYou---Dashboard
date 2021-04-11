@@ -34,7 +34,7 @@ function App() {
           <Route
             path={"/auth"}
             component={() => (
-              <div className={"bg-login-bg h-screen"}>
+              <div className={"bg-login-bg min-h-screen"}>
                 <Auth />
               </div>
             )}

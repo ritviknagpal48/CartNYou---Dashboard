@@ -30,13 +30,13 @@ const GoogleCallback = () => {
       }
 
       const { jwt, user } = res.data;
-      const userType = sessionStorage.getItem("CARTNYOU_SESSION_LOGIN_MODE");
-      sessionStorage.removeItem("CARTNYOU_SESSION_LOGIN_MODE");
+      const userType = localStorage.getItem("CARTNYOU_SESSION_LOGIN_MODE");
+      localStorage.removeItem("CARTNYOU_SESSION_LOGIN_MODE");
 
       if (!userType) {
         return message.error(
           `Something Went Wrong. Please try again.`,
-          1,
+          3,
           () => {
             history.push("/auth/login");
           }
@@ -48,7 +48,7 @@ const GoogleCallback = () => {
       if (!!user.type && user.type !== userType) {
         return message.error(
           `No ${capitalize(userType)} found with given credentials.`,
-          1,
+          3,
           () => {
             history.push("/auth/login");
           }
@@ -58,7 +58,7 @@ const GoogleCallback = () => {
       if (user.isBlocked) {
         return message.error(
           "This account is Blocked. Please contact Support Team for more information.",
-          1,
+          3,
           () => {
             history.push("/auth/login");
           }

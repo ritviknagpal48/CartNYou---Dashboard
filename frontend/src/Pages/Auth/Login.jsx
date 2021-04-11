@@ -46,7 +46,7 @@ const Login = ({ className }) => {
   const signInWithGoogle = (e) => {
     e.preventDefault();
 
-    sessionStorage.setItem("CARTNYOU_SESSION_LOGIN_MODE", userType);
+    localStorage.setItem("CARTNYOU_SESSION_LOGIN_MODE", userType);
 
     let BASE_URL = process.env.REACT_APP_API_URL;
     // if (process.env.NODE_ENV === 'production') BASE_URL = process.env.REACT_APP_API_URL
