@@ -51,9 +51,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "Measurement-unit"
-        ],
+        "tags": ["Measurement-unit"],
         "parameters": [
           {
             "name": "_limit",
@@ -243,9 +241,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "Measurement-unit"
-        ],
+        "tags": ["Measurement-unit"],
         "requestBody": {
           "description": "",
           "required": true,
@@ -310,9 +306,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "Measurement-unit"
-        ],
+        "tags": ["Measurement-unit"],
         "parameters": []
       }
     },
@@ -367,9 +361,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "Measurement-unit"
-        ],
+        "tags": ["Measurement-unit"],
         "parameters": [
           {
             "name": "id",
@@ -433,9 +425,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "Measurement-unit"
-        ],
+        "tags": ["Measurement-unit"],
         "requestBody": {
           "description": "",
           "required": true,
@@ -507,9 +497,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "Measurement-unit"
-        ],
+        "tags": ["Measurement-unit"],
         "parameters": [
           {
             "name": "id",
@@ -528,21 +516,14 @@
   "components": {
     "schemas": {
       "Measurement-unit": {
-        "required": [
-          "id",
-          "units"
-        ],
+        "required": ["id", "units"],
         "properties": {
           "id": {
             "type": "string"
           },
           "units": {
             "type": "string",
-            "enum": [
-              "Piece",
-              "Kilogram",
-              "Gram"
-            ]
+            "enum": ["Piece", "Kilogram", "Gram"]
           },
           "product_details": {
             "type": "array",
@@ -561,7 +542,8 @@
                 "upc_number",
                 "ean_number",
                 "hsn_code",
-                "product_description"
+                "product_description",
+                "counrty_origin"
               ],
               "properties": {
                 "id": {
@@ -582,17 +564,11 @@
                 "product_tags": {
                   "type": "string"
                 },
-                "product_status": {
-                  "type": "string"
-                },
                 "product_mrp": {
                   "type": "integer"
                 },
                 "qunatity": {
                   "type": "integer"
-                },
-                "admin_status": {
-                  "type": "string"
                 },
                 "images": {
                   "type": "array",
@@ -621,9 +597,6 @@
                 "hsn_code": {
                   "type": "integer"
                 },
-                "counrty_origin": {
-                  "type": "object"
-                },
                 "product_description": {
                   "type": "string"
                 },
@@ -639,9 +612,6 @@
                 "measurement_unit": {
                   "type": "string"
                 },
-                "gst_type": {
-                  "type": "object"
-                },
                 "sub_category": {
                   "type": "string"
                 },
@@ -651,8 +621,18 @@
                 "users_detail": {
                   "type": "string"
                 },
-                "userId": {
+                "counrty_origin": {
                   "type": "string"
+                },
+                "gst_type": {
+                  "type": "string"
+                },
+                "admin_status": {
+                  "type": "string",
+                  "enum": ["Approved", "Pending", "Rejected"]
+                },
+                "product_status": {
+                  "type": "boolean"
                 },
                 "published_at": {
                   "type": "string"
@@ -673,17 +653,11 @@
         }
       },
       "NewMeasurement-unit": {
-        "required": [
-          "units"
-        ],
+        "required": ["units"],
         "properties": {
           "units": {
             "type": "string",
-            "enum": [
-              "Piece",
-              "Kilogram",
-              "Gram"
-            ]
+            "enum": ["Piece", "Kilogram", "Gram"]
           },
           "product_details": {
             "type": "array",

@@ -32,10 +32,6 @@
       "type": "string",
       "required": true
     },
-    "product_status": {
-      "type": "string",
-      "required": false
-    },
     "product_mrp": {
       "required": true,
       "type": "integer"
@@ -43,10 +39,6 @@
     "qunatity": {
       "type": "integer",
       "required": true
-    },
-    "admin_status": {
-      "type": "string",
-      "required": false
     },
     "images": {
       "collection": "file",
@@ -82,9 +74,6 @@
       "type": "biginteger",
       "required": true
     },
-    "counrty_origin": {
-      "type": "json"
-    },
     "product_description": {
       "type": "richtext",
       "required": true
@@ -104,9 +93,6 @@
       "model": "measurement-unit",
       "via": "product_details"
     },
-    "gst_type": {
-      "type": "json"
-    },
     "sub_category": {
       "model": "sub-category",
       "via": "product_details"
@@ -120,8 +106,21 @@
       "model": "user",
       "via": "product_details"
     },
-    "userId": {
+    "counrty_origin": {
+      "type": "string",
+      "required": true
+    },
+    "gst_type": {
       "type": "string"
+    },
+    "admin_status": {
+      "type": "enumeration",
+      "enum": ["Approved", "Pending", "Rejected"],
+      "default": "Pending"
+    },
+    "product_status": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

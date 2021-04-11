@@ -37,7 +37,7 @@ const Login = ({ className }) => {
 
   const [userType, setUserType] = useState("wholeseller");
   const [password, setPassword] = useState("");
-  const [showPass, setShowPass] = useState(false);
+  const [showPass, setShowPass] = useState(true);
   const [username, setUsername] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
 
@@ -322,7 +322,7 @@ const Login = ({ className }) => {
           </button>
           <div className={clsx(classes.divider, "mt-6 mb-4")} />
           <span className={classes.create_account}>
-            New here? &nbsp;
+            Don't have an account? &nbsp;
             <Link to="/auth/register" className={classes.create_account_inner}>
               Register Now
             </Link>

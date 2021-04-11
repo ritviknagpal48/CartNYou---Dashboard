@@ -69,7 +69,7 @@ export class ProductCategoryForm extends Component {
 
   render() {
     const { categories } = this.state;
-    const { values, handleValueChange, loading } = this.props;
+    const { values, handleValueChange, loading, haveCategory } = this.props;
 
     return (
       <div className="container category-container">
@@ -117,9 +117,7 @@ export class ProductCategoryForm extends Component {
               </Select>
               {/* </div> */}
             </Form.Item>
-            {values.product_category === "" ? (
-              <></>
-            ) : (
+            {haveCategory ? (
               <Form.Item>
                 <label className="pb-2">Select Sub Category</label>
                 <Select
@@ -152,6 +150,8 @@ export class ProductCategoryForm extends Component {
                 </Select>
                 {/* </div> */}
               </Form.Item>
+            ) : (
+              <></>
             )}
             {values.sub_category === "" ? (
               <></>
@@ -194,7 +194,7 @@ export class ProductCategoryForm extends Component {
                 type="primary"
                 className="continue-category-button"
                 onClick={this.continue}
-                disabled={values.product_category === ""}
+                disabled={!haveCategory}
               >
                 Continue
                 <RightOutlined />

@@ -11,6 +11,7 @@ import {
   Space,
   Checkbox,
   message,
+  Pagination,
 } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { Link, withRouter } from "react-router-dom";
@@ -21,6 +22,7 @@ import {
   ExclamationCircleOutlined,
   LoadingOutlined,
 } from "@ant-design/icons";
+import { AuthContext } from "Contexts/Auth";
 
 // import "./ProductCards.css";
 
@@ -31,7 +33,9 @@ class ProductCards extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // product_status: false,
       isLoading: true,
+      statusChange: false,
       deleteProductModal: false,
       deleteProductID: "",
       data: [],
@@ -39,13 +43,15 @@ class ProductCards extends React.Component {
       searchedColumn: "product_main_sku",
       selectedRowKeys: [],
       filteredInfo: null,
-      sortedInfo: null, // Check here to configure the default column
+      sortedInfo: null,
+      currentPage: 1,
+      pageSize: 5,
     };
   }
 
   async componentDidMount() {
     await axiosInstance
-      .get("/product-details")
+      .get(`/product-details?users_detail=${this.context.additionalInfo.id}`)
       .then((res) => {
         this.setState({
           data: res.data,
@@ -117,6 +123,41 @@ class ProductCards extends React.Component {
     }
   };
 
+  handleStatus = (id) => (value) => {
+    console.log(id, "==", value);
+    const change = { product_status: value };
+    this.setState({
+      statusChange: true,
+    });
+    if (id) {
+      axiosInstance
+        .put(`/product-details/${id}`, change)
+        .then((res) => {
+          if (value) {
+            message.success("Product published successfully", 2);
+          } else {
+            message.warning("Product Unpublished successfully", 2);
+          }
+          this.componentDidMount();
+          this.setState({
+            statusChange: false,
+          });
+        })
+        .catch((err) => {
+          // message.error(err.message);
+        });
+    } else {
+      message.error("Something went Wrong");
+    }
+  };
+
+  handlePageChange = (page, pageSize) => {
+    this.setState({
+      currentPage: page,
+      pageSize: pageSize,
+    });
+  };
+
   render() {
     // const { defaultSearchColumn } = this.props;
     const { data } = this.state;
@@ -128,6 +169,9 @@ class ProductCards extends React.Component {
           )
         )
       : data;
+
+    const productListLength = dataSource && dataSource.length;
+    const index = (this.state.currentPage - 1) * this.state.pageSize;
 
     return (
       <div className="w-full product-card-page">
@@ -200,90 +244,119 @@ class ProductCards extends React.Component {
             </Collapse>
           </div>
 
-          {dataSource ? (
-            dataSource
-              .slice(0)
-              .reverse()
-              .map((data, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="bg-white my-2 text-gray-700 font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-4 gap-2 items-center md:justify-between w-full text-left md:flex md:flex-row"
-                    style={{ color: "black" }}
-                  >
-                    <div className={"flex flex-row items-center"}>
-                      <Checkbox onChange={this.onChange}></Checkbox>
+          {dataSource && dataSource.length ? (
+            <div style={{ marginBottom: "50px" }}>
+              <div>
+                {dataSource
+                  .slice(index, index + this.state.pageSize)
+                  .reverse()
+                  .map((data, index) => {
+                    return (
                       <div
-                        className="card-detail ml-2"
-                        style={{ width: "150px", paddingLeft: "6px" }}
+                        key={index}
+                        className="bg-white my-2 text-gray-700 font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-4 gap-2 items-center md:justify-between w-full text-left md:flex md:flex-row"
+                        style={{ color: "black" }}
                       >
-                        <div className="head-title">SKU</div>
-                        <div className="title-body">
-                          {data.product_main_sku}
+                        <div className={"flex flex-row items-center"}>
+                          <Checkbox onChange={this.onChange}></Checkbox>
+                          <div
+                            className="card-detail ml-2"
+                            style={{ width: "150px", paddingLeft: "6px" }}
+                          >
+                            <div className="head-title">SKU</div>
+                            <div className="title-body">
+                              {data.product_main_sku}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="card-detail max-w-xs w-full md:w-4/12 col-start-2 col-span-3 md:flex-auto">
+                          <div className="head-title">Product Info</div>
+                          <div className="title-body">{data.product_name}</div>
+                        </div>
+                        <div className="card-detail ml-6 md:ml-0">
+                          <div className="head-title">MRP</div>
+                          <div className="title-body">{data.product_mrp}</div>
+                        </div>
+                        <div className="card-detail">
+                          <div className="head-title">Quantity</div>
+                          <div className="title-body">{data.qunatity}</div>
+                        </div>
+
+                        <div className="card-detail w-1/2 md:w-auto ml-6 md:ml-0">
+                          <div className="head-title">Status</div>
+                          <Tooltip
+                            title={
+                              !data.product_status ? "Publish" : "Unpublish"
+                            }
+                            color={!data.product_status ? "#87d068" : "#f50"}
+                            overlayStyle={{ borderRadius: "10px" }}
+                            className="rounded-2xl"
+                          >
+                            <Switch
+                              checked={data.product_status}
+                              loading={this.state.statusChange}
+                              defaultChecked
+                              onChange={this.handleStatus(data.id)}
+                            />
+                          </Tooltip>
+                        </div>
+                        <div className="card-detail">
+                          <div className="head-title">Admin Status</div>
+                          <div className={`title-body ${data.admin_status}`}>
+                            {data.admin_status}
+                            {/* Approved */}
+                          </div>
+                        </div>
+                        <div className="action card-detail justify-self-center mx-auto md:mx-0 col-span-2">
+                          <div className={"head-title"}>Actions</div>
+                          <Space size="small">
+                            <Tooltip placement="topLeft" title={"Edit Data"}>
+                              <Link
+                                to={{
+                                  pathname: `/wholeseller/edit-product/${data.id}`,
+                                  // search: `?id=${data.id}`,
+                                  state: { edit: true },
+                                }}
+                              >
+                                <Button
+                                  type="link"
+                                  icon={
+                                    <EditTwoTone
+                                      twoToneColor="#ef4444"
+                                      size={"large"}
+                                    />
+                                  }
+                                />
+                              </Link>
+                            </Tooltip>
+                            <Tooltip placement="topLeft" title={"Delete"}>
+                              <Button
+                                type="link"
+                                onClick={() => this.showModal(data.id)}
+                                icon={<DeleteTwoTone twoToneColor="#ef4444" />}
+                              />
+                            </Tooltip>
+                          </Space>
                         </div>
                       </div>
-                    </div>
-                    <div className="card-detail max-w-xs w-full md:w-4/12 col-start-2 col-span-3 md:flex-auto">
-                      <div className="head-title">Product Info</div>
-                      <div className="title-body">{data.product_name}</div>
-                    </div>
-                    <div className="card-detail ml-6 md:ml-0">
-                      <div className="head-title">MRP</div>
-                      <div className="title-body">{data.product_mrp}</div>
-                    </div>
-                    <div className="card-detail">
-                      <div className="head-title">Quantity</div>
-                      <div className="title-body">{data.qunatity}</div>
-                    </div>
-                    <div className="card-detail w-1/2 md:w-auto ml-6 md:ml-0">
-                      <div className="head-title">Status</div>
-                      <Switch
-                        checked={data.status}
-                        size={"small"}
-                        defaultChecked
-                      />
-                    </div>
-                    <div className="card-detail">
-                      <div className="head-title">Admin Status</div>
-                      <div className={`{title-body Approved`}>
-                        {/* {data.admin} */}
-                        Approved
-                      </div>
-                    </div>
-                    <div className="action card-detail justify-self-center mx-auto md:mx-0 col-span-2">
-                      <div className={"head-title"}>Actions</div>
-                      <Space size="small">
-                        <Tooltip placement="topLeft" title={"Edit Data"}>
-                          <Link
-                            to={{
-                              pathname: `/wholeseller/edit-product/${data.id}`,
-                              // search: `?id=${data.id}`,
-                              state: { edit: true },
-                            }}
-                          >
-                            <Button
-                              type="link"
-                              icon={
-                                <EditTwoTone
-                                  twoToneColor="#ef4444"
-                                  size={"large"}
-                                />
-                              }
-                            />
-                          </Link>
-                        </Tooltip>
-                        <Tooltip placement="topLeft" title={"Delete"}>
-                          <Button
-                            type="link"
-                            onClick={() => this.showModal(data.id)}
-                            icon={<DeleteTwoTone twoToneColor="#ef4444" />}
-                          />
-                        </Tooltip>
-                      </Space>
-                    </div>
-                  </div>
-                );
-              })
+                    );
+                  })}
+              </div>
+              <hr style={{ margin: "25px 10px" }} />
+              <Pagination
+                total={productListLength}
+                defaultCurrent={1}
+                pageSizeOptions={[1, 5, 50, 100]}
+                pageSize={this.state.pageSize}
+                current={this.state.currentPage}
+                onChange={this.handlePageChange}
+                showSizeChanger
+                showQuickJumper
+                responsive
+                style={{ textAlign: "center" }}
+                // showTotal={(total) => `Total ${total} products`}
+              />
+            </div>
           ) : (
             <></>
           )}
@@ -325,11 +398,5 @@ class ProductCards extends React.Component {
   }
 }
 
-// ProductCards.defaultProps = {
-//   heading: ["Col 1", "Col 2", "Col 3", "Col 4"],
-//   data: ["Item 1", "Item 2", "Item 3", "Item 4"],
-//   searchedColumn: "Col 1",
-//   defaultSearchColumn: "Col 1",
-// };
-
+ProductCards.contextType = AuthContext;
 export default withRouter(ProductCards);

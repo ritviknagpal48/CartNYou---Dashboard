@@ -51,9 +51,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "Sub-category"
-        ],
+        "tags": ["Sub-category"],
         "parameters": [
           {
             "name": "_limit",
@@ -243,9 +241,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "Sub-category"
-        ],
+        "tags": ["Sub-category"],
         "requestBody": {
           "description": "",
           "required": true,
@@ -310,9 +306,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "Sub-category"
-        ],
+        "tags": ["Sub-category"],
         "parameters": []
       }
     },
@@ -367,9 +361,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "Sub-category"
-        ],
+        "tags": ["Sub-category"],
         "parameters": [
           {
             "name": "id",
@@ -433,9 +425,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "Sub-category"
-        ],
+        "tags": ["Sub-category"],
         "requestBody": {
           "description": "",
           "required": true,
@@ -507,9 +497,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "Sub-category"
-        ],
+        "tags": ["Sub-category"],
         "parameters": [
           {
             "name": "id",
@@ -528,10 +516,7 @@
   "components": {
     "schemas": {
       "Sub-category": {
-        "required": [
-          "id",
-          "name"
-        ],
+        "required": ["id", "name"],
         "properties": {
           "id": {
             "type": "string"
@@ -540,10 +525,7 @@
             "type": "string"
           },
           "product_category": {
-            "required": [
-              "id",
-              "categoryName"
-            ],
+            "required": ["id", "categoryName"],
             "properties": {
               "id": {
                 "type": "string"
@@ -583,10 +565,7 @@
           "sub_sub_categories": {
             "type": "array",
             "items": {
-              "required": [
-                "id",
-                "name"
-              ],
+              "required": ["id", "name"],
               "properties": {
                 "id": {
                   "type": "string"
@@ -639,7 +618,8 @@
                 "upc_number",
                 "ean_number",
                 "hsn_code",
-                "product_description"
+                "product_description",
+                "counrty_origin"
               ],
               "properties": {
                 "id": {
@@ -660,17 +640,11 @@
                 "product_tags": {
                   "type": "string"
                 },
-                "product_status": {
-                  "type": "string"
-                },
                 "product_mrp": {
                   "type": "integer"
                 },
                 "qunatity": {
                   "type": "integer"
-                },
-                "admin_status": {
-                  "type": "string"
                 },
                 "images": {
                   "type": "array",
@@ -699,9 +673,6 @@
                 "hsn_code": {
                   "type": "integer"
                 },
-                "counrty_origin": {
-                  "type": "object"
-                },
                 "product_description": {
                   "type": "string"
                 },
@@ -717,9 +688,6 @@
                 "measurement_unit": {
                   "type": "string"
                 },
-                "gst_type": {
-                  "type": "object"
-                },
                 "sub_category": {
                   "type": "string"
                 },
@@ -729,8 +697,18 @@
                 "users_detail": {
                   "type": "string"
                 },
-                "userId": {
+                "counrty_origin": {
                   "type": "string"
+                },
+                "gst_type": {
+                  "type": "string"
+                },
+                "admin_status": {
+                  "type": "string",
+                  "enum": ["Approved", "Pending", "Rejected"]
+                },
+                "product_status": {
+                  "type": "boolean"
                 },
                 "published_at": {
                   "type": "string"
@@ -751,9 +729,7 @@
         }
       },
       "NewSub-category": {
-        "required": [
-          "name"
-        ],
+        "required": ["name"],
         "properties": {
           "name": {
             "type": "string"

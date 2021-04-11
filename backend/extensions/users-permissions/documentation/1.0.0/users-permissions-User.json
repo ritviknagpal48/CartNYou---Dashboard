@@ -50,9 +50,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "parameters": [
           {
             "name": "id",
@@ -254,9 +252,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "parameters": []
       }
     },
@@ -311,9 +307,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "requestBody": {
           "description": "",
           "required": true,
@@ -378,9 +372,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "requestBody": {
           "description": "",
           "required": true,
@@ -445,9 +437,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "parameters": [
           {
             "name": "provider",
@@ -513,9 +503,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "requestBody": {
           "description": "",
           "required": true,
@@ -584,9 +572,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "requestBody": {
           "description": "",
           "required": true,
@@ -655,9 +641,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "parameters": []
       }
     },
@@ -712,9 +696,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "requestBody": {
           "description": "",
           "required": true,
@@ -782,9 +764,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "parameters": [
           {
             "name": "_limit",
@@ -972,9 +952,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "parameters": []
       }
     },
@@ -1025,9 +1003,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "parameters": [
           {
             "name": "id",
@@ -1087,9 +1063,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "parameters": [
           {
             "name": "id",
@@ -1164,9 +1138,7 @@
           }
         },
         "summary": "",
-        "tags": [
-          "UsersPermissions - User"
-        ],
+        "tags": ["UsersPermissions - User"],
         "parameters": [
           {
             "name": "id",
@@ -1185,12 +1157,7 @@
   "components": {
     "schemas": {
       "UsersPermissionsUser": {
-        "required": [
-          "id",
-          "username",
-          "email",
-          "type"
-        ],
+        "required": ["id", "username", "email", "type"],
         "properties": {
           "id": {
             "type": "string"
@@ -1215,10 +1182,7 @@
             "default": false
           },
           "role": {
-            "required": [
-              "id",
-              "name"
-            ],
+            "required": ["id", "name"],
             "properties": {
               "id": {
                 "type": "string"
@@ -1255,12 +1219,7 @@
           "type": {
             "type": "string",
             "default": "retailer",
-            "enum": [
-              "wholeseller",
-              "retailer",
-              "guest",
-              "admin"
-            ]
+            "enum": ["wholeseller", "retailer", "guest", "admin"]
           },
           "product_details": {
             "type": "array",
@@ -1279,7 +1238,8 @@
                 "upc_number",
                 "ean_number",
                 "hsn_code",
-                "product_description"
+                "product_description",
+                "counrty_origin"
               ],
               "properties": {
                 "id": {
@@ -1300,17 +1260,11 @@
                 "product_tags": {
                   "type": "string"
                 },
-                "product_status": {
-                  "type": "string"
-                },
                 "product_mrp": {
                   "type": "integer"
                 },
                 "qunatity": {
                   "type": "integer"
-                },
-                "admin_status": {
-                  "type": "string"
                 },
                 "images": {
                   "type": "array",
@@ -1339,9 +1293,6 @@
                 "hsn_code": {
                   "type": "integer"
                 },
-                "counrty_origin": {
-                  "type": "object"
-                },
                 "product_description": {
                   "type": "string"
                 },
@@ -1357,9 +1308,6 @@
                 "measurement_unit": {
                   "type": "string"
                 },
-                "gst_type": {
-                  "type": "object"
-                },
                 "sub_category": {
                   "type": "string"
                 },
@@ -1369,8 +1317,18 @@
                 "users_detail": {
                   "type": "string"
                 },
-                "userId": {
+                "counrty_origin": {
                   "type": "string"
+                },
+                "gst_type": {
+                  "type": "string"
+                },
+                "admin_status": {
+                  "type": "string",
+                  "enum": ["Approved", "Pending", "Rejected"]
+                },
+                "product_status": {
+                  "type": "boolean"
                 },
                 "published_at": {
                   "type": "string"
@@ -1387,11 +1345,7 @@
         }
       },
       "NewUsersPermissionsUser": {
-        "required": [
-          "username",
-          "email",
-          "type"
-        ],
+        "required": ["username", "email", "type"],
         "properties": {
           "username": {
             "type": "string",
@@ -1429,12 +1383,7 @@
           "type": {
             "type": "string",
             "default": "retailer",
-            "enum": [
-              "wholeseller",
-              "retailer",
-              "guest",
-              "admin"
-            ]
+            "enum": ["wholeseller", "retailer", "guest", "admin"]
           },
           "product_details": {
             "type": "array",

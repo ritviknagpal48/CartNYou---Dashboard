@@ -134,7 +134,7 @@ export class ProductDetailForm extends Component {
               </div>
               <div className="flex flex-col items-start justify-center w-full ">
                 <label className="pb-2">
-                  Measurment Unit <span className="text-red-400">*</span>
+                  Measurement Unit <span className="text-red-400">*</span>
                 </label>
                 <Form.Item style={{ width: "100%" }}>
                   <Select
@@ -162,9 +162,7 @@ export class ProductDetailForm extends Component {
                     defaultValue={values.gst_type.value || values.gst_type}
                     allowClear
                   >
-                    <Option value="cgst">CGST</Option>
-                    <Option value="sgst">SGST</Option>
-                    <Option value="utgst">UTGST</Option>
+                    <Option value="cgst/sgst">CGST / SGST</Option>
                     <Option value="igst">IGST</Option>
 
                   </Select>
