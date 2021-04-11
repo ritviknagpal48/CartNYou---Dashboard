@@ -39,7 +39,7 @@ const Login = ({ className }) => {
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [username, setUsername] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
 
   const { axios, isLoading } = useAxios();
 
@@ -58,18 +58,22 @@ const Login = ({ className }) => {
   const signIn = (e) => {
     e.preventDefault();
 
+    if (!username.trim()) {
+      return message.error('Username is Required');
+    }
+    if (!password.trim()) {
+      return message.error('Password is Required');
+    }
+
     axios
       .post("/auth/local", {
         identifier: username,
         password: password,
       })
       .then((res) => {
-        console.log({ authData: res.data });
-        if (!res.data) {
-          return message.error(
-            `No ${capitalize(userType)} found with given credentials.`,
-            1
-          );
+
+        if (![200, 204, 201, 304].includes(res.status)) {
+          return res.response.data.message[0].messages.map((err) => message.error(err.message))
         }
 
         const { jwt, user } = res.data;
@@ -113,9 +117,6 @@ const Login = ({ className }) => {
         message.success(`Welcome Back, ${user.username}`, 1);
         history.push(`/${userType}/dashboard`);
       })
-      .catch((err) => {
-        message.error(err.message, 1);
-      });
   };
 
   return (

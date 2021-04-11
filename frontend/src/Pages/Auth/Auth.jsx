@@ -27,9 +27,9 @@ const Auth = () => {
       <Route path={'/auth/register'} >
         <Register className={classes.form} />
       </Route>
-      <Route path={'/auth/callback/google'} >
+      {/* <Route path={'/auth/callback/google'} >
         <GoogleCallback className={classes.form} />
-      </Route>
+      </Route> */}
     </div>
   )
 }

@@ -41,7 +41,7 @@ const Register = ({ className }) => {
   const signInWithGoogle = (e) => {
     e.preventDefault();
 
-    sessionStorage.setItem("CARTNYOU_SESSION_LOGIN_MODE", userType);
+    sessionStorage.setItem("CARTNYOU_SESSION_LOGIN_MODE", payload.type);
 
     let BASE_URL = process.env.REACT_APP_API_URL;
     // if (process.env.NODE_ENV === 'production') BASE_URL = process.env.REACT_APP_API_URL
@@ -52,22 +52,37 @@ const Register = ({ className }) => {
 
   const register = () => {
     // console.log({ payload })
-    const { confirm, password } = payload;
-    if (confirm !== password) return message.error("Passwords do not match", 1);
+    const { confirm, fullname, type, ...toSend } = payload;
+
+    if (!toSend.username.trim().length) {
+      return message.error("Username is Required!");
+    }
+    if (!toSend.email.trim().length) {
+      return message.error("Email is Required!");
+    }
+    if (!confirm.trim().length) {
+      return message.error("Confirm Password is Required!");
+    }
+    if (!toSend.password.trim().length) {
+      return message.error("Password is Required!");
+    }
+    if (confirm !== toSend.password)
+      return message.error("Passwords do not match", 1);
 
     axios
-      .post("/auth/local/register", payload)
+      .post("/auth/local/register", toSend)
       .then((res) => {
-        if (!res.data)
-          return message.error(
-            `Could not Complete registration. Please try again.`
-          );
+        if (!res.data || res.status !== 200) {
+          if (res.response.data.message[0].messages instanceof Array) {
+            res.response.data.message[0].messages.forEach((err) =>
+              message.error(err.message)
+            );
+          }
+          return null;
+        }
         const { jwt, user } = res.data;
 
         message.success(`Welcome, ${user.username}`, 1);
-        axios.defaults.headers = {
-          Authorization: `Bearer ${jwt}`,
-        };
         setAuth(AUTH_ACTIONS.LOGIN, {
           isLoggedIn: true,
           token: jwt,
@@ -83,9 +98,7 @@ const Register = ({ className }) => {
         });
         history.push(`/${payload.type}/dashboard`);
       })
-      .catch((err) => {
-        message.error(err.message);
-      });
+      .catch((err) => console.log({ err }));
   };
 
   return (

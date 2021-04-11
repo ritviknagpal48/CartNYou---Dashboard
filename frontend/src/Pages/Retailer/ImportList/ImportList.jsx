@@ -1,10 +1,12 @@
-import { message } from 'antd';
+import { message, Spin } from 'antd';
+import { LoadingOutlined } from "@ant-design/icons";
 import Toolbar from 'Components/Toolbar';
 import ImportListCard from "Pages/Retailer/ImportList/ImportListCard";
+import { useEffect } from 'react';
 import { ImportListData } from "./importListData";
 
 const classes = {
-  wrapper: "pr-4 md:pr-14 pl-4 ",
+  wrapper: "pr-4 md:pr-14 pl-4 pb-8",
   header: "w-full  py-3 flex flex-row items-center justify-between",
   title: "text-2xl text-gray-600  hidden md:block font-sans-apple-system",
   buttons: "flex item-center flex-row justify-end",
@@ -29,21 +31,29 @@ const ImportListActions = [
 ]
 
 const ImportList = () => {
+
+  useEffect(() => {
+    // Fetch Import list data and link it to state
+    console.log('Fetching Import list now.')
+  }, [])
+
   return (
     <div className={classes.wrapper}>
       <Toolbar title={'Import List'} actions={ImportListActions} />
-      <div className={'px-3 py-3 text-gray-700 bg-white rounded-md shadow-lg w-full'}>
-        <div className={'flex flex-row text-sm text-gray-500 mb-2'}>
-          <span className={'w-9/12'}>Product</span>
+      <div className={'px-3 py-3 text-gray-700 bg-white rounded-md shadow-lg w-full md:block hidden'}>
+        <div className={'flex flex-row text-sm text-gray-500'}>
+          <span className={'w-9/12 pl-5'}>Product</span>
           <span className={'w-1/12 text-center'}>Quantity</span>
           <span className={'w-1/12 text-center'}>Amount</span>
           <span className={'w-1/12 text-center'}>Actions</span>
         </div>
-        <div className={'w-full h-px bg-gray-200'} />
+        {/* <div className={'w-full h-px bg-gray-200'} /> */}
+      </div>
+      <Spin spinning={false} size={'large'} indicator={<LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />}>
         {
           ImportListData.map(ilistItem => <ImportListCard {...ilistItem} />)
         }
-      </div>
+      </Spin>
     </div>
   )
 }

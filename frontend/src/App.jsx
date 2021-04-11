@@ -7,6 +7,7 @@ import Auth from "./Pages/Auth/Auth";
 import AppDirector from "./Pages/AppDirector";
 import WholesellerHome from "./Pages/Wholeseller/Home/Home";
 import RetailerHome from "./Pages/Retailer/Home/Home";
+import GoogleCallback from 'Pages/Auth/GoogleCallback';
 
 const classes = {
   wrapper:
@@ -20,6 +21,7 @@ function App() {
     <div className={classes.wrapper}>
       <BrowserRouter>
         <Switch>
+          <Route path={'/auth/callback/google'} component={GoogleCallback} />
           <Route
             path={"/"}
             exact
