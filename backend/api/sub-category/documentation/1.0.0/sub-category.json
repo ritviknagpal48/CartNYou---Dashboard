@@ -51,7 +51,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-category"],
+        "tags": [
+          "Sub-category"
+        ],
         "parameters": [
           {
             "name": "_limit",
@@ -241,7 +243,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-category"],
+        "tags": [
+          "Sub-category"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -306,7 +310,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-category"],
+        "tags": [
+          "Sub-category"
+        ],
         "parameters": []
       }
     },
@@ -361,7 +367,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-category"],
+        "tags": [
+          "Sub-category"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -425,7 +433,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-category"],
+        "tags": [
+          "Sub-category"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -497,7 +507,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-category"],
+        "tags": [
+          "Sub-category"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -516,7 +528,10 @@
   "components": {
     "schemas": {
       "Sub-category": {
-        "required": ["id", "name"],
+        "required": [
+          "id",
+          "name"
+        ],
         "properties": {
           "id": {
             "type": "string"
@@ -525,7 +540,10 @@
             "type": "string"
           },
           "product_category": {
-            "required": ["id", "categoryName"],
+            "required": [
+              "id",
+              "categoryName"
+            ],
             "properties": {
               "id": {
                 "type": "string"
@@ -565,7 +583,10 @@
           "sub_sub_categories": {
             "type": "array",
             "items": {
-              "required": ["id", "name"],
+              "required": [
+                "id",
+                "name"
+              ],
               "properties": {
                 "id": {
                   "type": "string"
@@ -705,10 +726,20 @@
                 },
                 "admin_status": {
                   "type": "string",
-                  "enum": ["Approved", "Pending", "Rejected"]
+                  "enum": [
+                    "Approved",
+                    "Pending",
+                    "Rejected"
+                  ]
                 },
                 "product_status": {
                   "type": "boolean"
+                },
+                "retailers_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "published_at": {
                   "type": "string"
@@ -729,7 +760,9 @@
         }
       },
       "NewSub-category": {
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "properties": {
           "name": {
             "type": "string"

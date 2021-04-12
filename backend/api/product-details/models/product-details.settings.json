@@ -43,7 +43,9 @@
     "images": {
       "collection": "file",
       "via": "related",
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "plugin": "upload",
       "required": false
     },
@@ -115,12 +117,22 @@
     },
     "admin_status": {
       "type": "enumeration",
-      "enum": ["Approved", "Pending", "Rejected"],
+      "enum": [
+        "Approved",
+        "Pending",
+        "Rejected"
+      ],
       "default": "Pending"
     },
     "product_status": {
       "type": "boolean",
       "default": true
+    },
+    "retailers_details": {
+      "plugin": "users-permissions",
+      "collection": "user",
+      "via": "import_list_products",
+      "dominant": true
     }
   }
 }

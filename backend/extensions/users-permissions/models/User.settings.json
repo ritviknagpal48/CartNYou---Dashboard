@@ -73,6 +73,10 @@
     "product_details": {
       "via": "users_detail",
       "collection": "product-details"
+    },
+    "import_list_products": {
+      "via": "retailers_details",
+      "collection": "product-details"
     }
   }
 }

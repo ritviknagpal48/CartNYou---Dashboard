@@ -1,0 +1,23 @@
+.modal-image-card {
+  border-radius: 8px;
+  border: 2px dotted rgb(188, 188, 188);
+  margin: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  width: 180px;
+  padding: 10px;
+}
+
+.modal-image-card:hover {
+  cursor: pointer;
+  box-shadow: 11px 9px 20px 4px rgb(0 0 0 / 16%);
+}
+
+.modal-image-card .modal-check {
+  position: absolute;
+  top: 130px;
+  z-index: 2;
+  left: 40px;
+}

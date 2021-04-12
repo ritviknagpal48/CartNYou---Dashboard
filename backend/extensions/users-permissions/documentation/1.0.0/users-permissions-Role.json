@@ -577,6 +577,12 @@
                     "type": "string"
                   }
                 },
+                "import_list_products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "created_by": {
                   "type": "string"
                 },

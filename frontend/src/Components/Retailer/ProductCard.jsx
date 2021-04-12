@@ -8,6 +8,13 @@ const images = [
   "https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
   "https://images.unsplash.com/photo-1598662972299-5408ddb8a3dc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
   "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1051&q=80",
+  "https://picsum.photos/200/300?random=1",
+  "https://picsum.photos/200/300?random=5",
+  "https://picsum.photos/200/300?random=7",
+  "https://picsum.photos/200/300?random=6",
+  "https://picsum.photos/200/300?random=2",
+  "https://picsum.photos/200/300?random=3",
+  "https://picsum.photos/200/300?random=4",
 ];
 
 class ProductCard extends React.Component {
@@ -73,11 +80,11 @@ class ProductCard extends React.Component {
 
             <div className="body" style={{ padding: "10px" }}>
               <div
-                className="name text-gray-500"
+                className="name text-gray-700"
                 style={{
-                  fontSize: "14px",
+                  fontSize: "15px",
                   // fontFamily: "poppins",
-                  fontWeight: "500",
+                  fontWeight: "600",
                   padding: "8px 0px 5px 0",
                 }}
               >
@@ -95,7 +102,7 @@ class ProductCard extends React.Component {
                 <span
                   className="text-gray-700"
                   style={{
-                    fontSize: "18px",
+                    fontSize: "16px",
                     fontWeight: "500",
                     //   padding: "8px 0px",
                   }}

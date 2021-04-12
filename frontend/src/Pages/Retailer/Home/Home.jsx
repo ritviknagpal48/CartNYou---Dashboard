@@ -15,6 +15,8 @@ import Orders from "Pages/Retailer/Orders/Orders";
 import Billing from "Pages/Retailer/BIlling/Billing";
 import Settings from "Pages/Retailer/Settings/Settings";
 import Support from "Pages/Retailer/Support/Support";
+import ChannelList from "../ChannelList/ChannelList";
+import AddNewChannel from "../ChannelList/AddNewChannel";
 
 const Home = () => {
   return (
@@ -58,6 +60,14 @@ const Home = () => {
             <PrivateRoute path={"/retailer/live-list"} component={LiveList} />
             <PrivateRoute path={"/retailer/setting"} component={Settings} />
             <PrivateRoute path={"/retailer/support"} component={Support} />
+            <PrivateRoute
+              path={"/retailer/channel-list"}
+              component={ChannelList}
+            />
+            <PrivateRoute
+              path={"/retailer/add-new-channel/:name"}
+              component={AddNewChannel}
+            />
           </Switch>
         </div>
       </div>

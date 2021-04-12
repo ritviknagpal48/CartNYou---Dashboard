@@ -1,5 +1,5 @@
 // @ts-nocheck
-import PrivateRoute from 'Components/PrivateRoute';
+import PrivateRoute from "Components/PrivateRoute";
 import { AuthContext } from "Contexts/Auth";
 import { useContext } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
@@ -7,7 +7,8 @@ import Auth from "./Pages/Auth/Auth";
 import AppDirector from "./Pages/AppDirector";
 import WholesellerHome from "./Pages/Wholeseller/Home/Home";
 import RetailerHome from "./Pages/Retailer/Home/Home";
-import GoogleCallback from 'Pages/Auth/GoogleCallback';
+import GoogleCallback from "Pages/Auth/GoogleCallback";
+import { Button, Result } from "antd";
 
 const classes = {
   wrapper:
@@ -21,14 +22,16 @@ function App() {
     <div className={classes.wrapper}>
       <BrowserRouter>
         <Switch>
-          <Route path={'/auth/callback/google'} component={GoogleCallback} />
+          <Route path={"/auth/callback/google"} component={GoogleCallback} />
           <Route
             path={"/"}
             exact
             component={() => {
-              return !isLoggedIn ?
+              return !isLoggedIn ? (
                 <Redirect to={"/auth/login"} />
-                : <AppDirector />
+              ) : (
+                <AppDirector />
+              );
             }}
           />
           <Route
@@ -39,23 +42,16 @@ function App() {
               </div>
             )}
           />
-          <PrivateRoute
-            path={"/wholeseller"}
-            component={WholesellerHome}
-          />
-          <PrivateRoute
-            path={"/retailer"}
-            component={RetailerHome}
-          />
+          <PrivateRoute path={"/wholeseller"} component={WholesellerHome} />
+          <PrivateRoute path={"/retailer"} component={RetailerHome} />
           <Route
             component={() => {
               return (
-                <div
-                  className={"text-5xl text-white font-bold tracking-widest"}
-                >
-                  <span className={"text-red-500"}>404</span>
-                  Page not Found
-                </div>
+                <Result
+                  status="404"
+                  title="404"
+                  subTitle="Sorry, the page you visited does not exist."
+                />
               );
             }}
           />

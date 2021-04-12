@@ -43,7 +43,7 @@ class Products extends React.Component {
       categoryList: [],
       isfetching: true,
       searchText: "",
-      searchedColumn: "product_main_sku",
+      searchedColumn: "product_name",
       isSearchBtnActive: true,
       activeSearchBtnId: "",
       selectedCategory: "All Categories",
@@ -55,7 +55,7 @@ class Products extends React.Component {
   async componentDidMount() {
     await Promise.all([
       axios.get("/product-categories"),
-      axios.get("/product-details"),
+      axios.get("/product-details?admin_status=Approved&product_status=true"),
     ])
       .then(([cate, products]) => {
         this.setState({
@@ -96,19 +96,26 @@ class Products extends React.Component {
   axiosReturn = (option) => {
     try {
       if (!option) {
-        axios.get(`/product-details`).then((res) =>
-          this.setState({
-            productList: res.data,
-            isfetching: false,
-          })
-        );
+        axios
+          .get(`/product-details?admin_status=Approved&product_status=true`)
+          .then((res) =>
+            this.setState({
+              productList: res.data,
+              isfetching: false,
+            })
+          );
       } else {
-        axios.get(`/product-details?product_category=` + option).then((res) =>
-          this.setState({
-            productList: res.data,
-            isfetching: false,
-          })
-        );
+        axios
+          .get(
+            `product-details?admin_status=Approved&product_status=true&product_category=` +
+              option
+          )
+          .then((res) =>
+            this.setState({
+              productList: res.data,
+              isfetching: false,
+            })
+          );
       }
     } catch (e) {
       console.log(e);
@@ -175,16 +182,17 @@ class Products extends React.Component {
         )
       : productList;
 
+    dataSource.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      // moment(b.createdAt).format("YYYY-MM-DD") -
+      // moment(a.createdAt).format("YYYY-MM-DD")
+    );
+
     const {
       isSearchBtnActive,
       activeSearchBtnId,
       selectedCategory,
     } = this.state;
-
-    // const filteredProductList =
-    // dataSource &&
-    // dataSource.length &&
-    // dataSource.filter((e) => e.admin_status.published - e.admin_status.locked > 0);
 
     const productListLength = dataSource && dataSource.length;
     const index = (this.state.currentPage - 1) * this.state.pageSize;
@@ -232,9 +240,6 @@ class Products extends React.Component {
                 }
                 key="1"
                 className="site-collapse-custom-panel rounded-xl shadow-lg "
-                // extra={({ isActive }) => (
-                //   <DownOutlined rotate={isActive ? 180 : 0} />
-                // )}
               >
                 <Form
                   layout="vertical"
@@ -261,7 +266,7 @@ class Products extends React.Component {
                   <Form.Item label="Search">
                     <Input
                       placeholder={
-                        this.state.searchedColumn === "product_main_sku"
+                        !this.state.searchedColumn === "product_main_sku"
                           ? `Search by product SKU`
                           : "Search by product name"
                       }
@@ -286,10 +291,15 @@ class Products extends React.Component {
                   </Button> */}
                   {/* </div> */}
 
-                  <Form.Item shouldUpdate name="category" label="Category">
+                  <Form.Item
+                    // initialValue={selectedCategory}
+                    name="category"
+                    label="Category"
+                  >
                     <Select
-                      defaultValue={this.state.selectedCategory}
-                      shouldUpdate
+                      // defaultValue={selectedCategory}
+
+                      value={selectedCategory}
                       placeholder="Select Column"
                       onChange={this.handleSelectCategory}
                       // style={{ width: 150 }}
@@ -394,7 +404,7 @@ class Products extends React.Component {
                     width="60px"
                     src={
                       category.CategoryImage && category.CategoryImage.url
-                        ? `https://backend-cartnyou.herokuapp.com${category.CategoryImage.url}`
+                        ? `${category.CategoryImage.url}`
                         : ""
                     }
                     alt=""
@@ -451,7 +461,7 @@ class Products extends React.Component {
                   rowGap: "8px",
                   color: "black",
                   borderRadius: "4px",
-                  margin: "30px 0px",
+                  // margin: "30px 0px",
                   marginLeft: "6px",
                 }}
               >
@@ -461,7 +471,7 @@ class Products extends React.Component {
                     return <ProductCard key={data.id} ProductData={data} />;
                   })}
               </div>
-
+              <hr style={{ margin: "25px 10px" }} />
               <Pagination
                 total={productListLength}
                 defaultCurrent={1}
@@ -472,12 +482,15 @@ class Products extends React.Component {
                 showSizeChanger
                 showQuickJumper
                 responsive
-                style={{ textAlign: "end" }}
+                style={{ textAlign: "center" }}
                 // showTotal={(total) => `Total ${total} products`}
               />
             </div>
           ) : (
-            <div className="bg-white py-14 mb-8">
+            <div
+              className="bg-white"
+              style={{ padding: "50px 0px", marginBottom: "30px" }}
+            >
               <Empty
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
                 imageStyle={{

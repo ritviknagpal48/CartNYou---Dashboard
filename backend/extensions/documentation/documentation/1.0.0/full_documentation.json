@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/10/2021 4:07:47 PM"
+    "x-generation-date": "04/12/2021 9:55:49 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -96,7 +96,9 @@
           }
         },
         "summary": "",
-        "tags": ["Measurement-unit"],
+        "tags": [
+          "Measurement-unit"
+        ],
         "parameters": [
           {
             "name": "_limit",
@@ -286,7 +288,9 @@
           }
         },
         "summary": "",
-        "tags": ["Measurement-unit"],
+        "tags": [
+          "Measurement-unit"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -351,7 +355,9 @@
           }
         },
         "summary": "",
-        "tags": ["Measurement-unit"],
+        "tags": [
+          "Measurement-unit"
+        ],
         "parameters": []
       }
     },
@@ -406,7 +412,9 @@
           }
         },
         "summary": "",
-        "tags": ["Measurement-unit"],
+        "tags": [
+          "Measurement-unit"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -470,7 +478,9 @@
           }
         },
         "summary": "",
-        "tags": ["Measurement-unit"],
+        "tags": [
+          "Measurement-unit"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -542,7 +552,9 @@
           }
         },
         "summary": "",
-        "tags": ["Measurement-unit"],
+        "tags": [
+          "Measurement-unit"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -608,7 +620,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-categories"],
+        "tags": [
+          "Product-categories"
+        ],
         "parameters": [
           {
             "name": "_limit",
@@ -798,7 +812,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-categories"],
+        "tags": [
+          "Product-categories"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -863,7 +879,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-categories"],
+        "tags": [
+          "Product-categories"
+        ],
         "parameters": []
       }
     },
@@ -918,7 +936,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-categories"],
+        "tags": [
+          "Product-categories"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -982,7 +1002,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-categories"],
+        "tags": [
+          "Product-categories"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -1054,7 +1076,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-categories"],
+        "tags": [
+          "Product-categories"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1120,7 +1144,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-details"],
+        "tags": [
+          "Product-details"
+        ],
         "parameters": [
           {
             "name": "_limit",
@@ -1310,7 +1336,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-details"],
+        "tags": [
+          "Product-details"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -1375,7 +1403,66 @@
           }
         },
         "summary": "",
-        "tags": ["Product-details"],
+        "tags": [
+          "Product-details"
+        ],
+        "parameters": []
+      }
+    },
+    "/product-details/owned": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Retrieve product-details document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Product-details"
+        ],
         "parameters": []
       }
     },
@@ -1430,7 +1517,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-details"],
+        "tags": [
+          "Product-details"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1494,7 +1583,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-details"],
+        "tags": [
+          "Product-details"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -1566,7 +1657,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-details"],
+        "tags": [
+          "Product-details"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1579,61 +1672,6 @@
             }
           }
         ]
-      }
-    },
-    "/product-details/owned": {
-      "get": {
-        "deprecated": false,
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "Retrieve product-details document(s)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": ["Product-details"],
-        "parameters": []
       }
     },
     "/sub-categories": {
@@ -1687,7 +1725,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-category"],
+        "tags": [
+          "Sub-category"
+        ],
         "parameters": [
           {
             "name": "_limit",
@@ -1877,7 +1917,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-category"],
+        "tags": [
+          "Sub-category"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -1942,7 +1984,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-category"],
+        "tags": [
+          "Sub-category"
+        ],
         "parameters": []
       }
     },
@@ -1997,7 +2041,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-category"],
+        "tags": [
+          "Sub-category"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2061,7 +2107,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-category"],
+        "tags": [
+          "Sub-category"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -2133,7 +2181,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-category"],
+        "tags": [
+          "Sub-category"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2199,7 +2249,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-sub-category"],
+        "tags": [
+          "Sub-sub-category"
+        ],
         "parameters": [
           {
             "name": "_limit",
@@ -2389,7 +2441,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-sub-category"],
+        "tags": [
+          "Sub-sub-category"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -2454,7 +2508,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-sub-category"],
+        "tags": [
+          "Sub-sub-category"
+        ],
         "parameters": []
       }
     },
@@ -2509,7 +2565,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-sub-category"],
+        "tags": [
+          "Sub-sub-category"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2573,7 +2631,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-sub-category"],
+        "tags": [
+          "Sub-sub-category"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -2645,7 +2705,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-sub-category"],
+        "tags": [
+          "Sub-sub-category"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2711,7 +2773,9 @@
           }
         },
         "summary": "",
-        "tags": ["Email - Email"],
+        "tags": [
+          "Email - Email"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -2780,7 +2844,9 @@
           }
         },
         "summary": "",
-        "tags": ["Email - Email"],
+        "tags": [
+          "Email - Email"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -2849,7 +2915,9 @@
           }
         },
         "summary": "",
-        "tags": ["Email - Email"],
+        "tags": [
+          "Email - Email"
+        ],
         "parameters": []
       }
     },
@@ -2904,7 +2972,9 @@
           }
         },
         "summary": "",
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -2973,7 +3043,9 @@
           }
         },
         "summary": "",
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "parameters": []
       }
     },
@@ -3028,7 +3100,9 @@
           }
         },
         "summary": "",
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "parameters": []
       }
     },
@@ -3083,7 +3157,9 @@
           }
         },
         "summary": "",
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3147,7 +3223,9 @@
           }
         },
         "summary": "",
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3213,7 +3291,9 @@
           }
         },
         "summary": "",
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3275,7 +3355,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - Role"],
+        "tags": [
+          "UsersPermissions - Role"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3340,7 +3422,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - Role"],
+        "tags": [
+          "UsersPermissions - Role"
+        ],
         "parameters": [
           {
             "name": "_limit",
@@ -3526,7 +3610,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - Role"],
+        "tags": [
+          "UsersPermissions - Role"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -3587,7 +3673,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - Role"],
+        "tags": [
+          "UsersPermissions - Role"
+        ],
         "parameters": [
           {
             "name": "role",
@@ -3662,7 +3750,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - Role"],
+        "tags": [
+          "UsersPermissions - Role"
+        ],
         "parameters": [
           {
             "name": "role",
@@ -3727,7 +3817,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3929,7 +4021,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "parameters": []
       }
     },
@@ -3984,7 +4078,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -4049,7 +4145,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -4114,7 +4212,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "parameters": [
           {
             "name": "provider",
@@ -4180,7 +4280,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -4249,7 +4351,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -4318,7 +4422,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "parameters": []
       }
     },
@@ -4373,7 +4479,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -4441,7 +4549,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "parameters": [
           {
             "name": "_limit",
@@ -4629,7 +4739,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "parameters": []
       }
     },
@@ -4680,7 +4792,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -4740,7 +4854,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -4815,7 +4931,9 @@
           }
         },
         "summary": "",
-        "tags": ["UsersPermissions - User"],
+        "tags": [
+          "UsersPermissions - User"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -4834,14 +4952,21 @@
   "components": {
     "schemas": {
       "Measurement-unit": {
-        "required": ["id", "units"],
+        "required": [
+          "id",
+          "units"
+        ],
         "properties": {
           "id": {
             "type": "string"
           },
           "units": {
             "type": "string",
-            "enum": ["Piece", "Kilogram", "Gram"]
+            "enum": [
+              "Piece",
+              "Kilogram",
+              "Gram"
+            ]
           },
           "product_details": {
             "type": "array",
@@ -4947,10 +5072,20 @@
                 },
                 "admin_status": {
                   "type": "string",
-                  "enum": ["Approved", "Pending", "Rejected"]
+                  "enum": [
+                    "Approved",
+                    "Pending",
+                    "Rejected"
+                  ]
                 },
                 "product_status": {
                   "type": "boolean"
+                },
+                "retailers_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "published_at": {
                   "type": "string"
@@ -4971,11 +5106,17 @@
         }
       },
       "NewMeasurement-unit": {
-        "required": ["units"],
+        "required": [
+          "units"
+        ],
         "properties": {
           "units": {
             "type": "string",
-            "enum": ["Piece", "Kilogram", "Gram"]
+            "enum": [
+              "Piece",
+              "Kilogram",
+              "Gram"
+            ]
           },
           "product_details": {
             "type": "array",
@@ -4996,7 +5137,10 @@
         }
       },
       "Product-categories": {
-        "required": ["id", "categoryName"],
+        "required": [
+          "id",
+          "categoryName"
+        ],
         "properties": {
           "id": {
             "type": "string"
@@ -5175,10 +5319,20 @@
                 },
                 "admin_status": {
                   "type": "string",
-                  "enum": ["Approved", "Pending", "Rejected"]
+                  "enum": [
+                    "Approved",
+                    "Pending",
+                    "Rejected"
+                  ]
                 },
                 "product_status": {
                   "type": "boolean"
+                },
+                "retailers_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "published_at": {
                   "type": "string"
@@ -5195,7 +5349,10 @@
           "sub_categories": {
             "type": "array",
             "items": {
-              "required": ["id", "name"],
+              "required": [
+                "id",
+                "name"
+              ],
               "properties": {
                 "id": {
                   "type": "string"
@@ -5244,7 +5401,9 @@
         }
       },
       "NewProduct-categories": {
-        "required": ["categoryName"],
+        "required": [
+          "categoryName"
+        ],
         "properties": {
           "categoryName": {
             "type": "string"
@@ -5303,7 +5462,10 @@
             "type": "string"
           },
           "product_category": {
-            "required": ["id", "categoryName"],
+            "required": [
+              "id",
+              "categoryName"
+            ],
             "properties": {
               "id": {
                 "type": "string"
@@ -5459,14 +5621,21 @@
             "type": "integer"
           },
           "measurement_unit": {
-            "required": ["id", "units"],
+            "required": [
+              "id",
+              "units"
+            ],
             "properties": {
               "id": {
                 "type": "string"
               },
               "units": {
                 "type": "string",
-                "enum": ["Piece", "Kilogram", "Gram"]
+                "enum": [
+                  "Piece",
+                  "Kilogram",
+                  "Gram"
+                ]
               },
               "product_details": {
                 "type": "array",
@@ -5486,7 +5655,10 @@
             }
           },
           "sub_category": {
-            "required": ["id", "name"],
+            "required": [
+              "id",
+              "name"
+            ],
             "properties": {
               "id": {
                 "type": "string"
@@ -5524,7 +5696,10 @@
             }
           },
           "sub_sub_category": {
-            "required": ["id", "name"],
+            "required": [
+              "id",
+              "name"
+            ],
             "properties": {
               "id": {
                 "type": "string"
@@ -5556,7 +5731,12 @@
             }
           },
           "users_detail": {
-            "required": ["id", "username", "email", "type"],
+            "required": [
+              "id",
+              "username",
+              "email",
+              "type"
+            ],
             "properties": {
               "id": {
                 "type": "string"
@@ -5590,9 +5770,20 @@
               },
               "type": {
                 "type": "string",
-                "enum": ["wholeseller", "retailer", "guest", "admin"]
+                "enum": [
+                  "wholeseller",
+                  "retailer",
+                  "guest",
+                  "admin"
+                ]
               },
               "product_details": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "import_list_products": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -5615,11 +5806,85 @@
           "admin_status": {
             "type": "string",
             "default": "Pending",
-            "enum": ["Approved", "Pending", "Rejected"]
+            "enum": [
+              "Approved",
+              "Pending",
+              "Rejected"
+            ]
           },
           "product_status": {
             "type": "boolean",
             "default": true
+          },
+          "retailers_details": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "username",
+                "email",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "resetPasswordToken": {
+                  "type": "string"
+                },
+                "confirmationToken": {
+                  "type": "string"
+                },
+                "confirmed": {
+                  "type": "boolean"
+                },
+                "blocked": {
+                  "type": "boolean"
+                },
+                "role": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "wholeseller",
+                    "retailer",
+                    "guest",
+                    "admin"
+                  ]
+                },
+                "product_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "import_list_products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "published_at": {
             "type": "string",
@@ -5720,11 +5985,21 @@
           "admin_status": {
             "type": "string",
             "default": "Pending",
-            "enum": ["Approved", "Pending", "Rejected"]
+            "enum": [
+              "Approved",
+              "Pending",
+              "Rejected"
+            ]
           },
           "product_status": {
             "type": "boolean",
             "default": true
+          },
+          "retailers_details": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "published_at": {
             "type": "string",
@@ -5739,7 +6014,10 @@
         }
       },
       "Sub-category": {
-        "required": ["id", "name"],
+        "required": [
+          "id",
+          "name"
+        ],
         "properties": {
           "id": {
             "type": "string"
@@ -5748,7 +6026,10 @@
             "type": "string"
           },
           "product_category": {
-            "required": ["id", "categoryName"],
+            "required": [
+              "id",
+              "categoryName"
+            ],
             "properties": {
               "id": {
                 "type": "string"
@@ -5788,7 +6069,10 @@
           "sub_sub_categories": {
             "type": "array",
             "items": {
-              "required": ["id", "name"],
+              "required": [
+                "id",
+                "name"
+              ],
               "properties": {
                 "id": {
                   "type": "string"
@@ -5928,10 +6212,20 @@
                 },
                 "admin_status": {
                   "type": "string",
-                  "enum": ["Approved", "Pending", "Rejected"]
+                  "enum": [
+                    "Approved",
+                    "Pending",
+                    "Rejected"
+                  ]
                 },
                 "product_status": {
                   "type": "boolean"
+                },
+                "retailers_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "published_at": {
                   "type": "string"
@@ -5952,7 +6246,9 @@
         }
       },
       "NewSub-category": {
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -5989,7 +6285,10 @@
         }
       },
       "Sub-sub-category": {
-        "required": ["id", "name"],
+        "required": [
+          "id",
+          "name"
+        ],
         "properties": {
           "id": {
             "type": "string"
@@ -5998,7 +6297,10 @@
             "type": "string"
           },
           "sub_category": {
-            "required": ["id", "name"],
+            "required": [
+              "id",
+              "name"
+            ],
             "properties": {
               "id": {
                 "type": "string"
@@ -6143,10 +6445,20 @@
                 },
                 "admin_status": {
                   "type": "string",
-                  "enum": ["Approved", "Pending", "Rejected"]
+                  "enum": [
+                    "Approved",
+                    "Pending",
+                    "Rejected"
+                  ]
                 },
                 "product_status": {
                   "type": "boolean"
+                },
+                "retailers_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "published_at": {
                   "type": "string"
@@ -6167,7 +6479,9 @@
         }
       },
       "NewSub-sub-category": {
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -6198,7 +6512,10 @@
         }
       },
       "UsersPermissionsRole": {
-        "required": ["id", "name"],
+        "required": [
+          "id",
+          "name"
+        ],
         "properties": {
           "id": {
             "type": "string"
@@ -6216,7 +6533,13 @@
           "permissions": {
             "type": "array",
             "items": {
-              "required": ["id", "type", "controller", "action", "enabled"],
+              "required": [
+                "id",
+                "type",
+                "controller",
+                "action",
+                "enabled"
+              ],
               "properties": {
                 "id": {
                   "type": "string"
@@ -6251,7 +6574,12 @@
           "users": {
             "type": "array",
             "items": {
-              "required": ["id", "username", "email", "type"],
+              "required": [
+                "id",
+                "username",
+                "email",
+                "type"
+              ],
               "properties": {
                 "id": {
                   "type": "string"
@@ -6285,9 +6613,20 @@
                 },
                 "type": {
                   "type": "string",
-                  "enum": ["wholeseller", "retailer", "guest", "admin"]
+                  "enum": [
+                    "wholeseller",
+                    "retailer",
+                    "guest",
+                    "admin"
+                  ]
                 },
                 "product_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "import_list_products": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -6305,7 +6644,9 @@
         }
       },
       "NewUsersPermissionsRole": {
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -6338,7 +6679,12 @@
         }
       },
       "UsersPermissionsUser": {
-        "required": ["id", "username", "email", "type"],
+        "required": [
+          "id",
+          "username",
+          "email",
+          "type"
+        ],
         "properties": {
           "id": {
             "type": "string"
@@ -6363,7 +6709,10 @@
             "default": false
           },
           "role": {
-            "required": ["id", "name"],
+            "required": [
+              "id",
+              "name"
+            ],
             "properties": {
               "id": {
                 "type": "string"
@@ -6400,7 +6749,12 @@
           "type": {
             "type": "string",
             "default": "retailer",
-            "enum": ["wholeseller", "retailer", "guest", "admin"]
+            "enum": [
+              "wholeseller",
+              "retailer",
+              "guest",
+              "admin"
+            ]
           },
           "product_details": {
             "type": "array",
@@ -6506,10 +6860,151 @@
                 },
                 "admin_status": {
                   "type": "string",
-                  "enum": ["Approved", "Pending", "Rejected"]
+                  "enum": [
+                    "Approved",
+                    "Pending",
+                    "Rejected"
+                  ]
                 },
                 "product_status": {
                   "type": "boolean"
+                },
+                "retailers_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "import_list_products": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "product_name",
+                "product_main_sku",
+                "product_brand",
+                "product_tags",
+                "product_mrp",
+                "qunatity",
+                "weight",
+                "dem_length",
+                "dem_breadth",
+                "upc_number",
+                "ean_number",
+                "hsn_code",
+                "product_description",
+                "counrty_origin"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "product_name": {
+                  "type": "string"
+                },
+                "product_category": {
+                  "type": "string"
+                },
+                "product_main_sku": {
+                  "type": "string"
+                },
+                "product_brand": {
+                  "type": "string"
+                },
+                "product_tags": {
+                  "type": "string"
+                },
+                "product_mrp": {
+                  "type": "integer"
+                },
+                "qunatity": {
+                  "type": "integer"
+                },
+                "images": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "weight": {
+                  "type": "integer"
+                },
+                "dem_length": {
+                  "type": "integer"
+                },
+                "dem_breadth": {
+                  "type": "integer"
+                },
+                "dem_height": {
+                  "type": "integer"
+                },
+                "upc_number": {
+                  "type": "integer"
+                },
+                "ean_number": {
+                  "type": "integer"
+                },
+                "hsn_code": {
+                  "type": "integer"
+                },
+                "product_description": {
+                  "type": "string"
+                },
+                "custom_attribute": {
+                  "type": "object"
+                },
+                "colour": {
+                  "type": "string"
+                },
+                "gst_percentage": {
+                  "type": "integer"
+                },
+                "measurement_unit": {
+                  "type": "string"
+                },
+                "sub_category": {
+                  "type": "string"
+                },
+                "sub_sub_category": {
+                  "type": "string"
+                },
+                "users_detail": {
+                  "type": "string"
+                },
+                "counrty_origin": {
+                  "type": "string"
+                },
+                "gst_type": {
+                  "type": "string"
+                },
+                "admin_status": {
+                  "type": "string",
+                  "enum": [
+                    "Approved",
+                    "Pending",
+                    "Rejected"
+                  ]
+                },
+                "product_status": {
+                  "type": "boolean"
+                },
+                "retailers_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "published_at": {
                   "type": "string"
@@ -6526,7 +7021,11 @@
         }
       },
       "NewUsersPermissionsUser": {
-        "required": ["username", "email", "type"],
+        "required": [
+          "username",
+          "email",
+          "type"
+        ],
         "properties": {
           "username": {
             "type": "string",
@@ -6564,9 +7063,20 @@
           "type": {
             "type": "string",
             "default": "retailer",
-            "enum": ["wholeseller", "retailer", "guest", "admin"]
+            "enum": [
+              "wholeseller",
+              "retailer",
+              "guest",
+              "admin"
+            ]
           },
           "product_details": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "import_list_products": {
             "type": "array",
             "items": {
               "type": "string"
@@ -6581,7 +7091,10 @@
         }
       },
       "Error": {
-        "required": ["code", "message"],
+        "required": [
+          "code",
+          "message"
+        ],
         "properties": {
           "code": {
             "type": "integer",

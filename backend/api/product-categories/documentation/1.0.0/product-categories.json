@@ -51,7 +51,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-categories"],
+        "tags": [
+          "Product-categories"
+        ],
         "parameters": [
           {
             "name": "_limit",
@@ -241,7 +243,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-categories"],
+        "tags": [
+          "Product-categories"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -306,7 +310,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-categories"],
+        "tags": [
+          "Product-categories"
+        ],
         "parameters": []
       }
     },
@@ -361,7 +367,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-categories"],
+        "tags": [
+          "Product-categories"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -425,7 +433,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-categories"],
+        "tags": [
+          "Product-categories"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -497,7 +507,9 @@
           }
         },
         "summary": "",
-        "tags": ["Product-categories"],
+        "tags": [
+          "Product-categories"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -516,7 +528,10 @@
   "components": {
     "schemas": {
       "Product-categories": {
-        "required": ["id", "categoryName"],
+        "required": [
+          "id",
+          "categoryName"
+        ],
         "properties": {
           "id": {
             "type": "string"
@@ -695,10 +710,20 @@
                 },
                 "admin_status": {
                   "type": "string",
-                  "enum": ["Approved", "Pending", "Rejected"]
+                  "enum": [
+                    "Approved",
+                    "Pending",
+                    "Rejected"
+                  ]
                 },
                 "product_status": {
                   "type": "boolean"
+                },
+                "retailers_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "published_at": {
                   "type": "string"
@@ -715,7 +740,10 @@
           "sub_categories": {
             "type": "array",
             "items": {
-              "required": ["id", "name"],
+              "required": [
+                "id",
+                "name"
+              ],
               "properties": {
                 "id": {
                   "type": "string"
@@ -764,7 +792,9 @@
         }
       },
       "NewProduct-categories": {
-        "required": ["categoryName"],
+        "required": [
+          "categoryName"
+        ],
         "properties": {
           "categoryName": {
             "type": "string"

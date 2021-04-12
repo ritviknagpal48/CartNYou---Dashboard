@@ -51,7 +51,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-sub-category"],
+        "tags": [
+          "Sub-sub-category"
+        ],
         "parameters": [
           {
             "name": "_limit",
@@ -241,7 +243,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-sub-category"],
+        "tags": [
+          "Sub-sub-category"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -306,7 +310,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-sub-category"],
+        "tags": [
+          "Sub-sub-category"
+        ],
         "parameters": []
       }
     },
@@ -361,7 +367,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-sub-category"],
+        "tags": [
+          "Sub-sub-category"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -425,7 +433,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-sub-category"],
+        "tags": [
+          "Sub-sub-category"
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -497,7 +507,9 @@
           }
         },
         "summary": "",
-        "tags": ["Sub-sub-category"],
+        "tags": [
+          "Sub-sub-category"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -516,7 +528,10 @@
   "components": {
     "schemas": {
       "Sub-sub-category": {
-        "required": ["id", "name"],
+        "required": [
+          "id",
+          "name"
+        ],
         "properties": {
           "id": {
             "type": "string"
@@ -525,7 +540,10 @@
             "type": "string"
           },
           "sub_category": {
-            "required": ["id", "name"],
+            "required": [
+              "id",
+              "name"
+            ],
             "properties": {
               "id": {
                 "type": "string"
@@ -670,10 +688,20 @@
                 },
                 "admin_status": {
                   "type": "string",
-                  "enum": ["Approved", "Pending", "Rejected"]
+                  "enum": [
+                    "Approved",
+                    "Pending",
+                    "Rejected"
+                  ]
                 },
                 "product_status": {
                   "type": "boolean"
+                },
+                "retailers_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "published_at": {
                   "type": "string"
@@ -694,7 +722,9 @@
         }
       },
       "NewSub-sub-category": {
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "properties": {
           "name": {
             "type": "string"
