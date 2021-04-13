@@ -252,7 +252,6 @@ class ProductCards extends React.Component {
               <div>
                 {dataSource
                   .slice(index, index + this.state.pageSize)
-                  .reverse()
                   .map((data, index) => {
                     return (
                       <div

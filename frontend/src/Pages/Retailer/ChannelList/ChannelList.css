@@ -21,3 +21,12 @@
   z-index: 2;
   left: 40px;
 }
+
+.ant-list-bordered {
+  border: 1px solid transparent !important;
+  /* border-radius: 2px; */
+}
+
+.ant-list-split .ant-list-item {
+  border-bottom: 1px solid transparent !important;
+}

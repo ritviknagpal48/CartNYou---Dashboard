@@ -4,6 +4,7 @@ import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
+import { Avatar } from "antd";
 
 const Navbar = ({ menuList }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,6 +26,14 @@ const Navbar = ({ menuList }) => {
     setAuth(AUTH_ACTIONS.LOGOUT);
   };
 
+  const getUserNameInitials = (name) =>
+    name
+      .split(" ")
+      .map((x) => x.charAt(0))
+      .join("")
+      .substr(0, 2)
+      .toUpperCase();
+
   return (
     <div>
       <nav className="bg-transparent">
@@ -41,7 +50,7 @@ const Navbar = ({ menuList }) => {
             </div>
             <div className="hidden md:block">
               <div className="ml-4 flex items-center md:ml-6">
-                <button className="bg-gray-200 p-1 rounded-full text-gray-400 hover:text-gray-600 focus:outline-none ">
+                <button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-600 focus:outline-none ">
                   <span className="sr-only">View notifications</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +73,7 @@ const Navbar = ({ menuList }) => {
                   <div>
                     <button
                       type="button"
-                      className="max-w-xs bg-gray-200 rounded-full flex items-center text-sm focus:outline-none "
+                      className="max-w-xs bg-white text-gray-500  rounded-full flex items-center text-sm focus:outline-none hover:text-gray-700"
                       id="user-menu"
                       aria-expanded="false"
                       aria-haspopup="true"
@@ -76,16 +85,23 @@ const Navbar = ({ menuList }) => {
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
                       /> */}
-                      <UserOutlined
+                      <Avatar
+                        size="small"
                         style={{
+                          margin: "5px",
+                          // backgroundColor: "rgb(229,231,225)",
+                          backgroundColor: "white",
+                          color: "rgb(156,163,175)",
                           fontSize: "20px",
-                          color: "#939cab",
-                          border: "2px solid #939cab",
-                          padding: "2px",
-                          borderRadius: "50px",
+                          border: "1px solid rgba(156,163,175)",
+                          fontWeight: "bold",
+                          verticalAlign: "middle",
                         }}
-                      />
-                      <div className="text-sm p-3 font-medium leading-none text-gray-500">
+                      >
+                        {getUserNameInitials(user.fname)}
+                      </Avatar>
+
+                      <div className="text-sm py-3  px-2 font-medium leading-none hover:text-gray-700">
                         {user.fname}
                       </div>
                     </button>
@@ -201,15 +217,21 @@ const Navbar = ({ menuList }) => {
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   alt=""
                 /> */}
-                <UserOutlined
+                <Avatar
+                  size="small"
                   style={{
+                    margin: "5px",
+                    // backgroundColor: "rgb(229,231,225)",
+                    backgroundColor: "white",
+                    color: "rgb(156,163,175)",
                     fontSize: "20px",
-                    color: "#939cab",
-                    border: "2px solid #939cab",
-                    padding: "2px",
-                    borderRadius: "50px",
+                    border: "1px solid rgba(156,163,175)",
+                    fontWeight: "bold",
+                    verticalAlign: "middle",
                   }}
-                />
+                >
+                  {getUserNameInitials(user.fname)}
+                </Avatar>
               </div>
               <div className="ml-3" onClick={() => setIsOpen((p) => !p)}>
                 <div className="text-base font-medium leading-none text-white">
