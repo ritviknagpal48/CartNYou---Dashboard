@@ -4,7 +4,6 @@ import { Modal } from "antd";
 import { Link } from "react-router-dom";
 // import ProductTable from "Components/TableComponent";
 import ProductCards from "./ProductCards";
-import ProductColumn from "./productTableColumns";
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4",
@@ -29,7 +28,7 @@ const ActionButton = ({ title, icon, ...rest }) => {
 const Products = () => {
   // const [products, setProducts] = React.useState([]);
   const [showModal, setShowModal] = React.useState(false);
-  const [searchedColumn] = React.useState(["sku", "productInfo"]);
+  // const [searchedColumn] = React.useState(["sku", "productInfo"]);
 
   return (
     <div className={classes.wrapper}>
@@ -145,6 +144,7 @@ const Products = () => {
         // data={products}
         // searchedColumn={searchedColumn}
         // defaultSearchColumn={searchedColumn[0]}
+        // isLoading={isLoading}
         />
       </div>
 

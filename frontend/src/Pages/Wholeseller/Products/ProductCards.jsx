@@ -12,6 +12,7 @@ import {
   Checkbox,
   message,
   Pagination,
+  Empty
 } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { Link, withRouter } from "react-router-dom";
@@ -163,11 +164,11 @@ class ProductCards extends React.Component {
     const { data } = this.state;
     const dataSource = !!this.state.searchText
       ? data.filter((x) =>
-          x[this.state.searchedColumn].toString().toLowerCase().includes(
-            this.state.searchText.toString().toLowerCase()
-            // lowerCaseSearchText
-          )
+        x[this.state.searchedColumn].toString().toLowerCase().includes(
+          this.state.searchText.toString().toLowerCase()
+          // lowerCaseSearchText
         )
+      )
       : data;
 
     const productListLength = dataSource && dataSource.length;
@@ -354,11 +355,17 @@ class ProductCards extends React.Component {
                 showQuickJumper
                 responsive
                 style={{ textAlign: "center" }}
-                // showTotal={(total) => `Total ${total} products`}
+              // showTotal={(total) => `Total ${total} products`}
               />
             </div>
           ) : (
-            <></>
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              imageStyle={{
+                height: 80
+              }}
+              description={<span>No products found</span>}
+            ></Empty>
           )}
 
           <Modal

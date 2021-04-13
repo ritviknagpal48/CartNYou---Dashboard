@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import clsx from "clsx";
 import { Spin, message, Button } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import GoogleLogin from "react-google-login";
 
 import useAxios from "Contexts/useAxios";
 import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
@@ -35,19 +36,50 @@ const Register = ({ className }) => {
     email: "",
     password: "",
     confirm: "",
+    mobile: "",
     type: "wholeseller",
   });
 
-  const signInWithGoogle = (e) => {
-    e.preventDefault();
+  const signInWithGoogle = async (response) => {
+    // e.preventDefault();
 
-    localStorage.setItem("CARTNYOU_SESSION_LOGIN_MODE", payload.type);
+    const { tokenId: id_token, accessToken: access_token } = response;
 
-    let BASE_URL = process.env.REACT_APP_API_URL;
-    // if (process.env.NODE_ENV === 'production') BASE_URL = process.env.REACT_APP_API_URL
-    // else BASE_URL = 'http://localhost:1337'
+    const authResp = await axios.get(
+      `/auth/google/callback?id_token=${id_token}&access_token=${access_token}`
+    );
+    const { jwt, user } = authResp.data;
 
-    window.location = `${BASE_URL}/connect/google`;
+    if (!payload.type) {
+      return message.error(`Something Went Wrong. Please try again.`, 3, () => {
+        history.push("/auth/login");
+      });
+    }
+
+    if (!user.type) {
+      await axios.put(`/users/${user.id}`, { type: payload.type });
+    }
+
+    // User already exists and is blocked by Admin
+    if (user.isBlocked) {
+      return message.error("This account is Blocked. Please contact Support Team for more information.", 3);
+    }
+
+    setAuth(AUTH_ACTIONS.LOGIN, {
+      isLoggedIn: true,
+      token: jwt,
+      user: {
+        fname: user.username,
+        username: user.username,
+        email: user.email,
+        type: user.type || payload.type,
+      },
+      additionalInfo: {
+        ...user,
+      },
+    });
+    message.success(`Welcome, ${user.username}`, 1);
+    history.push(`/${payload.type}/dashboard`);
   };
 
   const register = () => {
@@ -306,75 +338,86 @@ const Register = ({ className }) => {
             Register
           </button>
           <div className={clsx(classes.divider, "mt-6 mb-4")} />
-          <button
-            type="submit"
-            className={classes.submit_button}
-            onClick={signInWithGoogle}
-          >
-            <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-              <svg
-                className="h-5 w-5 text-red-500 group-hover:text-red-400"
-                version="1.1"
-                id="fi_299409"
-                xmlns="http://www.w3.org/2000/svg"
-                x="0px"
-                y="0px"
-                viewBox="0 0 512 512"
-                fill={"currentColor"}
+          <GoogleLogin
+            clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
+            cookiePolicy={"single_host_origin"}
+            isSignedIn={false}
+            onSuccess={signInWithGoogle}
+            buttonText={"Login with Google"}
+            render={(renderProps) => (
+              <button
+                disabled={renderProps.disabled}
+                onClick={renderProps.onClick}
+                type="submit"
+                className={classes.submit_button}
+              // onClick={signInWithGoogle}
               >
-                <g>
-                  <g>
-                    <path
-                      d="M113.597,193.064l-87.204-50.347C9.543,176.768,0.001,215.17,0,255.998c0,40.263,9.645,78.731,26.754,113.084
-			l86.837-50.135c-8.565-19.286-13.418-40.558-13.417-62.949C100.175,233.608,105.031,212.343,113.597,193.064z"
-                    ></path>
-                  </g>
-                </g>
-                <g>
-                  <g>
-                    <path
-                      d="M423.925,62.768C378.935,23.634,320.145-0.043,255.823,0C167.822,0.059,89.276,44.985,43.127,113.824l87.275,50.39
-			c28.381-38.714,74.04-64.041,125.601-64.04c37.587,0.001,72.042,13.437,98.954,35.701c6.588,5.449,16.218,4.95,22.263-1.095
-			l47.531-47.531C431.605,80.395,431.238,69.128,423.925,62.768z"
-                    ></path>
-                  </g>
-                </g>
-                <g>
-                  <g>
-                    <path
-                      d="M510.247,226.38c-0.997-8.475-8.122-14.89-16.653-14.89l-209.767-0.011c-9.22,0-16.696,7.475-16.696,16.696v66.727
-			c0,9.22,7.475,16.696,16.696,16.696h117.548c-10.827,28.179-29.633,52.403-53.575,70.013l49.928,86.478
-			c50.256-34.056,88.467-85.547,105.297-146.331C512.175,288.709,513.822,256.751,510.247,226.38z"
-                    ></path>
-                  </g>
-                </g>
-                <g>
-                  <g>
-                    <path
-                      d="M318.93,398.381c-19.255,8.578-40.511,13.444-62.927,13.446c-51.619,0.001-97.252-25.327-125.613-64.026l-86.903,50.174
-			C89.249,466.137,166.915,512,256.001,512c40.272,0,78.603-9.845,112.889-27.084L318.93,398.381z"
-                    ></path>
-                  </g>
-                </g>
-                <g></g>
-                <g></g>
-                <g></g>
-                <g></g>
-                <g></g>
-                <g></g>
-                <g></g>
-                <g></g>
-                <g></g>
-                <g></g>
-                <g></g>
-                <g></g>
-                <g></g>
-                <g></g>
-                <g></g>
-              </svg>
-            </span>
-            Register with Google
-          </button>
+                <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                  <svg
+                    className="h-5 w-5 text-red-500 group-hover:text-red-400"
+                    version="1.1"
+                    id="fi_299409"
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 512 512"
+                    fill={"currentColor"}
+                  >
+                    <g>
+                      <g>
+                        <path
+                          d="M113.597,193.064l-87.204-50.347C9.543,176.768,0.001,215.17,0,255.998c0,40.263,9.645,78.731,26.754,113.084
+                      l86.837-50.135c-8.565-19.286-13.418-40.558-13.417-62.949C100.175,233.608,105.031,212.343,113.597,193.064z"
+                        ></path>
+                      </g>
+                    </g>
+                    <g>
+                      <g>
+                        <path
+                          d="M423.925,62.768C378.935,23.634,320.145-0.043,255.823,0C167.822,0.059,89.276,44.985,43.127,113.824l87.275,50.39
+                      c28.381-38.714,74.04-64.041,125.601-64.04c37.587,0.001,72.042,13.437,98.954,35.701c6.588,5.449,16.218,4.95,22.263-1.095
+                      l47.531-47.531C431.605,80.395,431.238,69.128,423.925,62.768z"
+                        ></path>
+                      </g>
+                    </g>
+                    <g>
+                      <g>
+                        <path
+                          d="M510.247,226.38c-0.997-8.475-8.122-14.89-16.653-14.89l-209.767-0.011c-9.22,0-16.696,7.475-16.696,16.696v66.727
+                      c0,9.22,7.475,16.696,16.696,16.696h117.548c-10.827,28.179-29.633,52.403-53.575,70.013l49.928,86.478
+                      c50.256-34.056,88.467-85.547,105.297-146.331C512.175,288.709,513.822,256.751,510.247,226.38z"
+                        ></path>
+                      </g>
+                    </g>
+                    <g>
+                      <g>
+                        <path
+                          d="M318.93,398.381c-19.255,8.578-40.511,13.444-62.927,13.446c-51.619,0.001-97.252-25.327-125.613-64.026l-86.903,50.174
+                      C89.249,466.137,166.915,512,256.001,512c40.272,0,78.603-9.845,112.889-27.084L318.93,398.381z"
+                        ></path>
+                      </g>
+                    </g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                  </svg>
+                </span>
+                Register with Google
+              </button>
+            )}
+          />
           <div className={clsx(classes.divider, "mt-6 mb-4")} />
           <span className={classes.create_account}>
             Already have an account? &nbsp;

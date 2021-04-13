@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { createContext, useReducer } from "react";
+import { useGoogleLogout } from "react-google-login";
 
 const defaultState = {
   isLoggedIn: false,
@@ -79,8 +80,14 @@ const loadInitialAuthData = () => {
 
 export const AuthContextProvider = ({ children }) => {
   const [auth, dispatch] = useReducer(authReducer, null, loadInitialAuthData);
+  const { signOut } = useGoogleLogout({
+    clientId: process.env.REACT_APP_OAUTH_CLIENT_ID,
+  });
 
   const setAuth = (action, payload) => {
+    if (action === AUTH_ACTIONS.LOGOUT) {
+      signOut();
+    }
     dispatch({ type: action, payload });
   };
 
