@@ -71,12 +71,18 @@
       "default": "retailer"
     },
     "product_details": {
-      "via": "users_detail",
-      "collection": "product-details"
+      "collection": "product-details",
+      "via": "users_detail"
     },
     "import_list_products": {
-      "via": "retailers_details",
-      "collection": "product-details"
+      "collection": "product-details",
+      "via": "retailers_details"
+    },
+    "fullname": {
+      "type": "string"
+    },
+    "mobile": {
+      "type": "string"
     }
   }
 }

@@ -583,6 +583,12 @@
                     "type": "string"
                   }
                 },
+                "fullname": {
+                  "type": "string"
+                },
+                "mobile": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
