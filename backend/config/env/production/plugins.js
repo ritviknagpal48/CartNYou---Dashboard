@@ -8,6 +8,7 @@ module.exports = ({ env }) => ({
         type: "OAuth2",
         accessToken: env("SMTP_ACCESS_TOKEN"),
         refreshToken: env("SMTP_REFRESH_TOKEN"),
+        expires: env.int("SMTP_EXPIRES", 3599),
         user: env("SMTP_USER_EMAIL"),
         clientId: env("SMTP_CLIENT_ID"),
         clientSecret: env("SMTP_CLIENT_SECRET"),

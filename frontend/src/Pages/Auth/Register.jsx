@@ -82,9 +82,9 @@ const Register = ({ className }) => {
     history.push(`/${payload.type}/dashboard`);
   };
 
-  const register = () => {
+  const register = async () => {
     // console.log({ payload })
-    const { confirm, fullname, type, ...toSend } = payload;
+    const { confirm, fullname, mobile, ...toSend } = payload;
 
     if (!toSend.username.trim().length) {
       return message.error("Username is Required!");
@@ -101,36 +101,43 @@ const Register = ({ className }) => {
     if (confirm !== toSend.password)
       return message.error("Passwords do not match", 1);
 
-    axios
-      .post("/auth/local/register", toSend)
-      .then((res) => {
-        if (!res.data || res.status !== 200) {
-          if (res.response.data.message[0].messages instanceof Array) {
-            res.response.data.message[0].messages.forEach((err) =>
-              message.error(err.message)
-            );
-          }
-          return null;
-        }
-        const { jwt, user } = res.data;
+    const resp1 = await axios.post("/auth/local/register", { ...toSend })
+    // const resp2 = await axios.put(`/users/${resp1.data.id}`, { fullname, mobile, type })
+    console.log({
+      resp1,
+      // resp2,
+      toSend,
+    })
 
-        message.success(`Welcome, ${user.username}`, 1);
-        setAuth(AUTH_ACTIONS.LOGIN, {
-          isLoggedIn: true,
-          token: jwt,
-          user: {
-            fname: user.username,
-            username: user.username,
-            email: user.email,
-            type: payload.type,
-          },
-          additionalInfo: {
-            ...user,
-          },
-        });
-        history.push(`/${payload.type}/dashboard`);
-      })
-      .catch((err) => console.log({ err }));
+    return null;
+
+    const res = null;
+    if (!res.data || res.status !== 200) {
+      if (res.response.data.message[0].messages instanceof Array) {
+        res.response.data.message[0].messages.forEach((err) =>
+          message.error(err.message)
+        );
+      }
+      return null;
+    }
+    const { jwt, user } = res.data;
+
+    message.success(`Welcome, ${user.username}`, 1);
+    setAuth(AUTH_ACTIONS.LOGIN, {
+      isLoggedIn: true,
+      token: jwt,
+      user: {
+        fname: user.username,
+        username: user.username,
+        email: user.email,
+        type: payload.type,
+      },
+      additionalInfo: {
+        ...user,
+      },
+    });
+    history.push(`/${payload.type}/dashboard`);
+
   };
 
   return (

@@ -2,17 +2,20 @@
 import PrivateRoute from "Components/PrivateRoute";
 import { AuthContext } from "Contexts/Auth";
 import { useContext } from "react";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Link, Redirect, Route, Switch } from "react-router-dom";
 import Auth from "./Pages/Auth/Auth";
 import AppDirector from "./Pages/AppDirector";
 import WholesellerHome from "./Pages/Wholeseller/Home/Home";
 import RetailerHome from "./Pages/Retailer/Home/Home";
-import GoogleCallback from "Pages/Auth/GoogleCallback";
-import { Button, Result } from "antd";
+import { Result } from "antd";
+
+import './App.css'
 
 const classes = {
   wrapper:
     "text-white bg-general max-w-screen min-h-screen h-full bg-cover bg-center",
+  submit_button:
+    "group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none",
 };
 
 function App() {
@@ -22,7 +25,6 @@ function App() {
     <div className={classes.wrapper}>
       <BrowserRouter>
         <Switch>
-          <Route path={"/auth/callback/google"} component={GoogleCallback} />
           <Route
             path={"/"}
             exact
@@ -44,6 +46,19 @@ function App() {
           />
           <PrivateRoute path={"/wholeseller"} component={WholesellerHome} />
           <PrivateRoute path={"/retailer"} component={RetailerHome} />
+          <Route path={"/confirm-email"} exact component={(renderProps) => (
+            <div className={'grid place-items-center h-full'}>
+              <Result
+                {...renderProps}
+                status={'success'}
+                title={'Yaaayyy! Your Email has been verified.'}
+                subTitle={'If you were unable to login, Please try again. If you still face issues, We are there to help.'}
+                extra={[
+                  <Link to={'/auth/login'} className={classes.submit_button}>Login</Link>
+                ]}
+              />
+            </div>
+          )} />
           <Route
             component={() => {
               return (
