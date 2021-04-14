@@ -12,6 +12,10 @@ module.exports = ({ env }) => ({
         user: env("SMTP_USER_EMAIL"),
         clientId: env("SMTP_CLIENT_ID"),
         clientSecret: env("SMTP_CLIENT_SECRET"),
+        accessUrl: env(
+          "SMTP_TOEKN_ENDPOINT",
+          "https://oauth2.googleapis.com/token"
+        ),
       },
       // ... any custom nodemailer options
       secure: true,

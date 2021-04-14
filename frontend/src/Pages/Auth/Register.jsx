@@ -89,26 +89,35 @@ const Register = ({ className }) => {
     if (!toSend.username.trim().length) {
       return message.error("Username is Required!");
     }
-    if (!toSend.email.trim().length) {
+    if (!toSend.email.trim().length && toSend.email.trim().match(/\w+@\w.\w/)) {
       return message.error("Email is Required!");
     }
     if (!confirm.trim().length) {
       return message.error("Confirm Password is Required!");
     }
+    if (!mobile.trim().length) {
+      return message.error("Confirm Password is Required!");
+    }
     if (!toSend.password.trim().length) {
       return message.error("Password is Required!");
     }
-    if (confirm !== toSend.password)
+    if (confirm.trim() !== toSend.password.trim())
       return message.error("Passwords do not match", 1);
 
     const res = await axios.post("/auth/local/register", { ...toSend }).catch(err => console.log({ error: err }))
 
     if (!res.data || res.status !== 200) {
-      if (res.response.data.message[0].messages instanceof Array) {
-        res.response.data.message[0].messages.forEach((err) =>
-          message.error(err.message)
-        );
-      }
+      if (
+        res.response &&
+        res.response.data &&
+        res.response.data.message &&
+        res.response.data.message[0].messages
+      )
+        if (res.response.data.message[0].messages instanceof Array) {
+          res.response.data.message[0].messages.forEach((err) =>
+            message.error(err.message)
+          );
+        }
       return null;
     }
     history.push(`/verify-email`);
