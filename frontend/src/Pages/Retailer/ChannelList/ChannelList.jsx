@@ -117,9 +117,12 @@ export class ChannelList extends Component {
         <div className="body pr-4 md:pr-14 pl-4">
           <hr style={{ margin: "20px 10px", borderColor: "#dfdfdf" }} />
           {ChannelData ? (
-            ChannelData.map((ChannelData) => {
+            ChannelData.map((ChannelData, index) => {
               return (
-                <div className="bg-white my-2 text-gray-700 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 gap-2 items-center md:justify-between w-full  md:flex md:flex-row">
+                <div
+                  key={index}
+                  className="bg-white my-2 text-gray-700 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 gap-2 items-center md:justify-between w-full  md:flex md:flex-row"
+                >
                   <div className="card-detail">
                     <div className="head-title">#Channel Id</div>
                     <div className="title-body"> {ChannelData.id}</div>

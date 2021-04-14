@@ -10,11 +10,12 @@ import {
   Pagination,
   Empty,
 } from "antd";
-import { DownCircleTwoTone } from "@ant-design/icons";
+import { DownCircleTwoTone, UpOutlined } from "@ant-design/icons";
 import ProductCard from "Components/Retailer/ProductCard";
 import { LoadingOutlined } from "@ant-design/icons";
 import AllIcon from "../../../assets/RetailCategoryIcons/wireframe.png";
 // import "./Product.css";
+import { BackTop } from "antd";
 import "./productStyles.css";
 import { axiosInstance as axios } from "../../../Contexts/useAxios";
 
@@ -33,6 +34,21 @@ const classes = {
   activeSearchBtn: "bg-red-500 text-white",
   single_category:
     " single-category  bg-white text-gray-500  w-full overflow-hidden shadow-xl hover:bg-red-100 transition-all",
+};
+
+const style = {
+  height: 38,
+  width: 38,
+  lineHeight: "35px",
+  borderRadius: 100,
+  backgroundColor: "#ef4444",
+  color: "#fff",
+  textAlign: "center",
+  fontSize: 22,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  boxShadow: "rgb(0 0 0 / 24%) 3px 5px 10px 1px",
 };
 
 class Products extends React.Component {
@@ -108,7 +124,7 @@ class Products extends React.Component {
         axios
           .get(
             `product-details?admin_status=Approved&product_status=true&product_category=` +
-            option
+              option
           )
           .then((res) =>
             this.setState({
@@ -175,11 +191,11 @@ class Products extends React.Component {
     // const { data } = this.state;
     const dataSource = !!this.state.searchText
       ? productList.filter((x) =>
-        x[this.state.searchedColumn]
-          .toString()
-          .toLowerCase()
-          .includes(this.state.searchText.toString().toLowerCase())
-      )
+          x[this.state.searchedColumn]
+            .toString()
+            .toLowerCase()
+            .includes(this.state.searchText.toString().toLowerCase())
+        )
       : productList;
 
     dataSource.sort(
@@ -302,8 +318,8 @@ class Products extends React.Component {
                       value={selectedCategory}
                       placeholder="Select Column"
                       onChange={this.handleSelectCategory}
-                    // style={{ width: 150 }}
-                    // onChange={this.handleCategoryChange}
+                      // style={{ width: 150 }}
+                      // onChange={this.handleCategoryChange}
                     >
                       <Option value="">All Categories</Option>
                       {categoryList.map((Category, index) => {
@@ -319,8 +335,8 @@ class Products extends React.Component {
                     <Select
                       // defaultValue={defaultSearchColumn}
                       placeholder="Select Column"
-                    // style={{ width: 150 }}
-                    // onChange={this.handleCategoryChange}
+                      // style={{ width: 150 }}
+                      // onChange={this.handleCategoryChange}
                     >
                       <Option value="allCategory">All Vendor</Option>
                       <Option value="allCategory">Vendor 1</Option>
@@ -374,8 +390,9 @@ class Products extends React.Component {
           {/* <Link to=""> */}
           <div
             onClick={() => this.handleClickByCategory()}
-            className={`single-category  ${isSearchBtnActive ? "activeSearchBtn" : ""
-              }`}
+            className={`single-category  ${
+              isSearchBtnActive ? "activeSearchBtn" : ""
+            }`}
           >
             <img
               width="60px"
@@ -392,12 +409,14 @@ class Products extends React.Component {
                 <div
                   key={index}
                   onClick={() => this.handleClickByCategory(category)}
-                  className={`single-category ${activeSearchBtnId === category.id ? "activeSearchBtn" : ""
-                    }`}
+                  className={`single-category ${
+                    activeSearchBtnId === category.id ? "activeSearchBtn" : ""
+                  }`}
                 >
                   <img
-                    className={`${isSearchBtnActive === category.id ? `active-image` : ``
-                      }`}
+                    className={`${
+                      isSearchBtnActive === category.id ? `active-image` : ``
+                    }`}
                     width="60px"
                     src={
                       category.CategoryImage && category.CategoryImage.url
@@ -480,7 +499,7 @@ class Products extends React.Component {
                 showQuickJumper
                 responsive
                 style={{ textAlign: "center" }}
-              // showTotal={(total) => `Total ${total} products`}
+                // showTotal={(total) => `Total ${total} products`}
               />
             </div>
           ) : (
@@ -498,6 +517,11 @@ class Products extends React.Component {
             </div>
           )}
         </Spin>
+        <BackTop>
+          <div style={style} height={1000}>
+            <UpOutlined />
+          </div>
+        </BackTop>
       </div>
     );
   }

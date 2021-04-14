@@ -29,20 +29,23 @@
   font-size: 13px;
   color: rgba(48, 209, 88, 1);
   text-align: center;
-  width: 74px;
+  min-width: 74px;
+  width: 100%;
 }
 .Pending {
+  width: 100%;
   background-color: rgba(255, 159, 10, 0.1);
   border: 1px solid rgba(255, 159, 10, 1);
   border-radius: 8px;
-  width: 74px;
+  min-width: 74px;
   padding: 0px 8px;
   font-size: 13px;
   color: rgba(255, 159, 10, 1);
   text-align: center;
 }
 .Rejected {
-  width: 74px;
+  width: 100%;
+  min-width: 74px;
   background-color: rgba(255, 69, 58, 0.1);
   border: 1px solid rgba(255, 69, 58, 1);
   border-radius: 8px;
