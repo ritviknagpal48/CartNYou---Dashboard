@@ -192,8 +192,8 @@ const ProductDetails = () => {
               // formats={this.formats}
               style={{ width: "500px" }}
               defaultValue={product_description}
-              // value={values.product_description}
-              // onChange={handleValueChange("product_description")}
+            // value={values.product_description}
+            // onChange={handleValueChange("product_description")}
             />
           </span>
 
@@ -388,7 +388,16 @@ const ProductDetails = () => {
                 "text-sm font-normal flex-wrap text-gray-500 max-w-sm md:max-w-full"
               }
             >
-              {product_description || "No Description Available"}
+              <ReactQuill
+                readOnly={true}
+                theme="bubble"
+                // modules={this.modules}
+                // formats={this.formats}
+                style={{ width: "500px" }}
+                defaultValue={product_description || "No Description Available"}
+              // value={values.product_description}
+              // onChange={handleValueChange("product_description")}
+              />
             </div>
           </TabPane>
         </Tabs>

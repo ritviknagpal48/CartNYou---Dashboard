@@ -7,7 +7,7 @@ import { MenuItems } from "Components/menuItemsRetailer";
 
 import Dashboard from "Pages/Retailer/Dashboard/Dashboard";
 import Products from "Pages/Retailer/Products/Products";
-import ProductDetails from "Pages/Retailer/Products/ProductDetails";
+import ProductDetails from "Pages/Retailer/Products/ProductDetails.new";
 import ImportList from "Pages/Retailer/ImportList/ImportList";
 import LiveList from "Pages/Retailer/LiveList/LiveList";
 import Shipment from "Pages/Retailer/Shipment/Shipment";

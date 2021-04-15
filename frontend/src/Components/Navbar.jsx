@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { UserOutlined } from "@ant-design/icons";
 import { Avatar } from "antd";
 
 const Navbar = ({ menuList }) => {
@@ -107,9 +106,8 @@ const Navbar = ({ menuList }) => {
                     </button>
                   </div>
                   <div
-                    className={`origin-top-right absolute right-0 mt-2 w-48 rounded-md z-30 shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${
-                      isOpen ? "block" : "hidden"
-                    }`}
+                    className={`origin-top-right absolute right-0 mt-2 w-48 rounded-md z-30 shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${isOpen ? "block" : "hidden"
+                      }`}
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="user-menu"

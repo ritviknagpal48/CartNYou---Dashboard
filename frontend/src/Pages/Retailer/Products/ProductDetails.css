@@ -1,0 +1,7 @@
+.ant-image-preview-img-wrapper::before {
+  height: 5% !important;
+}
+
+.ant-image-preview-img {
+  margin: auto;
+}
