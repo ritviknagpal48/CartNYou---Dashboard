@@ -1381,6 +1381,12 @@
                     "type": "string"
                   }
                 },
+                "shopifychannels": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -1512,6 +1518,12 @@
                     "type": "string"
                   }
                 },
+                "shopifychannels": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -1529,6 +1541,57 @@
           },
           "mobile": {
             "type": "string"
+          },
+          "shopifychannels": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "channel_name",
+                "api_key",
+                "key",
+                "store_url",
+                "shared_secret"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "channel_name": {
+                  "type": "string"
+                },
+                "api_key": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "store_url": {
+                  "type": "string"
+                },
+                "shared_secret": {
+                  "type": "string"
+                },
+                "retailersdetails": {
+                  "type": "string"
+                },
+                "productdetails": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -1599,6 +1662,12 @@
           },
           "mobile": {
             "type": "string"
+          },
+          "shopifychannels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "created_by": {
             "type": "string"

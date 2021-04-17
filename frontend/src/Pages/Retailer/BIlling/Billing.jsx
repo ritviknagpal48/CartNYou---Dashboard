@@ -60,7 +60,7 @@ class Billing extends React.Component {
 
     return (
       <div className={`${classes.wrapper} retailer-billing-page`}>
-        <div className={classes.header} style={{ background: "#edf2f9" }}>
+        <div className={classes.header} style={{ background: "#fff" }}>
           <div className={classes.title}>Billing</div>
           <div className={classes.buttons}>
             <button button type="button" className={classes.button_input}>
@@ -83,7 +83,10 @@ class Billing extends React.Component {
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-md shadow-xl">
+        <div
+          className="bg-white p-4 rounded-md shadow-xl"
+          style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
+        >
           <div className="tabs-group pb-5">
             <Tabs defaultActiveKey="3" type="card" size={size}>
               <TabPane
@@ -346,8 +349,8 @@ class Billing extends React.Component {
                       htmlType="submit"
                       style={{
                         borderRadius: "4px",
-                        background: "#fc573b",
-                        border: "1px solid #fc573b",
+                        background: "#ef4444",
+                        border: "1px solid #ef4444",
                       }}
                     >
                       Apply
@@ -441,8 +444,8 @@ class Billing extends React.Component {
                     htmlType="submit"
                     style={{
                       borderRadius: "4px",
-                      background: "#fc573b",
-                      border: "1px solid #fc573b",
+                      background: "#ef4444",
+                      border: "1px solid #ef4444",
                     }}
                   >
                     Apply

@@ -34,7 +34,10 @@ class Orders extends React.Component {
     return (
       <div className={`${classes.wrapper} retailer-order-page`}>
         <Toolbar title={"Orders"} actions={ImportListActions} />
-        <div className="bg-white px-4 py-6  rounded-md shadow-xl">
+        <div
+          className="bg-white px-4 py-6  rounded-md shadow-xl"
+          style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
+        >
           <div className="tabs-group pb-5">
             <Radio.Group value={size} onChange={this.handleSizeChange}>
               <Radio.Button value="all">All</Radio.Button>

@@ -22,7 +22,10 @@ class Settings extends React.Component {
       <div className={`${classes.wrapper} setting-menu`}>
         <Toolbar title={"Settings"} actions={[]} />
         <div className="grid grid-cols-1 gap-5 mt-6 sm:grid-cols-2 lg:grid-cols-2 pr-4 md:pr-14 pl-4">
-          <div className="p-4 transition-shadow text-grey-600 rounded-lg shadow-xl hover:shadow-lg  bg-white">
+          <div
+            className="p-4 transition-shadow text-grey-600 rounded-lg shadow-xl hover:shadow-lg  bg-white"
+            style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
+          >
             <div className="card-setting">
               <span className="span-button">Channels</span>
               <Button
@@ -34,7 +37,10 @@ class Settings extends React.Component {
               </Button>
             </div>
           </div>
-          <div className="p-4 transition-shadow text-grey-600 rounded-lg shadow-xl hover:shadow-lg  bg-white">
+          <div
+            className="p-4 transition-shadow text-grey-600 rounded-lg shadow-xl hover:shadow-lg  bg-white"
+            style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
+          >
             <div className="card-setting">
               <span className="span-button">Warehouse</span>
               <Button
@@ -48,7 +54,10 @@ class Settings extends React.Component {
               </Button>
             </div>
           </div>
-          <div className="p-4 transition-shadow text-grey-600 rounded-lg shadow-xl hover:shadow-lg  bg-white">
+          <div
+            className="p-4 transition-shadow text-grey-600 rounded-lg shadow-xl hover:shadow-lg  bg-white"
+            style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
+          >
             <div className="card-setting">
               <span className="span-button">API</span>
               <Button
@@ -62,7 +71,10 @@ class Settings extends React.Component {
               </Button>
             </div>
           </div>
-          <div className="p-4 transition-shadow text-grey-600 rounded-lg shadow-xl hover:shadow-lg  bg-white">
+          <div
+            className="p-4 transition-shadow text-grey-600 rounded-lg shadow-xl hover:shadow-lg  bg-white"
+            style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
+          >
             <div className="card-setting">
               <span className="span-button">Order Filter</span>
               <Button

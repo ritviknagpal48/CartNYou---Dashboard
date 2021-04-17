@@ -14,7 +14,7 @@ const classes = {
 const Toolbar = ({ title, actions }) => {
   return (
     <React.Fragment>
-      <div className={classes.header} style={{ background: "#edf2f9" }}>
+      <div className={classes.header} style={{ background: "#fff" }}>
         <div className={classes.title}>{title}</div>
         <div className={classes.buttons}>
           {

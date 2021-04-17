@@ -12,6 +12,7 @@
   "devDependencies": {},
   "dependencies": {
     "cors": "^2.8.5",
+    "shopify-api-node": "^3.6.10",
     "strapi": "3.5.4",
     "strapi-admin": "3.5.4",
     "strapi-connector-mongoose": "3.5.4",

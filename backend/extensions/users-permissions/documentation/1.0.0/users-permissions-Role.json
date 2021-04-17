@@ -589,6 +589,12 @@
                 "mobile": {
                   "type": "string"
                 },
+                "shopifychannels": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "created_by": {
                   "type": "string"
                 },

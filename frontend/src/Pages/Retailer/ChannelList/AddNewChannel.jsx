@@ -30,7 +30,7 @@ export class AddNewChannel extends Component {
   render() {
     return (
       <div className={classes.wrapper}>
-        <div className={classes.header} style={{ background: "#edf2f9" }}>
+        <div className={classes.header} style={{ background: "#fff" }}>
           <div className={classes.title}>Add New Channel</div>
           <div className={classes.buttons}>
             <button
@@ -45,8 +45,11 @@ export class AddNewChannel extends Component {
           <hr style={{ margin: "8px 10px 16px", borderColor: "#dfdfdf" }} />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pr-4 md:pr-14 pl-4 mb-6">
-          <div className=" bg-white w-full rounded-lg shadow-xl pl-3 pt-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pr-4 md:pr-14  mb-6">
+          <div
+            className=" bg-white w-full rounded-lg shadow-xl pl-3 pt-2"
+            style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
+          >
             <List
               style={{ border: "1 solid transparent" }}
               header={
@@ -70,7 +73,10 @@ export class AddNewChannel extends Component {
 
             </div> */}
           </div>
-          <div className=" bg-white w-full rounded-lg shadow-xl px-6 pb-6 pt-4">
+          <div
+            className=" bg-white w-full rounded-lg shadow-xl px-6 pb-6 pt-4"
+            style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
+          >
             <AddShopifyForm />
           </div>
         </div>

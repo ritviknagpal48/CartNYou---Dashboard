@@ -703,6 +703,12 @@
                     "type": "string"
                   }
                 },
+                "shopifychannels": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "published_at": {
                   "type": "string"
                 },

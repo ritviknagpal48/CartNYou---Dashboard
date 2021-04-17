@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/shopifychannels",
+      "handler": "shopifychannels.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/shopifychannels/count",
+      "handler": "shopifychannels.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/shopifychannels/:id",
+      "handler": "shopifychannels.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/shopifychannels",
+      "handler": "shopifychannels.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/shopifychannels/:id",
+      "handler": "shopifychannels.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/shopifychannels/:id",
+      "handler": "shopifychannels.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,20 +1,20 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import {
   LeftOutlined,
   PlusCircleOutlined,
-  DeleteTwoTone,
-  EditTwoTone,
+  ExclamationCircleOutlined,
   EditOutlined,
+  LoadingOutlined,
   CheckCircleOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { Button, message, Space } from "antd";
+import { Button, Empty, message, Pagination, Space, Spin } from "antd";
+import { axiosInstance as axios } from "Contexts/useAxios";
 import Modal from "antd/lib/modal/Modal";
-import Flipkart from "../../../assets/flipkart.png";
-import Amazon from "../../../assets/amazon.png";
 import Shopify from "../../../assets/shopify.png";
 import "./ChannelList.css";
+import { AuthContext } from "Contexts/Auth";
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4 ",
@@ -28,37 +28,81 @@ const classes = {
   button_title: "hidden md:block",
 };
 
-const ChannelData = [
-  {
-    id: "1",
-    channelImage: "",
-    channelName: "Orivial_Channel",
-    storeName: "",
-  },
-  {
-    id: "2",
-    channelImage: "",
-    channelName: "Womenora_Online",
-    storeName: "",
-  },
-  {
-    id: "3",
-    channelImage: "",
-    channelName: "Pentanic_Channel",
-    storeName: "",
-  },
-  {
-    id: "4",
-    channelImage: "",
-    channelName: "Watcha_Channel",
-    storeName: "",
-  },
-];
 export class ChannelList extends Component {
   state = {
     AddChannelModal: false,
     selectedShopify: false,
+    ChannelData: [],
+    isfetching: true,
+    deleteProductModal: false,
+    deleteProductID: "",
+    currentPage: 1,
+    pageSize: 4,
   };
+
+  async componentDidMount() {
+    await axios
+      .get(
+        `/shopifychannels?retailersdetails=${this.context.additionalInfo.id}`,
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+          },
+        }
+      )
+      .then((res) => {
+        this.setState({
+          ChannelData: res.data,
+          isfetching: false,
+        });
+      })
+      .catch((err) => {
+        message.error(err.message);
+        this.setState({ isfetching: false });
+      });
+  }
+  deleteModal = (data) => {
+    this.setState({
+      deleteProductModal: true,
+      deleteProductID: data,
+    });
+  };
+
+  handleOk = () => {
+    this.setState({
+      deleteProductModal: false,
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      deleteProductModal: false,
+    });
+  };
+
+  confirmDelete = () => {
+    this.setState({
+      isfetching: true,
+    });
+    if (this.state.deleteProductID !== "") {
+      axios
+        .delete(`/shopifychannels/${this.state.deleteProductID}`)
+        .then((res) => {
+          this.setState({
+            isfetching: false,
+            deleteProductID: "",
+            deleteProductModal: false,
+          });
+          message.success("Channel deleted successfully");
+          this.componentDidMount();
+        })
+        .catch((err) => {
+          // message.error(err.message);
+        });
+    }
+  };
+
   showModal = () => {
     this.setState({
       AddChannelModal: true,
@@ -84,10 +128,23 @@ export class ChannelList extends Component {
       selectedShopify: false,
     });
   };
+
+  handlePageChange = (page, pageSize) => {
+    this.setState({
+      currentPage: page,
+      pageSize: pageSize,
+    });
+  };
+
   render() {
+    const { ChannelData } = this.state;
+    const channelListLength = ChannelData && ChannelData.length;
+    const index = (this.state.currentPage - 1) * this.state.pageSize;
+    ChannelData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
     return (
       <div className={classes.wrapper}>
-        <div className={classes.header} style={{ background: "#edf2f9" }}>
+        <div className={classes.header} style={{ background: "#fff" }}>
           <div className="flex " style={{ alignItems: "center" }}>
             <button
               className={
@@ -113,81 +170,172 @@ export class ChannelList extends Component {
             </button>
           </div>
         </div>
-
-        <div className="body pr-4 md:pr-14 pl-4">
-          <hr style={{ margin: "20px 10px", borderColor: "#dfdfdf" }} />
-          {ChannelData ? (
-            ChannelData.map((ChannelData, index) => {
-              return (
-                <div
-                  key={index}
-                  className="bg-white my-2 text-gray-700 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 gap-2 items-center md:justify-between w-full  md:flex md:flex-row"
-                >
-                  <div className="card-detail">
-                    <div className="head-title">#Channel Id</div>
-                    <div className="title-body"> {ChannelData.id}</div>
-                  </div>
-                  <div className="card-detail">
-                    <div className="head-title">Channel Image</div>
-                    <div className="title-body">
-                      {" "}
-                      {ChannelData.channelImage ? (
-                        <img
-                          src={ChannelData.channelImage}
-                          alt={ChannelData.channelName}
-                        />
-                      ) : (
-                        "N/A"
-                      )}
-                    </div>
-                  </div>
-                  <div className="card-detail">
-                    <div className="head-title">Channel Name</div>
-                    <div className="title-body">{ChannelData.channelName}</div>
-                  </div>
-                  <div className="card-detail">
-                    <div className="head-title">Store Name</div>
-                    <div className="title-body">
-                      {ChannelData.storeName ? ChannelData.storeName : "-"}
-                    </div>
-                  </div>
-                  <div className="action card-detail justify-self-center mx-auto md:mx-0 col-span-2">
-                    <div className={"head-title text-center"}>Actions</div>
-                    <Space size="small">
-                      <Button
-                        type="primary"
-                        style={{
-                          color: " #08979c",
-                          background: "#e6fffb",
-                          borderColor: "#87e8de",
-                          borderRadius: "6px",
-                        }}
-                        icon={<EditOutlined />}
-                      >
-                        Edit Channel
-                      </Button>
-                      <Button
-                        style={{
-                          color: "#ef4444",
-                          background: "#fff0f6",
-                          borderColor: "#f1a8a8",
-                          borderRadius: "6px",
-                        }}
-                        type="primary"
-                        // onClick={() => this.showModal(data.id)}
-                        icon={<DeleteOutlined />}
-                      >
-                        Delete Channel
-                      </Button>
-                    </Space>
-                  </div>
+        <Spin
+          indicator={
+            <LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />
+          }
+          spinning={this.state.isfetching}
+        >
+          <div className="body pr-4 md:pr-14  pl-4">
+            <hr style={{ margin: "20px 10px", borderColor: "#dfdfdf" }} />
+            {ChannelData && ChannelData.length ? (
+              <div style={{ marginBottom: "50px" }}>
+                <div>
+                  {ChannelData.slice(index, index + this.state.pageSize).map(
+                    (ChannelData, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2  items-center  w-full  md:grid-cols-5"
+                        >
+                          <div
+                            className="card-detail"
+                            style={{ maxWidth: "90px" }}
+                          >
+                            <div className="head-title">#Channel Id</div>
+                            <div className="title-body"> {index + 1}</div>
+                          </div>
+                          <div className="card-detail">
+                            <div className="head-title">Channel Image</div>
+                            <div className="title-body">
+                              {" "}
+                              {ChannelData.channelImage ? (
+                                <img
+                                  src={ChannelData.channelImage}
+                                  alt={ChannelData.channelName}
+                                />
+                              ) : (
+                                "N/A"
+                              )}
+                            </div>
+                          </div>
+                          <div className="card-detail">
+                            <div className="head-title">Channel Name</div>
+                            <div className="title-body">
+                              {ChannelData.channel_name}
+                            </div>
+                          </div>
+                          <div className="card-detail">
+                            <div className="head-title">Store Name</div>
+                            <div className="title-body">
+                              {ChannelData.storeName
+                                ? ChannelData.store_name
+                                : "-"}
+                            </div>
+                          </div>
+                          <div className="action card-detail">
+                            {/* <div className={"head-title text-center"}>
+                              Actions
+                            </div> */}
+                            <Space size="small" direction="vertical">
+                              <Link
+                                to={{
+                                  pathname: `/retailer/edit-channel/${ChannelData.id}`,
+                                  // search: `?id=${data.id}`,
+                                  state: {
+                                    edit: true,
+                                    channelData: ChannelData,
+                                  },
+                                }}
+                              >
+                                <Button
+                                  type="primary"
+                                  style={{
+                                    color: " #08979c",
+                                    background: "#e6fffb",
+                                    borderColor: "#87e8de",
+                                    borderRadius: "6px",
+                                    width: "100%",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                  }}
+                                  icon={<EditOutlined />}
+                                >
+                                  Edit Channel
+                                </Button>
+                              </Link>
+                              <Button
+                                style={{
+                                  color: "#ef4444",
+                                  background: "#fff0f6",
+                                  borderColor: "#f1a8a8",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  width: "100%",
+                                  borderRadius: "6px",
+                                }}
+                                type="primary"
+                                onClick={() => this.deleteModal(ChannelData.id)}
+                                icon={<DeleteOutlined />}
+                              >
+                                Delete Channel
+                              </Button>
+                            </Space>
+                          </div>
+                        </div>
+                      );
+                    }
+                  )}
                 </div>
-              );
-            })
-          ) : (
-            <></>
-          )}
-        </div>
+                <hr style={{ margin: "25px 10px" }} />
+                <Pagination
+                  total={channelListLength}
+                  defaultCurrent={1}
+                  pageSizeOptions={[2, 4, 10, 20]}
+                  pageSize={this.state.pageSize}
+                  current={this.state.currentPage}
+                  onChange={this.handlePageChange}
+                  showSizeChanger
+                  // showQuickJumper
+                  responsive
+                  style={{ textAlign: "center" }}
+                  // showTotal={(total) => `Total ${total} products`}
+                />
+              </div>
+            ) : (
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                imageStyle={{
+                  height: 80,
+                }}
+                description={<span>No Channels to display</span>}
+              ></Empty>
+            )}
+          </div>
+          <Modal
+            title={
+              <div className="flex gap-x-2">
+                <ExclamationCircleOutlined
+                  size={"large"}
+                  style={{
+                    color: "red",
+                  }}
+                />{" "}
+                Confirm Delete
+              </div>
+            }
+            visible={this.state.deleteProductModal}
+            onOk={this.confirmDelete}
+            onCancel={() => this.setState({ deleteProductModal: false })}
+            style={{
+              borderRadius: "12px",
+              overflow: "hidden",
+              backgroundColor: "white",
+              boxShadow: "none",
+              maxWidth: "460px",
+              paddingBottom: "0px",
+            }}
+            bodyStyle={{
+              boxShadow: "none",
+              height: "100%",
+            }}
+            maskStyle={{ background: "#00000034" }}
+          >
+            <p>Product once deleted can not be recovered again.</p>
+          </Modal>
+        </Spin>
         <Modal
           title={
             <div className="flex gap-x-2">
@@ -260,5 +408,5 @@ export class ChannelList extends Component {
     );
   }
 }
-
+ChannelList.contextType = AuthContext;
 export default withRouter(ChannelList);
