@@ -1,80 +1,134 @@
-import { Tooltip, Image, message, Modal } from 'antd'
-import { AuthContext } from 'Contexts/Auth';
-import { useContext } from 'react';
-import { useState } from 'react'
-import { removeItemFromImportList } from './importListUtils';
+import { message, Modal, Space, Button } from "antd";
+import { AuthContext } from "Contexts/Auth";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { DeleteOutlined, SendOutlined } from "@ant-design/icons";
+import { removeItemFromImportList } from "./importListUtils";
 // import { useState } from 'react'
 
 const classes = {
-  wrapper: "grid grid-cols-4 md:grid-cols-12 gap-4 md:gap-0 items-center justify-start mt-4 bg-white rounded-md shadow-lg py-4"
-}
+  wrapper:
+    "grid grid-cols-4 md:grid-cols-12 gap-4 md:gap-0 items-center justify-start mt-4 bg-white rounded-md shadow-lg py-4",
+};
 
 const ImportListCard = ({
   product_name: displayName,
-  quantity,
+  qunatity: quantity,
   product_mrp: price,
   images,
-  product_tags: tags,
   id: product_id,
-  onDeleted
+  onDeleted,
   // id: prodId
 }) => {
-
   const [showModal, setShowModal] = useState(false);
-  const [isProductAdded, setIsProductAdded] = useState(false)
-  const { additionalInfo: { id: userid }, token } = useContext(AuthContext)
+  const [isProductAdded, setIsProductAdded] = useState(false);
+  const {
+    additionalInfo: { id: userid },
+    token,
+  } = useContext(AuthContext);
 
   return (
-    <div className={classes.wrapper}>
-      <div className={'col-span-4 md:col-span-2 col-start-1 hidden md:block'}>
-        <Image src={images && images.length > 0 ? images[0] : null} alt={displayName} className={'w-auto object-cover h-20 rounded-md mx-auto'} />
-      </div>
-      <div className={'col-start-1 col-span-4 md:col-start-3 pl-4 md:pl-0 md:col-span-7 flex flex-col items-start justify-start'}>
-        <span className={'text-lg text-gray-700 font-medium'}>{displayName}</span>
-        {/* <span className={'text-sm text-gray-400 font-normal mb-1 overflow-ellipsis overflow-hidden'}>{description}</span> */}
-        <div className={'flex flex-row items-center justify-start mb-1'}>
-          <Tooltip title={'Tags'} >
-            <span className={'text-xs text-white bg-gray-600 font-light px-2 py-1 mr-1 rounded-full'}>{tags}</span>
-          </Tooltip>
-          {/* <Tooltip title={'Price'}>
-            <span className={'text-xs text-white bg-red-500 font-light px-2 py-1 mr-1 rounded-full'}>{price}</span>
-          </Tooltip> */}
-        </div>
-      </div>
-      <div className={'text-left md:text-center text-red-500 font-bold pl-4 md:pl-0'}>{quantity}</div>
-      <div className={'text-left md:text-center text-red-500 font-bold'}>{parseFloat(price)}</div>
-      <div className={'text-right md:text-center col-span-2 md:col-auto pr-4 md:pr-0'}>
-        <button
-          className={'focus:outline-none mx-auto text-red-500 focus:text-red-900'}
-          onClick={e => setShowModal(true)}
+    <div className={''}>
+      <div className={'mb-4'}>
+        <div
+          className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center  w-full  md:grid-cols-5"
         >
-          <svg className={'h-5 w-5'} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-          </svg>
-        </button>
+          <div className="card-detail">
+            <div className="head-title">Product Image</div>
+            <div className="title-body">
+              {" "}
+              {images && images.length > 0 ? (
+                <img src={images[0]} alt={displayName} />
+              ) : (
+                "N/A"
+              )}
+            </div>
+          </div>
+          <div className="card-detail">
+            <div className="head-title">Product Name</div>
+            <div className="title-body">{displayName}</div>
+          </div>
+          <div className="card-detail">
+            <div className="head-title">Quantity</div>
+            <div className="title-body">{quantity}</div>
+          </div>
+          <div className="card-detail">
+            <div className="head-title">Price</div>
+            <div className="title-body">{price}</div>
+          </div>
+          <div className="action card-detail">
+            <Space size="small" direction="vertical">
+              <Link
+              // to={{
+              //   pathname: `/retailer/edit-channel/${ChannelData.id}`,
+              //   // search: `?id=${data.id}`,
+              //   state: {
+              //     edit: true,
+              //     channelData: ChannelData,
+              //   },
+              // }}
+              >
+                <Button
+                  type="primary"
+                  style={{
+                    color: " #08979c",
+                    background: "#e6fffb",
+                    borderColor: "#87e8de",
+                    borderRadius: "6px",
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  icon={<SendOutlined />}
+                >
+                  Push Item
+                </Button>
+              </Link>
+              <Button
+                style={{
+                  color: "#ef4444",
+                  background: "#fff0f6",
+                  borderColor: "#f1a8a8",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  borderRadius: "6px",
+                }}
+                type="primary"
+                onClick={() => {
+                  setShowModal(true);
+                }}
+                icon={<DeleteOutlined />}
+              >
+                Delete Item
+              </Button>
+            </Space>
+          </div>
+        </div>
       </div>
 
       <Modal
-        title={
-          <div className="flex gap-x-2">
-            Remove from Import List
-          </div>
-        }
+        title={<div className="flex gap-x-2">Remove from Import List</div>}
         width={"100%"}
         visible={showModal}
         confirmLoading={isProductAdded}
-        onOk={e => {
-          setIsProductAdded(true)
-          removeItemFromImportList(userid, product_id, token).then(() => {
-            message.success('Product removed successfully');
-            if (!!onDeleted && typeof onDeleted === 'function') onDeleted(product_id)
-            setShowModal(false)
-            setIsProductAdded(false)
-          }).catch(err => {
-            message.error(err.message);
-            setShowModal(false)
-            setIsProductAdded(false)
-          })
+        onOk={(e) => {
+          setIsProductAdded(true);
+          removeItemFromImportList(userid, product_id, token)
+            .then(() => {
+              message.success("Product removed successfully");
+              if (!!onDeleted && typeof onDeleted === "function")
+                onDeleted(product_id);
+              setShowModal(false);
+              setIsProductAdded(false);
+            })
+            .catch((err) => {
+              message.error(err.message);
+              setShowModal(false);
+              setIsProductAdded(false);
+            });
         }}
         onCancel={() => setShowModal(false)}
         style={{
@@ -91,12 +145,16 @@ const ImportListCard = ({
         }}
         maskStyle={{ background: "#00000034" }}
       >
-        Remove <span className="font-semibold">{displayName}</span> from your import list?
-        <br /><br />
-        <span className="text-gray-400 font-normal text-sm">Once removed, it cannot be recovered.</span>
+        Remove <span className="font-semibold">{displayName}</span> from your
+        import list?
+        <br />
+        <br />
+        <span className="text-gray-400 font-normal text-sm">
+          Once removed, it cannot be recovered.
+        </span>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default ImportListCard
+export default ImportListCard;

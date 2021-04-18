@@ -15,8 +15,8 @@ import Orders from "Pages/Retailer/Orders/Orders";
 import Billing from "Pages/Retailer/BIlling/Billing";
 import Settings from "Pages/Retailer/Settings/Settings";
 import Support from "Pages/Retailer/Support/Support";
-import ChannelList from "../ChannelList/ChannelList";
-import AddNewChannel from "../ChannelList/AddNewChannel";
+import AddNewChannel from "Pages/Retailer/ChannelList/AddNewChannel";
+import ChannelList from "Pages/Retailer/ChannelList/ChannelList";
 
 const Home = () => {
   return (
