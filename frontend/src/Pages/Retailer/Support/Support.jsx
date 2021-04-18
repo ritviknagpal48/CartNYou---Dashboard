@@ -46,14 +46,17 @@ class Support extends React.Component {
         <Toolbar title={"Having an issue?"} actions={ImportListActions} />
 
         <div className="flex  md:flex-row sm:flex-col flex-col">
-          <div className="md:w-1/2 w-full text-gray-500 bg-white shadow-xl rounded-md max-h-full ">
+          <div
+            className="md:w-1/2 w-full text-gray-500 bg-white shadow-xl rounded-md max-h-full "
+            style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
+          >
             <div className="text-lg flex font-semibold items-center p-3 pt-5">
               <svg
                 className="h-5 w-5 mr-2 "
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke="#fc573b"
+                stroke="#ef4444"
               >
                 <path
                   strokeLinecap="round"
@@ -177,14 +180,17 @@ class Support extends React.Component {
             </div>
           </div>
           <div className="w-10 h-5" />
-          <div className="md:w-1/2 w-full bg-white text-gray-500 shadow-xl rounded-md ">
+          <div
+            className="md:w-1/2 w-full bg-white text-gray-500 shadow-xl rounded-md "
+            style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
+          >
             <div className="text-lg  flex font-semibold items-center p-3 pt-5">
               <svg
                 className="h-5 w-5 mr-2 "
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke="#fc573b"
+                stroke="#ef4444"
               >
                 <path
                   strokeLinecap="round"
@@ -235,7 +241,7 @@ class Support extends React.Component {
                     style={{
                       color: "white",
                       border: "none",
-                      background: "#fc573b",
+                      background: "#ef4444",
                       borderRadius: "4px",
                       padding: "4px 30px",
                     }}

@@ -216,224 +216,246 @@ class Products extends React.Component {
 
     return (
       <div className={classes.wrapper}>
-        <div className={classes.header} style={{ background: "#edf2f9" }}>
+        {/* <div className={classes.header} style={{ background: "#fff" }}>
           <div className={classes.title}>Products</div>
         </div>
-        <div className="product-search bg-white rounded my-2 ml-1">
-          <div className="mb-2">
-            <Collapse
-              bordered={false}
-              defaultActiveKey={["1"]}
-              expandIcon={({ isActive }) => (
-                <DownCircleTwoTone
-                  twoToneColor="#f87171"
-                  style={{ fontSize: "20px" }}
-                  rotate={isActive ? 180 : 0}
-                />
-              )}
-              expandIconPosition="right"
-              className="site-collapse-custom-collapse"
-            >
-              <Panel
-                header={
-                  <div className="flex text-gray-400">
-                    <svg
-                      className={"h-4 w-4 mr-2 text-gray-400"}
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      />
-                    </svg>
-                    Search
-                  </div>
-                }
-                key="1"
-                className="site-collapse-custom-panel rounded-xl shadow-lg "
+     */}
+
+        <div
+          style={{
+            border: "1px solid #dfdfdf",
+            padding: "12px",
+            borderRadius: "8px",
+          }}
+        >
+          <div className="product-search bg-white rounded-xl my-2 ml-1">
+            <div>
+              <Collapse
+                bordered={false}
+                defaultActiveKey={["0"]}
+                expandIcon={({ isActive }) => (
+                  <DownCircleTwoTone
+                    twoToneColor="#f87171"
+                    style={{ fontSize: "20px" }}
+                    rotate={isActive ? 180 : 0}
+                  />
+                )}
+                expandIconPosition="right"
+                className="site-collapse-custom-collapse"
+                style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
               >
-                <Form
-                  layout="vertical"
-                  name="control-ref"
-                  onFinish={this.onFinish}
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-                    columnGap: "8px",
-                    rowGap: "8px",
-                  }}
-                >
-                  <Form.Item label="Select Type">
-                    <Select
-                      defaultValue={this.state.searchedColumn}
-                      placeholder="Select Column"
-                      // style={{ width: 150 }}
-                      onChange={this.handleChange}
+                <Panel
+                  header={
+                    <div
+                      className="flex text-gray-400 rounded-xl "
+                      style={{ borderRadius: "8px" }}
                     >
-                      <Option value="product_main_sku">SKU</Option>
-                      <Option value="product_name">Product name</Option>
-                    </Select>
-                  </Form.Item>
-                  <Form.Item label="Search">
-                    <Input
-                      placeholder={
-                        !this.state.searchedColumn === "product_main_sku"
-                          ? `Search by product SKU`
-                          : "Search by product name"
-                      }
-                      onChange={(e) => {
-                        this.setState({
-                          searchText: e.target.value ? [e.target.value] : [],
-                        });
-                      }}
-                      // onPressEnter={() =>
-                      //   this.handleSearch(selectedKeys, confirm, dataIndex)
-                      // }
-                      value={this.state.searchText}
-                      className="inputSearchBox"
-                    />
-                  </Form.Item>
-                  {/* <Button
+                      <svg
+                        className={"h-4 w-4 mr-2 text-gray-400"}
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        />
+                      </svg>
+                      Search
+                    </div>
+                  }
+                  key="1"
+                  style={{ borderRadius: "8px" }}
+                  className="site-collapse-custom-panel rounded-xl  bg-gray-50"
+                >
+                  <Form
+                    layout="vertical"
+                    name="control-ref"
+                    onFinish={this.onFinish}
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns:
+                        "repeat(auto-fit, minmax(150px, 1fr))",
+                      columnGap: "8px",
+                      rowGap: "8px",
+                    }}
+                  >
+                    <Form.Item label="Select Type">
+                      <Select
+                        defaultValue={this.state.searchedColumn}
+                        placeholder="Select Column"
+                        // style={{ width: 150 }}
+                        onChange={this.handleChange}
+                      >
+                        <Option value="product_main_sku">SKU</Option>
+                        <Option value="product_name">Product name</Option>
+                      </Select>
+                    </Form.Item>
+                    <Form.Item label="Search">
+                      <Input
+                        placeholder={
+                          !this.state.searchedColumn === "product_main_sku"
+                            ? `Search by product SKU`
+                            : "Search by product name"
+                        }
+                        onChange={(e) => {
+                          this.setState({
+                            searchText: e.target.value ? [e.target.value] : [],
+                          });
+                        }}
+                        // onPressEnter={() =>
+                        //   this.handleSearch(selectedKeys, confirm, dataIndex)
+                        // }
+                        value={this.state.searchText}
+                        className="inputSearchBox"
+                      />
+                    </Form.Item>
+                    {/* <Button
                     danger
                     style={{ marginLeft: "8px" }}
                     onClick={() => this.setState({ searchText: [] })}
                   >
                     Clear
                   </Button> */}
-                  {/* </div> */}
+                    {/* </div> */}
 
-                  <Form.Item
-                    // initialValue={selectedCategory}
-                    name="category"
-                    label="Category"
-                  >
-                    <Select
-                      // defaultValue={selectedCategory}
-
-                      value={selectedCategory}
-                      placeholder="Select Column"
-                      onChange={this.handleSelectCategory}
-                      // style={{ width: 150 }}
-                      // onChange={this.handleCategoryChange}
+                    <Form.Item
+                      // initialValue={selectedCategory}
+                      name="category"
+                      label="Category"
                     >
-                      <Option value="">All Categories</Option>
-                      {categoryList.map((Category, index) => {
-                        return (
-                          <Option key={index} value={Category.id}>
-                            {Category.categoryName}
-                          </Option>
-                        );
-                      })}
-                    </Select>
-                  </Form.Item>
-                  <Form.Item name="vendor" label="Vendor">
-                    <Select
-                      // defaultValue={defaultSearchColumn}
-                      placeholder="Select Column"
-                      // style={{ width: 150 }}
-                      // onChange={this.handleCategoryChange}
-                    >
-                      <Option value="allCategory">All Vendor</Option>
-                      <Option value="allCategory">Vendor 1</Option>
-                      <Option value="allCategory">Vendor 2</Option>
-                      <Option value="allCategory">Vendor 3</Option>
-                      <Option value="allCategory">Vendor 4</Option>
-                      <Option value="allCategory">Vendor 5</Option>
-                      <Option value="allCategory">Vendor 6</Option>
-                    </Select>
-                  </Form.Item>
+                      <Select
+                        // defaultValue={selectedCategory}
 
-                  <Form.Item
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      alignContent: "center",
-                      //   background: "yellow",
-                      height: "100%",
-                      flexDirection: "row",
-                    }}
-                  >
-                    <Button
-                      type="primary"
-                      htmlType="submit"
+                        value={selectedCategory}
+                        placeholder="Select Column"
+                        onChange={this.handleSelectCategory}
+                        // style={{ width: 150 }}
+                        // onChange={this.handleCategoryChange}
+                      >
+                        <Option value="">All Categories</Option>
+                        {categoryList.map((Category, index) => {
+                          return (
+                            <Option key={index} value={Category.id}>
+                              {Category.categoryName}
+                            </Option>
+                          );
+                        })}
+                      </Select>
+                    </Form.Item>
+                    <Form.Item name="vendor" label="Vendor">
+                      <Select
+                        // defaultValue={defaultSearchColumn}
+                        placeholder="Select Column"
+                        // style={{ width: 150 }}
+                        // onChange={this.handleCategoryChange}
+                      >
+                        <Option value="allCategory">All Vendor</Option>
+                        <Option value="allCategory">Vendor 1</Option>
+                        <Option value="allCategory">Vendor 2</Option>
+                        <Option value="allCategory">Vendor 3</Option>
+                        <Option value="allCategory">Vendor 4</Option>
+                        <Option value="allCategory">Vendor 5</Option>
+                        <Option value="allCategory">Vendor 6</Option>
+                      </Select>
+                    </Form.Item>
+
+                    <Form.Item
                       style={{
-                        borderRadius: "4px",
-                        background: "#fc573b",
-                        border: "1px solid #fc573b",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        alignContent: "center",
+                        //   background: "yellow",
+                        height: "100%",
+                        flexDirection: "row",
                       }}
                     >
-                      Search
-                    </Button>
-                    <Button
-                      htmlType="button"
-                      onClick={() => this.setState({ searchText: [] })}
-                      // onClick={this.onReset}
-                      style={{ marginLeft: "8px", borderRadius: "4px" }}
-                    >
-                      Reset
-                    </Button>
-                  </Form.Item>
-                </Form>
-                {/* </div> */}
-              </Panel>
-            </Collapse>
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        style={{
+                          borderRadius: "4px",
+                          background: "#ef4444",
+                          border: "1px solid #ef4444",
+                        }}
+                      >
+                        Search
+                      </Button>
+                      <Button
+                        htmlType="button"
+                        onClick={() => this.setState({ searchText: [] })}
+                        // onClick={this.onReset}
+                        style={{ marginLeft: "8px", borderRadius: "4px" }}
+                      >
+                        Reset
+                      </Button>
+                    </Form.Item>
+                  </Form>
+                  {/* </div> */}
+                </Panel>
+              </Collapse>
+            </div>
           </div>
-        </div>
-        {/* <div className="category-box overflow-x-auto max-w-screen-xl"> */}
-        <div className="product-category ">
-          {/* <Link to=""> */}
-          <div
-            onClick={() => this.handleClickByCategory()}
-            className={`single-category  ${
-              isSearchBtnActive ? "activeSearchBtn" : ""
-            }`}
-          >
-            <img
-              width="60px"
-              src={AllIcon}
-              alt=""
-              className={`${isSearchBtnActive ? `active-image` : ``}`}
-            />
-            All Categories
-          </div>
-          {/* </Link> */}
-          {categoryList ? (
-            categoryList.map((category, index) => {
-              return (
-                <div
-                  key={index}
-                  onClick={() => this.handleClickByCategory(category)}
-                  className={`single-category ${
-                    activeSearchBtnId === category.id ? "activeSearchBtn" : ""
-                  }`}
-                >
-                  <img
-                    className={`${
-                      isSearchBtnActive === category.id ? `active-image` : ``
+          {/* <div className="category-box overflow-x-auto max-w-screen-xl"> */}
+          <div className="product-category ">
+            {/* <Link to=""> */}
+            <div
+              onClick={() => this.handleClickByCategory()}
+              className={`single-category  ${
+                isSearchBtnActive ? "activeSearchBtn" : ""
+              }`}
+            >
+              <img
+                width="60px"
+                src={AllIcon}
+                alt=""
+                className={`${isSearchBtnActive ? `active-image` : ``}`}
+              />
+              All Categories
+            </div>
+            {/* </Link> */}
+            {categoryList ? (
+              categoryList.map((category, index) => {
+                return (
+                  <div
+                    key={index}
+                    onClick={() => this.handleClickByCategory(category)}
+                    className={`single-category ${
+                      activeSearchBtnId === category.id ? "activeSearchBtn" : ""
                     }`}
-                    width="60px"
-                    src={
-                      category.CategoryImage && category.CategoryImage.url
-                        ? `${category.CategoryImage.url}`
-                        : ""
-                    }
-                    alt=""
-                  />
-                  {category.categoryName}
-                </div>
-              );
-            })
-          ) : (
-            <></>
-          )}
+                  >
+                    <img
+                      className={`${
+                        isSearchBtnActive === category.id ? `active-image` : ``
+                      }`}
+                      width="60px"
+                      src={
+                        category.CategoryImage && category.CategoryImage.url
+                          ? `${category.CategoryImage.url}`
+                          : ""
+                      }
+                      alt=""
+                    />
+                    {category.categoryName}
+                  </div>
+                );
+              })
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
-        <hr />
+        {/* <hr
+          style={{
+            marginTop: "20px",
+            marginBottom: "20px",
+            borderColor: "#dfdfdf",
+          }}
+        /> */}
         <div
           style={{
             margin: "50px 10px",
@@ -452,7 +474,7 @@ class Products extends React.Component {
               background: "none",
               fontWeight: "600",
               fontSize: "13px",
-              color: "#fc573b",
+              color: "#ef4444",
             }}
           >
             {" "}
@@ -491,7 +513,7 @@ class Products extends React.Component {
               <Pagination
                 total={productListLength}
                 defaultCurrent={1}
-                pageSizeOptions={[1, 5, 50, 100]}
+                pageSizeOptions={[10, 20, 50, 100]}
                 pageSize={this.state.pageSize}
                 current={this.state.currentPage}
                 onChange={this.handlePageChange}

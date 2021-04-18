@@ -25,7 +25,7 @@ const Home = () => {
         />
         <div
           className={"flex-auto flex-shrink-0 flex-grow md:pl-20"}
-          style={{ background: "#edf2f9" }}
+          style={{ background: "#fff" }}
         >
           <Navbar menuList={MenuItems} />
           <Route
@@ -54,7 +54,7 @@ const Home = () => {
           <PrivateRoute
             path={"/wholeseller/edit-product/:productID"}
             component={AddNewProduct}
-          />
+          />P
           <PrivateRoute
             path={"/wholeseller/warehouses"}
             component={Warehouses}

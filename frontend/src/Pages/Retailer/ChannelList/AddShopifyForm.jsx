@@ -1,13 +1,187 @@
 import React, { Component } from "react";
-import { Form, Input, Button, Radio } from "antd";
-import { InfoCircleOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Radio, message, Spin, Select } from "antd";
+import { Link, withRouter } from "react-router-dom";
+import { AuthContext } from "Contexts/Auth";
+import { LoadingOutlined } from "@ant-design/icons";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { axiosInstance as axios } from "Contexts/useAxios";
 import "./AddShopifyForm.css";
-export class AddShopifyForm extends Component {
-  onFinish = (values) => {
+
+const { Option } = Select;
+
+class AddShopifyForm extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoading: false,
+      isEdit: false,
+      channel_name:
+        this.props &&
+        this.props.location &&
+        this.props.location.state &&
+        this.props.location.state.channelData &&
+        this.props.location.state.channelData.channel_name
+          ? this.props.location.state.channelData.channel_name
+          : "",
+      api_key:
+        this.props &&
+        this.props.location &&
+        this.props.location.state &&
+        this.props.location.state.channelData &&
+        this.props.location.state.channelData.api_key
+          ? this.props.location.state.channelData.api_key
+          : "",
+      key:
+        this.props.location &&
+        this.props.location.state &&
+        this.props.location.state.channelData &&
+        this.props.location.state.channelData.key
+          ? this.props.location.state.channelData.key
+          : "",
+      store_url:
+        this.props.location &&
+        this.props.location.state &&
+        this.props.location.state.channelData &&
+        this.props.location.state.channelData.store_url
+          ? this.props.location.state.channelData.store_url
+          : "",
+      shared_secret:
+        this.props.location &&
+        this.props.location.state &&
+        this.props.location.state.channelData &&
+        this.props.location.state.channelData.shared_secret
+          ? this.props.location.state.channelData.shared_secret
+          : "",
+      channelId: "",
+    };
+  }
+
+  async componentDidMount() {
+    const userID = this.context.additionalInfo.id;
+    console.log(this.props);
+    const channelId =
+      this.props &&
+      this.props.match &&
+      this.props.match.params &&
+      this.props.match.params.id
+        ? this.props.match.params.id
+        : "";
+    const edit =
+      this.props &&
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.edit
+        ? this.props.location.state.edit
+        : false;
+
+    this.setState({
+      retailersdetails: userID,
+      isEdit: edit,
+      channelId: channelId,
+    });
+
+    this.setState({});
+    if (edit) {
+      await axios
+        .get(`/shopifychannels/${channelId}`, {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+          },
+        })
+        .then((res) => {
+          console.log(edit, "running");
+          console.log(res.data);
+          this.setState({
+            isLoading: false,
+            // isEdit: false,
+          });
+        })
+        .catch((err) => {
+          message.error("Something went wrong");
+          this.props.history.push("/retailer/channel-list");
+        });
+    }
+    console.log(this.state);
+  }
+
+  onFinish = async (values) => {
+    console.log("Received vam: ", this.state);
     console.log("Received values of form: ", values);
+    this.setState({
+      channel_name: values.channel_name,
+      api_key: values.api_key,
+      key: values.key,
+      store_url: values.store_url,
+      shared_secret: values.shared_secret,
+    });
+    console.log("Received vam: ", this.state);
+
+    await axios
+      .post("/shopifychannels", this.state, {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+        },
+      })
+      .then((resp) => {
+        if (resp.status === 200) {
+          message.success(`Channel Added Successfully`);
+          this.props.history.push("/retailer/channel-list");
+        }
+      })
+      .catch((error) => {
+        if (error.status === 500) {
+          message.error("Something went wrong");
+          this.props.history.push("/retailer/channel-list");
+        } else {
+          message.error(`Please fill all the required fields`);
+        }
+        console.log(error.message);
+      });
+  };
+
+  onUpdateChannel = async (values) => {
+    console.log("Initital state: ", this.state);
+    console.log("Received values of form: ", values);
+    this.setState({
+      channel_name: values.channel_name,
+      api_key: values.api_key,
+      key: values.key,
+      store_url: values.store_url,
+      shared_secret: values.shared_secret,
+    });
+    console.log("Updates State: ", this.state);
+
+    await axios
+      .put(`/shopifychannels/${this.state.channelId}`, this.state, {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+        },
+      })
+      .then((resp) => {
+        if (resp.status === 200) {
+          message.success(`Channel Updated Successfully`);
+          this.props.history.push("/retailer/channel-list");
+        }
+      })
+      .catch((error) => {
+        if (error.status === 500) {
+          message.error("Something went wrong");
+          this.props.history.push("/retailer/channel-list");
+        } else {
+          message.error(`Please fill all the required fields`);
+        }
+        console.log(error.message);
+      });
+    console.log("NOt worl");
   };
 
   render() {
+    const { channel_name, api_key, key, store_url, shared_secret } = this.state;
+    console.log("Check here", this.state);
     return (
       <div className="add-shopify-container h-full">
         <div
@@ -29,61 +203,89 @@ export class AddShopifyForm extends Component {
             marginBottom: "4px",
           }}
         />
-        <Form
-          layout="vertical"
-          name="shopify-register"
-          onFinish={this.onFinish}
+        <Spin
+          spinning={this.state.isLoading}
+          indicator={
+            <LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />
+          }
         >
-          <Form.Item
-            label="Channel Name"
-            // requiredname="username"
-            name="channelName"
-            rules={[
-              { required: true, message: "Please enter your channel name!" },
-            ]}
+          <Form
+            layout="vertical"
+            name="shopify-register"
+            onFinish={this.state.isEdit ? this.onUpdateChannel : this.onFinish}
+            initialValues={{
+              channel_name: channel_name,
+              api_key: api_key,
+              store_url: store_url,
+              key: key,
+              shared_secret: shared_secret,
+            }}
           >
-            <Input placeholder="Channel Name" />
-          </Form.Item>
-          <Form.Item
-            label="API Key"
-            name="apiKey"
-            rules={[{ required: true, message: "Please enter your API key!" }]}
-          >
-            <Input placeholder="API Key" />
-          </Form.Item>
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: "Please enter your password!" }]}
-          >
-            <Input placeholder="Password" />
-          </Form.Item>
-          <Form.Item
-            tooltip="Example store URL : yourstore.myshopify.com"
-            label="Store URL"
-            name="storeUrl"
-            rules={[
-              { required: true, message: "Please enter your store URL!" },
-            ]}
-          >
-            <Input placeholder="Store URL" />
-          </Form.Item>
-          <Form.Item
-            label="Shared Secret"
-            name="sharedSecret"
-            rules={[{ required: true, message: "Please enter shared secret!" }]}
-          >
-            <Input placeholder="Shared Secret" />
-          </Form.Item>
-          <Form.Item style={{ textAlign: "center" }}>
-            <Button className="btn-shopify-ok" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
+            <Form.Item
+              shouldUpdate
+              label="Channel Name"
+              // requiredname="username"
+              name="channel_name"
+              rules={[
+                { required: true, message: "Please enter your channel name!" },
+              ]}
+            >
+              <Input placeholder="Channel Name" />
+            </Form.Item>
+            <Form.Item
+              label="API Key"
+              name="api_key"
+              rules={[
+                { required: true, message: "Please enter your API key!" },
+              ]}
+            >
+              <Input placeholder="API Key" />
+            </Form.Item>
+            <Form.Item
+              label="Password"
+              name="key"
+              rules={[
+                { required: true, message: "Please enter your password!" },
+              ]}
+            >
+              <Input.Password
+                placeholder="Password"
+                iconRender={(visible) =>
+                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                }
+              />
+            </Form.Item>
+            <Form.Item
+              tooltip="Example store URL : yourstore.myshopify.com"
+              label="Store URL"
+              name="store_url"
+              rules={[
+                { required: true, message: "Please enter your store URL!" },
+              ]}
+            >
+              <Input placeholder="Store URL" />
+            </Form.Item>
+            <Form.Item
+              label="Shared Secret"
+              name="shared_secret"
+              rules={[
+                { required: true, message: "Please enter shared secret!" },
+              ]}
+            >
+              <Input placeholder="Shared Secret" />
+            </Form.Item>
+            <Form.Item style={{ textAlign: "center" }}>
+              <Button className="btn-shopify-ok" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Spin>
       </div>
     );
   }
 }
 
-export default AddShopifyForm;
+AddShopifyForm.contextType = AuthContext;
+
+export default withRouter(AddShopifyForm);

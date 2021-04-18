@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "product_details",
   "info": {
-    "name": "ProductDetails",
+    "name": "Productdetails",
     "description": ""
   },
   "options": {
@@ -104,9 +104,9 @@
       "via": "product_details"
     },
     "users_detail": {
-      "via": "product_details",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "product_details"
     },
     "counrty_origin": {
       "type": "string",
@@ -129,10 +129,14 @@
       "default": true
     },
     "retailers_details": {
-      "via": "import_list_products",
       "plugin": "users-permissions",
       "collection": "user",
+      "via": "import_list_products",
       "dominant": true
+    },
+    "shopifychannels": {
+      "via": "productdetails",
+      "collection": "shopifychannels"
     }
   }
 }

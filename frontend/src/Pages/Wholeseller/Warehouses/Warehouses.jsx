@@ -74,7 +74,7 @@ const Warehouses = () => {
     <div className={classes.wrapper}>
       <div
         className="w-full  py-3 flex flex-row items-center justify-between"
-        style={{ background: "#edf2f9" }}
+        style={{ background: "#fff" }}
       >
         <div className="text-2xl text-gray-600  hidden md:block font-sans-apple-system">
           Warehouses

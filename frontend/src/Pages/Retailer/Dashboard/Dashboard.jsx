@@ -7,12 +7,12 @@ const classes = {
 const Dashboard = () => {
   return (
     <div className={classes.wrapper}>
-      <div className={classes.header} style={{ background: "#edf2f9" }}>
+      <div className={classes.header} style={{ background: "#fff" }}>
         <div className={classes.title}>Dashboard Retailer</div>
       </div>
 
       <div className="grid grid-cols-2 gap-5 mt-6 sm:grid-cols-2 lg:grid-cols-4 pr-4 md:pr-14 pl-4">
-        <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white">
+        <div className="p-4 transition-shadow rounded-lg  border border-gray-200 shadow-sm hover:shadow-lg bg-white">
           <div className="flex items-start justify-between mx-auto">
             <div className="flex flex-col space-y-1">
               <span className="text-gray-500">Total Shipment</span>
@@ -20,7 +20,7 @@ const Dashboard = () => {
             </div>
             <div className="rounded-md">
               <img
-                style={{ height: "70px", marginRight: "10px" }}
+                style={{ height: "50px", marginRight: "10px" }}
                 src="/images/truck.png"
                 alt="Workflow"
               />
@@ -47,7 +47,7 @@ const Dashboard = () => {
             <span className="text-gray-400">from 2019</span>
           </div>
         </div>
-        <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white">
+        <div className="p-4 transition-shadow rounded-lg  border border-gray-200 shadow-sm hover:shadow-lg bg-white">
           <div className="flex items-start justify-between">
             <div className="flex flex-col space-y-1">
               <span className="text-gray-500">Total Delivered</span>
@@ -55,7 +55,7 @@ const Dashboard = () => {
             </div>
             <div className=" rounded-md">
               <img
-                style={{ height: "70px", marginRight: "10px" }}
+                style={{ height: "50px", marginRight: "10px" }}
                 src="/images/sale.png"
                 alt="Workflow"
               />
@@ -83,7 +83,7 @@ const Dashboard = () => {
             <span className="text-gray-400">from 2019</span>
           </div>
         </div>
-        <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white">
+        <div className="p-4 transition-shadow rounded-lg  border border-gray-200 shadow-sm hover:shadow-lg bg-white">
           <div className="flex items-start justify-between">
             <div className="flex flex-col space-y-1">
               <span className="text-gray-500">Total RTO</span>
@@ -91,7 +91,7 @@ const Dashboard = () => {
             </div>
             <div className="rounded-md">
               <img
-                style={{ height: "70px", marginRight: "10px" }}
+                style={{ height: "50px", marginRight: "10px" }}
                 src="/images/return.png"
                 alt="Workflow"
               />
@@ -118,7 +118,7 @@ const Dashboard = () => {
             <span className="text-gray-400">from 2019</span>
           </div>
         </div>
-        <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white">
+        <div className="p-4 transition-shadow rounded-lg  border border-gray-200 shadow-sm hover:shadow-lg bg-white">
           <div className="flex items-start justify-between">
             <div className="flex flex-col space-y-1">
               <span className="text-gray-500">Total Earning's</span>
@@ -128,7 +128,7 @@ const Dashboard = () => {
             </div>
             <div className=" rounded-md">
               <img
-                style={{ height: "70px", marginRight: "10px" }}
+                style={{ height: "50px", marginRight: "10px" }}
                 src="/images/rupee.png"
                 alt=""
               />

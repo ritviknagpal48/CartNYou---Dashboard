@@ -23,7 +23,7 @@ class ProductCard extends React.Component {
     const productCard = this.props.ProductData;
 
     return (
-      <div className="product-card shadow-xl my-2 bg-white rounded cursor-pointer hover:shadow-2xl max-w-xs">
+      <div className="product-card border border-gray-200 my-2 bg-white rounded cursor-pointer hover:shadow-2xl max-w-xs">
         <div className="layout">
           <div
             className="checkbox"
@@ -138,8 +138,8 @@ class ProductCard extends React.Component {
                 //   marginLeft: "8px",
                 borderRadius: "4px",
                 fontSize: "12px",
-                background: "#fc573b",
-                border: "1px solid #fc573b",
+                background: "#ef4444",
+                border: "1px solid #ef4444",
               }}
             >
               Add to Import List

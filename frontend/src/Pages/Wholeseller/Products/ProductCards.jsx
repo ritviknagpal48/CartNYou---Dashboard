@@ -184,19 +184,19 @@ class ProductCards extends React.Component {
             <LoadingOutlined style={{ fontSize: 24, color: "#ef4444" }} />
           }
         >
-          <div className="mb-2">
+          <div className="mb-2 border border-gray-200 rounded-xl">
             <Collapse
               bordered={false}
               defaultActiveKey={["0"]}
               expandIcon={({ isActive }) => (
                 <SearchOutlined rotate={isActive ? 90 : 0} />
               )}
-              className="site-collapse-custom-collapse"
+              className="site-collapse-custom-collapse rounded-xl "
             >
               <Panel
                 header="Search"
                 key="1"
-                className="site-collapse-custom-panel rounded-xl shadow-lg "
+                className="site-collapse-custom-panel rounded-xl shadow-lg"
               >
                 <div className="flex my-2">
                   <Select
@@ -256,7 +256,7 @@ class ProductCards extends React.Component {
                     return (
                       <div
                         key={index}
-                        className="bg-white my-2 text-gray-700 font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-4 gap-2 items-center md:justify-between w-full text-left md:flex md:flex-row"
+                        className="bg-white my-2 border border-gray-200  text-gray-700 font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-4 gap-2 items-center md:justify-between w-full text-left md:flex md:flex-row"
                         style={{ color: "black" }}
                       >
                         <div className={"flex flex-row items-center"}>

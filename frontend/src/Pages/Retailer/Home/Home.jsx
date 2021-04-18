@@ -30,7 +30,7 @@ const Home = () => {
         />
         <div
           className={"flex-auto flex-shrink-0 flex-grow md:ml-20"}
-          style={{ background: "#edf2f9" }}
+          style={{ background: "#fff" }}
         >
           <Navbar menuList={MenuItems} />
           <Switch>
@@ -66,6 +66,10 @@ const Home = () => {
             />
             <PrivateRoute
               path={"/retailer/add-new-channel/:name"}
+              component={AddNewChannel}
+            />
+            <PrivateRoute
+              path={"/retailer/edit-channel/:id"}
               component={AddNewChannel}
             />
           </Switch>

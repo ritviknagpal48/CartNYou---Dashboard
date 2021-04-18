@@ -49,7 +49,7 @@ const Navbar = ({ menuList }) => {
             </div>
             <div className="hidden md:block">
               <div className="ml-4 flex items-center md:ml-6">
-                <button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-600 focus:outline-none ">
+                <button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-600 focus:outline-none border border-gray-300">
                   <span className="sr-only">View notifications</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -77,6 +77,9 @@ const Navbar = ({ menuList }) => {
                       aria-expanded="false"
                       aria-haspopup="true"
                       onClick={() => setIsOpen((p) => !p)}
+                      style={{
+                        border: "1px solid #e2e2e2",
+                      }}
                     >
                       <span className="sr-only">Open user menu</span>
                       {/* <img
@@ -91,9 +94,9 @@ const Navbar = ({ menuList }) => {
                           // backgroundColor: "rgb(229,231,225)",
                           backgroundColor: "white",
                           color: "rgb(156,163,175)",
-                          fontSize: "20px",
+                          fontSize: "18px",
                           border: "1px solid rgba(156,163,175)",
-                          fontWeight: "bold",
+                          fontWeight: 600,
                           verticalAlign: "middle",
                         }}
                       >
