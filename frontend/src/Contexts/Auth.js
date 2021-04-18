@@ -67,7 +67,7 @@ const loadInitialAuthData = () => {
     const items = JSON.parse(
       localStorage.getItem(process.env.REACT_APP_AUTH_KEY)
     );
-
+    if (!items) return defaultState;
     if (!items.token) return defaultState;
     if (items && Object.keys(items).length > 0)
       return { ...defaultState, ...items };

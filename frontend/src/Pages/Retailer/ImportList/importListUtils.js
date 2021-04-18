@@ -24,9 +24,14 @@ export const getLatestImportList = async (userId, token) => {
  */
 export const addItemToImportList = async (userId, items, token) => {
   if (!userId || !items) return new Error("UserID and Items are required.");
-  let import_list = await getLatestImportList(userId);
+
+  let import_list = await getLatestImportList(userId, token);
   import_list = import_list.map((obj) => obj.id);
-  const new_import_list = [...import_list, ...items];
+
+  const new_import_list = [...new Set([...import_list, ...items])];
+
+  // return console.log({ import_list, new_import_list, userId, items, token });
+
   const response = await axiosInstance.put(
     `/users/${userId}`,
     {
@@ -42,15 +47,15 @@ export const addItemToImportList = async (userId, items, token) => {
 };
 
 /**
- * Add items to the import list.
+ * Remove items from the import list.
  * @param {String} userId ID of the retailer
- * @param {Array} items Array of items to be added to the list.
- * @returns Updated ImportList for the retailer
+ * @param {String} item ID of item to be removed from the list.
+ * @returns Updates ImportList for the retailer
  */
 export const removeItemFromImportList = async (userId, item, token) => {
   if (!userId || !item || !token)
     return new Error("UserID, item and Token are required.");
-  let import_list = await getLatestImportList(userId);
+  let import_list = await getLatestImportList(userId, token);
   import_list = import_list.map((obj) => obj.id);
   const new_import_list = import_list.filter((x) => x !== item);
   const response = await axiosInstance.put(

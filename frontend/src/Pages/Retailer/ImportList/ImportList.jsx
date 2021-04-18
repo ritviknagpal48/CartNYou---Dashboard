@@ -4,9 +4,10 @@ import Toolbar from 'Components/Toolbar';
 import ImportListCard from "Pages/Retailer/ImportList/ImportListCard";
 import { useEffect, useState } from 'react';
 // import { ImportListData } from "./importListData";
-import { getLatestImportList } from './importListUtils';
+// import { getLatestImportList } from './importListUtils';
 import { useContext } from 'react';
 import { AuthContext } from 'Contexts/Auth';
+import useAxios from 'Contexts/useAxios';
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4 pb-8",
@@ -36,16 +37,26 @@ const ImportListActions = [
 const ImportList = () => {
 
   const { additionalInfo: { id }, token } = useContext(AuthContext)
-  const [importListData, setImportListData] = useState([])
+  const [importListData, setImportListData] = useState(null)
+  const [forceUpdate, setForceUpdate] = useState(false);
+
+  const { axios } = useAxios()
 
   useEffect(() => {
-    // Fetch Import list data and link it to state
-    // console.log('Fetching Import list now.')
-    getLatestImportList(id, token).then(res => {
-      setImportListData(res)
-      // console.log({ importList: res })
-    }).catch(err => message.error(err.message));
-  }, [id])
+    // getLatestImportList(id, token).then(res => {
+    //   setImportListData(res)
+    // }).catch(err => message.error(err.message));
+
+    axios.get(`/users/${id}`).then(res => {
+      const import_list = res.data && res.data.import_list_products
+        ? res.data.import_list_products
+        : [];
+
+      setImportListData(import_list)
+      setForceUpdate(false);
+    })
+      .catch(err => console.error({ err }))
+  }, [id, forceUpdate])
 
   return (
     <div className={classes.wrapper}>
@@ -59,10 +70,10 @@ const ImportList = () => {
         </div>
         {/* <div className={'w-full h-px bg-gray-200'} /> */}
       </div>
-      <Spin spinning={false} size={'large'} indicator={<LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />}>
+      <Spin spinning={!importListData} size={'large'} indicator={<LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />}>
         {
           importListData && importListData.length > 0 ?
-            importListData.map(ilistItem => <ImportListCard {...ilistItem} />)
+            importListData.map(ilistItem => <ImportListCard {...ilistItem} key={ilistItem.id} onDeleted={() => setForceUpdate(p => !p)} />)
             : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         }
       </Spin>

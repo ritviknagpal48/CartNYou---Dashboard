@@ -1,6 +1,8 @@
 import React from "react";
-import { Checkbox, Tag, Button } from "antd";
+import { Checkbox, Tag, Button, message, Modal } from "antd";
 import { Link } from "react-router-dom";
+import { addItemToImportList } from "Pages/Retailer/ImportList/importListUtils";
+import { AuthContext } from "Contexts/Auth";
 
 const images = [
   "https://images.unsplash.com/photo-1590192746144-b92a837f8ddf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
@@ -18,6 +20,18 @@ const images = [
 ];
 
 class ProductCard extends React.Component {
+
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      modalVisible: false,
+      modalLoading: false,
+    }
+  }
+
+
   render() {
     const randomImg = Math.floor(Math.random() * images.length);
     const productCard = this.props.ProductData;
@@ -43,8 +57,8 @@ class ProductCard extends React.Component {
               style={{ borderRadius: "4px", margin: "4px 0px" }}
             >
               {productCard &&
-              productCard.product_category &&
-              productCard.product_category.categoryName
+                productCard.product_category &&
+                productCard.product_category.categoryName
                 ? productCard.product_category.categoryName
                 : ""}
             </Tag>
@@ -65,9 +79,9 @@ class ProductCard extends React.Component {
                 borderRadius: "4px 4px 0 0",
                 overflow: "hidden",
               }}
-              // onClick={() => {
-              //   this.props.history.push(`${productCard.sku}`);
-              // }}
+            // onClick={() => {
+            //   this.props.history.push(`${productCard.sku}`);
+            // }}
             >
               <img
                 width="100%"
@@ -141,14 +155,55 @@ class ProductCard extends React.Component {
                 background: "#ef4444",
                 border: "1px solid #ef4444",
               }}
+              onClick={() => {
+                this.setState({ modalVisible: true })
+              }}
             >
               Add to Import List
             </Button>
           </div>
         </div>
+        <Modal
+          title={
+            <div className="flex gap-x-2">
+              Add To Import List
+            </div>
+          }
+          width={"100%"}
+          visible={this.state.modalVisible}
+          confirmLoading={this.state.modalLoading}
+          onOk={e => {
+            this.setState({ modalLoading: true })
+            addItemToImportList(this.context.additionalInfo.id, [productCard.id], this.context.token).then(() => {
+              message.success('Product added successfully');
+              this.setState({ modalVisible: false, modalLoading: false })
+            }).catch(err => {
+              message.error(err.message);
+              this.setState({ modalVisible: false, modalLoading: false })
+            })
+          }}
+          onCancel={() => this.setState({ modalVisible: false, modalLoading: false })}
+          style={{
+            borderRadius: "12px",
+            overflow: "hidden",
+            backgroundColor: "white",
+            boxShadow: "none",
+            maxWidth: "520px",
+            paddingBottom: "0px",
+          }}
+          bodyStyle={{
+            boxShadow: "none",
+            height: "100%",
+          }}
+          maskStyle={{ background: "#00000034" }}
+        >
+          Add <span className="font-semibold">{productCard.product_name}</span> to your import list?
+        </Modal>
       </div>
     );
   }
 }
+
+ProductCard.contextType = AuthContext;
 
 export default ProductCard;
