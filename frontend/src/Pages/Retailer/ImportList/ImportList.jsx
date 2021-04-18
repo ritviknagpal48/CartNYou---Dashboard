@@ -1,9 +1,12 @@
-import { message, Spin } from 'antd';
+import { message, Spin, Empty } from 'antd';
 import { LoadingOutlined } from "@ant-design/icons";
 import Toolbar from 'Components/Toolbar';
 import ImportListCard from "Pages/Retailer/ImportList/ImportListCard";
-import { useEffect } from 'react';
-import { ImportListData } from "./importListData";
+import { useEffect, useState } from 'react';
+// import { ImportListData } from "./importListData";
+import { getLatestImportList } from './importListUtils';
+import { useContext } from 'react';
+import { AuthContext } from 'Contexts/Auth';
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4 pb-8",
@@ -32,10 +35,17 @@ const ImportListActions = [
 
 const ImportList = () => {
 
+  const { additionalInfo: { id }, token } = useContext(AuthContext)
+  const [importListData, setImportListData] = useState([])
+
   useEffect(() => {
     // Fetch Import list data and link it to state
-    console.log('Fetching Import list now.')
-  }, [])
+    // console.log('Fetching Import list now.')
+    getLatestImportList(id, token).then(res => {
+      setImportListData(res)
+      // console.log({ importList: res })
+    }).catch(err => message.error(err.message));
+  }, [id])
 
   return (
     <div className={classes.wrapper}>
@@ -51,7 +61,9 @@ const ImportList = () => {
       </div>
       <Spin spinning={false} size={'large'} indicator={<LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />}>
         {
-          ImportListData.map(ilistItem => <ImportListCard {...ilistItem} />)
+          importListData && importListData.length > 0 ?
+            importListData.map(ilistItem => <ImportListCard {...ilistItem} />)
+            : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         }
       </Spin>
     </div>
