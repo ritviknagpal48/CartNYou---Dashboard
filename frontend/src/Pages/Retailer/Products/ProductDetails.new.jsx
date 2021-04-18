@@ -5,6 +5,9 @@ import { Tabs, Carousel, Image } from "antd";
 import ReactQuill from "react-quill";
 
 import './ProductDetails.css'
+import { useContext } from "react";
+import { AuthContext } from "Contexts/Auth";
+import { addItemToImportList } from "../ImportList/importListUtils";
 
 const classes = {
   wrapper: "pr-2 md:pr-14 md:pl-4 pl-2 mb-8 relative",
@@ -97,6 +100,8 @@ const ProductDetails = () => {
   } = location.state.detail;
 
   const history = useHistory();
+
+  const { additionalInfo: { id: userid }, token } = useContext(AuthContext);
 
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -237,7 +242,7 @@ const ProductDetails = () => {
           <div className={"w-full h-px bg-gray-200 mb-2"} />
         </div>
         <div className={'col-start-11 col-span-2 row-auto'}>
-          <button className={'border border-red-500 transition text-red-500 font-medium text-sm flex flex-row items-center justify-center px-2 py-2 rounded-md focus:outline-none'}>
+          <button className={'border border-red-500 transition text-red-500 font-medium text-sm flex flex-row items-center justify-center px-2 py-2 rounded-md focus:outline-none'} onClick={() => addItemToImportList(userid, id, token)}>
             <svg
               className={"h-4 w-4 mr-2"}
               xmlns="http://www.w3.org/2000/svg"
