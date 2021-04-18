@@ -1,4 +1,4 @@
-import { message, Modal, Space, Button } from "antd";
+import { message, Modal, Space, Button, Empty } from "antd";
 import { AuthContext } from "Contexts/Auth";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
@@ -34,13 +34,17 @@ const ImportListCard = ({
           className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center  w-full  md:grid-cols-5"
         >
           <div className="card-detail">
-            <div className="head-title">Product Image</div>
+            <div className="head-title">
+              {
+                images && images.length > 0 ? '' : 'Product Image'
+              }
+            </div>
             <div className="title-body">
               {" "}
               {images && images.length > 0 ? (
-                <img src={images[0]} alt={displayName} />
+                <img className={'w-full h-auto rounded-md border border-solid border-gray-500'} src={images[0].url} alt={displayName} style={{ width: 100 }} />
               ) : (
-                "N/A"
+                <Empty className={'text-sm'} image={Empty.PRESENTED_IMAGE_SIMPLE} description={'No Image'} imageStyle={{ width: '100%', height: 'auto' }} />
               )}
             </div>
           </div>

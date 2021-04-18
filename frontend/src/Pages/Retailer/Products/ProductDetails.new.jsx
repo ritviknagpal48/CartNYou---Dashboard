@@ -11,7 +11,7 @@ import './ProductDetails.css';
 // import { addItemToImportList } from "../ImportList/importListUtils";
 
 const classes = {
-  wrapper: "pr-2 md:pr-14 md:pl-4 pl-2 mb-8 relative",
+  wrapper: "pr-2 md:pr-14 md:pl-4 pl-2 mb-8 relative border border-solid border-gray-100 w-11/12 mx-auto rounded-xl bg-white h-full shadow-md",
   header: "w-full py-3 flex flex-row items-center justify-between",
   title:
     "text-2xl text-gray-600  hidden md:block font-sans-apple-system md:flex flex-row",
@@ -160,18 +160,61 @@ const ProductDetails = () => {
         </div>
         <div
           className={
-            "col-span-6 col-start-5 mt-8 md:pl-4 md:mt-0 md:col-start-5 md:row-start-1 md:row-span-5 text-gray-700 flex flex-col items-start justify-start"
+            "col-span-7 col-start-5 mt-8 md:pl-4 md:mt-0 md:col-start-5 md:row-start-1 md:row-span-5 text-gray-700 flex flex-col items-start justify-start"
           }
         >
-          <span className={"text-xl font-semibold text-gray-800"}>
-            {product_name}
-          </span>
-          <span className={"text-base text-red-500 font-semibold my-2"}>
-            ₹ {product_mrp}
-            <span className={"text-xs text-gray-400 font-normal ml-2"}>
-              Incl. of all taxes.
-            </span>
-          </span>
+          <div className={'flex flex-row justify-between w-full'}>
+
+            <div className={'flex flex-col'}>
+              <span className={"text-xl font-semibold text-gray-800"}>
+                {product_name}
+              </span>
+              <span className={"text-base text-red-500 font-semibold my-2"}>
+                ₹ {product_mrp}
+                <span className={"text-xs text-gray-400 font-normal ml-2"}>
+                  Incl. of all taxes.
+                </span>
+              </span>
+            </div>
+            <div className={'flex flex-col items-start justify-start'}>
+              <button className={'border border-red-500 transition text-red-500 font-medium text-sm flex flex-row items-center justify-center px-2 py-2 rounded-md focus:outline-none'}
+                onClick={() => setShowModal(p => !p)}>
+                <svg
+                  className={"h-4 w-4 mr-2"}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"
+                  />
+                </svg>
+                Add to Import List
+              </button>
+              <button className={'text-gray-500 hover:text-gray-700 transition font-medium text-sm flex flex-row items-center justify-center px-2 py-2 my-3 rounded-2xl focus:outline-none'}>
+                <svg
+                  className={"h-4 w-4 mr-2"}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
+                  />
+                </svg>
+                Bulk Enquiry
+              </button>
+            </div>
+          </div>
           <span
             className={
               "text-sm font-normal text-gray-500 overflow-ellipsis mt-1"
@@ -244,7 +287,7 @@ const ProductDetails = () => {
           </div>
           <div className={"w-full h-px bg-gray-200 mb-2"} />
         </div>
-        <div className={'col-start-11 col-span-2 row-auto'}>
+        {/* <div className={'col-start-11 col-span-2 row-auto'}>
           <button className={'border border-red-500 transition text-red-500 font-medium text-sm flex flex-row items-center justify-center px-2 py-2 rounded-md focus:outline-none'}
             onClick={() => setShowModal(p => !p)}>
             <svg
@@ -281,7 +324,7 @@ const ProductDetails = () => {
             </svg>
             Bulk Enquiry
           </button>
-        </div>
+        </div> */}
         <div className={'col-start-1 col-span-full row-auto'}>
           <Tabs defaultActiveKey={"1"}>
             <TabPane tab={"Product Stastics"} key={"1"}>

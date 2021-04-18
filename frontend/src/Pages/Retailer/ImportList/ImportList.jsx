@@ -1,13 +1,13 @@
-import { message, Spin, Empty, Modal } from 'antd';
+import { message, Spin, Empty, Modal, Pagination } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import Toolbar from 'Components/Toolbar';
+import Toolbar from "Components/Toolbar";
 import ImportListCard from "Pages/Retailer/ImportList/ImportListCard";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 // import { ImportListData } from "./importListData";
 // import { getLatestImportList } from './importListUtils';
-import { useContext } from 'react';
-import { AuthContext } from 'Contexts/Auth';
-import useAxios from 'Contexts/useAxios';
+import { useContext } from "react";
+import { AuthContext } from "Contexts/Auth";
+import useAxios from "Contexts/useAxios";
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4 pb-8",
@@ -21,14 +21,20 @@ const classes = {
 };
 
 const ImportList = () => {
-
-  const { additionalInfo: { id }, token } = useContext(AuthContext)
-  const [importListData, setImportListData] = useState(null)
+  const {
+    additionalInfo: { id },
+    token,
+  } = useContext(AuthContext);
+  const [importListData, setImportListData] = useState(null);
   const [forceUpdate, setForceUpdate] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
+  const [paginationState, setPaginationState] = useState({
+    pageSize: 2,
+    currentPage: 1,
+  });
 
-  const { axios } = useAxios()
+  const { axios } = useAxios();
 
   const ImportListActions = [
     {
@@ -36,47 +42,92 @@ const ImportList = () => {
         setShowModal(true);
       },
       icon: (
-        <svg className={classes.action_icons} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg
+          className={classes.action_icons}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
         </svg>
       ),
       name: "Clear List",
-    }
-  ]
+    },
+  ];
 
   useEffect(() => {
     // getLatestImportList(id, token).then(res => {
     //   setImportListData(res)
     // }).catch(err => message.error(err.message));
 
-    axios.get(`/users/${id}`).then(res => {
-      const import_list = res.data && res.data.import_list_products
-        ? res.data.import_list_products
-        : [];
+    axios
+      .get(`/users/${id}`)
+      .then((res) => {
+        const import_list =
+          res.data && res.data.import_list_products
+            ? res.data.import_list_products
+            : [];
 
-      setImportListData(import_list)
-      setForceUpdate(false);
-    })
-      .catch(err => console.error({ err }))
-  }, [id, forceUpdate])
+        setImportListData(import_list);
+        setForceUpdate(false);
+      })
+      .catch((err) => console.error({ err }));
+  }, [id, forceUpdate]);
 
   return (
     <div className={classes.wrapper}>
-      <Toolbar title={'Import List'} actions={ImportListActions} />
-      {/* <div className={'px-3 py-3 text-gray-700 bg-white rounded-md shadow-lg w-full md:block hidden'}>
-        <div className={'flex flex-row text-sm text-gray-500'}>
-          <span className={'w-9/12 pl-5'}>Product</span>
-          <span className={'w-1/12 text-center'}>Quantity</span>
-          <span className={'w-1/12 text-center'}>Amount</span>
-          <span className={'w-1/12 text-center'}>Actions</span>
-        </div>
-      </div> */}
-      <Spin spinning={!importListData} size={'large'} indicator={<LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />}>
-        {
-          importListData && importListData.length > 0 ?
-            importListData.map((ilistItem, idx) => <ImportListCard {...ilistItem} key={ilistItem.id} index={idx} onDeleted={() => setForceUpdate(p => !p)} />)
-            : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      <Toolbar title={"Import List"} actions={ImportListActions} />
+
+      <Spin
+        spinning={!importListData}
+        size={"large"}
+        indicator={
+          <LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />
         }
+      >
+        {importListData && importListData.length > 0 ? (
+          importListData
+            .slice(
+              (paginationState.currentPage - 1) * paginationState.pageSize,
+              paginationState.currentPage * paginationState.pageSize
+            )
+            .map((ilistItem, idx) => (
+              <ImportListCard
+                {...ilistItem}
+                key={ilistItem.id}
+                index={idx}
+                onDeleted={() => setForceUpdate((p) => !p)}
+              />
+            ))
+        ) : (
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        )}
+        <Pagination
+          total={
+            importListData && importListData.length ? importListData.length : 0
+          }
+          defaultCurrent={1}
+          pageSizeOptions={[2, 5, 10, 20]}
+          pageSize={paginationState.pageSize}
+          current={paginationState.currentPage}
+          onChange={(page, pageSize) => {
+            setPaginationState({
+              currentPage: page,
+              pageSize: pageSize,
+            });
+          }}
+          showSizeChanger
+          // showQuickJumper
+          responsive
+          style={{ textAlign: "center" }}
+        // showTotal={(total) => `Total ${total} products`}
+        />
       </Spin>
 
       <Modal
@@ -87,19 +138,22 @@ const ImportList = () => {
         onOk={(e) => {
           setModalLoading(true);
 
-          axios.put(`/users/${id}`, {
-            import_list_products: []
-          }).then(res => {
-            message.success('List Cleared Successfully.')
-            setForceUpdate(p => !p);
-            setShowModal(false);
-            setModalLoading(false);
-          }).catch(err => {
-            message.error(err.message);
-            setForceUpdate(p => !p);
-            setShowModal(false);
-            setModalLoading(false);
-          })
+          axios
+            .put(`/users/${id}`, {
+              import_list_products: [],
+            })
+            .then((res) => {
+              message.success("List Cleared Successfully.");
+              setForceUpdate((p) => !p);
+              setShowModal(false);
+              setModalLoading(false);
+            })
+            .catch((err) => {
+              message.error(err.message);
+              setForceUpdate((p) => !p);
+              setShowModal(false);
+              setModalLoading(false);
+            });
         }}
         onCancel={() => setShowModal(false)}
         style={{
@@ -124,7 +178,7 @@ const ImportList = () => {
         </span>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default ImportList
+export default ImportList;
