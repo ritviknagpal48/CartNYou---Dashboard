@@ -1,0 +1,45 @@
+.addtochannel .channel-info-card {
+  padding: 12px 5px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  width: 100%;
+  margin: 4px 0px;
+}
+
+.addtochannel .channel-info-card:hover {
+  /* box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.2); */
+  cursor: pointer;
+  border: 1px solid #2dd02d;
+}
+.addtochannel .selected {
+  /* box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.2); */
+
+  border: 1px solid #2dd02d;
+}
+
+.addtochannel .ant-radio-checked .ant-radio-inner {
+  border-color: #2dd02d !important;
+  color: #2dd02d !important;
+}
+.addtochannel .ant-radio-inner::after {
+  border-color: #2dd02d !important;
+  color: #2dd02d !important;
+  background-color: #2dd02d !important;
+}
+
+.addtochannel .ant-radio-wrapper {
+  align-items: center;
+  /* justify-content: space-between; */
+}
+
+.addtochannel .ant-descriptions-view {
+  border-radius: 8px !important;
+}
+
+.addtochannel .ant-input-number {
+  padding: 0;
+  /* border-style: dashed !important; */
+  /* border: 1px dashed #2dd02d !important; */
+  border-radius: 6px !important;
+  overflow: hidden !important;
+}

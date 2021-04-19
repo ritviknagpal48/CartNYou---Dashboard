@@ -1593,22 +1593,22 @@
               }
             }
           },
-          "retailerProductdetail": {
+          "retailer_live_products": {
             "type": "array",
             "items": {
               "type": "object",
               "required": [
                 "id",
-                "retailerPrice"
+                "retailer_price"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
-                "retailerPrice": {
+                "retailer_price": {
                   "type": "integer"
                 },
-                "productdetail": {
+                "product_detail": {
                   "required": [
                     "id",
                     "product_name",
@@ -1821,22 +1821,22 @@
               "type": "string"
             }
           },
-          "retailerProductdetail": {
+          "retailer_live_products": {
             "type": "array",
             "items": {
               "type": "object",
               "required": [
                 "id",
-                "retailerPrice"
+                "retailer_price"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
-                "retailerPrice": {
+                "retailer_price": {
                   "type": "integer"
                 },
-                "productdetail": {
+                "product_detail": {
                   "required": [
                     "id",
                     "product_name",

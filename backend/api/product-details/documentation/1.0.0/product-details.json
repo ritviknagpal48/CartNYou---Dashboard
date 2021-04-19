@@ -949,7 +949,7 @@
                   "type": "string"
                 }
               },
-              "retailerProductdetail": {
+              "retailer_live_products": {
                 "type": "component"
               },
               "created_by": {
@@ -1052,7 +1052,7 @@
                     "type": "string"
                   }
                 },
-                "retailerProductdetail": {
+                "retailer_live_products": {
                   "type": "component"
                 },
                 "created_by": {
