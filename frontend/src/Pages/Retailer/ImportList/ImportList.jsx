@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "Contexts/Auth";
 import useAxios from "Contexts/useAxios";
-import './importList.css';
+import "./importList.css";
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4 pb-8",
@@ -24,7 +24,6 @@ const classes = {
 const ImportList = () => {
   const {
     additionalInfo: { id },
-    token,
   } = useContext(AuthContext);
   const [importListData, setImportListData] = useState(null);
   const [forceUpdate, setForceUpdate] = useState(false);
@@ -60,7 +59,7 @@ const ImportList = () => {
         </svg>
       ),
       name: "Push to Shopify",
-      hidden: selectedItems.length === 0
+      hidden: selectedItems.length === 0,
     },
     {
       onClick: () => {

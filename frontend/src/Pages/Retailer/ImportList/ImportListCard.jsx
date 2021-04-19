@@ -33,7 +33,7 @@ const ImportListCard = ({
     <div className={"relative"}>
       <div className={"absolute"} style={{ left: '1.5rem', top: '0.5rem' }}>
         <Checkbox
-          className={'focus:outline-none text-red-500'}
+          className={'focus:outline-none text-red-500 border-red-400'}
           onChange={(e) => {
             setIsSelected(e.target.checked);
             if (!!onSelected && typeof onSelected === "function") {
@@ -45,9 +45,6 @@ const ImportListCard = ({
       <div className={"mb-4 ml-3"}>
         <div className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center  w-full  md:grid-cols-5">
           <div className="card-detail">
-            {/* <div className="head-title">
-              {images && images.length > 0 ? "" : "Product Image"}
-            </div> */}
             <div className="title-body">
               {" "}
               {images && images.length > 0 ? (
@@ -105,8 +102,7 @@ const ImportListCard = ({
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  icon={<SendOutlined />}
-                >
+                  icon={<SendOutlined />}>
                   Push Item
                 </Button>
               </Link>
