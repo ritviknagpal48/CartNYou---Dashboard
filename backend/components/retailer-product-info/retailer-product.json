@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_retailer_product_info_retailer_products",
+  "info": {
+    "name": "RetailerProduct",
+    "icon": "asterisk",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "retailerPrice": {
+      "type": "integer",
+      "required": true
+    },
+    "productdetail": {
+      "model": "product-details"
+    }
+  }
+}

@@ -949,6 +949,9 @@
                   "type": "string"
                 }
               },
+              "retailerProductdetail": {
+                "type": "component"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -1048,6 +1051,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "retailerProductdetail": {
+                  "type": "component"
                 },
                 "created_by": {
                   "type": "string"

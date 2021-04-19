@@ -28,23 +28,30 @@ const ImportListCard = ({
   } = useContext(AuthContext);
 
   return (
-    <div className={''}>
-      <div className={'mb-4'}>
-        <div
-          className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center  w-full  md:grid-cols-5"
-        >
+    <div className={""}>
+      <div className={"mb-2"}>
+        <div className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center  w-full  md:grid-cols-5">
           <div className="card-detail">
-            <div className="head-title">
-              {
-                images && images.length > 0 ? '' : 'Product Image'
-              }
-            </div>
+            {/* <div className="head-title">
+              {images && images.length > 0 ? "" : "Product Image"}
+            </div> */}
             <div className="title-body">
               {" "}
               {images && images.length > 0 ? (
-                <img className={'w-full h-auto rounded-md border border-solid border-gray-500'} src={images[0].url} alt={displayName} style={{ width: 100 }} />
+                <img
+                  className={"w-full h-auto rounded-md "}
+                  src={images[0].url}
+                  alt={displayName}
+                  style={{ width: 74, margin: "auto" }}
+                />
               ) : (
-                <Empty className={'text-sm'} image={Empty.PRESENTED_IMAGE_SIMPLE} description={'No Image'} imageStyle={{ width: '100%', height: 'auto' }} />
+                <Empty
+                  // className={"text-sm"}
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                  description={"No Image"}
+                  imageStyle={{ height: "52px" }}
+                  style={{ margin: "2px" }}
+                />
               )}
             </div>
           </div>

@@ -71,12 +71,12 @@
       "default": "retailer"
     },
     "product_details": {
-      "via": "users_detail",
-      "collection": "product-details"
+      "collection": "product-details",
+      "via": "users_detail"
     },
     "import_list_products": {
-      "via": "retailers_details",
-      "collection": "product-details"
+      "collection": "product-details",
+      "via": "retailers_details"
     },
     "fullname": {
       "type": "string"
@@ -85,8 +85,13 @@
       "type": "string"
     },
     "shopifychannels": {
-      "via": "retailersdetails",
-      "collection": "shopifychannels"
+      "collection": "shopifychannels",
+      "via": "retailersdetails"
+    },
+    "retailerProductdetail": {
+      "type": "component",
+      "repeatable": true,
+      "component": "retailer-product-info.retailer-product"
     }
   }
 }
