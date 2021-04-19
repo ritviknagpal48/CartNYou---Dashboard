@@ -1,6 +1,6 @@
-import { Carousel, Image, message, Modal, Tabs } from "antd";
+import { Image, message, Modal, Tabs } from "antd";
 import clsx from "clsx";
-import { AddToImportListModal } from 'Components/Modals/AddToImportListModal';
+// import { AddToImportListModal } from 'Components/Modals/AddToImportListModal';
 import { AuthContext } from "Contexts/Auth";
 import { useContext, useState } from "react";
 import ReactQuill from "react-quill";
@@ -11,7 +11,7 @@ import './ProductDetails.css';
 // import { addItemToImportList } from "../ImportList/importListUtils";
 
 const classes = {
-  wrapper: "pr-2 md:pr-14 md:pl-4 pl-2 mb-8 relative border border-solid border-gray-100 w-11/12 mx-auto rounded-xl bg-white h-full shadow-md",
+  wrapper: "pr-2 md:pr-14 md:pl-4 pl-2 pt-4 mb-8 relative border border-solid border-gray-100 w-11/12 mx-auto rounded-xl bg-white h-full shadow-md",
   header: "w-full py-3 flex flex-row items-center justify-between",
   title:
     "text-2xl text-gray-600  hidden md:block font-sans-apple-system md:flex flex-row",
@@ -110,10 +110,9 @@ const ProductDetails = () => {
 
   return (
     <div className={classes.wrapper}>
-      {/* Card Here */}
       <button
         className={
-          "m-4 px-3 py-3 text-gray-600 bg-white rounded-full shadow-lg focus:outline-none absolute left-4 top-0"
+          "m-4 px-3 py-3 text-gray-600 bg-white rounded-full shadow-lg focus:outline-none absolute left-0 top-0"
         }
         onClick={() => history.goBack()}
       >
@@ -132,39 +131,23 @@ const ProductDetails = () => {
           />
         </svg>
       </button>
-      <div
-        className={
-          "bg-white grid grid-cols-6 md:grid-cols-12 md:gap-x-2 row-auto w-11/12 md:w-10/12 mx-auto rounded-lg overflow-hidden px-4 py-4"
-        }
-      >
-        <div
-          className={
-            "col-start-1 row-start-1 col-span-4 row-span-5 h-72 items-center justify-items-center justify-center"
+      <div className={"bg-white flex flex-row flex-wrap"}>
+        <div className={"flex flex-col items-center justify-start"} style={{ marginTop: 64, marginRight: 24 }}>
+          {
+            defaultImages.map((image, idx) => (
+              <img onClick={() => setImageIndex(idx)} src={image.url} alt={image.url} className={'my-2 w-12 cursor-pointer h-auto object-cover rounded-md'} />
+            ))
           }
-        >
-          <Carousel autoplay centerMode={false} className={'max-w-sm'}>
-            {
-              defaultImages.map((image, idx) => (
-                <div className="w-full h-full object-cover" style={{ maxWidth: 144 }}>
-                  <Image
-                    src={image.url}
-                    width={'100%'}
-                    height={'100%'}
-                    className={'rounded-2xl object-cover'}
-                    placeholder={true}
-                  />
-                </div>
-              ))
-            }
-          </Carousel>
+        </div>
+        <div>
+          <Image style={{ maxWidth: 480, height: 'auto' }} className={'rounded-xl'} src={defaultImages[imageIndex].url} placeholder={true} loading={'eager'} />
         </div>
         <div
           className={
-            "col-span-7 col-start-5 mt-8 md:pl-4 md:mt-0 md:col-start-5 md:row-start-1 md:row-span-5 text-gray-700 flex flex-col items-start justify-start"
+            "ml-6"
           }
         >
-          <div className={'flex flex-row justify-between w-full'}>
-
+          <div className={'flex flex-row justify-between w-4/12'}>
             <div className={'flex flex-col'}>
               <span className={"text-xl font-semibold text-gray-800"}>
                 {product_name}
@@ -176,44 +159,7 @@ const ProductDetails = () => {
                 </span>
               </span>
             </div>
-            <div className={'flex flex-col items-start justify-start'}>
-              <button className={'border border-red-500 transition text-red-500 font-medium text-sm flex flex-row items-center justify-center px-2 py-2 rounded-md focus:outline-none'}
-                onClick={() => setShowModal(p => !p)}>
-                <svg
-                  className={"h-4 w-4 mr-2"}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"
-                  />
-                </svg>
-                Add to Import List
-              </button>
-              <button className={'text-gray-500 hover:text-gray-700 transition font-medium text-sm flex flex-row items-center justify-center px-2 py-2 my-3 rounded-2xl focus:outline-none'}>
-                <svg
-                  className={"h-4 w-4 mr-2"}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
-                  />
-                </svg>
-                Bulk Enquiry
-              </button>
-            </div>
+
           </div>
           <span
             className={
@@ -286,6 +232,44 @@ const ProductDetails = () => {
             </span>
           </div>
           <div className={"w-full h-px bg-gray-200 mb-2"} />
+          <div className={'flex flex-col items-start justify-start'}>
+            <button className={'border border-red-500 transition text-red-500 font-medium text-sm flex flex-row items-center justify-center px-2 py-2 rounded-md focus:outline-none'}
+              onClick={() => setShowModal(p => !p)}>
+              <svg
+                className={"h-4 w-4 mr-2"}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"
+                />
+              </svg>
+              Add to Import List
+            </button>
+            <button className={'text-gray-500 hover:text-gray-700 transition font-medium text-sm flex flex-row items-center justify-center px-2 py-2 my-3 rounded-2xl focus:outline-none'}>
+              <svg
+                className={"h-4 w-4 mr-2"}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
+                />
+              </svg>
+              Bulk Enquiry
+            </button>
+          </div>
         </div>
         {/* <div className={'col-start-11 col-span-2 row-auto'}>
           <button className={'border border-red-500 transition text-red-500 font-medium text-sm flex flex-row items-center justify-center px-2 py-2 rounded-md focus:outline-none'}
@@ -325,7 +309,7 @@ const ProductDetails = () => {
             Bulk Enquiry
           </button>
         </div> */}
-        <div className={'col-start-1 col-span-full row-auto'}>
+        <div className={''}>
           <Tabs defaultActiveKey={"1"}>
             <TabPane tab={"Product Stastics"} key={"1"}>
               <div className={"flex flex-col items-start justify-start"}>
