@@ -1,4 +1,4 @@
-import { message, Modal, Space, Button, Empty } from "antd";
+import { message, Modal, Space, Button, Empty, Checkbox } from "antd";
 import { AuthContext } from "Contexts/Auth";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
@@ -18,9 +18,11 @@ const ImportListCard = ({
   images,
   id: product_id,
   onDeleted,
+  onSelected,
   // id: prodId
 }) => {
   const [showModal, setShowModal] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
   const [isProductAdded, setIsProductAdded] = useState(false);
   const {
     additionalInfo: { id: userid },
@@ -28,23 +30,42 @@ const ImportListCard = ({
   } = useContext(AuthContext);
 
   return (
-    <div className={''}>
-      <div className={'mb-4'}>
-        <div
-          className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center  w-full  md:grid-cols-5"
-        >
+    <div className={"relative"}>
+      <div className={"absolute"} style={{ left: '1.5rem', top: '0.5rem' }}>
+        <Checkbox
+          className={'focus:outline-none text-red-500'}
+          onChange={(e) => {
+            setIsSelected(e.target.checked);
+            if (!!onSelected && typeof onSelected === "function") {
+              onSelected(product_id, e.target.checked);
+            }
+          }}
+        />
+      </div>
+      <div className={"mb-4 ml-3"}>
+        <div className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center  w-full  md:grid-cols-5">
           <div className="card-detail">
             <div className="head-title">
-              {
-                images && images.length > 0 ? '' : 'Product Image'
-              }
+              {images && images.length > 0 ? "" : "Product Image"}
             </div>
             <div className="title-body">
               {" "}
               {images && images.length > 0 ? (
-                <img className={'w-full h-auto rounded-md border border-solid border-gray-500'} src={images[0].url} alt={displayName} style={{ width: 100 }} />
+                <img
+                  className={
+                    "w-full h-auto rounded-md border border-solid border-gray-500"
+                  }
+                  src={images[0].url}
+                  alt={displayName}
+                  style={{ width: 100 }}
+                />
               ) : (
-                <Empty className={'text-sm'} image={Empty.PRESENTED_IMAGE_SIMPLE} description={'No Image'} imageStyle={{ width: '100%', height: 'auto' }} />
+                <Empty
+                  className={"text-sm"}
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                  description={"No Image"}
+                  imageStyle={{ width: "100%", height: "auto" }}
+                />
               )}
             </div>
           </div>
@@ -74,6 +95,7 @@ const ImportListCard = ({
               >
                 <Button
                   type="primary"
+                  disabled={isSelected}
                   style={{
                     color: " #08979c",
                     background: "#e6fffb",

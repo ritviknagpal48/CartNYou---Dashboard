@@ -1604,10 +1604,6 @@ select {
   right: 1rem;
 }
 
-.left-4 {
-  left: 1rem;
-}
-
 * {
   --tw-shadow: 0 0 #0000;
 }
@@ -2035,24 +2031,12 @@ select {
   grid-column: span 3 / span 3;
 }
 
-.col-span-4 {
-  grid-column: span 4 / span 4;
-}
-
 .col-span-6 {
   grid-column: span 6 / span 6;
 }
 
-.col-span-7 {
-  grid-column: span 7 / span 7;
-}
-
 .col-span-12 {
   grid-column: span 12 / span 12;
-}
-
-.col-span-full {
-  grid-column: 1 / -1;
 }
 
 .col-start-1 {
@@ -2061,10 +2045,6 @@ select {
 
 .col-start-2 {
   grid-column-start: 2;
-}
-
-.col-start-5 {
-  grid-column-start: 5;
 }
 
 .col-start-11 {
@@ -2298,10 +2278,6 @@ select {
     gap: 0px;
   }
 
-  .md\:gap-x-2 {
-    column-gap: 0.5rem;
-  }
-
   .md\:grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -2330,20 +2306,12 @@ select {
     grid-column: span 3 / span 3;
   }
 
-  .md\:col-start-5 {
-    grid-column-start: 5;
-  }
-
   .md\:col-start-7 {
     grid-column-start: 7;
   }
 
   .md\:grid-rows-6 {
     grid-template-rows: repeat(6, minmax(0, 1fr));
-  }
-
-  .md\:row-span-5 {
-    grid-row: span 5 / span 5;
   }
 
   .md\:row-span-full {

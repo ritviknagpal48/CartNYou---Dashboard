@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "Contexts/Auth";
 import useAxios from "Contexts/useAxios";
+import './importList.css';
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4 pb-8",
@@ -33,10 +34,34 @@ const ImportList = () => {
     pageSize: 2,
     currentPage: 1,
   });
+  const [selectedItems, setSelectedItems] = useState([]);
 
   const { axios } = useAxios();
 
   const ImportListActions = [
+    {
+      onClick: () => {
+        message.warn("Pushing to shopify. Function not connected yet.");
+      },
+      icon: (
+        <svg
+          className={classes.action_icons}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+          />
+        </svg>
+      ),
+      name: "Push to Shopify",
+      hidden: selectedItems.length === 0
+    },
     {
       onClick: () => {
         setShowModal(true);
@@ -80,6 +105,17 @@ const ImportList = () => {
       .catch((err) => console.error({ err }));
   }, [id, forceUpdate]);
 
+  const handleSelectionChange = (id, add) => {
+    if (add) {
+      setSelectedItems((p) => [...new Set([...p, id]).values()]);
+    } else {
+      const newItems = [...selectedItems.values()].filter(
+        (item) => item !== id
+      );
+      setSelectedItems(newItems);
+    }
+  };
+
   return (
     <div className={classes.wrapper}>
       <Toolbar title={"Import List"} actions={ImportListActions} />
@@ -103,6 +139,7 @@ const ImportList = () => {
                 key={ilistItem.id}
                 index={idx}
                 onDeleted={() => setForceUpdate((p) => !p)}
+                onSelected={(id, mode) => handleSelectionChange(id, mode)}
               />
             ))
         ) : (

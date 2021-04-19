@@ -20,11 +20,13 @@ const Toolbar = ({ title, actions }) => {
           {
             !!actions &&
             !!actions.length &&
-            actions.map(({ onClick, name, icon: ActionIcon, redirect }) => {
+            actions.map(({ onClick, name, icon: ActionIcon, redirect, hidden, disabled }) => {
+              if (hidden) return null;
               if (typeof onClick === 'function') {
                 return (
                   <button
                     onClick={onClick}
+                    disabled={!!disabled}
                     className={`${classes.button_input} hover:text-red-400`}
                   >
                     {ActionIcon}
@@ -35,6 +37,7 @@ const Toolbar = ({ title, actions }) => {
               return (
                 <Link
                   to={redirect}
+                  disabled={!!disabled}
                   className={`${classes.button_input} hover:text-red-400`}
                 >
                   {ActionIcon}
