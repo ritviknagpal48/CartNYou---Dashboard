@@ -51,7 +51,7 @@ const Navbar = ({ menuList }) => {
               <div className="ml-4 flex items-center md:ml-6">
                 {user.type === "retailer" ? (
                   <div
-                    className="flex flex-row pr-20 bg-white border border-gray-200 rounded-lg p-2"
+                    className="flex flex-row pr-20 bg-white border border-gray-200 rounded-lg p-2 cursor-pointer hover:shadow-lg transition"
                     style={{ alignItems: "center" }}
                   >
                     <div className="flex items-center justify-center flex-shrink-0 h-7 w-7 text-red-500">
@@ -112,9 +112,9 @@ const Navbar = ({ menuList }) => {
                       aria-expanded="false"
                       aria-haspopup="true"
                       onClick={() => setIsOpen((p) => !p)}
-                      // style={{
-                      //   border: "1px solid #e2e2e2",
-                      // }}
+                    // style={{
+                    //   border: "1px solid #e2e2e2",
+                    // }}
                     >
                       <span className="sr-only">Open user menu</span>
                       {/* <img

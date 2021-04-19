@@ -1,4 +1,4 @@
-import { Image, message, Modal, Tabs } from "antd";
+import { Image, message, Modal, Tabs, Carousel } from "antd";
 import clsx from "clsx";
 // import { AddToImportListModal } from 'Components/Modals/AddToImportListModal';
 import { AuthContext } from "Contexts/Auth";
@@ -11,7 +11,7 @@ import './ProductDetails.css';
 // import { addItemToImportList } from "../ImportList/importListUtils";
 
 const classes = {
-  wrapper: "pr-2 md:pr-14 md:pl-4 pl-2 pt-4 mb-8 relative border border-solid border-gray-100 w-11/12 mx-auto rounded-xl bg-white h-full shadow-md",
+  wrapper: "pr-2 md:pr-14 md:pl-4 pl-2 pt-4 mb-8 pb-8 relative border border-solid border-gray-100 w-11/12 mx-auto rounded-xl bg-white h-full shadow-md",
   header: "w-full py-3 flex flex-row items-center justify-between",
   title:
     "text-2xl text-gray-600  hidden md:block font-sans-apple-system md:flex flex-row",
@@ -109,7 +109,7 @@ const ProductDetails = () => {
   const [isProductAdded, setIsProductAdded] = useState(false)
 
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrapper} style={{ maxWidth: '90vw' }}>
       <button
         className={
           "m-4 px-3 py-3 text-gray-600 bg-white rounded-full shadow-lg focus:outline-none absolute left-0 top-0"
@@ -132,22 +132,36 @@ const ProductDetails = () => {
         </svg>
       </button>
       <div className={"bg-white flex flex-row flex-wrap"}>
-        <div className={"flex flex-col items-center justify-start"} style={{ marginTop: 64, marginRight: 24 }}>
+        <div className={'container md:hidden'} style={{ marginTop: 64 }}>
+          <Carousel
+            infinite={true}
+            lazyLoad={true}
+          >
+            {
+              defaultImages.map(image => (
+                <div className={'object-cover w-auto h-auto'}>
+                  <Image style={{ maxWidth: 480, height: 'auto' }} className={'rounded-xl'} src={image.url} placeholder={true} loading={'eager'} />
+                </div>
+              ))
+            }
+          </Carousel>
+        </div>
+        <div className={"hidden md:flex flex-col items-center justify-start"} style={{ marginTop: 64, marginRight: 24 }}>
           {
             defaultImages.map((image, idx) => (
               <img onClick={() => setImageIndex(idx)} src={image.url} alt={image.url} className={'my-2 w-12 cursor-pointer h-auto object-cover rounded-md'} />
             ))
           }
         </div>
-        <div>
+        <div className={'hidden md:block'}>
           <Image style={{ maxWidth: 480, height: 'auto' }} className={'rounded-xl'} src={defaultImages[imageIndex].url} placeholder={true} loading={'eager'} />
         </div>
         <div
           className={
-            "ml-6"
+            "ml-6 w-11/12 md:w-1/2"
           }
         >
-          <div className={'flex flex-row justify-between w-4/12'}>
+          <div className={'flex flex-row justify-between w-full'}>
             <div className={'flex flex-col'}>
               <span className={"text-xl font-semibold text-gray-800"}>
                 {product_name}
@@ -158,8 +172,53 @@ const ProductDetails = () => {
                   Incl. of all taxes.
                 </span>
               </span>
+              <span className={"text-xs flx flex-row items-center justify-start"}>
+                {
+                  product_tags.split(',').filter(x => x).map(tag => (
+                    <span className={'text-white text-xs bg-gray-700 rounded-full mx-1 my-2 px-2 py-1'}>{tag}</span>
+                  ))
+                }
+              </span>
             </div>
 
+            <div className={'flex flex-col items-start justify-start'}>
+              <button className={'border border-red-500 transition text-red-500 font-medium text-sm flex flex-row items-center justify-center px-2 py-2 rounded-md focus:outline-none'}
+                onClick={() => setShowModal(p => !p)}>
+                <svg
+                  className={"h-4 w-4 mr-2"}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"
+                  />
+                </svg>
+                Add to Import List
+              </button>
+              <button className={'text-gray-500 hover:text-gray-700 transition font-medium text-sm flex flex-row items-center justify-center px-2 py-2 my-3 rounded-2xl focus:outline-none'}>
+                <svg
+                  className={"h-4 w-4 mr-2"}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
+                  />
+                </svg>
+                Bulk Enquiry
+              </button>
+            </div>
           </div>
           <span
             className={
@@ -232,107 +291,11 @@ const ProductDetails = () => {
             </span>
           </div>
           <div className={"w-full h-px bg-gray-200 mb-2"} />
-          <div className={'flex flex-col items-start justify-start'}>
-            <button className={'border border-red-500 transition text-red-500 font-medium text-sm flex flex-row items-center justify-center px-2 py-2 rounded-md focus:outline-none'}
-              onClick={() => setShowModal(p => !p)}>
-              <svg
-                className={"h-4 w-4 mr-2"}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"
-                />
-              </svg>
-              Add to Import List
-            </button>
-            <button className={'text-gray-500 hover:text-gray-700 transition font-medium text-sm flex flex-row items-center justify-center px-2 py-2 my-3 rounded-2xl focus:outline-none'}>
-              <svg
-                className={"h-4 w-4 mr-2"}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
-                />
-              </svg>
-              Bulk Enquiry
-            </button>
-          </div>
+
         </div>
-        {/* <div className={'col-start-11 col-span-2 row-auto'}>
-          <button className={'border border-red-500 transition text-red-500 font-medium text-sm flex flex-row items-center justify-center px-2 py-2 rounded-md focus:outline-none'}
-            onClick={() => setShowModal(p => !p)}>
-            <svg
-              className={"h-4 w-4 mr-2"}
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"
-              />
-            </svg>
-            Add to Import List
-          </button>
-          <button className={'text-gray-500 hover:text-gray-700 transition font-medium text-sm flex flex-row items-center justify-center px-2 py-2 my-3 rounded-2xl focus:outline-none'}>
-            <svg
-              className={"h-4 w-4 mr-2"}
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
-              />
-            </svg>
-            Bulk Enquiry
-          </button>
-        </div> */}
-        <div className={''}>
-          <Tabs defaultActiveKey={"1"}>
-            <TabPane tab={"Product Stastics"} key={"1"}>
-              <div className={"flex flex-col items-start justify-start"}>
-                {/* {Object.entries(info).map((value, idx) => {
-                return (
-                  <div
-                    className={clsx(
-                      "grid grid-cols-2 md:grid-cols-4 w-full py-2 px-4",
-                      { "bg-gray-100": idx % 2 === 0 }
-                    )}
-                    >
-                    <label className={"text-gray-500 font-semibold text-sm"}>
-                    {parseKey(value[0])}
-                    </label>
-                    <span className={"text-gray-700 font-normal text-sm ml-6"}>
-                    {value[1]}
-                    </span>
-                    </div>
-                    );
-                  })} */}
-              </div>
-            </TabPane>
-            <TabPane tab={"Product Variants"} key={"2"}>
+        <div className={'w-full mt-8'}>
+          <Tabs defaultActiveKey={"1"} tabPosition={'top'} centered={true}>
+            <TabPane tab={"Product Variants"} key={"1"}>
               <div>
                 <div
                   className={clsx(
@@ -379,7 +342,7 @@ const ProductDetails = () => {
             )} */}
               </div>
             </TabPane>
-            <TabPane tab={"Product Description"} key={"3"}>
+            <TabPane tab={"Product Description"} key={"2"}>
               <div
                 className={
                   "text-sm font-normal flex-wrap text-gray-500 max-w-sm md:max-w-full"
@@ -390,15 +353,34 @@ const ProductDetails = () => {
                   theme="bubble"
                   // modules={this.modules}
                   // formats={this.formats}
-                  style={{ width: "100%" }}
+                  style={{ width: "100%", height: 'auto' }}
                   defaultValue={product_description || "No Description Available"}
                 // value={values.product_description}
                 // onChange={handleValueChange("product_description")}
                 />
               </div>
             </TabPane>
-            <TabPane tab={"Additional Attributes"} key={"4"}>
-              <span>Additional Attributes come here</span>
+            <TabPane tab={"Additional Attributes"} key={"3"}>
+              {
+                custom_attribute && custom_attribute.attribute ?
+                  custom_attribute.attribute.map((value, idx) => {
+                    return (
+                      <div
+                        className={clsx(
+                          "grid grid-cols-2 md:grid-cols-4 w-full py-2 px-4",
+                          { "bg-gray-100": idx % 2 === 0 }
+                        )}
+                      >
+                        <label className={"text-gray-600 font-semibold text-sm"}>
+                          {parseKey(value.title)}
+                        </label>
+                        <span className={"text-gray-600 font-normal text-sm ml-6"}>
+                          {value.value}
+                        </span>
+                      </div>
+                    );
+                  }) : 'No Attributes Added by seller'
+              }
             </TabPane>
           </Tabs>
         </div>
