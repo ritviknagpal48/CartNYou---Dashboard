@@ -148,7 +148,7 @@ export class ChannelList extends Component {
           <div className="flex " style={{ alignItems: "center" }}>
             <button
               className={
-                "mx-4  px-3 py-2 text-gray-600 bg-white rounded-full shadow-lg focus:outline-none"
+                "mx-4  px-3 py-2 text-gray-600 border border-gray-200 bg-white rounded-full shadow-lg focus:outline-none"
               }
               onClick={() => this.props.history.goBack()}
             >
@@ -280,19 +280,23 @@ export class ChannelList extends Component {
                   )}
                 </div>
                 <hr style={{ margin: "25px 10px" }} />
-                <Pagination
-                  total={channelListLength}
-                  defaultCurrent={1}
-                  pageSizeOptions={[2, 4, 10, 20]}
-                  pageSize={this.state.pageSize}
-                  current={this.state.currentPage}
-                  onChange={this.handlePageChange}
-                  showSizeChanger
-                  // showQuickJumper
-                  responsive
-                  style={{ textAlign: "center" }}
-                  // showTotal={(total) => `Total ${total} products`}
-                />
+                {channelListLength < 4 ? (
+                  <></>
+                ) : (
+                  <Pagination
+                    total={channelListLength}
+                    defaultCurrent={1}
+                    pageSizeOptions={[2, 4, 10, 20]}
+                    pageSize={this.state.pageSize}
+                    current={this.state.currentPage}
+                    onChange={this.handlePageChange}
+                    showSizeChanger
+                    // showQuickJumper
+                    responsive
+                    style={{ textAlign: "center" }}
+                    // showTotal={(total) => `Total ${total} products`}
+                  />
+                )}
               </div>
             ) : (
               <Empty

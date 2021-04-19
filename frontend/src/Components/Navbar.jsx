@@ -49,7 +49,42 @@ const Navbar = ({ menuList }) => {
             </div>
             <div className="hidden md:block">
               <div className="ml-4 flex items-center md:ml-6">
-                <button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-600 focus:outline-none border border-gray-300">
+                {user.type === "retailer" ? (
+                  <div
+                    className="flex flex-row pr-20 bg-white border border-gray-200 rounded-lg p-2"
+                    style={{ alignItems: "center" }}
+                  >
+                    <div className="flex items-center justify-center flex-shrink-0 h-7 w-7 text-red-500">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        className="w-7 h-7"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 8h6m-5 0a3 3 0 110 6H9l3 3m-3-6h6m6 1a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </div>
+                    <div className="flex flex-col flex-grow mx-2">
+                      <div className="text-sm text-gray-500">
+                        Wallet Balance
+                      </div>
+                    </div>
+                    <div className="font-bold text-lg text-gray-600">
+                      {" "}
+                      &#8377; 3200
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+
+                <button className="mx-3 bg-white p-1 rounded-full text-gray-400 hover:text-gray-600 focus:outline-none ">
                   <span className="sr-only">View notifications</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +103,7 @@ const Navbar = ({ menuList }) => {
                   </svg>
                 </button>
 
-                <div className="ml-3 relative">
+                <div className=" relative ">
                   <div>
                     <button
                       type="button"
@@ -77,9 +112,9 @@ const Navbar = ({ menuList }) => {
                       aria-expanded="false"
                       aria-haspopup="true"
                       onClick={() => setIsOpen((p) => !p)}
-                      style={{
-                        border: "1px solid #e2e2e2",
-                      }}
+                      // style={{
+                      //   border: "1px solid #e2e2e2",
+                      // }}
                     >
                       <span className="sr-only">Open user menu</span>
                       {/* <img

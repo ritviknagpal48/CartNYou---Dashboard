@@ -31,7 +31,7 @@ const ImportList = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
   const [paginationState, setPaginationState] = useState({
-    pageSize: 2,
+    pageSize: 5,
     currentPage: 1,
   });
   const [selectedItems, setSelectedItems] = useState([]);
@@ -143,8 +143,20 @@ const ImportList = () => {
               />
             ))
         ) : (
-          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          <div
+            className="bg-white"
+            style={{ padding: "50px 0px", marginBottom: "30px" }}
+          >
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              imageStyle={{
+                height: 80,
+              }}
+              description={<span>No product found</span>}
+            />
+          </div>
         )}
+        <hr style={{ margin: "25px 10px" }} />
         <Pagination
           total={
             importListData && importListData.length ? importListData.length : 0
@@ -160,10 +172,10 @@ const ImportList = () => {
             });
           }}
           showSizeChanger
-          // showQuickJumper
+          showQuickJumper
           responsive
           style={{ textAlign: "center" }}
-        // showTotal={(total) => `Total ${total} products`}
+          showTotal={(total) => `Total ${total} products Imported`}
         />
       </Spin>
 

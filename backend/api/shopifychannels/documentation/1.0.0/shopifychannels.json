@@ -613,6 +613,9 @@
                   "type": "string"
                 }
               },
+              "retailerProductdetail": {
+                "type": "component"
+              },
               "created_by": {
                 "type": "string"
               },
