@@ -40,15 +40,6 @@
       "type": "integer",
       "required": true
     },
-    "images": {
-      "collection": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
-      "plugin": "upload",
-      "required": false
-    },
     "weight": {
       "type": "integer",
       "required": true
@@ -104,9 +95,9 @@
       "via": "product_details"
     },
     "users_detail": {
-      "via": "product_details",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "product_details"
     },
     "counrty_origin": {
       "type": "string",
@@ -129,14 +120,17 @@
       "default": true
     },
     "retailers_details": {
-      "via": "import_list_products",
       "plugin": "users-permissions",
       "collection": "user",
+      "via": "import_list_products",
       "dominant": true
     },
     "shopifychannels": {
-      "via": "productdetails",
-      "collection": "shopifychannels"
+      "collection": "shopifychannels",
+      "via": "productdetails"
+    },
+    "images": {
+      "type": "json"
     }
   }
 }

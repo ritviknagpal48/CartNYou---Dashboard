@@ -107,7 +107,7 @@ const LiveList = () => {
           showQuickJumper
           responsive
           style={{ textAlign: "center" }}
-        // showTotal={(total) => `Total ${total} products Imported`}
+          showTotal={(total) => `${total} products Live`}
         />
       </Spin>
     </div>

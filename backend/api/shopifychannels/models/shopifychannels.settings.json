@@ -39,8 +39,8 @@
       "model": "user"
     },
     "productdetails": {
-      "collection": "product-details",
       "via": "shopifychannels",
+      "collection": "product-details",
       "dominant": true
     }
   }

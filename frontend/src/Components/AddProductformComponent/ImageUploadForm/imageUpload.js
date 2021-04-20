@@ -5,9 +5,8 @@ import { Form, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
 import AWS from "aws-sdk";
-import cryptoRandomString from 'crypto-random-string';
+import cryptoRandomString from "crypto-random-string";
 import "./imageUpload.css";
-
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -18,13 +17,12 @@ function getBase64(file) {
   });
 }
 
+// var fileList = [];
+
 const props = {
   // multiple: false,
   onStart(file) {
     console.log("onStart", file, file.name);
-  },
-  onSuccess(ret, file) {
-    console.log("onSuccess", ret, file.name, file);
   },
   onError(err) {
     console.log("onError", err);
@@ -41,12 +39,12 @@ const props = {
     onError,
     onProgress,
     onSuccess,
-    withCredentials
+    withCredentials,
   }) {
     AWS.config.update({
       accessKeyId: "AKIASGWV7K4INWFV66KP",
       secretAccessKey: "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",
-      sessionToken: ""
+      sessionToken: "",
     });
 
     const S3 = new AWS.S3();
@@ -55,32 +53,31 @@ const props = {
 
     const objParams = {
       Bucket: "cartnyouawsbuket",
-      Key: "product-image" + "/" + cryptoRandomString({ length: 12, type: 'alphanumeric' }) + file.name,
+      Key:
+        "product-image" +
+        "/" +
+        cryptoRandomString({ length: 12, type: "alphanumeric" }) +
+        file.name,
       Body: file,
-      ContentType: file.png // TODO: You should set content-type because AWS SDK will not automatically set file MIME
+      ACL: "public-read",
+      ContentType: file.png, // TODO: You should set content-type because AWS SDK will not automatically set file MIME
     };
 
     S3.putObject(objParams)
-      .on("httpUploadProgress", function ({ loaded, total }) {
-        onProgress(
-          {
-            percent: Math.round((loaded / total) * 100)
-          },
-          file
-        );
+      .promise()
+      .then((res) => {
+        const url =
+          res.$response.request.httpRequest.endpoint.hostname +
+          res.$response.request.httpRequest.path;
+        onSuccess(`https://${url}`, file);
       })
-      .send((err, data) => {
-        if (err) {
-          onError();
-          console.log("Something went wrong");
-          console.log(err.code);
-          console.log(err.message);
-        } else {
-          onSuccess(data.response, file);
-          console.log("SEND FINISHED");
-        }
+      .catch((err) => {
+        onError();
+        console.log("Something went wrong");
+        console.log(err.code);
+        console.log(err.message);
       });
-  }
+  },
 };
 
 export class ImageUpload extends Component {
@@ -96,7 +93,10 @@ export class ImageUpload extends Component {
   state = {
     previewVisible: false,
     previewImage: "",
-    fileList: [],
+    fileList:
+      this.props && this.props.values && this.props.values.images
+        ? this.props.values.images
+        : [],
   };
 
   handleCancel = () => this.setState({ previewVisible: false });
@@ -112,16 +112,15 @@ export class ImageUpload extends Component {
   };
 
   handleChange = ({ fileList }) => {
-
-    // console.log(fileList);
-    this.setState({ fileList });
-    this.props.handleImageUpload(fileList)
-
-  }
+    console.log({ handleChange: fileList });
+    const newFileList = fileList.filter((x) => x.status === "done");
+    this.setState({ fileList: newFileList }, () => {
+      this.props.handleImageUpload(newFileList);
+    });
+  };
 
   render() {
-
-    const { previewVisible, previewImage, fileList } = this.state;
+    const { previewVisible, previewImage } = this.state;
 
     const uploadButton = (
       <div>
@@ -129,8 +128,8 @@ export class ImageUpload extends Component {
         <div className="ant-upload-text">Upload</div>
       </div>
     );
-    console.log(this.state);
-    console.log(props);
+    // console.log(this.state);
+    // console.log(props);
     return (
       <div className="container my-5">
         <Form onSubmit={this.continue} className="form container">
@@ -139,12 +138,34 @@ export class ImageUpload extends Component {
               <Upload
                 action="https://cartnyouawsbuket.s3.ap-south-1.amazonaws.com/"
                 listType="picture-card"
-                // fileList={fileList}
+                fileList={this.state.fileList}
                 {...props}
                 onPreview={this.handlePreview}
                 onChange={this.handleChange}
+                onSuccess={(url, file) => {
+                  const obj = {
+                    url,
+                    uid: file.uid,
+                    status: "done",
+                    name: file.name,
+                  };
+
+                  const newFileList = [...this.state.fileList, obj].filter(
+                    (x) => x.status === "done"
+                  );
+
+                  this.setState(
+                    {
+                      fileList: newFileList,
+                    },
+                    () => {
+                      this.props.handleImageUpload(newFileList);
+                      console.log({ fileList: this.state.fileList });
+                    }
+                  );
+                }}
               >
-                {fileList.length >= 8 ? null : uploadButton}
+                {this.state.fileList.length >= 8 ? null : uploadButton}
               </Upload>
               <Modal
                 visible={previewVisible}
@@ -159,7 +180,6 @@ export class ImageUpload extends Component {
               </Modal>
             </Form.Item>
           </div>
-
         </Form>
       </div>
     );

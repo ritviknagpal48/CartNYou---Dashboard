@@ -667,12 +667,6 @@
                 "qunatity": {
                   "type": "integer"
                 },
-                "images": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
                 "weight": {
                   "type": "integer"
                 },
@@ -746,6 +740,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "images": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"

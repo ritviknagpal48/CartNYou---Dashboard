@@ -82,6 +82,14 @@ const Register = ({ className }) => {
     history.push(`/${payload.type}/dashboard`);
   };
 
+  const getAllErrors = (response) => {
+    if (!response) return [];
+
+    if (response.message[0].messages) {
+      return response.message[0].messages.map(x => x.message);
+    }
+  }
+
   const register = async () => {
     // console.log({ payload })
     const { confirm, fullname, mobile, ...toSend } = payload;
@@ -89,36 +97,32 @@ const Register = ({ className }) => {
     if (!toSend.username.trim().length) {
       return message.error("Username is Required!");
     }
-    if (!toSend.email.trim().length && toSend.email.trim().match(/\w+@\w.\w/)) {
+    if (!toSend.email.trim().length && !toSend.email.trim().match(/\w+@\w.\w/).length) {
       return message.error("Email is Required!");
     }
     if (!confirm.trim().length) {
       return message.error("Confirm Password is Required!");
     }
     if (!mobile.trim().length) {
-      return message.error("Confirm Password is Required!");
+      return message.error("Mobile No. is Required!");
+    }
+    if (mobile.trim().length !== 10) {
+      return message.error("Enter valid 10-digit mobile number");
     }
     if (!toSend.password.trim().length) {
       return message.error("Password is Required!");
     }
+    if (confirm.trim().length < 6)
+      return message.error("Password must be atleast 6 characters long", 1);
     if (confirm.trim() !== toSend.password.trim())
       return message.error("Passwords do not match", 1);
 
     const res = await axios.post("/auth/local/register", { ...toSend }).catch(err => console.log({ error: err }))
 
-    if (!res.data || res.status !== 200) {
-      if (
-        res.response &&
-        res.response.data &&
-        res.response.data.message &&
-        res.response.data.message[0].messages
-      )
-        if (res.response.data.message[0].messages instanceof Array) {
-          res.response.data.message[0].messages.forEach((err) =>
-            message.error(err.message)
-          );
-        }
-      return null;
+    const errors = getAllErrors(res && res.response && res.response.data);
+    // console.log({ errors })
+    if (errors.length > 0) {
+      return errors.map(err => message.error(err));
     }
     history.push(`/verify-email`);
   };
@@ -231,7 +235,7 @@ const Register = ({ className }) => {
               id="mobile"
               name="mobile"
               type="text"
-              maxLength={13}
+              maxLength={10}
               autoComplete="mobile"
               required
               className={classes.input}

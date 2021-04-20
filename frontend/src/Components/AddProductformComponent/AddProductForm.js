@@ -26,8 +26,8 @@ class AddProductForm extends Component {
       //general details
       users_detail: "",
       product_category: "",
-      sub_category: '',
-      sub_sub_category: '',
+      sub_category: "",
+      sub_sub_category: "",
       product_name: "",
       product_description: "",
       product_brand: "",
@@ -67,22 +67,22 @@ class AddProductForm extends Component {
   async componentDidMount() {
     const productId =
       this.props &&
-        this.props.match &&
-        this.props.match.params &&
-        this.props.match.params.productID
+      this.props.match &&
+      this.props.match.params &&
+      this.props.match.params.productID
         ? this.props.match.params.productID
         : "";
     const edit =
       this.props &&
-        this.props.location &&
-        this.props.location.state &&
-        this.props.location.state.edit
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.edit
         ? this.props.location.state.edit
         : false;
 
     this.setState({
       users_detail: this.props.userID,
-    })
+    });
 
     if (edit) {
       await axios
@@ -92,13 +92,12 @@ class AddProductForm extends Component {
           },
         })
         .then((res) => {
-
           this.setState({
             step: 1,
             product_category:
               res.data[0] &&
-                res.data[0].product_category &&
-                res.data[0].product_category.id
+              res.data[0].product_category &&
+              res.data[0].product_category.id
                 ? res.data[0].product_category.id
                 : "",
 
@@ -162,6 +161,8 @@ class AddProductForm extends Component {
                 ? res.data[0].upc_number
                 : "",
 
+            images: res.data[0] && res.data[0].images ? res.data[0].images : [],
+
             hsn_code:
               res.data[0] && res.data[0].hsn_code ? res.data[0].hsn_code : "",
 
@@ -182,8 +183,8 @@ class AddProductForm extends Component {
 
             measurement_unit:
               res.data[0] &&
-                res.data[0].measurement_unit &&
-                res.data[0].measurement_unit.id
+              res.data[0].measurement_unit &&
+              res.data[0].measurement_unit.id
                 ? res.data[0].measurement_unit.id
                 : "",
 
@@ -194,26 +195,28 @@ class AddProductForm extends Component {
 
             sub_category:
               res.data[0] &&
-                res.data[0].sub_category &&
-                res.data[0].sub_category.id
+              res.data[0].sub_category &&
+              res.data[0].sub_category.id
                 ? res.data[0].sub_category.id
                 : "",
 
             sub_sub_category:
               res.data[0] &&
-                res.data[0].sub_sub_category &&
-                res.data[0].sub_sub_category.id
+              res.data[0].sub_sub_category &&
+              res.data[0].sub_sub_category.id
                 ? res.data[0].sub_sub_category.id
                 : "",
           });
 
           if (this.state.product_description === "<p><br></p>") {
             // const desc = this.state.product_description.trim();
-            const desc = this.state.product_description.replace(/<p><br[\/]?><[\/]?p>/gm, '');
+            const desc = this.state.product_description.replace(
+              /<p><br[\/]?><[\/]?p>/gm,
+              ""
+            );
             this.setState({
               product_description: desc,
-            })
-
+            });
           }
         })
         .catch((err) => {
@@ -256,18 +259,20 @@ class AddProductForm extends Component {
       [input]: value,
     });
     if (this.state.product_description === "<p><br></p>") {
-      const desc = this.state.product_description.replace(/<p><br[\/]?><[\/]?p>/gm, '');
+      const desc = this.state.product_description.replace(
+        /<p><br[\/]?><[\/]?p>/gm,
+        ""
+      );
       this.setState({
         product_description: desc,
-      })
+      });
     } else if (this.state.product_description === "<p> </p>") {
       this.setState({
-        product_description: '',
-      })
+        product_description: "",
+      });
     }
     if (input === "product_category") {
       if (value !== undefined) {
-
         await axios
           .get(
             `/product-categories/${value}`
@@ -291,21 +296,18 @@ class AddProductForm extends Component {
             message.error(err.message);
           });
       }
-      if (value === '') {
+      if (value === "") {
         this.setState({
-          haveCategory: false
-        })
+          haveCategory: false,
+        });
       } else if (value === undefined) {
         this.setState({
-          haveCategory: false
-        })
-
-      }
-      else {
+          haveCategory: false,
+        });
+      } else {
         this.setState({
-          haveCategory: true
-        })
-
+          haveCategory: true,
+        });
       }
     } else if (input === "sub_category") {
       await axios
@@ -340,10 +342,10 @@ class AddProductForm extends Component {
     message.success(`Attributes Added Successfully`);
   };
   handleImageUpload = (value) => {
-    // console.log("img add", value);
-    // this.setState({
-    //   images: value ? value : []
-    // })
+    console.log("img add", value);
+    this.setState({
+      images: value ? value : [],
+    });
   };
 
   callback = (key) => {
@@ -385,7 +387,6 @@ class AddProductForm extends Component {
       custom_attribute,
     } = this.state;
 
-
     const productData = {
       users_detail,
       product_category,
@@ -410,14 +411,14 @@ class AddProductForm extends Component {
       dem_breadth,
       dem_height,
       custom_attribute,
+    };
+
+    if (!sub_category === "") {
+      productData = { sub_category };
     }
 
-    if (!sub_category === '') {
-      productData = { sub_category }
-    }
-
-    if (!sub_sub_category === '') {
-      productData = { sub_sub_category }
+    if (!sub_sub_category === "") {
+      productData = { sub_sub_category };
     }
 
     const error = {};
@@ -487,7 +488,7 @@ class AddProductForm extends Component {
     if (qunatity === "") {
       error.qunatity = "Qunatity is required";
       isError = true;
-      this.openNotificationWithIcon("Qunatity is required");
+      this.openNotificationWithIcon("Quantity is required");
     }
     if (product_mrp === "") {
       error.product_mrp = "Product MRP is required";
@@ -497,47 +498,49 @@ class AddProductForm extends Component {
     if (weight === "") {
       error.weight = "Product Weight is required";
       isError = true;
-      this.openNotificationWithIcon("Product Weightn is required");
+      this.openNotificationWithIcon("Product Weight is required");
     }
     if (dem_length === "") {
-      error.dem_length = "Length deminsion is required";
+      error.dem_length = "Length dimension is required";
       isError = true;
-      this.openNotificationWithIcon("Length deminsion is required");
+      this.openNotificationWithIcon("Length dimension is required");
     }
     if (dem_breadth === "") {
-      error.dem_breadth = "Breadth deminsion is required";
+      error.dem_breadth = "Breadth dimension is required";
       isError = true;
-      this.openNotificationWithIcon("Breadth deminsion  is required");
+      this.openNotificationWithIcon("Breadth dimension is required");
     }
 
     if (!isError) {
       this.setState({ error: {}, isError });
-      return productData
-    }
-    else {
+      return productData;
+    } else {
       this.setState({ error, isError });
-      return {}
+      return {};
     }
-  }
+  };
 
   updateProduct = async (e) => {
     e.preventDefault();
     const productId =
       this.props &&
-        this.props.match &&
-        this.props.match.params &&
-        this.props.match.params.productID
+      this.props.match &&
+      this.props.match.params &&
+      this.props.match.params.productID
         ? this.props.match.params.productID
         : "";
 
     if (this.state.product_description === "<p><br></p>") {
-      const desc = this.state.product_description.replace(/<p><br[\/]?><[\/]?p>/gm, '');
+      const desc = this.state.product_description.replace(
+        /<p><br[\/]?><[\/]?p>/gm,
+        ""
+      );
       this.setState({
         product_description: desc,
-      })
+      });
     }
 
-    const productData = await this.handleValidation()
+    const productData = await this.handleValidation();
 
     if (!this.state.isError) {
       if (productData) {
@@ -558,7 +561,7 @@ class AddProductForm extends Component {
           })
           .catch((error) => {
             if (error.status === 500) {
-              message.error("Something went wrong")
+              message.error("Something went wrong");
             } else {
               message.error(`Please fill all the required fields`);
             }
@@ -583,10 +586,9 @@ class AddProductForm extends Component {
       editProduct: false,
     });
 
-    const productData = await this.handleValidation()
+    const productData = await this.handleValidation();
 
     if (!this.state.isError) {
-
       if (productData) {
         this.setState({
           loading: true,
@@ -602,7 +604,7 @@ class AddProductForm extends Component {
           })
           .catch((error) => {
             if (error.status === 500) {
-              message.error("Something went wrong")
+              message.error("Something went wrong");
             } else {
               message.error(`Please fill all the required fields`);
             }
@@ -748,8 +750,8 @@ class AddProductForm extends Component {
                   this.state.editProduct && this.state.step === 5
                     ? this.updateProduct
                     : this.state.step === 5
-                      ? this.submitHandler
-                      : this.nextstep
+                    ? this.submitHandler
+                    : this.nextstep
                 }
               >
                 {this.state.step === 5 ? "Submit" : "Next"}

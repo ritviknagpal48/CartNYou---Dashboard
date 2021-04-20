@@ -12,6 +12,7 @@ import {
   Tooltip,
   InputNumber,
   Form,
+  message,
 } from "antd";
 import { LoadingOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import { axiosInstance } from "Contexts/useAxios";
@@ -67,6 +68,7 @@ export class PushToShopify extends Component {
     this.setState({
       step: 1,
       selectedChannelID: "",
+      selectedChannel: ''
     });
     await axiosInstance
       .get(`/users/${this.state.userId}`, {
@@ -83,11 +85,18 @@ export class PushToShopify extends Component {
 
           selectedChannelID:
             response &&
-            response.data &&
-            response.data.shopifychannels &&
-            response.data.shopifychannels[0] &&
-            response.data.shopifychannels[0].id
+              response.data &&
+              response.data.shopifychannels &&
+              response.data.shopifychannels[0] &&
+              response.data.shopifychannels[0].id
               ? response.data.shopifychannels[0].id
+              : "",
+          selectedChannelID:
+            response &&
+              response.data &&
+              response.data.shopifychannels &&
+              response.data.shopifychannels[0]
+              ? response.data.shopifychannels[0]
               : "",
           isfetching: false,
         });
@@ -113,8 +122,10 @@ export class PushToShopify extends Component {
   };
 
   onChannelChange = (e) => {
+    const ch = this.state.channelList.find(x => x.id === e.target.value);
     this.setState({
-      selectedChannelID: e.target.value,
+      selectedChannel: ch,
+      selectedChannelID: e.target.value
     });
   };
 
@@ -140,8 +151,16 @@ export class PushToShopify extends Component {
       userId,
       userToken,
       selectedChannelID,
+      selectedChannel,
       retailer_price,
     } = this.state;
+
+    const {
+      onSuccess,
+      onError,
+      onBegin,
+    } = this.props
+
     const channelListLength = channelList && channelList.length;
     const index = (this.state.currentPage - 1) * this.state.pageSize;
 
@@ -176,12 +195,12 @@ export class PushToShopify extends Component {
                         <Radio
                           key={index}
                           // style={radioStyle}
+                          checked={index === 0}
                           value={data.id}
-                          className={`channel-info-card ${
-                            this.state.selectedChannelID === data.id
-                              ? `selected`
-                              : ``
-                          } `}
+                          className={`channel-info-card ${this.state.selectedChannelID === data.id
+                            ? `selected`
+                            : ``
+                            } `}
                         >
                           <div
 
@@ -384,12 +403,17 @@ export class PushToShopify extends Component {
             </Button>
             <Button
               onClick={(e) => {
+                onBegin && onBegin();
                 addItemToLiveList(
                   userId,
                   { retailer_price, product_detail },
                   userToken,
-                  selectedChannelID
-                );
+                  selectedChannel
+                )
+                  .then(() => {
+                    onSuccess && onSuccess(product_detail)
+                  })
+                  .catch(() => onError && onError());
               }}
               style={{
                 background: "#ef4444",

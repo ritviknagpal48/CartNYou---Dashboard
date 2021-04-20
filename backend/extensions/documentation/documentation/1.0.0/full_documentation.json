@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/20/2021 5:20:17 PM"
+    "x-generation-date": "04/20/2021 7:43:21 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -5595,12 +5595,6 @@
                 "qunatity": {
                   "type": "integer"
                 },
-                "images": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
                 "weight": {
                   "type": "integer"
                 },
@@ -5674,6 +5668,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "images": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
@@ -5848,12 +5845,6 @@
                 "qunatity": {
                   "type": "integer"
                 },
-                "images": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
                 "weight": {
                   "type": "integer"
                 },
@@ -5927,6 +5918,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "images": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
@@ -6110,76 +6104,6 @@
           },
           "qunatity": {
             "type": "integer"
-          },
-          "images": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "name",
-                "hash",
-                "mime",
-                "size",
-                "url",
-                "provider"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "alternativeText": {
-                  "type": "string"
-                },
-                "caption": {
-                  "type": "string"
-                },
-                "width": {
-                  "type": "integer"
-                },
-                "height": {
-                  "type": "integer"
-                },
-                "formats": {
-                  "type": "object"
-                },
-                "hash": {
-                  "type": "string"
-                },
-                "ext": {
-                  "type": "string"
-                },
-                "mime": {
-                  "type": "string"
-                },
-                "size": {
-                  "type": "number"
-                },
-                "url": {
-                  "type": "string"
-                },
-                "previewUrl": {
-                  "type": "string"
-                },
-                "provider": {
-                  "type": "string"
-                },
-                "provider_metadata": {
-                  "type": "object"
-                },
-                "related": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
           },
           "weight": {
             "type": "integer"
@@ -6561,6 +6485,9 @@
               }
             }
           },
+          "images": {
+            "type": "object"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -6681,6 +6608,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "images": {
+            "type": "object"
           },
           "published_at": {
             "type": "string",
@@ -6849,12 +6779,6 @@
                 "qunatity": {
                   "type": "integer"
                 },
-                "images": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
                 "weight": {
                   "type": "integer"
                 },
@@ -6928,6 +6852,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "images": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
@@ -7132,12 +7059,6 @@
                 "qunatity": {
                   "type": "integer"
                 },
-                "images": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
                 "weight": {
                   "type": "integer"
                 },
@@ -7211,6 +7132,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "images": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
@@ -7371,12 +7295,6 @@
                 "qunatity": {
                   "type": "integer"
                 },
-                "images": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
                 "weight": {
                   "type": "integer"
                 },
@@ -7450,6 +7368,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "images": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
@@ -7807,12 +7728,6 @@
                 "qunatity": {
                   "type": "integer"
                 },
-                "images": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
                 "weight": {
                   "type": "integer"
                 },
@@ -7886,6 +7801,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "images": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
@@ -7944,12 +7862,6 @@
                 "qunatity": {
                   "type": "integer"
                 },
-                "images": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
                 "weight": {
                   "type": "integer"
                 },
@@ -8023,6 +7935,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "images": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
@@ -8151,12 +8066,6 @@
                     "qunatity": {
                       "type": "integer"
                     },
-                    "images": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
                     "weight": {
                       "type": "integer"
                     },
@@ -8230,6 +8139,9 @@
                       "items": {
                         "type": "string"
                       }
+                    },
+                    "images": {
+                      "type": "object"
                     },
                     "published_at": {
                       "type": "string"
@@ -8379,12 +8291,6 @@
                     "qunatity": {
                       "type": "integer"
                     },
-                    "images": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
                     "weight": {
                       "type": "integer"
                     },
@@ -8458,6 +8364,9 @@
                       "items": {
                         "type": "string"
                       }
+                    },
+                    "images": {
+                      "type": "object"
                     },
                     "published_at": {
                       "type": "string"
