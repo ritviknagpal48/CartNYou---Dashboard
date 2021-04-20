@@ -8,7 +8,7 @@ const classes = {
   wrapper: "grid grid-cols-12 items-center justify-start mt-4"
 }
 
-const ImportListCard = ({
+const LiveListCard = ({
   product_name: displayName,
   qunatity: quantity,
   product_mrp: price,
@@ -28,9 +28,9 @@ const ImportListCard = ({
     <div className={''}>
       <div className={'mb-4'}>
         <div
-          className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center  w-full  md:grid-cols-5"
+          className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center w-full md:grid-cols-4"
         >
-          <div className="card-detail">
+          <div className="card-detail" style={{ gridRow: '1 / span 2' }}>
             <div className="head-title">
               {
                 images && images.length > 0 ? '' : 'Product Image'
@@ -45,67 +45,33 @@ const ImportListCard = ({
               )}
             </div>
           </div>
+          {/* <div className="card-detail">
+            <div className="head-title">Product SKU</div>
+            <div className="title-body">{displayName}</div>
+          </div> */}
           <div className="card-detail">
             <div className="head-title">Product Name</div>
-            <div className="title-body">{displayName}</div>
-          </div>
-          <div className="card-detail">
-            <div className="head-title">Quantity</div>
             <div className="title-body">{quantity}</div>
           </div>
           <div className="card-detail">
-            <div className="head-title">Price</div>
+            <div className="head-title">Channel Name</div>
             <div className="title-body">{price}</div>
           </div>
-          <div className="action card-detail">
-            <Space size="small" direction="vertical">
-              <Link
-              // to={{
-              //   pathname: `/retailer/edit-channel/${ChannelData.id}`,
-              //   // search: `?id=${data.id}`,
-              //   state: {
-              //     edit: true,
-              //     channelData: ChannelData,
-              //   },
-              // }}
-              >
-                <Button
-                  type="primary"
-                  style={{
-                    color: " #08979c",
-                    background: "#e6fffb",
-                    borderColor: "#87e8de",
-                    borderRadius: "6px",
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  icon={<SendOutlined />}
-                >
-                  Push Item
-                </Button>
-              </Link>
-              <Button
-                style={{
-                  color: "#ef4444",
-                  background: "#fff0f6",
-                  borderColor: "#f1a8a8",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "100%",
-                  borderRadius: "6px",
-                }}
-                type="primary"
-                onClick={() => {
-                  setShowModal(true);
-                }}
-                icon={<DeleteOutlined />}
-              >
-                Delete Item
-              </Button>
-            </Space>
+          <div className="card-detail">
+            <div className="head-title">Category</div>
+            <div className="title-body">{price}</div>
+          </div>
+          <div className="card-detail">
+            <div className="head-title">Vendor Name</div>
+            <div className="title-body">{price}</div>
+          </div>
+          <div className="card-detail">
+            <div className="head-title">Retailer Price</div>
+            <div className="title-body">{price}</div>
+          </div>
+          <div className="card-detail">
+            <div className="head-title">Status</div>
+            <div className="title-body">{price}</div>
           </div>
         </div>
       </div>
@@ -158,17 +124,4 @@ const ImportListCard = ({
   );
 }
 
-ImportListCard.defaultProps = {
-  sku: "STD30492",
-  displayName: "Sample Product",
-  description: "Sample product Description.",
-  quantity: 10,
-  amount: 1230,
-  price: 123,
-  image: {
-    src: "https://images.unsplash.com/photo-1590192746144-b92a837f8ddf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    alt: "Sample Image"
-  },
-}
-
-export default ImportListCard
+export default LiveListCard

@@ -2060,10 +2060,6 @@ select {
   grid-column-start: 2;
 }
 
-.col-start-11 {
-  grid-column-start: 11;
-}
-
 .row-auto {
   grid-row: auto;
 }
