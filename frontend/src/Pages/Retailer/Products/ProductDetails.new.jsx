@@ -1,4 +1,12 @@
-import { Image, message, Modal, Tabs, Carousel } from "antd";
+import {
+  Image,
+  message,
+  Modal,
+  Tabs,
+  Carousel,
+  Divider,
+  Descriptions,
+} from "antd";
 import clsx from "clsx";
 // import { AddToImportListModal } from 'Components/Modals/AddToImportListModal';
 import { AuthContext } from "Contexts/Auth";
@@ -6,12 +14,13 @@ import { useContext, useState } from "react";
 import ReactQuill from "react-quill";
 import { useHistory, useLocation } from "react-router-dom";
 import { addItemToImportList } from "../ImportList/importListUtils";
-import './ProductDetails.css';
+import "./ProductDetails.css";
 
 // import { addItemToImportList } from "../ImportList/importListUtils";
 
 const classes = {
-  wrapper: "pr-2 md:pr-14 md:pl-4 pl-2 pt-4 mb-8 pb-8 relative border border-solid border-gray-100 w-11/12 mx-auto rounded-xl bg-white h-full shadow-md",
+  wrapper:
+    "pr-2 md:pr-14  pt-4 mb-8 pb-8 relative w-11/12 mx-auto rounded-xl bg-white h-full ",
   header: "w-full py-3 flex flex-row items-center justify-between",
   title:
     "text-2xl text-gray-600  hidden md:block font-sans-apple-system md:flex flex-row",
@@ -102,17 +111,20 @@ const ProductDetails = () => {
 
   const history = useHistory();
 
-  const { additionalInfo: { id: userid }, token } = useContext(AuthContext);
+  const {
+    additionalInfo: { id: userid },
+    token,
+  } = useContext(AuthContext);
 
   const [imageIndex, setImageIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const [isProductAdded, setIsProductAdded] = useState(false)
+  const [isProductAdded, setIsProductAdded] = useState(false);
 
   return (
-    <div className={classes.wrapper} style={{ maxWidth: '90vw' }}>
+    <div className={classes.wrapper} style={{ maxWidth: "90vw" }}>
       <button
         className={
-          "m-4 px-3 py-3 text-gray-600 bg-white rounded-full shadow-lg focus:outline-none absolute left-0 top-0"
+          "m-4 px-3 py-3 text-gray-600 bg-gray-100 border border-gray-400 rounded-full shadow-lg focus:outline-none absolute left-2 top-2"
         }
         onClick={() => history.goBack()}
       >
@@ -131,59 +143,102 @@ const ProductDetails = () => {
           />
         </svg>
       </button>
-      <div className={"bg-white flex flex-row flex-wrap"}>
-        <div className={'container md:hidden'} style={{ marginTop: 64 }}>
-          <Carousel
-            infinite={true}
-            lazyLoad={true}
-          >
-            {
-              defaultImages.map(image => (
-                <div className={'object-cover w-auto h-auto'}>
-                  <Image style={{ maxWidth: 480, height: 'auto' }} className={'rounded-xl'} src={image.url} placeholder={true} loading={'eager'} />
-                </div>
-              ))
-            }
+
+      <div
+        className={
+          "bg-white flex flex-row flex-wrap  border border-gray-200  px-6 py-6 rounded-xl "
+        }
+      >
+        <div className={"container md:hidden"} style={{ marginTop: 64 }}>
+          <Carousel infinite={true} lazyLoad={true}>
+            {defaultImages.map((image) => (
+              <div className={"object-cover w-auto h-auto"}>
+                <Image
+                  style={{ maxWidth: 480, height: "auto" }}
+                  className={"rounded-xl"}
+                  src={image.url}
+                  placeholder={true}
+                  loading={"eager"}
+                />
+              </div>
+            ))}
           </Carousel>
         </div>
-        <div className={"hidden md:flex flex-col items-center justify-start"} style={{ marginTop: 64, marginRight: 24 }}>
-          {
-            defaultImages.map((image, idx) => (
-              <img onClick={() => setImageIndex(idx)} src={image.url} alt={image.url} className={'my-2 w-12 cursor-pointer h-auto object-cover rounded-md'} />
-            ))
-          }
-        </div>
-        <div className={'hidden md:block'}>
-          <Image style={{ maxWidth: 480, height: 'auto' }} className={'rounded-xl'} src={defaultImages[imageIndex].url} placeholder={true} loading={'eager'} />
-        </div>
         <div
-          className={
-            "ml-6 w-11/12 md:w-1/2"
-          }
+          className={"hidden md:flex flex-col items-center justify-start"}
+          style={{ marginTop: 64, marginRight: 24 }}
         >
-          <div className={'flex flex-row justify-between w-full'}>
-            <div className={'flex flex-col'}>
-              <span className={"text-xl font-semibold text-gray-800"}>
+          {defaultImages.map((image, idx) => (
+            <img
+              onClick={() => setImageIndex(idx)}
+              src={image.url}
+              alt={image.url}
+              className={
+                "my-2 w-12 cursor-pointer h-auto object-cover rounded-md"
+              }
+            />
+          ))}
+        </div>
+        <div className={"hidden md:block"}>
+          <Image
+            style={{ maxWidth: 480, height: "auto" }}
+            className={"rounded-xl"}
+            src={defaultImages[imageIndex].url}
+            placeholder={true}
+            loading={"eager"}
+          />
+        </div>
+        <div className={"ml-6 w-11/12 md:w-1/2 "}>
+          <div className={"flex flex-row justify-between w-full pt-2"}>
+            <div className={"flex flex-col"}>
+              <span className={"text-4xl font-semibold text-gray-800"}>
                 {product_name}
               </span>
-              <span className={"text-base text-red-500 font-semibold my-2"}>
+              <span className={"text-xl text-red-500 font-semibold my-2"}>
                 ₹ {product_mrp}
                 <span className={"text-xs text-gray-400 font-normal ml-2"}>
                   Incl. of all taxes.
                 </span>
               </span>
-              <span className={"text-xs flx flex-row items-center justify-start"}>
-                {
-                  product_tags.split(',').filter(x => x).map(tag => (
-                    <span className={'text-white text-xs bg-gray-700 rounded-full mx-1 my-2 px-2 py-1'}>{tag}</span>
-                  ))
-                }
+
+              <hr style={{ borderColor: "transparent", marginTop: "20px" }} />
+              <span
+                className={"text-xs flx flex-row items-center justify-start"}
+              >
+                {product_tags
+                  .split(",")
+                  .filter((x) => x)
+                  .map((tag) => (
+                    <span
+                      className={
+                        "text-gray-500 text-xs bg-gray-100 rounded-md mx-1 my-2 px-4 py-2"
+                      }
+                    >
+                      {tag}
+                    </span>
+                  ))}
               </span>
             </div>
 
-            <div className={'flex flex-col items-start justify-start'}>
-              <button className={'border border-red-500 transition text-red-500 font-medium text-sm flex flex-row items-center justify-center px-2 py-2 rounded-md focus:outline-none'}
-                onClick={() => setShowModal(p => !p)}>
+            <div
+              className={"flex flex-col items-start"}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <button
+                className={
+                  " transition text-white text-sm flex flex-row items-center justify-center px-2 py-2 focus:outline-none"
+                }
+                style={{
+                  background: "#ef4444",
+                  borderRadius: "8px",
+                  fontWeight: 600,
+                }}
+                onClick={() => setShowModal((p) => !p)}
+              >
                 <svg
                   className={"h-4 w-4 mr-2"}
                   xmlns="http://www.w3.org/2000/svg"
@@ -200,7 +255,16 @@ const ProductDetails = () => {
                 </svg>
                 Add to Import List
               </button>
-              <button className={'text-gray-500 hover:text-gray-700 transition font-medium text-sm flex flex-row items-center justify-center px-2 py-2 my-3 rounded-2xl focus:outline-none'}>
+              <button
+                className={
+                  " transition font-medium text-sm flex flex-row items-center justify-center px-2 py-2 my-3 rounded-2xl focus:outline-none"
+                }
+                style={{
+                  color: "#ef4444",
+
+                  fontWeight: 600,
+                }}
+              >
                 <svg
                   className={"h-4 w-4 mr-2"}
                   xmlns="http://www.w3.org/2000/svg"
@@ -220,81 +284,31 @@ const ProductDetails = () => {
               </button>
             </div>
           </div>
-          <span
-            className={
-              "text-sm font-normal text-gray-500 overflow-ellipsis mt-1"
-            }
+
+          <hr style={{ borderColor: "transparent", marginTop: "20px" }} />
+          {/* <Divider orientation="left">Description</Divider> */}
+          <div
+            className={"text-sm font-normal text-gray-500 overflow-ellipsis"}
           >
             <ReactQuill
               readOnly={true}
               theme="bubble"
               // modules={this.modules}
               // formats={this.formats}
-              style={{ width: "500px" }}
+              style={{ width: "550px" }}
               defaultValue={product_description}
-            // value={values.product_description}
-            // onChange={handleValueChange("product_description")}
+              // value={values.product_description}
+              // onChange={handleValueChange("product_description")}
             />
-          </span>
-
-          <div
-            className={"flex flex-row w-full justify-between items-center my-4"}
-          >
-            <span
-              className={clsx("text-sm", {
-                "text-gray-500 font-light": qunatity > 0,
-                "text-red-500 font-bold": !(qunatity > 0),
-              })}
-            >
-              {qunatity > 0 ? `In Stock (${qunatity})` : "Out of Stock"}
-            </span>
-            {/* <span
-              className={clsx(
-                "text-xs leading-3 text-white font-normal bg-red-400 rounded-full px-2 py-1"
-              )}
-            >
-              {product_main_sku}
-            </span> */}
-            <span
-              className={
-                "text-gray-600 flex flex-row items-center justify-start"
-              }
-            >
-              <label className={"text-gray-400 text-xs font-semibold"}>
-                Category
-              </label>
-              <span
-                className={
-                  "text-xs bg-green-400 text-white py-1 px-2 rounded-full ml-2"
-                }
-              >
-                {product_category && product_category.categoryName
-                  ? product_category.categoryName
-                  : ""}
-              </span>
-            </span>
-            <span
-              className={
-                "text-gray-600 flex flex-row items-center justify-start"
-              }
-            >
-              <label className={"text-gray-400 text-xs font-semibold"}>
-                Supplier
-              </label>
-              <span
-                className={
-                  "text-xs bg-red-400 text-white py-1 px-2 rounded-full ml-2"
-                }
-              >
-                Default Suplier
-              </span>
-            </span>
           </div>
-          <div className={"w-full h-px bg-gray-200 mb-2"} />
-
         </div>
-        <div className={'w-full mt-8'}>
-          <Tabs defaultActiveKey={"1"} tabPosition={'top'} centered={true}>
+      </div>
+      <div className={"flex flex-row  pt-2"} style={{ width: "100%" }}>
+        <div
+          className={" my-3 border border-gray-200  px-6 py-6 rounded-xl  "}
+          style={{ width: "70%" }}
+        >
+          <Tabs defaultActiveKey={"1"} tabPosition={"top"}>
             <TabPane tab={"Product Variants"} key={"1"}>
               <div>
                 <div
@@ -353,17 +367,18 @@ const ProductDetails = () => {
                   theme="bubble"
                   // modules={this.modules}
                   // formats={this.formats}
-                  style={{ width: "100%", height: 'auto' }}
-                  defaultValue={product_description || "No Description Available"}
-                // value={values.product_description}
-                // onChange={handleValueChange("product_description")}
+                  style={{ width: "100%", height: "auto" }}
+                  defaultValue={
+                    product_description || "No Description Available"
+                  }
+                  // value={values.product_description}
+                  // onChange={handleValueChange("product_description")}
                 />
               </div>
             </TabPane>
             <TabPane tab={"Additional Attributes"} key={"3"}>
-              {
-                custom_attribute && custom_attribute.attribute ?
-                  custom_attribute.attribute.map((value, idx) => {
+              {custom_attribute && custom_attribute.attribute
+                ? custom_attribute.attribute.map((value, idx) => {
                     return (
                       <div
                         className={clsx(
@@ -371,41 +386,112 @@ const ProductDetails = () => {
                           { "bg-gray-100": idx % 2 === 0 }
                         )}
                       >
-                        <label className={"text-gray-600 font-semibold text-sm"}>
+                        <label
+                          className={"text-gray-600 font-semibold text-sm"}
+                        >
                           {parseKey(value.title)}
                         </label>
-                        <span className={"text-gray-600 font-normal text-sm ml-6"}>
+                        <span
+                          className={"text-gray-600 font-normal text-sm ml-6"}
+                        >
                           {value.value}
                         </span>
                       </div>
                     );
-                  }) : 'No Attributes Added by seller'
-              }
+                  })
+                : "No Attributes Added by seller"}
             </TabPane>
           </Tabs>
+        </div>
+
+        <div style={{ width: "2%", height: "2px", maxWidth: "22px" }} />
+        <div
+          className={" my-3  border border-gray-200  px-6 py-6 rounded-xl  "}
+          style={{ width: "28%" }}
+        >
+          <Descriptions
+            title="Product Details"
+            layout="horizontal"
+            column={1}
+            bordered
+          >
+            <Descriptions.Item label="Available Ouantity">
+              {qunatity > 0 ? `In Stock (${qunatity})` : "Out of Stock"}
+            </Descriptions.Item>
+            <Descriptions.Item label=" Category">
+              {product_category && product_category.categoryName
+                ? product_category.categoryName
+                : "-"}
+            </Descriptions.Item>
+            <Descriptions.Item label="Wholesaler">Default</Descriptions.Item>
+          </Descriptions>
+
+          {/* <span
+            className={clsx("text-sm", {
+              "text-gray-500 font-light": qunatity > 0,
+              "text-red-500 font-bold": !(qunatity > 0),
+            })}
+          >
+            {qunatity > 0 ? `In Stock (${qunatity})` : "Out of Stock"}
+          </span> */}
+          {/* <span
+              className={clsx(
+                "text-xs leading-3 text-white font-normal bg-red-400 rounded-full px-2 py-1"
+              )}
+            >
+              {product_main_sku}
+            </span> */}
+          {/* <span
+            className={"text-gray-600 flex flex-row items-center justify-start"}
+          >
+            <label className={"text-gray-400 text-xs font-semibold"}>
+              Category
+            </label>
+            <span
+              className={
+                "text-xs bg-green-400 text-white py-1 px-2 rounded-full ml-2"
+              }
+            >
+              {product_category && product_category.categoryName
+                ? product_category.categoryName
+                : ""}
+            </span>
+          </span> */}
+          {/* <span
+            className={"text-gray-600 flex flex-row items-center justify-start"}
+          >
+            <label className={"text-gray-400 text-xs font-semibold"}>
+              Supplier
+            </label>
+            <span
+              className={
+                "text-xs bg-red-400 text-white py-1 px-2 rounded-full ml-2"
+              }
+            >
+              Default Suplier
+            </span>
+          </span> */}
         </div>
       </div>
 
       <Modal
-        title={
-          <div className="flex gap-x-2">
-            Add To Import List
-          </div>
-        }
+        title={<div className="flex gap-x-2">Add To Import List</div>}
         width={"100%"}
         visible={showModal}
         confirmLoading={isProductAdded}
-        onOk={e => {
-          setIsProductAdded(true)
-          addItemToImportList(userid, [product_id], token).then(() => {
-            message.success('Product added successfully');
-            setShowModal(false)
-            setIsProductAdded(false)
-          }).catch(err => {
-            message.error(err.message);
-            setShowModal(false)
-            setIsProductAdded(false)
-          })
+        onOk={(e) => {
+          setIsProductAdded(true);
+          addItemToImportList(userid, [product_id], token)
+            .then(() => {
+              message.success("Product added successfully");
+              setShowModal(false);
+              setIsProductAdded(false);
+            })
+            .catch((err) => {
+              message.error(err.message);
+              setShowModal(false);
+              setIsProductAdded(false);
+            });
         }}
         onCancel={() => setShowModal(false)}
         style={{
@@ -422,7 +508,8 @@ const ProductDetails = () => {
         }}
         maskStyle={{ background: "#00000034" }}
       >
-        Add <span className="font-semibold">{product_name}</span> to your import list?
+        Add <span className="font-semibold">{product_name}</span> to your import
+        list?
       </Modal>
     </div>
   );

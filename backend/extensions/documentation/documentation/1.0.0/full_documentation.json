@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/17/2021 10:40:20 PM"
+    "x-generation-date": "04/19/2021 9:54:54 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6324,7 +6324,7 @@
                   "type": "string"
                 }
               },
-              "retailerProductdetail": {
+              "retailer_live_products": {
                 "type": "component"
               },
               "created_by": {
@@ -6427,7 +6427,7 @@
                     "type": "string"
                   }
                 },
-                "retailerProductdetail": {
+                "retailer_live_products": {
                   "type": "component"
                 },
                 "created_by": {
@@ -6722,7 +6722,7 @@
                   "type": "string"
                 }
               },
-              "retailerProductdetail": {
+              "retailer_live_products": {
                 "type": "component"
               },
               "created_by": {
@@ -7564,7 +7564,7 @@
                     "type": "string"
                   }
                 },
-                "retailerProductdetail": {
+                "retailer_live_products": {
                   "type": "component"
                 },
                 "created_by": {
@@ -8022,22 +8022,22 @@
               }
             }
           },
-          "retailerProductdetail": {
+          "retailer_live_products": {
             "type": "array",
             "items": {
               "type": "object",
               "required": [
                 "id",
-                "retailerPrice"
+                "retailer_price"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
-                "retailerPrice": {
+                "retailer_price": {
                   "type": "integer"
                 },
-                "productdetail": {
+                "product_detail": {
                   "required": [
                     "id",
                     "product_name",
@@ -8250,22 +8250,22 @@
               "type": "string"
             }
           },
-          "retailerProductdetail": {
+          "retailer_live_products": {
             "type": "array",
             "items": {
               "type": "object",
               "required": [
                 "id",
-                "retailerPrice"
+                "retailer_price"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
-                "retailerPrice": {
+                "retailer_price": {
                   "type": "integer"
                 },
-                "productdetail": {
+                "product_detail": {
                   "required": [
                     "id",
                     "product_name",

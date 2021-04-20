@@ -7,11 +7,11 @@
   },
   "options": {},
   "attributes": {
-    "retailerPrice": {
+    "retailer_price": {
       "type": "integer",
       "required": true
     },
-    "productdetail": {
+    "product_detail": {
       "model": "product-details"
     }
   }

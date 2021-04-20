@@ -15,7 +15,7 @@ const useAxios = () => {
   axiosInstance.interceptors.request.use(
     (req) => {
       setIsLoading(true);
-      console.log(req.url, req.params, req.data);
+      // console.log(req.url, req.params, req.data);
       if (!req.headers["Authorization"]) {
         // let jwt = sessionStorage.getItem(process.env.REACT_APP_JWT_KEY);
         if (!!token) {

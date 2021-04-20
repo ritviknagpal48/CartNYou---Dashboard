@@ -88,7 +88,7 @@
       "collection": "shopifychannels",
       "via": "retailersdetails"
     },
-    "retailerProductdetail": {
+    "retailer_live_products": {
       "type": "component",
       "repeatable": true,
       "component": "retailer-product-info.retailer-product"

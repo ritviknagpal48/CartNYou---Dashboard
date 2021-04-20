@@ -59,7 +59,6 @@ class AddShopifyForm extends Component {
 
   async componentDidMount() {
     const userID = this.context.additionalInfo.id;
-    console.log(this.props);
     const channelId =
       this.props &&
       this.props.match &&
@@ -91,8 +90,6 @@ class AddShopifyForm extends Component {
           },
         })
         .then((res) => {
-          console.log(edit, "running");
-          console.log(res.data);
           this.setState({
             isLoading: false,
             // isEdit: false,
@@ -103,12 +100,9 @@ class AddShopifyForm extends Component {
           this.props.history.push("/retailer/channel-list");
         });
     }
-    console.log(this.state);
   }
 
   onFinish = async (values) => {
-    console.log("Received vam: ", this.state);
-    console.log("Received values of form: ", values);
     this.setState({
       channel_name: values.channel_name,
       api_key: values.api_key,
@@ -116,7 +110,6 @@ class AddShopifyForm extends Component {
       store_url: values.store_url,
       shared_secret: values.shared_secret,
     });
-    console.log("Received vam: ", this.state);
 
     await axios
       .post("/shopifychannels", this.state, {
@@ -143,8 +136,6 @@ class AddShopifyForm extends Component {
   };
 
   onUpdateChannel = async (values) => {
-    console.log("Initital state: ", this.state);
-    console.log("Received values of form: ", values);
     this.setState({
       channel_name: values.channel_name,
       api_key: values.api_key,
@@ -152,7 +143,6 @@ class AddShopifyForm extends Component {
       store_url: values.store_url,
       shared_secret: values.shared_secret,
     });
-    console.log("Updates State: ", this.state);
 
     await axios
       .put(`/shopifychannels/${this.state.channelId}`, this.state, {
@@ -176,12 +166,10 @@ class AddShopifyForm extends Component {
         }
         console.log(error.message);
       });
-    console.log("NOt worl");
   };
 
   render() {
     const { channel_name, api_key, key, store_url, shared_secret } = this.state;
-    console.log("Check here", this.state);
     return (
       <div className="add-shopify-container h-full">
         <div
