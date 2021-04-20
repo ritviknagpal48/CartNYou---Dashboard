@@ -9,7 +9,9 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "axios": "^0.21.1"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "shopify-api-node": "^3.6.10",

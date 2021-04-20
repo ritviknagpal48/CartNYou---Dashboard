@@ -33,6 +33,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/shopifychannels/newProduct",
+      "handler": "shopifychannels.delegateNewProduct",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/shopifychannels/:id",
       "handler": "shopifychannels.update",
