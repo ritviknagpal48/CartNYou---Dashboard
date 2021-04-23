@@ -78,6 +78,7 @@ class Billing extends React.Component {
 
   render() {
     const { size, isLoading, allPayments } = this.state;
+    allPayments.sort((a, b) => parseInt(b.transaction_date) - parseInt(a.transaction_date));
 
     return (
       <div className={`${classes.wrapper} retailer-billing-page`}>
