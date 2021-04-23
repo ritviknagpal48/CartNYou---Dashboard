@@ -21,4 +21,13 @@ module.exports = {
     // const response = await axios.post(targetURL, body);
     return response.data;
   },
+
+  getOrders: async (ctx) => {
+    const { request } = ctx;
+    const { targetURL } = request.body;
+    console.warn(ctx);
+    console.warn(request.body.targetURL);
+    const response = await axios.get(targetURL);
+    return response.data;
+  }
 };

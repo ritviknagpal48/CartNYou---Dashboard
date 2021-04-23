@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "crypto-random-string": "^4.0.0",
+    "moment": "^2.29.1",
     "postcss": "^8.2.8",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

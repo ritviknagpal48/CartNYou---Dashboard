@@ -20,7 +20,7 @@ import "./ProductDetails.css";
 
 const classes = {
   wrapper:
-    "pr-2 md:pr-14  pt-4 mb-8 pb-8 relative w-11/12 mx-auto rounded-xl bg-white h-full ",
+    "pr-2 mx-4 md:pr-6  pt-4 mb-8 pb-8 relative  rounded-xl bg-white h-full ",
   header: "w-full py-3 flex flex-row items-center justify-between",
   title:
     "text-2xl text-gray-600  hidden md:block font-sans-apple-system md:flex flex-row",
@@ -121,7 +121,7 @@ const ProductDetails = () => {
   const [isProductAdded, setIsProductAdded] = useState(false);
 
   return (
-    <div className={classes.wrapper} style={{ maxWidth: "90vw" }}>
+    <div className={classes.wrapper} style={{ maxWidth: "95vw" }}>
       <button
         className={
           "m-4 px-3 py-3 text-gray-600 bg-gray-100 border border-gray-400 rounded-full shadow-lg focus:outline-none absolute left-2 top-2"
@@ -146,49 +146,53 @@ const ProductDetails = () => {
 
       <div
         className={
-          "bg-white flex flex-row flex-wrap  border border-gray-200  px-6 py-6 rounded-xl "
+          "bg-white flex flex-row w-full   border border-gray-200  px-6 py-6 rounded-xl "
         }
       >
-        <div className={"container md:hidden"} style={{ marginTop: 64 }}>
-          <Carousel infinite={true} lazyLoad={true}>
-            {defaultImages.map((image) => (
-              <div className={"object-cover w-auto h-auto"}>
-                <Image
-                  style={{ maxWidth: 480, height: "auto" }}
-                  className={"rounded-xl"}
+        <div className={"w-1/2"}>
+          <div className={"container sm:hidden"} style={{ marginTop: 64 }}>
+            <Carousel infinite={true} lazyLoad={true}>
+              {defaultImages.map((image) => (
+                <div className={"object-cover w-auto h-auto"}>
+                  <Image
+                    style={{ maxWidth: 480, height: "auto" }}
+                    className={"rounded-xl"}
+                    src={image.url}
+                    placeholder={true}
+                    loading={"eager"}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          </div>
+          <div className="flex">
+            <div
+              className={"hidden sm:flex flex-col items-center justify-start"}
+              style={{ marginTop: 64, marginRight: 24 }}
+            >
+              {defaultImages.map((image, idx) => (
+                <img
+                  onClick={() => setImageIndex(idx)}
                   src={image.url}
-                  placeholder={true}
-                  loading={"eager"}
+                  alt={image.url}
+                  className={
+                    "my-2 w-12 cursor-pointer h-auto object-cover rounded-md"
+                  }
                 />
-              </div>
-            ))}
-          </Carousel>
+              ))}
+            </div>
+            <div className={"hidden sm:block"}>
+              <Image
+                style={{ maxWidth: 520, height: "auto" }}
+                className={"rounded-xl"}
+                src={defaultImages[imageIndex].url}
+                placeholder={true}
+                loading={"eager"}
+              />
+            </div>
+          </div>
         </div>
-        <div
-          className={"hidden md:flex flex-col items-center justify-start"}
-          style={{ marginTop: 64, marginRight: 24 }}
-        >
-          {defaultImages.map((image, idx) => (
-            <img
-              onClick={() => setImageIndex(idx)}
-              src={image.url}
-              alt={image.url}
-              className={
-                "my-2 w-12 cursor-pointer h-auto object-cover rounded-md"
-              }
-            />
-          ))}
-        </div>
-        <div className={"hidden md:block"}>
-          <Image
-            style={{ maxWidth: 480, height: "auto" }}
-            className={"rounded-xl"}
-            src={defaultImages[imageIndex].url}
-            placeholder={true}
-            loading={"eager"}
-          />
-        </div>
-        <div className={"ml-6 w-11/12 md:w-1/2 "}>
+        <div className={"ml-4 w-1/2"}>
           <div className={"flex flex-row justify-between w-full pt-2"}>
             <div className={"flex flex-col"}>
               <span className={"text-4xl font-semibold text-gray-800"}>
@@ -200,7 +204,6 @@ const ProductDetails = () => {
                   Incl. of all taxes.
                 </span>
               </span>
-
               <hr style={{ borderColor: "transparent", marginTop: "20px" }} />
               <span
                 className={"text-xs flx flex-row items-center justify-start"}
@@ -295,7 +298,7 @@ const ProductDetails = () => {
               theme="bubble"
               // modules={this.modules}
               // formats={this.formats}
-              style={{ width: "550px" }}
+              style={{ width: "400px" }}
               defaultValue={product_description}
               // value={values.product_description}
               // onChange={handleValueChange("product_description")}
@@ -303,6 +306,7 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+
       <div className={"flex flex-row  pt-2"} style={{ width: "100%" }}>
         <div
           className={" my-3 border border-gray-200  px-6 py-6 rounded-xl  "}
