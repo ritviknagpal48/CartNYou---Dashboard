@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_transaction_history_transactions",
+  "info": {
+    "name": "Transactions",
+    "icon": "rupee-sign",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "transaction_date": {
+      "type": "string"
+    },
+    "transaction_type": {
+      "type": "enumeration",
+      "enum": [
+        "credit",
+        "debit"
+      ]
+    },
+    "transaction_id": {
+      "type": "string"
+    },
+    "transaction_amount": {
+      "type": "float",
+      "min": 0,
+      "default": 0
+    },
+    "closing_balance": {
+      "type": "float",
+      "default": 0,
+      "min": 0
+    },
+    "opening_balance": {
+      "type": "float",
+      "default": 0,
+      "min": 0
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

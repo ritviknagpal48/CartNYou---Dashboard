@@ -598,6 +598,12 @@
                 "retailer_live_products": {
                   "type": "component"
                 },
+                "wallet": {
+                  "type": "number"
+                },
+                "transaction_history": {
+                  "type": "component"
+                },
                 "created_by": {
                   "type": "string"
                 },

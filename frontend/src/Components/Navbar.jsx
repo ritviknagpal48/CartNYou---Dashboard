@@ -3,16 +3,22 @@ import clsx from "clsx";
 import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Avatar } from "antd";
+import { Avatar, message, notification, Modal, Input, InputNumber } from "antd";
+import { usePayment } from "Contexts/usePayment";
 
 const Navbar = ({ menuList }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
+  const [rechargeAmount, setRechargeAmount] = useState(100.0);
+  const [paymentDescription, setPaymentDescription] = useState('');
 
   const { user, setAuth } = useContext(AuthContext);
 
   const { pathname } = useLocation();
+
+  const { openPaymentWindow } = usePayment()
 
   useEffect(() => {
     const s1 = pathname.replace("/app/", "");
@@ -53,6 +59,9 @@ const Navbar = ({ menuList }) => {
                   <div
                     className="flex flex-row pr-20 bg-white border border-gray-200 rounded-lg p-2 cursor-pointer hover:shadow-lg transition"
                     style={{ alignItems: "center" }}
+                    onClick={() => {
+                      setIsPaymentModalOpen(true)
+                    }}
                   >
                     <div className="flex items-center justify-center flex-shrink-0 h-7 w-7 text-red-500">
                       <svg
@@ -339,6 +348,51 @@ const Navbar = ({ menuList }) => {
           </div>
         </div>
       </nav>
+
+      <Modal
+        title={<div className="flex gap-x-2">Wallet Recharge</div>}
+        width={"100%"}
+        visible={isPaymentModalOpen}
+        onOk={() => {
+          setIsPaymentModalOpen(false);
+          openPaymentWindow({
+            currency: 'INR',
+            amount: rechargeAmount,
+            description: 'Wallet Recharge Done'
+          }).then(resp => {
+            console.log(resp);
+            notification.success({
+              placement: "topRight",
+              description: "Wallet Recharge successfull",
+              message: "Successfull"
+            })
+          }).catch(err => {
+            console.error(err);
+            message.error('Something went wrong. Please Try Again')
+          })
+        }}
+        onCancel={() => { setIsPaymentModalOpen(false) }}
+        style={{
+          // width: "100%",
+          borderRadius: "12px",
+          overflow: "hidden",
+          backgroundColor: "white",
+          boxShadow: "none",
+          maxWidth: "520px",
+          paddingBottom: "0px",
+        }}
+        bodyStyle={{
+          boxShadow: "none",
+          height: "100%",
+        }}
+        maskStyle={{ background: "#00000034" }}
+      >
+        <div className={'mb-2'}>Enter Amount to Recharge</div>
+        <InputNumber value={rechargeAmount} placeholder={'Enter Amount'} size={'large'} step={10} min={1} max={99999} onChange={(e) => setRechargeAmount(parseFloat(e.target.value))} />
+
+        <div className={'mt-6 mb-2'}>Description <span className={'text-xs text-gray-400 font-medium'}>(optional)</span></div>
+        <Input value={paymentDescription} placeholder={'Description'} size={'large'} onChange={(e) => setPaymentDescription(e.target.value)} />
+      </Modal>
     </div>
   );
 };

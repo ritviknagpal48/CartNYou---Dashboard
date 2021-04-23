@@ -34,8 +34,8 @@
     },
     {
       "method": "POST",
-      "path": "/shopifychannels/newProduct",
-      "handler": "shopifychannels.delegateNewProduct",
+      "path": "/proxy",
+      "handler": "shopifychannels.proxy",
       "config": {
         "policies": []
       }

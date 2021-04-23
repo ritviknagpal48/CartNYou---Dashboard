@@ -60,11 +60,12 @@ export const publishToShopify = async (selectedChannel, publishingProduct) => {
   const storeurl = selectedChannel.store_url;
 
   return await axiosInstance
-    .post("/shopifychannels/newProduct", {
+    .post("/proxy", {
       body: {
         product: publishingProduct,
       },
       targetURL: `https://${username}:${password}@${storeurl}/admin/api/2021-04/products.json`,
+      method: "POST",
     })
     .catch((error) => {
       console.log(error);

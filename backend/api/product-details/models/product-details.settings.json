@@ -95,9 +95,9 @@
       "via": "product_details"
     },
     "users_detail": {
+      "via": "product_details",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "product_details"
+      "model": "user"
     },
     "counrty_origin": {
       "type": "string",
@@ -120,9 +120,9 @@
       "default": true
     },
     "retailers_details": {
+      "via": "import_list_products",
       "plugin": "users-permissions",
       "collection": "user",
-      "via": "import_list_products",
       "dominant": true
     },
     "shopifychannels": {

@@ -511,13 +511,13 @@
         ]
       }
     },
-    "/shopifychannels/newProduct": {
+    "/proxy": {
       "post": {
         "deprecated": false,
-        "description": "Create a new shopifychannels record",
+        "description": "Create a new record",
         "responses": {
           "200": {
-            "description": "Retrieve shopifychannels document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
@@ -685,6 +685,12 @@
                 }
               },
               "retailer_live_products": {
+                "type": "component"
+              },
+              "wallet": {
+                "type": "number"
+              },
+              "transaction_history": {
                 "type": "component"
               },
               "created_by": {

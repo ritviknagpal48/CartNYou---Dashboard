@@ -1735,6 +1735,52 @@
                 }
               }
             }
+          },
+          "wallet": {
+            "type": "number",
+            "default": 0
+          },
+          "transaction_history": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "transaction_date": {
+                  "type": "string"
+                },
+                "transaction_type": {
+                  "type": "string",
+                  "enum": [
+                    "credit",
+                    "debit"
+                  ]
+                },
+                "transaction_id": {
+                  "type": "string"
+                },
+                "transaction_amount": {
+                  "type": "number",
+                  "default": 0
+                },
+                "closing_balance": {
+                  "type": "number",
+                  "default": 0
+                },
+                "opening_balance": {
+                  "type": "number",
+                  "default": 0
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -1957,6 +2003,52 @@
                       "type": "string"
                     }
                   }
+                }
+              }
+            }
+          },
+          "wallet": {
+            "type": "number",
+            "default": 0
+          },
+          "transaction_history": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "transaction_date": {
+                  "type": "string"
+                },
+                "transaction_type": {
+                  "type": "string",
+                  "enum": [
+                    "credit",
+                    "debit"
+                  ]
+                },
+                "transaction_id": {
+                  "type": "string"
+                },
+                "transaction_amount": {
+                  "type": "number",
+                  "default": 0
+                },
+                "closing_balance": {
+                  "type": "number",
+                  "default": 0
+                },
+                "opening_balance": {
+                  "type": "number",
+                  "default": 0
+                },
+                "description": {
+                  "type": "string"
                 }
               }
             }

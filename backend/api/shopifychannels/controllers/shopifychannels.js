@@ -7,10 +7,18 @@ const axios = require("axios").default;
  */
 
 module.exports = {
-  delegateNewProduct: async (ctx) => {
+  proxy: async (ctx) => {
     const { request } = ctx;
-    const { targetURL, body } = request.body;
-    const response = await axios.post(targetURL, body);
+    const { targetURL, body, headers, method } = request.body;
+    const response = await axios.request({
+      method: ("" + method).trim().toUpperCase() || "GET",
+      headers: {
+        ...headers,
+      },
+      url: targetURL,
+      body: body,
+    });
+    // const response = await axios.post(targetURL, body);
     return response.data;
   },
 };

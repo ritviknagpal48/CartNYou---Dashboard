@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/payments/new",
+      "handler": "payments.newPayment",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/payments/user",
+      "handler": "payments.getUserPayments",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/payments/confirm",
+      "handler": "payments.confirmOrder",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
