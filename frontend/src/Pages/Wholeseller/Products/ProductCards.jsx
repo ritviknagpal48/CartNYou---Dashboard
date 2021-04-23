@@ -125,7 +125,7 @@ class ProductCards extends React.Component {
   };
 
   handleStatus = (id) => (value) => {
-    console.log(id, "==", value);
+    // console.log(id, "==", value);
     const change = { product_status: value };
     this.setState({
       statusChange: true,

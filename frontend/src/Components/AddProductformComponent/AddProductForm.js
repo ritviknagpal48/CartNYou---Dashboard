@@ -67,16 +67,16 @@ class AddProductForm extends Component {
   async componentDidMount() {
     const productId =
       this.props &&
-      this.props.match &&
-      this.props.match.params &&
-      this.props.match.params.productID
+        this.props.match &&
+        this.props.match.params &&
+        this.props.match.params.productID
         ? this.props.match.params.productID
         : "";
     const edit =
       this.props &&
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.edit
+        this.props.location &&
+        this.props.location.state &&
+        this.props.location.state.edit
         ? this.props.location.state.edit
         : false;
 
@@ -96,8 +96,8 @@ class AddProductForm extends Component {
             step: 1,
             product_category:
               res.data[0] &&
-              res.data[0].product_category &&
-              res.data[0].product_category.id
+                res.data[0].product_category &&
+                res.data[0].product_category.id
                 ? res.data[0].product_category.id
                 : "",
 
@@ -183,8 +183,8 @@ class AddProductForm extends Component {
 
             measurement_unit:
               res.data[0] &&
-              res.data[0].measurement_unit &&
-              res.data[0].measurement_unit.id
+                res.data[0].measurement_unit &&
+                res.data[0].measurement_unit.id
                 ? res.data[0].measurement_unit.id
                 : "",
 
@@ -195,15 +195,15 @@ class AddProductForm extends Component {
 
             sub_category:
               res.data[0] &&
-              res.data[0].sub_category &&
-              res.data[0].sub_category.id
+                res.data[0].sub_category &&
+                res.data[0].sub_category.id
                 ? res.data[0].sub_category.id
                 : "",
 
             sub_sub_category:
               res.data[0] &&
-              res.data[0].sub_sub_category &&
-              res.data[0].sub_sub_category.id
+                res.data[0].sub_sub_category &&
+                res.data[0].sub_sub_category.id
                 ? res.data[0].sub_sub_category.id
                 : "",
           });
@@ -524,9 +524,9 @@ class AddProductForm extends Component {
     e.preventDefault();
     const productId =
       this.props &&
-      this.props.match &&
-      this.props.match.params &&
-      this.props.match.params.productID
+        this.props.match &&
+        this.props.match.params &&
+        this.props.match.params.productID
         ? this.props.match.params.productID
         : "";
 
@@ -565,11 +565,11 @@ class AddProductForm extends Component {
             } else {
               message.error(`Please fill all the required fields`);
             }
-            console.log(error.message);
+            // console.log(error.message);
           });
       }
     } else {
-      console.log(this.state.error);
+      // console.log(this.state.error);
     }
   };
 
@@ -608,11 +608,11 @@ class AddProductForm extends Component {
             } else {
               message.error(`Please fill all the required fields`);
             }
-            console.log(error.message);
+            // console.log(error.message);
           });
       }
     } else {
-      console.log(this.state.error);
+      // console.log(this.state.error);
     }
   };
 
@@ -750,8 +750,8 @@ class AddProductForm extends Component {
                   this.state.editProduct && this.state.step === 5
                     ? this.updateProduct
                     : this.state.step === 5
-                    ? this.submitHandler
-                    : this.nextstep
+                      ? this.submitHandler
+                      : this.nextstep
                 }
               >
                 {this.state.step === 5 ? "Submit" : "Next"}

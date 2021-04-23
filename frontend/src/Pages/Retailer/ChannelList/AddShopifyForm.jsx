@@ -131,7 +131,7 @@ class AddShopifyForm extends Component {
         } else {
           message.error(`Please fill all the required fields`);
         }
-        console.log(error.message);
+        // console.log(error.message);
       });
   };
 
@@ -164,7 +164,7 @@ class AddShopifyForm extends Component {
         } else {
           message.error(`Please fill all the required fields`);
         }
-        console.log(error.message);
+        // console.log(error.message);
       });
   };
 

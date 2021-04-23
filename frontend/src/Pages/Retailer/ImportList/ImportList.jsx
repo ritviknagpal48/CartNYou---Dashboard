@@ -101,7 +101,10 @@ const ImportList = () => {
         setImportListData(import_list);
         setForceUpdate(false);
       })
-      .catch((err) => console.error({ err }));
+      .catch(
+        (err) => {}
+        // console.error({ err })
+      );
   }, [id, forceUpdate]);
 
   const handleSelectionChange = (id, add) => {

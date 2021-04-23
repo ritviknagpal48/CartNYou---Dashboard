@@ -12,13 +12,13 @@ const Navbar = ({ menuList }) => {
   const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
   const [rechargeAmount, setRechargeAmount] = useState(100.0);
-  const [paymentDescription, setPaymentDescription] = useState('');
+  const [paymentDescription, setPaymentDescription] = useState("");
 
-  const { user, setAuth } = useContext(AuthContext);
+  const { user, setAuth, additionalInfo } = useContext(AuthContext);
 
   const { pathname } = useLocation();
 
-  const { openPaymentWindow } = usePayment()
+  const { openPaymentWindow } = usePayment();
 
   useEffect(() => {
     const s1 = pathname.replace("/app/", "");
@@ -60,7 +60,7 @@ const Navbar = ({ menuList }) => {
                     className="flex flex-row pr-20 bg-white border border-gray-200 rounded-lg p-2 cursor-pointer hover:shadow-lg transition"
                     style={{ alignItems: "center" }}
                     onClick={() => {
-                      setIsPaymentModalOpen(true)
+                      setIsPaymentModalOpen(true);
                     }}
                   >
                     <div className="flex items-center justify-center flex-shrink-0 h-7 w-7 text-red-500">
@@ -86,7 +86,10 @@ const Navbar = ({ menuList }) => {
                     </div>
                     <div className="font-bold text-lg text-gray-600">
                       {" "}
-                      &#8377; 3200
+                      &#8377;{" "}
+                      {additionalInfo && additionalInfo.wallet
+                        ? additionalInfo.wallet
+                        : 0}
                     </div>
                   </div>
                 ) : (
@@ -121,9 +124,9 @@ const Navbar = ({ menuList }) => {
                       aria-expanded="false"
                       aria-haspopup="true"
                       onClick={() => setIsOpen((p) => !p)}
-                    // style={{
-                    //   border: "1px solid #e2e2e2",
-                    // }}
+                      // style={{
+                      //   border: "1px solid #e2e2e2",
+                      // }}
                     >
                       <span className="sr-only">Open user menu</span>
                       {/* <img
@@ -153,8 +156,9 @@ const Navbar = ({ menuList }) => {
                     </button>
                   </div>
                   <div
-                    className={`origin-top-right absolute right-0 mt-2 w-48 rounded-md z-30 shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${isOpen ? "block" : "hidden"
-                      }`}
+                    className={`origin-top-right absolute right-0 mt-2 w-48 rounded-md z-30 shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${
+                      isOpen ? "block" : "hidden"
+                    }`}
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="user-menu"
@@ -356,22 +360,26 @@ const Navbar = ({ menuList }) => {
         onOk={() => {
           setIsPaymentModalOpen(false);
           openPaymentWindow({
-            currency: 'INR',
+            currency: "INR",
             amount: rechargeAmount,
-            description: 'Wallet Recharge Done'
-          }).then(resp => {
-            console.log(resp);
-            notification.success({
-              placement: "topRight",
-              description: "Wallet Recharge successfull",
-              message: "Successfull"
-            })
-          }).catch(err => {
-            console.error(err);
-            message.error('Something went wrong. Please Try Again')
+            description: "Wallet Recharge Done",
           })
+            .then((resp) => {
+              // console.log(resp);
+              notification.success({
+                placement: "topRight",
+                description: "Wallet Recharge successfull",
+                message: "Successfull",
+              });
+            })
+            .catch((err) => {
+              // console.error(err);
+              message.error("Something went wrong. Please Try Again");
+            });
         }}
-        onCancel={() => { setIsPaymentModalOpen(false) }}
+        onCancel={() => {
+          setIsPaymentModalOpen(false);
+        }}
         style={{
           // width: "100%",
           borderRadius: "12px",
@@ -387,11 +395,29 @@ const Navbar = ({ menuList }) => {
         }}
         maskStyle={{ background: "#00000034" }}
       >
-        <div className={'mb-2'}>Enter Amount to Recharge</div>
-        <InputNumber value={rechargeAmount} placeholder={'Enter Amount'} size={'large'} step={10} min={1} max={99999} onChange={(e) => setRechargeAmount(parseFloat(e.target.value))} />
+        <div className={"mb-2"}>Enter Amount to Recharge</div>
+        <InputNumber
+          value={rechargeAmount}
+          placeholder={"Enter Amount"}
+          size={"large"}
+          step={10}
+          min={1}
+          max={99999}
+          onChange={(e) => setRechargeAmount(parseFloat(e))}
+        />
 
-        <div className={'mt-6 mb-2'}>Description <span className={'text-xs text-gray-400 font-medium'}>(optional)</span></div>
-        <Input value={paymentDescription} placeholder={'Description'} size={'large'} onChange={(e) => setPaymentDescription(e.target.value)} />
+        <div className={"mt-6 mb-2"}>
+          Description{" "}
+          <span className={"text-xs text-gray-400 font-medium"}>
+            (optional)
+          </span>
+        </div>
+        <Input
+          value={paymentDescription}
+          placeholder={"Description"}
+          size={"large"}
+          onChange={(e) => setPaymentDescription(e.target.value)}
+        />
       </Modal>
     </div>
   );

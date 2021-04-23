@@ -1,12 +1,11 @@
 // @ts-nocheck
-import React, { Component } from "react";
-
-import { Form, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { Modal } from "antd";
+import { Form, Modal, Upload } from "antd";
 import AWS from "aws-sdk";
 import cryptoRandomString from "crypto-random-string";
+import React, { Component } from "react";
 import "./imageUpload.css";
+
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -22,13 +21,13 @@ function getBase64(file) {
 const props = {
   // multiple: false,
   onStart(file) {
-    console.log("onStart", file, file.name);
+    // console.log("onStart", file, file.name);
   },
   onError(err) {
-    console.log("onError", err);
+    // console.log("onError", err);
   },
   onProgress({ percent }, file) {
-    console.log("onProgress", `${percent}%`, file.name);
+    // console.log("onProgress", `${percent}%`, file.name);
   },
   customRequest({
     action,
@@ -48,8 +47,8 @@ const props = {
     });
 
     const S3 = new AWS.S3();
-    console.log("DEBUG filename", file.name);
-    console.log("DEBUG file type", file.type);
+    // console.log("DEBUG filename", file.name);
+    // console.log("DEBUG file type", file.type);
 
     const objParams = {
       Bucket: "cartnyouawsbuket",
@@ -73,9 +72,9 @@ const props = {
       })
       .catch((err) => {
         onError();
-        console.log("Something went wrong");
-        console.log(err.code);
-        console.log(err.message);
+        // console.log("Something went wrong");
+        // console.log(err.code);
+        // console.log(err.message);
       });
   },
 };
@@ -112,7 +111,7 @@ export class ImageUpload extends Component {
   };
 
   handleChange = ({ fileList }) => {
-    console.log({ handleChange: fileList });
+    // console.log({ handleChange: fileList });
     const newFileList = fileList.filter((x) => x.status === "done");
     this.setState({ fileList: newFileList }, () => {
       this.props.handleImageUpload(newFileList);

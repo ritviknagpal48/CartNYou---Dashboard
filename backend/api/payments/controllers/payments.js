@@ -95,7 +95,7 @@ module.exports = {
       const newOrder = await razorpay.orders.create(options);
       return newOrder;
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       return {
         status: "ERR",
         message: err.message,

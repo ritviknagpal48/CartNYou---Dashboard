@@ -68,7 +68,7 @@ export const publishToShopify = async (selectedChannel, publishingProduct) => {
       method: "POST",
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
     });
 };
 /**
