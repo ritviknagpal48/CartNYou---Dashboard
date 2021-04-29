@@ -13,9 +13,10 @@ class Settings extends React.Component {
     super(props);
   }
 
-  onClick = () => {
-    this.props.history.push("/retailer/channel-list");
-  };
+  handleRouting(route) {
+    if (!route || !route.trim()) return;
+    this.props.history.push(route);
+  }
 
   render() {
     return (
@@ -31,7 +32,7 @@ class Settings extends React.Component {
               <Button
                 className="setting-button"
                 type="primary"
-                onClick={this.onClick}
+                onClick={() => this.handleRouting("/retailer/channel-list")}
               >
                 Import Order From Your Online Store
               </Button>
@@ -47,7 +48,8 @@ class Settings extends React.Component {
                 className="setting-button"
                 type="primary"
                 onClick={() => {
-                  message.info("Feature available soon");
+                  // message.info("Feature available soon");
+                  this.handleRouting("/retailer/warehouses")
                 }}
               >
                 Manage Your Pickup Location

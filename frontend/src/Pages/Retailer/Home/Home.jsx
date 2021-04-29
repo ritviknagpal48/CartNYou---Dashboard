@@ -17,6 +17,8 @@ import Settings from "Pages/Retailer/Settings/Settings";
 import Support from "Pages/Retailer/Support/Support";
 import AddNewChannel from "Pages/Retailer/ChannelList/AddNewChannel";
 import ChannelList from "Pages/Retailer/ChannelList/ChannelList";
+import Warehouses from "../Warehouses/Warehouses";
+import AddWarehouse from "../Warehouses/AddWarehouse";
 
 const Home = () => {
   return (
@@ -71,6 +73,14 @@ const Home = () => {
             <PrivateRoute
               path={"/retailer/edit-channel/:id"}
               component={AddNewChannel}
+            />
+            <PrivateRoute
+              path={"/retailer/warehouses"}
+              component={Warehouses}
+            />
+            <PrivateRoute
+              path={"/retailer/add-warehouse"}
+              component={AddWarehouse}
             />
           </Switch>
         </div>

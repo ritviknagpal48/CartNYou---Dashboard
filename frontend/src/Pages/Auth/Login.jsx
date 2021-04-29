@@ -1,13 +1,12 @@
 // @ts-nocheck
-import { useContext, useState } from "react";
-import { Spin, message } from "antd";
-import clsx from "clsx";
-import { Link, useHistory } from "react-router-dom";
 import { LoadingOutlined } from "@ant-design/icons";
+import { Button, message, Spin } from "antd";
+import clsx from "clsx";
 import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
-import { Button } from "antd";
 import useAxios from "Contexts/useAxios";
+import { useContext, useState } from "react";
 import { GoogleLogin } from 'react-google-login';
+import { Link, useHistory } from "react-router-dom";
 
 const classes = {
   wrapper: "",
@@ -94,10 +93,12 @@ const Login = ({ className }) => {
         username: user.username,
         email: user.email,
         type: user.type || userType,
+        id: user.id
       },
       additionalInfo: {
         ...user,
       },
+      wallet: user.wallet
     });
     message.success(`Welcome Back, ${user.username}`, 1);
     history.push(`/${userType}/dashboard`);

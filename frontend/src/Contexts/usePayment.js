@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { AuthContext } from "./Auth";
+import { AuthContext, AUTH_ACTIONS } from "./Auth";
 import useAxios from "./useAxios";
 // import { axiosInstance } from "./useAxios";
 
@@ -8,6 +8,7 @@ const RAZORPAY_PUBLIC_KEY = "rzp_test_i3aqCnQuDHZhn9";
 export const usePayment = () => {
   const {
     additionalInfo: { id: userid, email, mobile },
+    setAuth,
   } = useContext(AuthContext);
 
   const { axios } = useAxios();
@@ -56,8 +57,15 @@ export const usePayment = () => {
                 tx_desc: description || "Wallet Recharge",
                 userid: userid,
               })
-              .then(() => {
-                resolve(response);
+              .then(({ data }) => {
+                setAuth(AUTH_ACTIONS.UPDATE, {
+                  wallet: data.closing,
+                  additionalInfo: {
+                    transaction_history: data.t_history,
+                    wallet: data.closing,
+                  },
+                });
+                resolve(data);
               })
               .catch(reject);
           }

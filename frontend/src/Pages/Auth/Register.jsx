@@ -73,10 +73,12 @@ const Register = ({ className }) => {
         username: user.username,
         email: user.email,
         type: user.type || payload.type,
+        id: user.id
       },
       additionalInfo: {
         ...user,
       },
+      wallet: user.wallet,
     });
     message.success(`Welcome, ${user.username}`, 1);
     history.push(`/${payload.type}/dashboard`);

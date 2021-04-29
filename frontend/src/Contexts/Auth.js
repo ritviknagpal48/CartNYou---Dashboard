@@ -5,6 +5,7 @@ import { useGoogleLogout } from "react-google-login";
 const defaultState = {
   isLoggedIn: false,
   token: "",
+  wallet: 0,
   user: {
     fname: "",
     username: "",
@@ -48,6 +49,10 @@ const authReducer = (state, action) => {
       return { ...state, ...defaultState };
 
     case AUTH_ACTIONS.UPDATE:
+      localStorage.setItem(
+        process.env.REACT_APP_AUTH_KEY,
+        JSON.stringify({ ...state, ...action.payload })
+      );
       return { ...state, ...action.payload };
 
     case AUTH_ACTIONS.VALIDATE:

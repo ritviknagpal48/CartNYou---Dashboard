@@ -51,7 +51,8 @@ class Billing extends React.Component {
   state = {
     size: "all",
     allPayments: [],
-    isLoading: true
+    isLoading: true,
+    wallet: this.context.additionalInfo.wallet
   };
 
   handleSizeChange = (e) => {
@@ -77,7 +78,7 @@ class Billing extends React.Component {
   }
 
   render() {
-    const { size, isLoading, allPayments } = this.state;
+    const { size, isLoading, allPayments, wallet } = this.state;
     allPayments.sort((a, b) => parseInt(b.transaction_date) - parseInt(a.transaction_date));
 
     return (
@@ -408,7 +409,7 @@ class Billing extends React.Component {
                           <div className="text-sm text-gray-500">
                             Wallet Balance
                           </div>
-                          <div className="font-bold text-lg"> &#8377; 3200</div>
+                          <div className="font-bold text-lg"> &#8377; {this.context.additionalInfo.wallet}</div>
                         </div>
                       </div>
                     </div>
