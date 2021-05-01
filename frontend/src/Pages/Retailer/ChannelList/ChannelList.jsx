@@ -186,7 +186,7 @@ export class ChannelList extends Component {
                       return (
                         <div
                           key={index}
-                          className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2  items-center  w-full  md:grid-cols-5"
+                          className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2  items-center  w-full  md:grid-cols-5 gap-y-2"
                         >
                           <div
                             className="card-detail"
@@ -223,11 +223,11 @@ export class ChannelList extends Component {
                                 : "-"}
                             </div>
                           </div>
-                          <div className="action card-detail">
+                          <div className="action card-detail col-span-2 sm:col-span-1">
                             {/* <div className={"head-title text-center"}>
                               Actions
                             </div> */}
-                            <Space size="small" direction="vertical">
+                            <Space size="small" direction={"vertical"}>
                               <Link
                                 to={{
                                   pathname: `/retailer/edit-channel/${ChannelData.id}`,

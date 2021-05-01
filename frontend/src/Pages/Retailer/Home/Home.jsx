@@ -82,6 +82,10 @@ const Home = () => {
               path={"/retailer/add-warehouse"}
               component={AddWarehouse}
             />
+            <PrivateRoute
+              path={"/retailer/update-warehouse"}
+              component={AddWarehouse}
+            />
           </Switch>
         </div>
       </div>

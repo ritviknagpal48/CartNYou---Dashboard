@@ -54,10 +54,16 @@ const Home = () => {
           <PrivateRoute
             path={"/wholeseller/edit-product/:productID"}
             component={AddNewProduct}
-          />P
+          />
+          P
+          <PrivateRoute path={"/retailer/warehouses"} component={Warehouses} />
           <PrivateRoute
-            path={"/wholeseller/warehouses"}
-            component={Warehouses}
+            path={"/retailer/add-warehouse"}
+            component={AddWarehouse}
+          />
+          <PrivateRoute
+            path={"/retailer/update-warehouse"}
+            component={AddWarehouse}
           />
         </div>
       </div>

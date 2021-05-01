@@ -25,6 +25,12 @@
   flex-direction: column;
 }
 
+@media (max-width: 420px) {
+  .card-detail {
+    flex-direction: row;
+  }
+}
+
 .title-body {
   font-weight: 500;
   font-size: 15px;

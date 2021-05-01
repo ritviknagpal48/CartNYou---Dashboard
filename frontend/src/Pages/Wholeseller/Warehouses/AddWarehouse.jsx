@@ -1,9 +1,10 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message, Select, Spin } from "antd";
-import { getCities, states } from "assets/cities";
+import { cities as cities_map, getCities, states } from "assets/cities";
 import { AuthContext } from "Contexts/Auth";
 import useAxios from "Contexts/useAxios";
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { useState } from "react";
 import { withRouter } from "react-router-dom";
 import "../ChannelList/AddShopifyForm.css";
 
