@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "05/01/2021 12:45:08 PM"
+    "x-generation-date": "05/01/2021 7:25:49 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6467,6 +6467,9 @@
                 "images": {
                   "type": "object"
                 },
+                "warehouse": {
+                  "type": "string"
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -6716,6 +6719,9 @@
                 },
                 "images": {
                   "type": "object"
+                },
+                "warehouse": {
+                  "type": "string"
                 },
                 "published_at": {
                   "type": "string"
@@ -7295,6 +7301,55 @@
           "images": {
             "type": "object"
           },
+          "warehouse": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "gst_number": {
+                "type": "string"
+              },
+              "contact_name": {
+                "type": "string"
+              },
+              "contact_number": {
+                "type": "string"
+              },
+              "address_1": {
+                "type": "string"
+              },
+              "address_2": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "pincode": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -7418,6 +7473,9 @@
           },
           "images": {
             "type": "object"
+          },
+          "warehouse": {
+            "type": "string"
           },
           "published_at": {
             "type": "string",
@@ -7668,6 +7726,9 @@
                 },
                 "images": {
                   "type": "object"
+                },
+                "warehouse": {
+                  "type": "string"
                 },
                 "published_at": {
                   "type": "string"
@@ -7949,6 +8010,9 @@
                 "images": {
                   "type": "object"
                 },
+                "warehouse": {
+                  "type": "string"
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -8184,6 +8248,9 @@
                 },
                 "images": {
                   "type": "object"
+                },
+                "warehouse": {
+                  "type": "string"
                 },
                 "published_at": {
                   "type": "string"
@@ -8797,6 +8864,9 @@
                 "images": {
                   "type": "object"
                 },
+                "warehouse": {
+                  "type": "string"
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -8930,6 +9000,9 @@
                 },
                 "images": {
                   "type": "object"
+                },
+                "warehouse": {
+                  "type": "string"
                 },
                 "published_at": {
                   "type": "string"
@@ -9134,6 +9207,9 @@
                     },
                     "images": {
                       "type": "object"
+                    },
+                    "warehouse": {
+                      "type": "string"
                     },
                     "published_at": {
                       "type": "string"
@@ -9405,6 +9481,9 @@
                     },
                     "images": {
                       "type": "object"
+                    },
+                    "warehouse": {
+                      "type": "string"
                     },
                     "published_at": {
                       "type": "string"

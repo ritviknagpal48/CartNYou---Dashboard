@@ -69,7 +69,7 @@ const WarehouseCards = (props) => {
         <Space size="small" direction="vertical">
           <Link
             to={{
-              pathname: `/retailer/update-warehouse`,
+              pathname: `/wholeseller/update-warehouse`,
               state: {
                 edit: true,
                 initalValues: {
@@ -200,7 +200,7 @@ const Warehouses = () => {
           <div className={classes.buttons}>
             <button
               onClick={() =>
-                history.push("/retailer/add-warehouse", {
+                history.push("/wholeseller/add-warehouse", {
                   edit: false,
                   initalValues: {},
                 })

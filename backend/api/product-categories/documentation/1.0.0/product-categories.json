@@ -728,6 +728,9 @@
                 "images": {
                   "type": "object"
                 },
+                "warehouse": {
+                  "type": "string"
+                },
                 "published_at": {
                   "type": "string"
                 },

@@ -84,6 +84,7 @@ class AddNewProduct extends React.Component {
               <AddProductForm
                 edit={this.state.editProduct}
                 userID={this.context.additionalInfo.id}
+                token={this.context.token}
               />
             </div>
             {/*footer*/}

@@ -1,17 +1,20 @@
+import {
+  LeftOutlined,
+  LoadingOutlined,
+  RightOutlined,
+} from "@ant-design/icons";
+import { Button, message, notification, Spin, Tabs } from "antd";
+import { axiosInstance as axios } from "Contexts/useAxios";
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { message, Button, Spin } from "antd";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { axiosInstance as axios } from "Contexts/useAxios";
-import { Tabs, notification } from "antd";
-import ProductDetail from "./ProductDetail/productDetail";
-import VariantsDetails from "./VariantsDetails/variantsDetails";
-import ImageUpload from "./ImageUploadForm/imageUpload";
-import ShippingDetails from "./ShippingDetails/shippingDetails";
-import AttributeDetail from "./AttributeDetail/AttributeDetail";
-import { LoadingOutlined } from "@ant-design/icons";
-import ProductCategoryForm from "./ProductCategoryForm/ProductCategoryForm";
 import "./AddProduct.css";
+import AttributeDetail from "./AttributeDetail/AttributeDetail";
+import ImageUpload from "./ImageUploadForm/imageUpload";
+import ProductCategoryForm from "./ProductCategoryForm/ProductCategoryForm";
+import ProductDetail from "./ProductDetail/productDetail";
+import ShippingDetails from "./ShippingDetails/shippingDetails";
+import VariantsDetails from "./VariantsDetails/variantsDetails";
+import WarehouseDetail from "./WarehouseDetail/Warehouse";
 
 const { TabPane } = Tabs;
 
@@ -58,25 +61,30 @@ class AddProductForm extends Component {
       //attributes
       custom_attribute: {},
 
+      // warehouse info
+      warehouse: "",
+
       subCatArray: [],
       subSubCatArray: [],
       loading: false,
     };
+
+    this.handleWarehouse = this.handleWarehouse.bind(this);
   }
 
   async componentDidMount() {
     const productId =
       this.props &&
-        this.props.match &&
-        this.props.match.params &&
-        this.props.match.params.productID
+      this.props.match &&
+      this.props.match.params &&
+      this.props.match.params.productID
         ? this.props.match.params.productID
         : "";
     const edit =
       this.props &&
-        this.props.location &&
-        this.props.location.state &&
-        this.props.location.state.edit
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.edit
         ? this.props.location.state.edit
         : false;
 
@@ -96,8 +104,8 @@ class AddProductForm extends Component {
             step: 1,
             product_category:
               res.data[0] &&
-                res.data[0].product_category &&
-                res.data[0].product_category.id
+              res.data[0].product_category &&
+              res.data[0].product_category.id
                 ? res.data[0].product_category.id
                 : "",
 
@@ -183,8 +191,8 @@ class AddProductForm extends Component {
 
             measurement_unit:
               res.data[0] &&
-                res.data[0].measurement_unit &&
-                res.data[0].measurement_unit.id
+              res.data[0].measurement_unit &&
+              res.data[0].measurement_unit.id
                 ? res.data[0].measurement_unit.id
                 : "",
 
@@ -193,17 +201,22 @@ class AddProductForm extends Component {
                 ? res.data[0].custom_attribute
                 : "",
 
+            warehouse:
+              res.data[0] && res.data[0].warehouse && res.data[0].warehouse.id
+                ? res.data[0].warehouse.id
+                : "",
+
             sub_category:
               res.data[0] &&
-                res.data[0].sub_category &&
-                res.data[0].sub_category.id
+              res.data[0].sub_category &&
+              res.data[0].sub_category.id
                 ? res.data[0].sub_category.id
                 : "",
 
             sub_sub_category:
               res.data[0] &&
-                res.data[0].sub_sub_category &&
-                res.data[0].sub_sub_category.id
+              res.data[0].sub_sub_category &&
+              res.data[0].sub_sub_category.id
                 ? res.data[0].sub_sub_category.id
                 : "",
           });
@@ -231,7 +244,7 @@ class AddProductForm extends Component {
   }
 
   nextstep = () => {
-    if (parseInt(this.state.step) !== 5) {
+    if (parseInt(this.state.step) !== 6) {
       this.setState({
         step: parseInt(this.state.step) + 1,
       });
@@ -385,6 +398,7 @@ class AddProductForm extends Component {
       dem_breadth,
       dem_height,
       custom_attribute,
+      warehouse,
     } = this.state;
 
     const productData = {
@@ -411,6 +425,7 @@ class AddProductForm extends Component {
       dem_breadth,
       dem_height,
       custom_attribute,
+      warehouse,
     };
 
     if (!sub_category === "") {
@@ -511,6 +526,12 @@ class AddProductForm extends Component {
       this.openNotificationWithIcon("Breadth dimension is required");
     }
 
+    if (warehouse === "") {
+      error.warehouse = "Warehouse is required";
+      isError = true;
+      this.openNotificationWithIcon("Warehouse is required");
+    }
+
     if (!isError) {
       this.setState({ error: {}, isError });
       return productData;
@@ -524,9 +545,9 @@ class AddProductForm extends Component {
     e.preventDefault();
     const productId =
       this.props &&
-        this.props.match &&
-        this.props.match.params &&
-        this.props.match.params.productID
+      this.props.match &&
+      this.props.match.params &&
+      this.props.match.params.productID
         ? this.props.match.params.productID
         : "";
 
@@ -588,6 +609,8 @@ class AddProductForm extends Component {
 
     const productData = await this.handleValidation();
 
+    console.log({ productData });
+
     if (!this.state.isError) {
       if (productData) {
         this.setState({
@@ -598,7 +621,6 @@ class AddProductForm extends Component {
           .then((resp) => {
             if (resp.status === 200) {
               message.success(`Product Added Successfully`);
-              // window.location = "/wholeseller/products";
               this.props.history.push("/wholeseller/products");
             }
           })
@@ -608,13 +630,16 @@ class AddProductForm extends Component {
             } else {
               message.error(`Please fill all the required fields`);
             }
-            // console.log(error.message);
           });
       }
     } else {
       // console.log(this.state.error);
     }
   };
+
+  handleWarehouse({ warehouse }) {
+    this.setState({ warehouse });
+  }
 
   render() {
     const { step, subCatArray, subSubCatArray, haveCategory } = this.state;
@@ -650,6 +675,9 @@ class AddProductForm extends Component {
       dem_length,
       dem_breadth,
       dem_height,
+
+      // warehouse info
+      warehouse,
 
       //attributes
       custom_attribute,
@@ -688,6 +716,9 @@ class AddProductForm extends Component {
 
       //attributes
       custom_attribute,
+
+      // warehouse info
+      warehouse,
 
       subCatArray,
       subSubCatArray,
@@ -747,14 +778,14 @@ class AddProductForm extends Component {
               <Button
                 className="continue-form-button"
                 onClick={
-                  this.state.editProduct && this.state.step === 5
+                  this.state.editProduct && this.state.step === 6
                     ? this.updateProduct
-                    : this.state.step === 5
-                      ? this.submitHandler
-                      : this.nextstep
+                    : this.state.step === 6
+                    ? this.submitHandler
+                    : this.nextstep
                 }
               >
-                {this.state.step === 5 ? "Submit" : "Next"}
+                {this.state.step === 6 ? "Submit" : "Next"}
                 <RightOutlined />
               </Button>
             </div>
@@ -802,6 +833,16 @@ class AddProductForm extends Component {
               handlechange={this.handlechange}
               values={values}
               handleCustomAttribute={this.handleCustomAttribute}
+            />
+          </TabPane>
+          <TabPane tab="Warehouses" key="6">
+            <WarehouseDetail
+              nextstep={this.nextstep}
+              prevstep={this.prevstep}
+              values={values}
+              userid={this.props.userID}
+              token={this.props.token}
+              handleWarehouse={this.handleWarehouse}
             />
           </TabPane>
         </Tabs>

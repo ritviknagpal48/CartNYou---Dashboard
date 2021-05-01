@@ -5,7 +5,7 @@ import { AuthContext } from "Contexts/Auth";
 import useAxios from "Contexts/useAxios";
 import { useContext, useState } from "react";
 import { withRouter } from "react-router-dom";
-import "../ChannelList/AddShopifyForm.css";
+import "./AddShopifyForm.css";
 
 const capitalize = (value) =>
   value

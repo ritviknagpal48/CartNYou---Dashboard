@@ -17,8 +17,8 @@ import Settings from "Pages/Retailer/Settings/Settings";
 import Support from "Pages/Retailer/Support/Support";
 import AddNewChannel from "Pages/Retailer/ChannelList/AddNewChannel";
 import ChannelList from "Pages/Retailer/ChannelList/ChannelList";
-import Warehouses from "../Warehouses/Warehouses";
-import AddWarehouse from "../Warehouses/AddWarehouse";
+import Warehouses from "Pages/Retailer/Warehouses/Warehouses";
+import AddWarehouse from "Pages/Retailer/Warehouses/AddWarehouse";
 
 const Home = () => {
   return (
