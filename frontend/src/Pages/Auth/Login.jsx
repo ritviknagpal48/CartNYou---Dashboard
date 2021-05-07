@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
 import useAxios from "Contexts/useAxios";
 import { useContext, useState } from "react";
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from "react-google-login";
 import { Link, useHistory } from "react-router-dom";
 
 const classes = {
@@ -46,19 +46,17 @@ const Login = ({ className }) => {
   const handleGoogleLoginSuccess = async (response) => {
     // e.preventDefault();
     // console.log({ response })
-    const { tokenId: id_token, accessToken: access_token } = response
+    const { tokenId: id_token, accessToken: access_token } = response;
 
-    const authResp = await axios.get(`/auth/google/callback?id_token=${id_token}&access_token=${access_token}`);
+    const authResp = await axios.get(
+      `/auth/google/callback?id_token=${id_token}&access_token=${access_token}`
+    );
     const { jwt, user } = authResp.data;
 
     if (!userType) {
-      return message.error(
-        `Something Went Wrong. Please try again.`,
-        3,
-        () => {
-          history.push("/auth/login");
-        }
-      );
+      return message.error(`Something Went Wrong. Please try again.`, 3, () => {
+        history.push("/auth/login");
+      });
     }
 
     // make sure that if the user is already existing and is of specific type then
@@ -93,26 +91,25 @@ const Login = ({ className }) => {
         username: user.username,
         email: user.email,
         type: user.type || userType,
-        id: user.id
+        id: user.id,
       },
       additionalInfo: {
         ...user,
       },
-      wallet: user.wallet
+      wallet: user.wallet,
     });
     message.success(`Welcome Back, ${user.username}`, 1);
     history.push(`/${userType}/dashboard`);
   };
 
-
   const signIn = (e) => {
     e.preventDefault();
 
     if (!username.trim()) {
-      return message.error('Username is Required');
+      return message.error("Username is Required");
     }
     if (!password.trim()) {
-      return message.error('Password is Required');
+      return message.error("Password is Required");
     }
 
     axios
@@ -121,9 +118,17 @@ const Login = ({ className }) => {
         password: password,
       })
       .then((res) => {
-
-        if (![200, 204, 201, 304].includes(res.status)) {
-          return res.response.data.message[0].messages.map((err) => message.error(err.message))
+        if (![200, 204].includes(res.status)) {
+          return (
+            res.response &&
+            res.response.data &&
+            res.response.data.message &&
+            res.response.data.message[0] &&
+            res.response.data.message[0].messages &&
+            res.response.data.message[0].messages.map((err) =>
+              message.error(err.message)
+            )
+          );
         }
 
         const { jwt, user } = res.data;
@@ -166,7 +171,7 @@ const Login = ({ className }) => {
         }
         message.success(`Welcome Back, ${user.username}`, 1);
         history.push(`/${userType}/dashboard`);
-      })
+      });
   };
 
   return (
@@ -303,17 +308,17 @@ const Login = ({ className }) => {
           <div className={clsx(classes.divider, "mt-6 mb-4")} />
           <GoogleLogin
             clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-            cookiePolicy={'single_host_origin'}
+            cookiePolicy={"single_host_origin"}
             isSignedIn={false}
             onSuccess={handleGoogleLoginSuccess}
-            buttonText={'Login with Google'}
-            render={renderProps => (
+            buttonText={"Login with Google"}
+            render={(renderProps) => (
               <button
                 disabled={renderProps.disabled}
                 onClick={renderProps.onClick}
                 type="submit"
                 className={classes.submit_button}
-              // onClick={signInWithGoogle}
+                // onClick={signInWithGoogle}
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                   <svg

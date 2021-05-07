@@ -1,17 +1,13 @@
-import React from "react";
-import { Radio, message, Spin, Select } from "antd";
-import OrderTableHeading from "./orderTableHeading";
-import TableComponent from "../../../Components/TableComponent";
-import { OrdersMenuButton } from "./OrdersMenuButton";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Button, Radio, Select, Spin, Modal, message, Empty } from "antd";
 import Toolbar from "Components/Toolbar";
-import "./Orders.css";
-import { Input, Button, Space } from "antd";
-import Highlighter from "react-highlight-words";
-import { SearchOutlined } from "@ant-design/icons";
 import { AuthContext } from "Contexts/Auth";
-import { LoadingOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import { axiosInstance } from "Contexts/useAxios";
-import { Option } from "antd/lib/mentions";
+import React from "react";
+import TableComponent from "../../../Components/TableComponent";
+import "./Orders.css";
+import { OrdersMenuButton } from "./OrdersMenuButton";
+import OrderTableHeading from "./orderTableHeading";
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4",
@@ -24,7 +20,34 @@ const classes = {
   button_title: "hidden md:block",
 };
 
-const ImportListActions = OrdersMenuButton;
+let ImportListActions = OrdersMenuButton;
+
+const sample_rate_list = [
+  {
+    courier_id: 2,
+    delivered_charges: 66.3,
+    courier: "Bluedart Air",
+    returned_charges: 132.6,
+  },
+  {
+    courier_id: 30,
+    delivered_charges: 51.0,
+    courier: "xpressbees",
+    returned_charges: 102.0,
+  },
+  {
+    courier_id: 102,
+    delivered_charges: 66.3,
+    courier: "Ecom Express",
+    returned_charges: 132.6,
+  },
+  {
+    courier_id: 1,
+    delivered_charges: 53.0,
+    courier: "Delhivery Express",
+    returned_charges: 104.0,
+  },
+];
 
 class Orders extends React.Component {
   state = {
@@ -36,6 +59,13 @@ class Orders extends React.Component {
     searchText: "",
     searchedColumn: "",
     selectedChannelId: "",
+    modalVisible: true,
+    modalID: "938274923",
+    delivery_service: "",
+    billing_zone: "A",
+    rate_list: sample_rate_list,
+    pickup_pincode: 226029,
+    drop_pincode: 201313,
   };
 
   async componentDidMount() {
@@ -43,6 +73,10 @@ class Orders extends React.Component {
       token,
       additionalInfo: { id },
     } = this.context;
+
+    ImportListActions[0].onClick = () => {
+      this.handleOrderClick("02938402938dhfksjdf");
+    };
 
     if (this.state.shopifyChannels === null)
       await axiosInstance
@@ -109,6 +143,38 @@ class Orders extends React.Component {
     });
   };
 
+  handleRadioChange = (event) => {
+    if (event.target.checked)
+      this.setState({
+        [event.target.name]: event.target.value,
+      });
+  };
+
+  loadDeliveryServices = async (options) => {
+    const response = await axiosInstance.get(
+      "https://pickrr.com/api-v2/client/fetch-price-calculator-generic/",
+      {
+        params: {
+          auth_token: "480054b2d5b28e22c91a52faaa23ee2c130720",
+          shipment_type: "forward",
+          pickup_pincode: this.state.pickup_pincode,
+          drop_pincode: this.state.drop_pincode,
+          delivery_mode: "express",
+          ...options,
+        },
+      }
+    );
+
+    if (response.data) {
+      this.setState({
+        billing_zone: response.data.billing_zone,
+        rate_list: response.data.rate_list,
+      });
+    } else {
+      message.error("Error Loading Delivery Services. Please try again.");
+    }
+  };
+
   handleChange = async (value) => {
     this.setState({ is_loading: true });
     const { token } = this.context;
@@ -153,6 +219,34 @@ class Orders extends React.Component {
       .catch((error) => {});
   };
 
+  handleOrderClick = (id) => {
+    const order = this.state.orders.find((x) => x.id === id);
+    if (!order) return message.error("Something went wrong. Please try again.");
+    this.setState({ is_loading: true, delivery_service: "" });
+    this.loadDeliveryServices({
+      length: 1,
+      breadth: 1,
+      height: 1,
+      weight: 1,
+      payment_mode: "prepaid",
+    }).then(() =>
+      this.setState({ is_loading: false, modalID: id, modalVisible: true })
+    );
+  };
+
+  handleModalCancel = (e) => {
+    this.setState({ modalVisible: false, modalID: "" });
+  };
+
+  // Place orde here
+  handleModalOk = (e) => {
+    this.setState({ modalLoading: false, modalID: "" });
+    const dpart = this.state.rate_list.find(
+      (x) => x.courier_id == this.state.delivery_service
+    );
+    if (dpart) message.loading(`Delivery Service : ${dpart.courier}`);
+  };
+
   render() {
     const { orderFilter, shopifyChannels } = this.state;
 
@@ -179,9 +273,9 @@ class Orders extends React.Component {
               <div className="tabs-group pb-5">
                 <Radio.Group value={orderFilter} onChange={this.handleFilter}>
                   <Radio.Button value="any">All</Radio.Button>
-                  <Radio.Button value="open">Active (3)</Radio.Button>
-                  <Radio.Button value="closed">Completed (0)</Radio.Button>
-                  <Radio.Button value="cancelled">Cancelled (0)</Radio.Button>
+                  <Radio.Button value="open">Active</Radio.Button>
+                  <Radio.Button value="closed">Completed</Radio.Button>
+                  <Radio.Button value="cancelled">Cancelled</Radio.Button>
                 </Radio.Group>
               </div>
 
@@ -222,7 +316,18 @@ class Orders extends React.Component {
             <hr style={{ margin: "5px 0px 20px" }} />
             <TableComponent
               heading={OrderTableHeading}
-              data={this.state.orders}
+              data={this.state.orders.map((order) => ({
+                ...order,
+                callStatus: (
+                  <Button
+                    type={"text"}
+                    color={"#ef4444"}
+                    onClick={() => this.handleOrderClick(order.id)}
+                  >
+                    Ship
+                  </Button>
+                ),
+              }))}
               size="middle"
               isActiveSearch={false}
               searchedColumn={""}
@@ -230,6 +335,83 @@ class Orders extends React.Component {
             />
           </div>
         </Spin>
+
+        <Modal
+          title={<div className="flex gap-x-2">Select Delivery Partner</div>}
+          width={"100%"}
+          visible={this.state.modalVisible && this.state.modalID}
+          confirmLoading={this.state.is_loading}
+          onOk={this.handleModalOk}
+          onCancel={this.handleModalCancel}
+          style={{
+            borderRadius: "12px",
+            overflow: "hidden",
+            backgroundColor: "white",
+            boxShadow: "none",
+            maxWidth: "520px",
+            paddingBottom: "0px",
+          }}
+          bodyStyle={{
+            boxShadow: "none",
+            height: "100%",
+          }}
+          maskStyle={{ background: "#00000034" }}
+        >
+          <div className="grid grid-cols-2 w-10/12 mx-auto">
+            <div className="flex flex-col items-start justify-start">
+              <span className="text-xs font-semibold text-gray-400">
+                Pickup Pincode
+              </span>
+              <p className="text-sm font-medium text-gray-700">132453</p>
+            </div>
+            <div className="flex flex-col items-end justify-start">
+              <span className="text-xs font-semibold text-gray-400">
+                Drop Pincode
+              </span>
+              <p className="text-sm font-medium text-gray-700">132453</p>
+            </div>
+          </div>
+
+          {this.state.rate_list && this.state.rate_list.length > 0 ? (
+            <ul className="w-10/12 mx-auto grid grid-cols-2 gap-y-3 gap-x-4 place-items-center">
+              {this.state.rate_list.map((item) => {
+                return (
+                  <li className="flex flex-col items-start justify-start w-full py-4 pl-10 pr-3 border border-gray-300 rounded-md shadow-md relative">
+                    <input
+                      type="radio"
+                      name="delivery_service"
+                      value={item.courier_id}
+                      className="m-3 p-0 text-red-500 focus:ring-transparent absolute left-0 top-0.5"
+                      onChange={this.handleRadioChange}
+                    />
+                    <h3
+                      className="m-0 p-0 leading-none pb-2 pt-0 text-gray-300 w-full"
+                      style={{ borderBottom: "1px solid currentColor" }}
+                    >
+                      <p className="m-0 p-0 text-gray-700">{item.courier}</p>
+                    </h3>
+                    <div className="w-full flex flex-row items-center justify-between">
+                      <span className="font-bold text-red-500 pt-2">
+                        <p className="block font-thin w-auto text-xs text-gray-400 my-0 mb-1">
+                          Delivery
+                        </p>
+                        ₹ {item.delivered_charges}
+                      </span>
+                      <span className="font-bold text-gray-600 pt-2 ">
+                        <p className="block font-thin w-auto text-xs text-gray-400 my-0 mb-1">
+                          Returns
+                        </p>
+                        ₹ {item.returned_charges}
+                      </span>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          )}
+        </Modal>
       </div>
     );
   }
