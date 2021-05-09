@@ -220,8 +220,8 @@ class Orders extends React.Component {
   };
 
   handleOrderClick = (id) => {
-    const order = this.state.orders.find((x) => x.id === id);
-    if (!order) return message.error("Something went wrong. Please try again.");
+    // const order = this.state.orders.find((x) => x.id === id);
+    // if (!order) return message.error("Something went wrong. Please try again.");
     this.setState({ is_loading: true, delivery_service: "" });
     this.loadDeliveryServices({
       length: 1,

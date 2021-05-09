@@ -566,7 +566,7 @@
                   "type": "string"
                 }
               },
-              "commision_percent": {
+              "commision": {
                 "type": "integer"
               },
               "published_at": {

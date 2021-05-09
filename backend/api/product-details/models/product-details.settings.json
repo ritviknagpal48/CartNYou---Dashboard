@@ -16,8 +16,8 @@
       "required": true
     },
     "product_category": {
-      "model": "product-categories",
-      "via": "product_details"
+      "via": "product_details",
+      "model": "product-categories"
     },
     "product_main_sku": {
       "type": "string",
