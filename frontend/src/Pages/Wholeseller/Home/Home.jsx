@@ -8,9 +8,10 @@ import AddNewProduct from "Pages/Wholeseller/Products/AddNewProduct";
 import Products from "Pages/Wholeseller/Products/ProductsPage";
 import Shipment from "Pages/Wholeseller/Shipment/Shipment";
 import Warehouses from "Pages/Wholeseller/Warehouses/Warehouses";
-import OrderDetails from "../Orders/OrderDetails";
+import AddWarehouse from "Pages/Wholeseller/Warehouses/AddWarehouse";
+import OrderDetails from "Pages/Wholeseller/Orders/OrderDetails";
+import TrackOrder from "Pages/Wholeseller/TrackOrder/TrackOrder";
 import PrivateRoute from "Components/PrivateRoute";
-import TrackOrder from "../TrackOrder/TrackOrder";
 import { MenuItems } from "Components/menuItems";
 
 const Home = () => {
@@ -25,7 +26,7 @@ const Home = () => {
         />
         <div
           className={"flex-auto flex-shrink-0 flex-grow md:pl-20"}
-          style={{ background: "#edf2f9" }}
+          style={{ background: "#fff" }}
         >
           <Navbar menuList={MenuItems} />
           <Route
@@ -55,9 +56,18 @@ const Home = () => {
             path={"/wholeseller/edit-product/:productID"}
             component={AddNewProduct}
           />
+          P
           <PrivateRoute
             path={"/wholeseller/warehouses"}
             component={Warehouses}
+          />
+          <PrivateRoute
+            path={"/wholeseller/add-warehouse"}
+            component={AddWarehouse}
+          />
+          <PrivateRoute
+            path={"/wholeseller/update-warehouse"}
+            component={AddWarehouse}
           />
         </div>
       </div>

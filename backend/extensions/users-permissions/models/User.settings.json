@@ -69,6 +69,39 @@
       ],
       "required": true,
       "default": "retailer"
+    },
+    "product_details": {
+      "via": "users_detail",
+      "collection": "product-details"
+    },
+    "import_list_products": {
+      "via": "retailers_details",
+      "collection": "product-details"
+    },
+    "fullname": {
+      "type": "string"
+    },
+    "mobile": {
+      "type": "string"
+    },
+    "shopifychannels": {
+      "collection": "shopifychannels",
+      "via": "retailersdetails"
+    },
+    "retailer_live_products": {
+      "type": "component",
+      "repeatable": true,
+      "component": "retailer-product-info.retailer-product"
+    },
+    "wallet": {
+      "type": "float",
+      "default": 0,
+      "min": 0
+    },
+    "transaction_history": {
+      "type": "component",
+      "repeatable": true,
+      "component": "transaction-history.transactions"
     }
   }
 }

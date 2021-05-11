@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { Tabs } from "antd";
+import ReactQuill from "react-quill";
 
 const classes = {
   wrapper: "pr-2 md:pr-14 md:pl-4 pl-2 mb-8",
@@ -18,6 +19,29 @@ const classes = {
 
 const { TabPane } = Tabs;
 
+const defaultImages = [
+  {
+    url:
+      "https://images.unsplash.com/photo-1590192746144-b92a837f8ddf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  },
+  {
+    url:
+      "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1059&q=80",
+  },
+  {
+    url:
+      "https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+  },
+  {
+    url:
+      "https://images.unsplash.com/photo-1598662972299-5408ddb8a3dc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  },
+  {
+    url:
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1051&q=80",
+  },
+];
+
 const parseKey = (key) => {
   // split on hyphens and/or underscores
   let parts = `${key}`.split(/-|_/);
@@ -32,17 +56,42 @@ const ProductDetails = () => {
   // const { id, sku: paramSKU } = useParams();
 
   const {
+    //general details
+    id,
+    product_status,
+    product_category,
+    sub_category,
+    sub_sub_category,
+    product_name,
+    product_description,
+    product_brand,
+    counrty_origin,
+    product_tags,
+    hsn_code,
+    upc_number,
+    ean_number,
+    gst_type,
+    measurement_unit,
+
+    //VARIENT DETAILS
+    colour,
+    product_main_sku,
+    qunatity,
+    product_mrp,
+    gst_percentage,
+
+    //images
     images,
-    category,
-    description,
-    info,
-    name,
-    price,
-    sku,
-    stock,
-    supplier,
-    variants,
-    "long-description": longDescription,
+
+    //SHIPPING DETAILS
+    weight,
+    dem_length,
+    dem_breadth,
+    dem_height,
+
+    //attributes
+    custom_attribute,
+    admin_status,
   } = location.state.detail;
 
   const history = useHistory();
@@ -84,8 +133,8 @@ const ProductDetails = () => {
           }
         >
           <img
-            src={images[imageIndex].url}
-            alt={images[imageIndex].alt}
+            src={defaultImages[2].url}
+            alt=""
             className={
               "h-full object-cover cursor-pointer rounded-lg shadow-xl mx-auto"
             }
@@ -96,8 +145,20 @@ const ProductDetails = () => {
             "col-start-1 row-start-6 col-span-6 flex flex-row items-center justify-center"
           }
         >
-          {images &&
-            images.map((image, idx) => (
+          {
+            // images && images.length ?
+            //   (images.map((image, idx) => (
+            //     <img
+            //       src={image.url}
+            //       alt={image.alt}
+            //       className={clsx(
+            //         "h-12 w-12 object-cover mx-2 my-2 cursor-pointer rounded-lg shadow-lg",
+            //         { "ring-2 ring-red-500": idx === imageIndex }
+            //       )}
+            //       onClick={() => setImageIndex(idx)}
+            //     />
+            //   )) ):(
+            defaultImages.map((image, idx) => (
               <img
                 src={image.url}
                 alt={image.alt}
@@ -107,20 +168,33 @@ const ProductDetails = () => {
                 )}
                 onClick={() => setImageIndex(idx)}
               />
-            ))}
+            ))
+            // )}
+          }
         </div>
         <div
           className={
             "col-span-6 col-start-1 mt-8 md:mt-0 md:col-start-7 md:row-start-1 md:row-span-full text-gray-700 flex flex-col items-start justify-start"
           }
         >
-          <span className={"text-xl font-semibold text-gray-800"}>{name}</span>
+          <span className={"text-xl font-semibold text-gray-800"}>
+            {product_name}
+          </span>
           <span
             className={
               "text-sm font-normal text-gray-500 overflow-ellipsis mt-1"
             }
           >
-            {description}
+            <ReactQuill
+              readOnly={true}
+              theme="bubble"
+              // modules={this.modules}
+              // formats={this.formats}
+              style={{ width: "500px" }}
+              defaultValue={product_description}
+            // value={values.product_description}
+            // onChange={handleValueChange("product_description")}
+            />
           </span>
 
           <div
@@ -128,23 +202,23 @@ const ProductDetails = () => {
           >
             <span
               className={clsx("text-sm", {
-                "text-gray-500 font-light": stock > 0,
-                "text-red-500 font-bold": !(stock > 0),
+                "text-gray-500 font-light": qunatity > 0,
+                "text-red-500 font-bold": !(qunatity > 0),
               })}
             >
-              {stock > 0 ? `In Stock (${stock})` : "Out of Stock"}
+              {qunatity > 0 ? `In Stock (${qunatity})` : "Out of Stock"}
             </span>
             <span
               className={clsx(
                 "text-xs leading-3 text-white font-normal bg-red-400 rounded-full px-2 py-1"
               )}
             >
-              {sku}
+              {product_main_sku}
             </span>
           </div>
           <div className={"w-full h-px bg-gray-200 mb-2"} />
           <span className={"text-2xl text-red-500 font-semibold my-2"}>
-            ₹ {price}
+            ₹ {product_mrp}
             <span className={"text-sm text-gray-400 font-normal ml-2"}>
               Incl. of all taxes.
             </span>
@@ -162,7 +236,9 @@ const ProductDetails = () => {
                 "text-xs bg-green-400 text-white py-1 px-2 rounded-full ml-2"
               }
             >
-              {category}
+              {product_category && product_category.categoryName
+                ? product_category.categoryName
+                : ""}
             </span>
           </span>
           <span
@@ -178,7 +254,7 @@ const ProductDetails = () => {
                 "text-xs bg-red-400 text-white py-1 px-2 rounded-full ml-2"
               }
             >
-              {supplier}
+              Default Suplier
             </span>
           </span>
           <div
@@ -240,7 +316,7 @@ const ProductDetails = () => {
         <Tabs defaultActiveKey={"1"}>
           <TabPane tab={"Product Stastics"} key={"1"}>
             <div className={"flex flex-col items-start justify-start"}>
-              {Object.entries(info).map((value, idx) => {
+              {/* {Object.entries(info).map((value, idx) => {
                 return (
                   <div
                     className={clsx(
@@ -256,66 +332,54 @@ const ProductDetails = () => {
                     </span>
                   </div>
                 );
-              })}
+              })} */}
             </div>
           </TabPane>
           <TabPane tab={"Product Variants"} key={"2"}>
             <div>
-              {variants && variants.length > 0 && (
-                <div
-                  className={clsx(
-                    "grid grid-cols-2 md:grid-cols-4 gap-2 w-full py-2 px-4"
-                  )}
-                >
-                  <label className={"text-gray-400 font-normal text-xs"}>
-                    SKU
-                  </label>
-                  <label className={"text-gray-400 font-normal text-xs"}>
-                    Name
-                  </label>
-                  <label className={"text-gray-400 font-normal text-xs"}>
-                    Quantity
-                  </label>
-                  <label className={"text-gray-400 font-normal text-xs"}>
-                    Price
-                  </label>
-                </div>
-              )}
-              {variants && variants.length > 0 ? (
-                variants.map((variant, idx) => {
-                  return (
-                    <div
-                      className={clsx(
-                        "grid grid-cols-2 md:grid-cols-4 gap-2 w-full py-2 px-4",
-                        { "bg-gray-100": idx % 2 === 0 }
-                      )}
-                    >
-                      <span
-                        className={"text-gray-600 font-normal text-sm mt-1"}
-                      >
-                        {variant.sku}
-                      </span>
-                      <span
-                        className={"text-gray-600 font-normal text-sm mt-1"}
-                      >
-                        {variant.name}
-                      </span>
-                      <span
-                        className={"text-gray-600 font-normal text-sm mt-1"}
-                      >
-                        {variant.quantity}
-                      </span>
-                      <span className={"text-red-500 font-normal text-sm mt-1"}>
-                        ₹ {variant.price}
-                      </span>
-                    </div>
-                  );
-                })
-              ) : (
-                <span className={"text-gray-600 font-normal text-sm mt-1 py-2"}>
-                  No Varaints Available for this Product
+              <div
+                className={clsx(
+                  "grid grid-cols-2 md:grid-cols-4 gap-2 w-full py-2 px-4"
+                )}
+              >
+                <label className={"text-gray-400 font-normal text-xs"}>
+                  SKU
+                </label>
+                <label className={"text-gray-400 font-normal text-xs"}>
+                  Name
+                </label>
+                <label className={"text-gray-400 font-normal text-xs"}>
+                  Quantity
+                </label>
+                <label className={"text-gray-400 font-normal text-xs"}>
+                  Price
+                </label>
+              </div>
+
+              <div
+                className={clsx(
+                  "grid grid-cols-2 md:grid-cols-4 gap-2 w-full py-2 px-4",
+                  "bg-gray-100"
+                )}
+              >
+                <span className={"text-gray-600 font-normal text-sm mt-1"}>
+                  {product_main_sku}
                 </span>
-              )}
+                <span className={"text-gray-600 font-normal text-sm mt-1"}>
+                  {product_name}
+                </span>
+                <span className={"text-gray-600 font-normal text-sm mt-1"}>
+                  {qunatity}
+                </span>
+                <span className={"text-red-500 font-normal text-sm mt-1"}>
+                  ₹ {product_mrp}
+                </span>
+              </div>
+              {/* ) : (
+              <span className={"text-gray-600 font-normal text-sm mt-1 py-2"}>
+                No Varaints Available for this Product
+              </span>
+              )} */}
             </div>
           </TabPane>
           <TabPane tab={"Product Description"} key={"3"}>
@@ -324,7 +388,16 @@ const ProductDetails = () => {
                 "text-sm font-normal flex-wrap text-gray-500 max-w-sm md:max-w-full"
               }
             >
-              {longDescription || description || "No Description Available"}
+              <ReactQuill
+                readOnly={true}
+                theme="bubble"
+                // modules={this.modules}
+                // formats={this.formats}
+                style={{ width: "500px" }}
+                defaultValue={product_description || "No Description Available"}
+              // value={values.product_description}
+              // onChange={handleValueChange("product_description")}
+              />
             </div>
           </TabPane>
         </Tabs>

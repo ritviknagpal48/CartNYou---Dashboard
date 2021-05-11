@@ -316,6 +316,63 @@
         "parameters": []
       }
     },
+    "/product-details/owned": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Retrieve product-details document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Product-details"
+        ],
+        "parameters": []
+      }
+    },
     "/product-details/{id}": {
       "get": {
         "deprecated": false,
@@ -542,7 +599,8 @@
           "upc_number",
           "ean_number",
           "hsn_code",
-          "product_description"
+          "product_description",
+          "counrty_origin"
         ],
         "properties": {
           "id": {
@@ -578,7 +636,7 @@
                   "type": "string"
                 }
               },
-              "commision_percent": {
+              "commision": {
                 "type": "integer"
               },
               "published_at": {
@@ -601,87 +659,11 @@
           "product_tags": {
             "type": "string"
           },
-          "product_status": {
-            "type": "string"
-          },
           "product_mrp": {
             "type": "integer"
           },
           "qunatity": {
             "type": "integer"
-          },
-          "admin_status": {
-            "type": "string"
-          },
-          "images": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "name",
-                "hash",
-                "mime",
-                "size",
-                "url",
-                "provider"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "alternativeText": {
-                  "type": "string"
-                },
-                "caption": {
-                  "type": "string"
-                },
-                "width": {
-                  "type": "integer"
-                },
-                "height": {
-                  "type": "integer"
-                },
-                "formats": {
-                  "type": "object"
-                },
-                "hash": {
-                  "type": "string"
-                },
-                "ext": {
-                  "type": "string"
-                },
-                "mime": {
-                  "type": "string"
-                },
-                "size": {
-                  "type": "number"
-                },
-                "url": {
-                  "type": "string"
-                },
-                "previewUrl": {
-                  "type": "string"
-                },
-                "provider": {
-                  "type": "string"
-                },
-                "provider_metadata": {
-                  "type": "object"
-                },
-                "related": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
           },
           "weight": {
             "type": "integer"
@@ -703,9 +685,6 @@
           },
           "hsn_code": {
             "type": "integer"
-          },
-          "counrty_origin": {
-            "type": "object"
           },
           "product_description": {
             "type": "string"
@@ -752,9 +731,6 @@
                 "type": "string"
               }
             }
-          },
-          "gst_type": {
-            "type": "object"
           },
           "sub_category": {
             "required": [
@@ -832,6 +808,307 @@
               }
             }
           },
+          "users_detail": {
+            "required": [
+              "id",
+              "username",
+              "email",
+              "type"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmationToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "wholeseller",
+                  "retailer",
+                  "guest",
+                  "admin"
+                ]
+              },
+              "product_details": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "import_list_products": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "fullname": {
+                "type": "string"
+              },
+              "mobile": {
+                "type": "string"
+              },
+              "shopifychannels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "retailer_live_products": {
+                "type": "component"
+              },
+              "wallet": {
+                "type": "number"
+              },
+              "transaction_history": {
+                "type": "component"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "counrty_origin": {
+            "type": "string"
+          },
+          "gst_type": {
+            "type": "string"
+          },
+          "admin_status": {
+            "type": "string",
+            "default": "Pending",
+            "enum": [
+              "Approved",
+              "Pending",
+              "Rejected"
+            ]
+          },
+          "product_status": {
+            "type": "boolean",
+            "default": true
+          },
+          "retailers_details": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "username",
+                "email",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "resetPasswordToken": {
+                  "type": "string"
+                },
+                "confirmationToken": {
+                  "type": "string"
+                },
+                "confirmed": {
+                  "type": "boolean"
+                },
+                "blocked": {
+                  "type": "boolean"
+                },
+                "role": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "wholeseller",
+                    "retailer",
+                    "guest",
+                    "admin"
+                  ]
+                },
+                "product_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "import_list_products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "fullname": {
+                  "type": "string"
+                },
+                "mobile": {
+                  "type": "string"
+                },
+                "shopifychannels": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "retailer_live_products": {
+                  "type": "component"
+                },
+                "wallet": {
+                  "type": "number"
+                },
+                "transaction_history": {
+                  "type": "component"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "shopifychannels": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "channel_name",
+                "api_key",
+                "key",
+                "store_url",
+                "shared_secret"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "channel_name": {
+                  "type": "string"
+                },
+                "api_key": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "store_url": {
+                  "type": "string"
+                },
+                "shared_secret": {
+                  "type": "string"
+                },
+                "retailersdetails": {
+                  "type": "string"
+                },
+                "productdetails": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "images": {
+            "type": "object"
+          },
+          "warehouse": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "gst_number": {
+                "type": "string"
+              },
+              "contact_name": {
+                "type": "string"
+              },
+              "contact_number": {
+                "type": "string"
+              },
+              "address_1": {
+                "type": "string"
+              },
+              "address_2": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "pincode": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -852,7 +1129,8 @@
           "upc_number",
           "ean_number",
           "hsn_code",
-          "product_description"
+          "product_description",
+          "counrty_origin"
         ],
         "properties": {
           "product_name": {
@@ -870,17 +1148,11 @@
           "product_tags": {
             "type": "string"
           },
-          "product_status": {
-            "type": "string"
-          },
           "product_mrp": {
             "type": "integer"
           },
           "qunatity": {
             "type": "integer"
-          },
-          "admin_status": {
-            "type": "string"
           },
           "weight": {
             "type": "integer"
@@ -903,9 +1175,6 @@
           "hsn_code": {
             "type": "integer"
           },
-          "counrty_origin": {
-            "type": "object"
-          },
           "product_description": {
             "type": "string"
           },
@@ -921,13 +1190,50 @@
           "measurement_unit": {
             "type": "string"
           },
-          "gst_type": {
-            "type": "object"
-          },
           "sub_category": {
             "type": "string"
           },
           "sub_sub_category": {
+            "type": "string"
+          },
+          "users_detail": {
+            "type": "string"
+          },
+          "counrty_origin": {
+            "type": "string"
+          },
+          "gst_type": {
+            "type": "string"
+          },
+          "admin_status": {
+            "type": "string",
+            "default": "Pending",
+            "enum": [
+              "Approved",
+              "Pending",
+              "Rejected"
+            ]
+          },
+          "product_status": {
+            "type": "boolean",
+            "default": true
+          },
+          "retailers_details": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "shopifychannels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "images": {
+            "type": "object"
+          },
+          "warehouse": {
             "type": "string"
           },
           "published_at": {

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form, Input, message, Select, Spin } from "antd";
 import RichTextEditor from "../../RichTextEdition";
 import { axiosInstance } from "../../../Contexts/useAxios";
+import { LoadingOutlined } from '@ant-design/icons';
 
 import "./productDetail.css";
 
@@ -19,12 +20,14 @@ export class ProductDetailForm extends Component {
 
 
   async componentDidMount() {
-    await axiosInstance.get("/measurement-units", {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
-      },
-    }).then((res) => {
+    await axiosInstance.get("/measurement-units"
+      // , {
+      // headers: {
+      //   Authorization:
+      //     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+      // },
+      // }
+    ).then((res) => {
 
       this.setState({
         isLoading: false,
@@ -48,8 +51,8 @@ export class ProductDetailForm extends Component {
     const { values, handlechange, handleValueChange } = this.props;
     const { isLoading, measurment_array } = this.state;
     return (
-      <div className="container">
-        <Spin spinning={isLoading} size={"large"}>
+      <div className="container product-detail">
+        <Spin spinning={isLoading} indicator={<LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />}>
           <Form
             // onSubmit={this.continue}
             className="form container"
@@ -131,7 +134,7 @@ export class ProductDetailForm extends Component {
               </div>
               <div className="flex flex-col items-start justify-center w-full ">
                 <label className="pb-2">
-                  Measurment Unit <span className="text-red-400">*</span>
+                  Measurement Unit <span className="text-red-400">*</span>
                 </label>
                 <Form.Item style={{ width: "100%" }}>
                   <Select
@@ -159,9 +162,7 @@ export class ProductDetailForm extends Component {
                     defaultValue={values.gst_type.value || values.gst_type}
                     allowClear
                   >
-                    <Option value="cgst">CGST</Option>
-                    <Option value="sgst">SGST</Option>
-                    <Option value="utgst">UTGST</Option>
+                    <Option value="cgst/sgst">CGST / SGST</Option>
                     <Option value="igst">IGST</Option>
 
                   </Select>
@@ -173,8 +174,10 @@ export class ProductDetailForm extends Component {
                   HSN Code <span className="text-red-400">*</span>
                 </label>
                 <Form.Item style={{ width: "100%" }}>
-                  <Input
-                    placeholder="HSN"
+                  <input type="number"
+                    className="input-number"
+                    min={0}
+                    placeholder="HSN code"
                     onChange={handlechange("hsn_code")}
                     defaultValue={values.hsn_code}
                   />
@@ -185,8 +188,10 @@ export class ProductDetailForm extends Component {
                   UPC <span className="text-red-400">*</span>
                 </label>
                 <Form.Item style={{ width: "100%" }}>
-                  <Input
-                    placeholder="UPC"
+                  <input type="number"
+                    className="input-number"
+                    min={0}
+                    placeholder="UPC number"
                     onChange={handlechange("upc_number")}
                     defaultValue={values.upc_number}
                   />
@@ -197,8 +202,10 @@ export class ProductDetailForm extends Component {
                   EAN <span className="text-red-400">*</span>
                 </label>
                 <Form.Item style={{ width: "100%" }}>
-                  <Input
-                    placeholder="EAN"
+                  <input type="number"
+                    className="input-number"
+                    min={0}
+                    placeholder="EAN number"
                     onChange={handlechange("ean_number")}
                     defaultValue={values.ean_number}
                   />

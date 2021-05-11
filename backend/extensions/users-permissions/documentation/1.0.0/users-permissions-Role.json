@@ -571,6 +571,39 @@
                     "admin"
                   ]
                 },
+                "product_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "import_list_products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "fullname": {
+                  "type": "string"
+                },
+                "mobile": {
+                  "type": "string"
+                },
+                "shopifychannels": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "retailer_live_products": {
+                  "type": "component"
+                },
+                "wallet": {
+                  "type": "number"
+                },
+                "transaction_history": {
+                  "type": "component"
+                },
                 "created_by": {
                   "type": "string"
                 },

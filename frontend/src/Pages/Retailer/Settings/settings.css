@@ -1,0 +1,38 @@
+.setting-menu .setting-button {
+  border-radius: 4px;
+  border-color: transparent;
+  background: rgb(239, 68, 68);
+  color: white;
+  font-weight: 500;
+  margin: 40px 0px 10px;
+}
+.setting-menu .card-setting {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.setting-menu .card-setting .span-button {
+  font-size: 22px;
+  color: #454545;
+}
+/* .setting-button :hover {
+  background: white;
+  color: #ef4444;
+  border-color: #ef4444;
+} */
+.setting-menu .ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  transition: all 10ms !important;
+  background: white !important;
+  color: #ef4444 !important;
+  border-color: #ef4444 !important;
+}
+
+.setting-menu .ant-btn-primary:active {
+  background: white !important;
+  color: #ef4444 !important;
+  border-color: #ef4444 !important;
+}

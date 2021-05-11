@@ -1,15 +1,43 @@
 import React from "react";
-import { Checkbox, Tag, Button } from "antd";
+import { Checkbox, Tag, Button, message, Modal } from "antd";
 import { Link } from "react-router-dom";
+import { addItemToImportList } from "Pages/Retailer/ImportList/importListUtils";
+import { AuthContext } from "Contexts/Auth";
+
+const images = [
+  "https://images.unsplash.com/photo-1590192746144-b92a837f8ddf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1059&q=80",
+  "https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+  "https://images.unsplash.com/photo-1598662972299-5408ddb8a3dc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1051&q=80",
+  "https://picsum.photos/200/300?random=1",
+  "https://picsum.photos/200/300?random=5",
+  "https://picsum.photos/200/300?random=7",
+  "https://picsum.photos/200/300?random=6",
+  "https://picsum.photos/200/300?random=2",
+  "https://picsum.photos/200/300?random=3",
+  "https://picsum.photos/200/300?random=4",
+];
 
 class ProductCard extends React.Component {
+
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      modalVisible: false,
+      modalLoading: false,
+    }
+  }
+
+
   render() {
+    const randomImg = Math.floor(Math.random() * images.length);
     const productCard = this.props.ProductData;
 
     return (
-      <div
-        className="product-card shadow-xl my-2 bg-white rounded cursor-pointer hover:shadow-2xl max-w-xs"
-      >
+      <div className="product-card border border-gray-200 my-2 bg-white rounded cursor-pointer hover:shadow-2xl max-w-xs">
         <div className="layout">
           <div
             className="checkbox"
@@ -19,7 +47,8 @@ class ProductCard extends React.Component {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              width: "260px",
+              maxWidth: "260px",
+              width: "100%",
             }}
           >
             <Checkbox />
@@ -27,14 +56,18 @@ class ProductCard extends React.Component {
               // color={productCard.tagColor}
               style={{ borderRadius: "4px", margin: "4px 0px" }}
             >
-              {productCard.category}
+              {productCard &&
+                productCard.product_category &&
+                productCard.product_category.categoryName
+                ? productCard.product_category.categoryName
+                : ""}
             </Tag>
           </div>
           {/* <Link to="/retailer/products/producyId"> */}
           <Link
             to={{
               pathname: "/retailer/products/productId",
-              search: `?id=${productCard.id}+sku=${productCard.sku}`,
+              search: `?id=${productCard.id}+Sku=${productCard.product_main_sku}`,
               state: { detail: productCard },
             }}
           >
@@ -54,22 +87,22 @@ class ProductCard extends React.Component {
                 width="100%"
                 className={"object-cover object-top"}
                 // style={{ height: "fit-content" }}
-                src={productCard.images[0].url}
+                src={images[randomImg]}
                 alt=""
               />
             </div>
 
             <div className="body" style={{ padding: "10px" }}>
               <div
-                className="name text-gray-500"
+                className="name text-gray-700"
                 style={{
-                  fontSize: "14px",
+                  fontSize: "15px",
                   // fontFamily: "poppins",
-                  fontWeight: "500",
+                  fontWeight: "600",
                   padding: "8px 0px 5px 0",
                 }}
               >
-                {productCard.name}
+                {productCard.product_name}
               </div>
               <div
                 className="price text-gray-500"
@@ -83,12 +116,12 @@ class ProductCard extends React.Component {
                 <span
                   className="text-gray-700"
                   style={{
-                    fontSize: "18px",
+                    fontSize: "16px",
                     fontWeight: "500",
                     //   padding: "8px 0px",
                   }}
                 >
-                  &#x20b9; {productCard.price}
+                  &#x20b9; {productCard.product_mrp}
                 </span>
               </div>
             </div>
@@ -119,17 +152,58 @@ class ProductCard extends React.Component {
                 //   marginLeft: "8px",
                 borderRadius: "4px",
                 fontSize: "12px",
-                background: "#fc573b",
-                border: "1px solid #fc573b",
+                background: "#ef4444",
+                border: "1px solid #ef4444",
+              }}
+              onClick={() => {
+                this.setState({ modalVisible: true })
               }}
             >
               Add to Import List
             </Button>
           </div>
         </div>
+        <Modal
+          title={
+            <div className="flex gap-x-2">
+              Add To Import List
+            </div>
+          }
+          width={"100%"}
+          visible={this.state.modalVisible}
+          confirmLoading={this.state.modalLoading}
+          onOk={e => {
+            this.setState({ modalLoading: true })
+            addItemToImportList(this.context.additionalInfo.id, [productCard.id], this.context.token).then(() => {
+              message.success('Product added successfully');
+              this.setState({ modalVisible: false, modalLoading: false })
+            }).catch(err => {
+              message.error(err.message);
+              this.setState({ modalVisible: false, modalLoading: false })
+            })
+          }}
+          onCancel={() => this.setState({ modalVisible: false, modalLoading: false })}
+          style={{
+            borderRadius: "12px",
+            overflow: "hidden",
+            backgroundColor: "white",
+            boxShadow: "none",
+            maxWidth: "520px",
+            paddingBottom: "0px",
+          }}
+          bodyStyle={{
+            boxShadow: "none",
+            height: "100%",
+          }}
+          maskStyle={{ background: "#00000034" }}
+        >
+          Add <span className="font-semibold">{productCard.product_name}</span> to your import list?
+        </Modal>
       </div>
     );
   }
 }
+
+ProductCard.contextType = AuthContext;
 
 export default ProductCard;
