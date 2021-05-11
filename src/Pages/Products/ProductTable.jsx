@@ -1,51 +1,54 @@
+import clsx from "clsx"
 import { Link } from "react-router-dom"
 
 const classes = {
   wrapper: "",
   table_heading: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
   pagination: "bg-white text-gray-600 w-full py-4 px-6",
-  pagination_icons: "h-5 w-5 mx-2"
+  pagination_icons: "h-5 w-5 mx-2",
+  tags: "px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
 }
 
-const ProductRow = ({ data }) => {
+const ProductRow = ({ sno, sku, description, mrp, mp, b2b, status, admin, quantity }) => {
   return (
     <tr>
-      <td class="px-6 py-4 whitespace-nowrap">
-        <div class="flex items-center">
-          <div class="flex-shrink-0 h-10 w-10">
-            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="" />
-          </div>
-          <div class="ml-4">
-            <div class="text-sm font-medium text-gray-900">
-              Jane Cooper
-            </div>
-            <div class="text-sm text-gray-500">
-              jane.cooper@example.com
-            </div>
-          </div>
+      {/* <td className="px-6 py-4 w-auto whitespace-nowrap text-sm text-gray-500">
+        {sno}
+      </td> */}
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="text-sm font-medium text-gray-900">
+          {sku}
         </div>
       </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-        <div class="text-sm text-gray-900">Regional Paradigm Technician</div>
-        <div class="text-sm text-gray-500">Optimization</div>
+      <td className="px-6 py-4 whitespace-nowrap overflow-hidden overflow-ellipsis block max-w-xs">
+        <div className="text-sm text-gray-900">{description}</div>
       </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-          Active
+      <td className="px-6 py-4 whitespace-nowrap">
+        <span className={clsx(classes.tags, "bg-green-100 text-green-800")}>
+          {mrp}
         </span>
       </td>
-      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        Admin
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {mp}
       </td>
-      <td class="whitespace-nowrap font-medium flex flex-row justify-start items-center p-6">
-        <Link to="#" class="text-gray-600 hover:text-gray-900 px-2">
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {b2b}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {quantity}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {status ? "True" : "False"}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        <div className={clsx(classes.tags, { "bg-green-100 text-green-900": admin === "approved", "bg-red-100 text-red-900": admin === "rejected", "bg-yellow-100 text-yellow-900": admin === "pending" })}>
+          {admin}
+        </div>
+      </td>
+      <td className="whitespace-nowrap font-medium flex flex-row justify-start items-center p-6">
+        <Link to="#" className="text-gray-500 hover:text-gray-800 px-2">
           <svg className={"w-5 h-5"} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-          </svg>
-        </Link>
-        <Link to="#" class="text-red-600 hover:text-red-900 px-2">
-          <svg className={"w-5 h-5"} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
         </Link>
       </td>
@@ -56,34 +59,42 @@ const ProductRow = ({ data }) => {
 const ProductTable = ({ heading, rows }) => {
   return (
     <div className={classes.wrapper}>
-      <div class="flex flex-col w-11/12 mx-auto my-2">
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              <table class="min-w-full divide-y divide-gray-200 bg-white">
-                <thead class="bg-gray-50">
+      <div className="flex flex-col w-11/12 mx-auto my-2">
+        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-200 bg-white">
+                <thead className="bg-gray-50">
                   <tr>
+                    {/* <th scope="col" className={clsx(classes.table_heading, "w-4")}>S.No</th> */}
                     {
-                      heading && heading.map(head => <th scope="col" className={classes.table_heading}>{head}</th>)
+                      heading && heading.map(head => <th scope="col" className={clsx(classes.table_heading)}>{head}</th>)
                     }
+                    <th scope="col" className={clsx(classes.table_heading)}>Actions</th>
                   </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                  <ProductRow />
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {
+                    rows &&
+                    rows.map((row, idx) => <ProductRow sno={idx + 1} {...row} />)
+                  }
                 </tbody>
                 <tfoot className={"bg-white w-full py-4 px-8"}>
                   <tr className={"text-gray-600 bg-white text-right"}>
-                    <td className={"py-4 px-8 w-full flex flex-row items-center justify-end"} colSpan={heading ? heading.length + 1 : 0}>
-                      <div>
+                    <td className={"py-4 px-8 w-full flex flex-row items-center justify-start"} colSpan={heading ? heading.length + 1 : 0}>
+                      <button type={'button'} className={'outline-none focus:outline-none'}>
                         <svg className={classes.pagination_icons} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                         </svg>
+                      </button>
+                      <div className={'mx-1 px-4 ring-1 text-center text-sm ring-offset-gray-400 rounded-sm'}>
+                        1
                       </div>
-                      <div>
+                      <button type={'button'} className={'outline-none focus:outline-none'}>
                         <svg className={classes.pagination_icons} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
-                      </div>
+                      </button>
                     </td>
                   </tr>
                 </tfoot>
