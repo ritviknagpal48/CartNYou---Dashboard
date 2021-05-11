@@ -1,0 +1,121 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_details",
+  "info": {
+    "name": "ProductDetails",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "product_name": {
+      "type": "string",
+      "required": true
+    },
+    "product_category": {
+      "model": "product-categories",
+      "via": "product_details"
+    },
+    "product_main_sku": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "product_brand": {
+      "type": "string",
+      "required": true
+    },
+    "product_tags": {
+      "type": "string",
+      "required": true
+    },
+    "product_status": {
+      "type": "string",
+      "required": false
+    },
+    "product_mrp": {
+      "required": true,
+      "type": "integer"
+    },
+    "qunatity": {
+      "type": "integer",
+      "required": true
+    },
+    "admin_status": {
+      "type": "string",
+      "required": false
+    },
+    "images": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "weight": {
+      "type": "integer",
+      "required": true
+    },
+    "dem_length": {
+      "type": "integer",
+      "required": true
+    },
+    "dem_breadth": {
+      "type": "integer",
+      "required": true
+    },
+    "dem_height": {
+      "type": "integer"
+    },
+    "upc_number": {
+      "type": "biginteger",
+      "required": true
+    },
+    "ean_number": {
+      "type": "biginteger",
+      "required": true
+    },
+    "hsn_code": {
+      "type": "biginteger",
+      "required": true
+    },
+    "counrty_origin": {
+      "type": "json"
+    },
+    "product_description": {
+      "type": "richtext",
+      "required": true
+    },
+    "custom_attribute": {
+      "type": "json"
+    },
+    "colour": {
+      "type": "string"
+    },
+    "gst_percentage": {
+      "type": "integer",
+      "max": 100,
+      "min": 0
+    },
+    "measurement_unit": {
+      "model": "measurement-unit",
+      "via": "product_details"
+    },
+    "gst_type": {
+      "type": "json"
+    },
+    "sub_category": {
+      "model": "sub-category",
+      "via": "product_details"
+    },
+    "sub_sub_category": {
+      "model": "sub-sub-category",
+      "via": "product_details"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+.form {
+  padding: 0;
+  /* max-width: 300px; */
+}
+
+.ant-input-number {
+  width: 100% !important;
+}
+.form.item {
+  margin: auto;
+}
+
+.container {
+  margin: auto;
+  /* background-color: rgb(158, 158, 158); */
+  /* max-width: 100vh; */
+}
+
+.inline {
+  display: flex;
+  justify-content: space-between;
+}
+/* 
+.continue {
+  background-color: #4caf50;
+}
+
+.back {
+  padding: 0 30px 0 30px;
+  background-color: rgb(0, 195, 255);
+} */
+
+/* h2 {
+  color: #4caf50;
+} */
+
+.varient-container .input-number {
+  font-variant: tabular-nums !important;
+  list-style: none !important;
+  font-feature-settings: "tnum", "tnum", "tnum", "tnum" !important;
+  position: relative !important;
+  display: inline-block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 6px 11px !important;
+  color: #2a2a2a !important;
+  font-size: 14px !important;
+  line-height: 1.5715 !important;
+  background-color: #fff !important;
+  background-image: none !important;
+  border: 1px solid #dce4ec !important;
+  border-radius: 4px !important;
+  transition: 0s !important;
+  box-shadow: none !important;
+}
+
+.input[type="number"]:focus {
+  outline: 1px solid transparent !important;
+  outline-offset: 0px !important;
+  --tw-ring-offset-width: 0px !important;
+  /* --tw-ring-offset-color: #fff;
+  --tw-ring-color: #9ab8fd; */
+  /* --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color); */
+  box-shadow: none !important;
+
+  --tw-ring-inset: none !important;
+
+  --tw-ring-offset-color: #fff !important;
+  --tw-ring-color: transparent !important;
+  --tw-ring-offset-shadow: none !important;
+  --tw-ring-shadow: none !important;
+  border-color: #2563eb;
+}

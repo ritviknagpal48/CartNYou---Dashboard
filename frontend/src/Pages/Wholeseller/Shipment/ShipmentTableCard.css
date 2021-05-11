@@ -1,0 +1,69 @@
+.single-card {
+  margin: 5px 0px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+}
+
+.card-detail {
+  font-size: 11px;
+  color: #bbb;
+  /* padding: 0px 10px; */
+  display: flex;
+  flex-direction: column;
+}
+
+.title-body {
+  font-weight: 500;
+  font-size: 15px;
+  color: #444444;
+}
+
+.Approved {
+  background-color: rgba(48, 209, 88, 0.1);
+  border: 1px solid rgba(48, 209, 88, 1);
+  border-radius: 50px;
+  padding: 1px 10px;
+  font-size: 13px;
+  color: rgba(48, 209, 88, 1);
+  text-align: center;
+}
+.Pending {
+  background-color: rgba(255, 159, 10, 0.1);
+  border: 1px solid rgba(255, 159, 10, 1);
+  border-radius: 50px;
+  padding: 1px 10px;
+  font-size: 13px;
+  color: rgba(255, 159, 10, 1);
+  text-align: center;
+}
+.Rejected {
+  background-color: rgba(255, 69, 58, 0.1);
+  border: 1px solid rgba(255, 69, 58, 1);
+  border-radius: 50px;
+  padding: 1px 10px;
+  font-size: 13px;
+  color: rgba(255, 69, 58, 1);
+  text-align: center;
+}
+
+.ant-switch-checked {
+  background-color: #f74343 !important;
+}
+
+.ant-modal-footer .ant-btn + .ant-btn {
+  margin-bottom: 0;
+  margin-left: 8px;
+  border-radius: 6px;
+  background-color: #ef4444;
+  color: white;
+  border-color: #ef4444;
+  margin-right: 10px;
+}
+.ant-modal-footer .ant-btn {
+  margin-bottom: 0;
+  margin-left: 8px;
+  border-radius: 6px;
+}
