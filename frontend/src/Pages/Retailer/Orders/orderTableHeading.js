@@ -1,43 +1,71 @@
+import moment from 'moment';
+
 const orderTableHeading = [
     {
         id: "1",
         title: "Order",
-        dataIndex: "order",
+        dataIndex: "id",
+
     },
     {
         id: "2",
         title: "Date",
-        dataIndex: "date",
+        dataIndex: "created_at",
+        render: (created_at) => {
+            return moment(created_at).format('DD MMM YYYY')
+        },
+
+
+        sorter: (a, b) => moment.utc(a.created_at).diff(moment.utc(b.created_at)),
+        // sortOrder: sortedInfo.columnKey === 'created_at' && sortedInfo.order,
+
     },
     {
         id: "3",
         title: "Customer Name",
-        dataIndex: "customerName",
+        dataIndex: "customer",
+        render: (customer) => {
+            return (customer.first_name + " " + customer.last_name)
+        },
     },
     {
         id: "4",
         title: "Pin Code",
-        dataIndex: "pinCode",
+        dataIndex: "billing_address",
+        render: (billing_address) => {
+            if (billing_address && billing_address.zip) {
+
+                return (billing_address.zip)
+            }
+            else {
+                return ("-")
+            }
+        },
+
     },
     {
         id: "5",
         title: "Payment",
-        dataIndex: "payment",
+        dataIndex: "total_price",
+        sorter: (a, b) => a.total_price - b.total_price,
     },
     {
         id: "6",
         title: "Method",
-        dataIndex: "method",
+        dataIndex: "gateway",
     },
-    {
-        id: "7",
-        title: "Tags",
-        dataIndex: "tags",
-    },
+
     {
         id: "8",
         title: "Status",
-        dataIndex: "status",
+        dataIndex: "financial_status",
+        filters: [
+            { text: 'Pending', value: 'pending' },
+            { text: 'Paid', value: 'paid' },
+        ],
+        // filteredValue: filteredInfo.name || null,
+        onFilter: (value, record) => record.financial_status.includes(value),
+
     },
     {
         id: "9",

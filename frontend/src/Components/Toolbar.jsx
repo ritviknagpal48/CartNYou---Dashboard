@@ -14,34 +14,47 @@ const classes = {
 const Toolbar = ({ title, actions }) => {
   return (
     <React.Fragment>
-      <div className={classes.header} style={{ background: "#edf2f9" }}>
+      <div className={classes.header} style={{ background: "#fff" }}>
         <div className={classes.title}>{title}</div>
         <div className={classes.buttons}>
-          {
-            !!actions &&
+          {!!actions &&
             !!actions.length &&
-            actions.map(({ onClick, name, icon: ActionIcon, redirect }) => {
-              if (typeof onClick === 'function') {
+            actions.map(
+              ({
+                onClick,
+                name,
+                icon: ActionIcon,
+                redirect,
+                hidden,
+                disabled,
+              }) => {
+                if (hidden) return null;
+                if (typeof onClick === "function") {
+                  return (
+                    <button
+                      key={name}
+                      onClick={onClick}
+                      disabled={!!disabled}
+                      className={`${classes.button_input} hover:text-red-400`}
+                    >
+                      {ActionIcon}
+                      <span className={classes.button_title}>{name}</span>
+                    </button>
+                  );
+                }
                 return (
-                  <button
-                    onClick={onClick}
+                  <Link
+                    key={name}
+                    to={redirect}
+                    disabled={!!disabled}
                     className={`${classes.button_input} hover:text-red-400`}
                   >
                     {ActionIcon}
                     <span className={classes.button_title}>{name}</span>
-                  </button>
+                  </Link>
                 );
               }
-              return (
-                <Link
-                  to={redirect}
-                  className={`${classes.button_input} hover:text-red-400`}
-                >
-                  {ActionIcon}
-                  <span className={classes.button_title}>{name}</span>
-                </Link>
-              );
-            })}
+            )}
         </div>
       </div>
     </React.Fragment>

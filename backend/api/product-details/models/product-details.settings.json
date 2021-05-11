@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "product_details",
   "info": {
-    "name": "ProductDetails",
+    "name": "Productdetails",
     "description": ""
   },
   "options": {
@@ -16,8 +16,8 @@
       "required": true
     },
     "product_category": {
-      "model": "product-categories",
-      "via": "product_details"
+      "via": "product_details",
+      "model": "product-categories"
     },
     "product_main_sku": {
       "type": "string",
@@ -32,10 +32,6 @@
       "type": "string",
       "required": true
     },
-    "product_status": {
-      "type": "string",
-      "required": false
-    },
     "product_mrp": {
       "required": true,
       "type": "integer"
@@ -43,19 +39,6 @@
     "qunatity": {
       "type": "integer",
       "required": true
-    },
-    "admin_status": {
-      "type": "string",
-      "required": false
-    },
-    "images": {
-      "collection": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
-      "plugin": "upload",
-      "required": false
     },
     "weight": {
       "type": "integer",
@@ -84,9 +67,6 @@
       "type": "biginteger",
       "required": true
     },
-    "counrty_origin": {
-      "type": "json"
-    },
     "product_description": {
       "type": "richtext",
       "required": true
@@ -106,9 +86,6 @@
       "model": "measurement-unit",
       "via": "product_details"
     },
-    "gst_type": {
-      "type": "json"
-    },
     "sub_category": {
       "model": "sub-category",
       "via": "product_details"
@@ -116,6 +93,47 @@
     "sub_sub_category": {
       "model": "sub-sub-category",
       "via": "product_details"
+    },
+    "users_detail": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "product_details"
+    },
+    "counrty_origin": {
+      "type": "string",
+      "required": true
+    },
+    "gst_type": {
+      "type": "string"
+    },
+    "admin_status": {
+      "type": "enumeration",
+      "enum": [
+        "Approved",
+        "Pending",
+        "Rejected"
+      ],
+      "default": "Pending"
+    },
+    "product_status": {
+      "type": "boolean",
+      "default": true
+    },
+    "retailers_details": {
+      "plugin": "users-permissions",
+      "collection": "user",
+      "via": "import_list_products",
+      "dominant": true
+    },
+    "shopifychannels": {
+      "collection": "shopifychannels",
+      "via": "productdetails"
+    },
+    "images": {
+      "type": "json"
+    },
+    "warehouse": {
+      "model": "warehouse"
     }
   }
 }

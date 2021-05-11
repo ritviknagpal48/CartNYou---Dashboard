@@ -1,8 +1,9 @@
 import React from "react";
 import AddProductForm from "Components/AddProductformComponent/AddProductForm";
 import { Link, withRouter } from "react-router-dom";
+import { AuthContext } from "Contexts/Auth";
 
-class HeaderWithSideBar extends React.Component {
+class AddNewProduct extends React.Component {
   constructor(props) {
     super(props);
 
@@ -14,12 +15,13 @@ class HeaderWithSideBar extends React.Component {
 
   async componentDidMount() {
     const edit =
-      (await this.props) &&
+      this.props &&
       this.props.location &&
       this.props.location.state &&
       this.props.location.state.edit
         ? this.props.location.state.edit
         : false;
+
     if (edit) {
       this.setState({
         editProduct: true,
@@ -79,7 +81,11 @@ class HeaderWithSideBar extends React.Component {
             </div>
             {/*body*/}
             <div className="relative p-6 flex-auto">
-              <AddProductForm edit={this.state.editProduct} />
+              <AddProductForm
+                edit={this.state.editProduct}
+                userID={this.context.additionalInfo.id}
+                token={this.context.token}
+              />
             </div>
             {/*footer*/}
           </div>
@@ -89,4 +95,5 @@ class HeaderWithSideBar extends React.Component {
   }
 }
 
-export default withRouter(HeaderWithSideBar);
+AddNewProduct.contextType = AuthContext;
+export default withRouter(AddNewProduct);

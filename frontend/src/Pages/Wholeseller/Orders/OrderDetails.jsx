@@ -27,7 +27,7 @@ const OrderDetails = () => {
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.header} style={{ background: "#edf2f9" }}>
+      <div className={classes.header} style={{ background: "#fff" }}>
         <button
           onClick={history.goBack}
           className={clsx(classes.button_input, "px-2 py-2")}

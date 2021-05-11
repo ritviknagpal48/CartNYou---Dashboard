@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/product-details/owned",
+      "handler": "product-details.findOwned",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/product-details/:id",
       "handler": "product-details.findOne",
       "config": {

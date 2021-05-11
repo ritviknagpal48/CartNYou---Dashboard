@@ -9,8 +9,11 @@ body {
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: "#edf2f9";
+  /* background: "#fff"; */
+  background: "#fff";
+  /* #edf2f9 */
   /* max-width: 1920px; */
+
   /* overflow: hidden; */
 }
 

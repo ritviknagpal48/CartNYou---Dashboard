@@ -40,7 +40,7 @@ class Orders extends React.Component {
 
     return (
       <div className={`${classes.wrapper} retailer-order-page`}>
-        <div className={classes.header} style={{ background: "#edf2f9" }}>
+        <div className={classes.header} style={{ background: "#fff" }}>
           <div className={classes.title}>Shipments</div>
           <div className={classes.buttons}>
             <button button type="button" className={classes.button_input}>
@@ -114,7 +114,10 @@ class Orders extends React.Component {
           </div>
         </div>
 
-        <div className="bg-white  px-4 py-6  rounded-md shadow-xl">
+        <div
+          className="bg-white  px-4 py-6  rounded-md shadow-xl"
+          style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
+        >
           <div className="tabs-group pb-5">
             <Radio.Group value={size} onChange={this.handleSizeChange}>
               <Radio.Button value="all">All</Radio.Button>

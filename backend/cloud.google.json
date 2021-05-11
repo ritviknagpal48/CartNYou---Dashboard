@@ -1,0 +1,20 @@
+{
+  "web": {
+    "client_id": "145185243464-j2vkfi7hk9q7nqki841aicb8fn136acm.apps.googleusercontent.com",
+    "project_id": "cartnyou-mailer",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "ZOPvYm5Ny06NOwiRKNTgVXwI",
+    "redirect_uris": [
+      "http://localhost:1337/connect/google/callback",
+      "https://backend-cartnyou.herokuapp.com/connect/google/callback"
+    ],
+    "javascript_origins": [
+      "http://localhost:3000",
+      "http://localhost:1337",
+      "https://cartnyou-app.netlify.app",
+      "https://backend-cartnyou.herokuapp.com"
+    ]
+  }
+}

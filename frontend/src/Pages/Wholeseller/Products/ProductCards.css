@@ -25,6 +25,12 @@
   flex-direction: column;
 }
 
+@media (max-width: 420px) {
+  .card-detail {
+    flex-direction: row;
+  }
+}
+
 .title-body {
   font-weight: 500;
   font-size: 15px;
@@ -39,8 +45,10 @@
   font-size: 13px;
   color: rgba(48, 209, 88, 1);
   text-align: center;
+  width: 78px;
 }
 .Pending {
+  width: 78px;
   background-color: rgba(255, 159, 10, 0.1);
   border: 1px solid rgba(255, 159, 10, 1);
   border-radius: 50px;
@@ -50,6 +58,7 @@
   text-align: center;
 }
 .Rejected {
+  width: 78px;
   background-color: rgba(255, 69, 58, 0.1);
   border: 1px solid rgba(255, 69, 58, 1);
   border-radius: 50px;

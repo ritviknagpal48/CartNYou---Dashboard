@@ -4,7 +4,6 @@ import { Modal } from "antd";
 import { Link } from "react-router-dom";
 // import ProductTable from "Components/TableComponent";
 import ProductCards from "./ProductCards";
-import ProductColumn from "./productTableColumns";
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4",
@@ -29,11 +28,11 @@ const ActionButton = ({ title, icon, ...rest }) => {
 const Products = () => {
   // const [products, setProducts] = React.useState([]);
   const [showModal, setShowModal] = React.useState(false);
-  const [searchedColumn] = React.useState(["sku", "productInfo"]);
+  // const [searchedColumn] = React.useState(["sku", "productInfo"]);
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.header} style={{ background: "#edf2f9" }}>
+      <div className={classes.header} style={{ background: "#fff" }}>
         <div className={classes.title}>Products</div>
         <div className={classes.buttons}>
           <Link
@@ -141,23 +140,24 @@ const Products = () => {
 
       <div className={"mt-4 overflow-y-auto overflow-x-hidden"}>
         <ProductCards
-          heading={ProductColumn}
-          // data={products}
-          searchedColumn={searchedColumn}
-          defaultSearchColumn={searchedColumn[0]}
+        // heading={ProductColumn}
+        // data={products}
+        // searchedColumn={searchedColumn}
+        // defaultSearchColumn={searchedColumn[0]}
+        // isLoading={isLoading}
         />
       </div>
 
       <Modal
-        title="Vertically centered modal dialog"
+        title="Import"
         centered
         visible={showModal}
         onOk={() => setShowModal(false)}
         onCancel={() => setShowModal(false)}
       >
+        {/* <p>some contents...</p>
         <p>some contents...</p>
-        <p>some contents...</p>
-        <p>some contents...</p>
+        <p>some contents...</p> */}
       </Modal>
     </div>
   );
