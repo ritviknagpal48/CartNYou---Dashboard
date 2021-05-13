@@ -59,13 +59,26 @@ class Orders extends React.Component {
     searchText: "",
     searchedColumn: "",
     selectedChannelId: "",
-    modalVisible: true,
-    modalID: "938274923",
+    modalVisible: false,
+    modalID: "",
     delivery_service: "",
     billing_zone: "A",
     rate_list: sample_rate_list,
-    pickup_pincode: 226029,
-    drop_pincode: 201313,
+    pickup_pincode: 201313,
+    invoiceModalVisible: false,
+    invoice_info: {
+      courier_info: null,
+      order_info: {
+        customer_name: "Customer 1",
+        pincode: 226029,
+        id: "OD18923918273123",
+      },
+      amounts: {
+        order: 0,
+        total: 0,
+        delivery: 0,
+      },
+    },
   };
 
   async componentDidMount() {
@@ -137,6 +150,17 @@ class Orders extends React.Component {
       .catch((error) => {});
   }
 
+  handleInvoiceModalOK = (e) => {
+    this.setState({ is_loading: true });
+    setTimeout(() => {
+      this.setState({ is_loading: false, invoiceModalVisible: false }, () => {
+        message.success(
+          "Order Settled with ID " + this.state.invoice_info.order_info.id
+        );
+      });
+    }, 3000);
+  };
+
   handleFilter = (e) => {
     this.setState({ orderFilter: e.target.value }, () => {
       this.handleChange(this.state.selectedChannelId);
@@ -158,7 +182,7 @@ class Orders extends React.Component {
           auth_token: "480054b2d5b28e22c91a52faaa23ee2c130720",
           shipment_type: "forward",
           pickup_pincode: this.state.pickup_pincode,
-          drop_pincode: this.state.drop_pincode,
+          drop_pincode: this.state.invoice_info.order_info.pincode,
           delivery_mode: "express",
           ...options,
         },
@@ -166,9 +190,10 @@ class Orders extends React.Component {
     );
 
     if (response.data) {
+      const { billing_zone, rate_list } = response.data;
       this.setState({
-        billing_zone: response.data.billing_zone,
-        rate_list: response.data.rate_list,
+        billing_zone,
+        rate_list,
       });
     } else {
       message.error("Error Loading Delivery Services. Please try again.");
@@ -238,13 +263,30 @@ class Orders extends React.Component {
     this.setState({ modalVisible: false, modalID: "" });
   };
 
-  // Place orde here
+  handleInvoiceModalCancel = (e) => {
+    this.setState({ invoiceModalVisible: false });
+  };
+
+  // Place order here
   handleModalOk = (e) => {
     this.setState({ modalLoading: false, modalID: "" });
     const dpart = this.state.rate_list.find(
       (x) => x.courier_id == this.state.delivery_service
     );
-    if (dpart) message.loading(`Delivery Service : ${dpart.courier}`);
+    if (!dpart) return message.error(`Could Not find Delivery Partner`);
+    const { invoice_info } = this.state;
+    this.setState({
+      invoice_info: {
+        ...invoice_info,
+        courier_info: dpart,
+        amounts: {
+          order: 1000,
+          delivery: dpart.delivered_charges,
+          total: dpart.delivered_charges + 1000,
+        },
+      },
+      invoiceModalVisible: true,
+    });
   };
 
   render() {
@@ -362,13 +404,17 @@ class Orders extends React.Component {
               <span className="text-xs font-semibold text-gray-400">
                 Pickup Pincode
               </span>
-              <p className="text-sm font-medium text-gray-700">132453</p>
+              <p className="text-sm font-medium text-gray-700">
+                {this.state.pickup_pincode}
+              </p>
             </div>
             <div className="flex flex-col items-end justify-start">
               <span className="text-xs font-semibold text-gray-400">
                 Drop Pincode
               </span>
-              <p className="text-sm font-medium text-gray-700">132453</p>
+              <p className="text-sm font-medium text-gray-700">
+                {this.state.invoice_info.order_info.pincode}
+              </p>
             </div>
           </div>
 
@@ -411,6 +457,73 @@ class Orders extends React.Component {
           ) : (
             <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
           )}
+        </Modal>
+
+        <Modal
+          title={<div className="flex gap-x-2">Finalize Delivery</div>}
+          width={"100%"}
+          visible={
+            this.state.invoiceModalVisible &&
+            this.state.invoice_info.courier_info
+          }
+          confirmLoading={this.state.is_loading}
+          okText={"Proceed"}
+          onOk={this.handleInvoiceModalOK}
+          onCancel={this.handleInvoiceModalCancel}
+          style={{
+            borderRadius: "12px",
+            overflow: "hidden",
+            backgroundColor: "white",
+            boxShadow: "none",
+            maxWidth: "520px",
+            paddingBottom: "0px",
+          }}
+          bodyStyle={{
+            boxShadow: "none",
+            height: "100%",
+          }}
+          maskStyle={{ background: "#00000034" }}
+        >
+          <div className="grid grid-cols-2 items-start w-4/5 mx-auto gap-y-2">
+            <div className="text-sm text-gray-600 font-medium">Order ID</div>
+            <div className="text-sm text-gray-700 font-medium">
+              {this.state.invoice_info.order_info.id}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Customer Name
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              {this.state.invoice_info.order_info.customer_name}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Pickup Pincode
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              {this.state.pickup_pincode}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Delivery Pincode
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              {this.state.invoice_info.order_info.pincode}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Order Amount
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              ₹ {this.state.invoice_info.amounts.order}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Delivery Charges
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              ₹ {this.state.invoice_info.amounts.delivery}
+            </div>
+            <div className="text-sm text-gray-800 font-bold">Total Amount</div>
+            <div className="text-sm text-red-500 font-bold">
+              ₹ {this.state.invoice_info.amounts.total}
+            </div>
+          </div>
         </Modal>
       </div>
     );
