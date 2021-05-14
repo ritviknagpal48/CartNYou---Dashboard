@@ -29,6 +29,7 @@ export const getSelectedProduct = async (id, token) => {
 
 export const getPublishingProduct = async (retailer_price, selectedProduct) => {
   let title = selectedProduct.product_name;
+  let product_id = selectedProduct.id;
   let body_html = selectedProduct.product_description;
   let image = selectedProduct.images;
   let product_type = selectedProduct.product_category.categoryName;
@@ -49,6 +50,7 @@ export const getPublishingProduct = async (retailer_price, selectedProduct) => {
     product_type,
     tags,
     variants,
+    product_id,
   };
 
   return shopify_product;
@@ -59,17 +61,17 @@ export const publishToShopify = async (selectedChannel, publishingProduct) => {
   const password = selectedChannel.key;
   const storeurl = selectedChannel.store_url;
 
-  return await axiosInstance
-    .post("/proxy", {
-      body: {
-        product: publishingProduct,
-      },
-      targetURL: `https://${username}:${password}@${storeurl}/admin/api/2021-04/products.json`,
-      method: "POST",
-    })
-    .catch((error) => {
-      // console.log(error);
-    });
+  const body = {
+    body: {
+      product: publishingProduct,
+    },
+    targetURL: `https://${username}:${password}@${storeurl}/admin/api/2021-04/products.json`,
+    method: "POST",
+  };
+
+  return await axiosInstance.post("/proxy", { body }).catch((error) => {
+    // console.log(error);
+  });
 };
 /**
  * Add items to the live list.

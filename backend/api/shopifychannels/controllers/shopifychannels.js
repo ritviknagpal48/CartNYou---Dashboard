@@ -8,18 +8,25 @@ const axios = require("axios").default;
 
 module.exports = {
   proxy: async (ctx) => {
-    const { request } = ctx;
-    const { targetURL, body, headers, method } = request.body;
-    const response = await axios.request({
-      method: ("" + method).trim().toUpperCase() || "GET",
-      headers: {
-        ...headers,
-      },
-      url: targetURL,
-      body: body,
-    });
-    // const response = await axios.post(targetURL, body);
-    return response.data;
+    try {
+      const { request } = ctx;
+      const { targetURL, body, headers } = request.body;
+      const response = await axios.post(targetURL, body, {
+        headers: { ...headers },
+      });
+      // const response = await axios.request({
+      //   method: ("" + method).trim().toUpperCase() || "GET",
+      //   headers: {
+      //     ...headers,
+      //   },
+      //   url: targetURL,
+      //   body: body,
+      // });
+      // const response = await axios.post(targetURL, body);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
   },
 
   getOrders: async (ctx) => {
@@ -29,5 +36,5 @@ module.exports = {
     console.warn(request.body.targetURL);
     const response = await axios.get(targetURL);
     return response.data;
-  }
+  },
 };

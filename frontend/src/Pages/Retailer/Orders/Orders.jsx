@@ -63,16 +63,13 @@ class Orders extends React.Component {
     modalID: "",
     delivery_service: "",
     billing_zone: "A",
-    rate_list: sample_rate_list,
+    rate_list: [],
     pickup_pincode: 201313,
+    drop_pincode: 0,
     invoiceModalVisible: false,
     invoice_info: {
       courier_info: null,
-      order_info: {
-        customer_name: "Customer 1",
-        pincode: 226029,
-        id: "OD18923918273123",
-      },
+      order_info: null,
       amounts: {
         order: 0,
         total: 0,
@@ -87,9 +84,9 @@ class Orders extends React.Component {
       additionalInfo: { id },
     } = this.context;
 
-    ImportListActions[0].onClick = () => {
-      this.handleOrderClick("02938402938dhfksjdf");
-    };
+    // ImportListActions[0].onClick = () => {
+    //   this.handleOrderClick("02938402938dhfksjdf");
+    // };
 
     if (this.state.shopifyChannels === null)
       await axiosInstance
@@ -182,7 +179,7 @@ class Orders extends React.Component {
           auth_token: "480054b2d5b28e22c91a52faaa23ee2c130720",
           shipment_type: "forward",
           pickup_pincode: this.state.pickup_pincode,
-          drop_pincode: this.state.invoice_info.order_info.pincode,
+          drop_pincode: this.state.drop_pincode,
           delivery_mode: "express",
           ...options,
         },
@@ -244,9 +241,7 @@ class Orders extends React.Component {
       .catch((error) => {});
   };
 
-  handleOrderClick = (id) => {
-    // const order = this.state.orders.find((x) => x.id === id);
-    // if (!order) return message.error("Something went wrong. Please try again.");
+  handleOrderClick = (order) => {
     this.setState({ is_loading: true, delivery_service: "" });
     this.loadDeliveryServices({
       length: 1,
@@ -254,13 +249,21 @@ class Orders extends React.Component {
       height: 1,
       weight: 1,
       payment_mode: "prepaid",
-    }).then(() =>
-      this.setState({ is_loading: false, modalID: id, modalVisible: true })
-    );
+      drop_pincode: order.shipping_address.zip,
+    }).then(() => {
+      let inv_info = this.state.invoice_info;
+      this.setState({
+        invoice_info: { ...inv_info, order_info: order },
+        drop_pincode: order.shipping_address.zip,
+        pickup_pincode: 201313,
+        is_loading: false,
+        modalVisible: true,
+      });
+    });
   };
 
   handleModalCancel = (e) => {
-    this.setState({ modalVisible: false, modalID: "" });
+    this.setState({ modalVisible: false });
   };
 
   handleInvoiceModalCancel = (e) => {
@@ -269,7 +272,7 @@ class Orders extends React.Component {
 
   // Place order here
   handleModalOk = (e) => {
-    this.setState({ modalLoading: false, modalID: "" });
+    this.setState({ modalLoading: false, modalVisible: false });
     const dpart = this.state.rate_list.find(
       (x) => x.courier_id == this.state.delivery_service
     );
@@ -280,9 +283,11 @@ class Orders extends React.Component {
         ...invoice_info,
         courier_info: dpart,
         amounts: {
-          order: 1000,
+          order: this.state.invoice_info.order_info.current_total_price,
           delivery: dpart.delivered_charges,
-          total: dpart.delivered_charges + 1000,
+          total:
+            parseFloat(dpart.delivered_charges) +
+            parseFloat(this.state.invoice_info.order_info.current_total_price),
         },
       },
       invoiceModalVisible: true,
@@ -362,9 +367,9 @@ class Orders extends React.Component {
                 ...order,
                 callStatus: (
                   <Button
-                    type={"text"}
+                    type={"outlined"}
                     color={"#ef4444"}
-                    onClick={() => this.handleOrderClick(order.id)}
+                    onClick={() => this.handleOrderClick(order)}
                   >
                     Ship
                   </Button>
@@ -381,7 +386,9 @@ class Orders extends React.Component {
         <Modal
           title={<div className="flex gap-x-2">Select Delivery Partner</div>}
           width={"100%"}
-          visible={this.state.modalVisible && this.state.modalID}
+          visible={
+            this.state.modalVisible && !!this.state.invoice_info.order_info
+          }
           confirmLoading={this.state.is_loading}
           onOk={this.handleModalOk}
           onCancel={this.handleModalCancel}
@@ -413,7 +420,7 @@ class Orders extends React.Component {
                 Drop Pincode
               </span>
               <p className="text-sm font-medium text-gray-700">
-                {this.state.invoice_info.order_info.pincode}
+                {this.state.drop_pincode}
               </p>
             </div>
           </div>
@@ -464,7 +471,8 @@ class Orders extends React.Component {
           width={"100%"}
           visible={
             this.state.invoiceModalVisible &&
-            this.state.invoice_info.courier_info
+            this.state.invoice_info.courier_info &&
+            this.state.invoice_info.order_info
           }
           confirmLoading={this.state.is_loading}
           okText={"Proceed"}
@@ -487,13 +495,17 @@ class Orders extends React.Component {
           <div className="grid grid-cols-2 items-start w-4/5 mx-auto gap-y-2">
             <div className="text-sm text-gray-600 font-medium">Order ID</div>
             <div className="text-sm text-gray-700 font-medium">
-              {this.state.invoice_info.order_info.id}
+              {!!this.state.invoice_info.order_info
+                ? this.state.invoice_info.order_info.id
+                : null}
             </div>
             <div className="text-sm text-gray-600 font-medium">
               Customer Name
             </div>
             <div className="text-sm text-gray-700 font-medium">
-              {this.state.invoice_info.order_info.customer_name}
+              {!!this.state.invoice_info.order_info
+                ? this.state.invoice_info.order_info.shipping_address.name
+                : ""}
             </div>
             <div className="text-sm text-gray-600 font-medium">
               Pickup Pincode
@@ -505,23 +517,40 @@ class Orders extends React.Component {
               Delivery Pincode
             </div>
             <div className="text-sm text-gray-700 font-medium">
-              {this.state.invoice_info.order_info.pincode}
+              {this.state.drop_pincode}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Items Quantity
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              {!!this.state.invoice_info.order_info
+                ? this.state.invoice_info.order_info.line_items.length
+                : 0}
             </div>
             <div className="text-sm text-gray-600 font-medium">
               Order Amount
             </div>
             <div className="text-sm text-gray-700 font-medium">
-              ₹ {this.state.invoice_info.amounts.order}
+              ₹ {parseFloat(this.state.invoice_info.amounts.order).toFixed(2)}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Delivery Partner
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              {this.state.invoice_info.courier_info
+                ? this.state.invoice_info.courier_info.courier
+                : ""}
             </div>
             <div className="text-sm text-gray-600 font-medium">
               Delivery Charges
             </div>
             <div className="text-sm text-gray-700 font-medium">
-              ₹ {this.state.invoice_info.amounts.delivery}
+              ₹{" "}
+              {parseFloat(this.state.invoice_info.amounts.delivery).toFixed(2)}
             </div>
             <div className="text-sm text-gray-800 font-bold">Total Amount</div>
             <div className="text-sm text-red-500 font-bold">
-              ₹ {this.state.invoice_info.amounts.total}
+              ₹ {this.state.invoice_info.amounts.total.toFixed(2)}
             </div>
           </div>
         </Modal>
