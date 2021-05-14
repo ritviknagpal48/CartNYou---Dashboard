@@ -1,4 +1,8 @@
-import { EyeInvisibleOutlined, EyeTwoTone, LoadingOutlined } from "@ant-design/icons";
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  LoadingOutlined,
+} from "@ant-design/icons";
 import { Button, Form, Input, message, Select, Spin } from "antd";
 import { AuthContext } from "Contexts/Auth";
 import { axiosInstance as axios } from "Contexts/useAxios";
@@ -17,39 +21,39 @@ class AddShopifyForm extends Component {
       isEdit: false,
       channel_name:
         this.props &&
-          this.props.location &&
-          this.props.location.state &&
-          this.props.location.state.channelData &&
-          this.props.location.state.channelData.channel_name
+        this.props.location &&
+        this.props.location.state &&
+        this.props.location.state.channelData &&
+        this.props.location.state.channelData.channel_name
           ? this.props.location.state.channelData.channel_name
           : "",
       api_key:
         this.props &&
-          this.props.location &&
-          this.props.location.state &&
-          this.props.location.state.channelData &&
-          this.props.location.state.channelData.api_key
+        this.props.location &&
+        this.props.location.state &&
+        this.props.location.state.channelData &&
+        this.props.location.state.channelData.api_key
           ? this.props.location.state.channelData.api_key
           : "",
       key:
         this.props.location &&
-          this.props.location.state &&
-          this.props.location.state.channelData &&
-          this.props.location.state.channelData.key
+        this.props.location.state &&
+        this.props.location.state.channelData &&
+        this.props.location.state.channelData.key
           ? this.props.location.state.channelData.key
           : "",
       store_url:
         this.props.location &&
-          this.props.location.state &&
-          this.props.location.state.channelData &&
-          this.props.location.state.channelData.store_url
+        this.props.location.state &&
+        this.props.location.state.channelData &&
+        this.props.location.state.channelData.store_url
           ? this.props.location.state.channelData.store_url
           : "",
       shared_secret:
         this.props.location &&
-          this.props.location.state &&
-          this.props.location.state.channelData &&
-          this.props.location.state.channelData.shared_secret
+        this.props.location.state &&
+        this.props.location.state.channelData &&
+        this.props.location.state.channelData.shared_secret
           ? this.props.location.state.channelData.shared_secret
           : "",
       channelId: "",
@@ -60,16 +64,16 @@ class AddShopifyForm extends Component {
     const userID = this.context.additionalInfo.id;
     const channelId =
       this.props &&
-        this.props.match &&
-        this.props.match.params &&
-        this.props.match.params.id
+      this.props.match &&
+      this.props.match.params &&
+      this.props.match.params.id
         ? this.props.match.params.id
         : "";
     const edit =
       this.props &&
-        this.props.location &&
-        this.props.location.state &&
-        this.props.location.state.edit
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.edit
         ? this.props.location.state.edit
         : false;
 
@@ -146,8 +150,7 @@ class AddShopifyForm extends Component {
     await axios
       .put(`/shopifychannels/${this.state.channelId}`, this.state, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+          Authorization: `Bearer ${this.context.token}`,
         },
       })
       .then((resp) => {

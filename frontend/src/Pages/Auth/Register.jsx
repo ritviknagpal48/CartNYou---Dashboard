@@ -62,7 +62,10 @@ const Register = ({ className }) => {
 
     // User already exists and is blocked by Admin
     if (user.isBlocked) {
-      return message.error("This account is Blocked. Please contact Support Team for more information.", 3);
+      return message.error(
+        "This account is Blocked. Please contact Support Team for more information.",
+        3
+      );
     }
 
     setAuth(AUTH_ACTIONS.LOGIN, {
@@ -73,7 +76,7 @@ const Register = ({ className }) => {
         username: user.username,
         email: user.email,
         type: user.type || payload.type,
-        id: user.id
+        id: user.id,
       },
       additionalInfo: {
         ...user,
@@ -88,9 +91,9 @@ const Register = ({ className }) => {
     if (!response) return [];
 
     if (response.message[0].messages) {
-      return response.message[0].messages.map(x => x.message);
+      return response.message[0].messages.map((x) => x.message);
     }
-  }
+  };
 
   const register = async () => {
     // console.log({ payload })
@@ -99,7 +102,10 @@ const Register = ({ className }) => {
     if (!toSend.username.trim().length) {
       return message.error("Username is Required!");
     }
-    if (!toSend.email.trim().length && !toSend.email.trim().match(/\w+@\w.\w/).length) {
+    if (
+      !toSend.email.trim().length &&
+      !toSend.email.trim().match(/\w+@\w.\w/).length
+    ) {
       return message.error("Email is Required!");
     }
     if (!confirm.trim().length) {
@@ -119,12 +125,14 @@ const Register = ({ className }) => {
     if (confirm.trim() !== toSend.password.trim())
       return message.error("Passwords do not match", 1);
 
-    const res = await axios.post("/auth/local/register", { ...toSend }).catch(err => console.log({ error: err }))
+    const res = await axios
+      .post("/auth/local/register", { ...toSend })
+      .catch((err) => console.log({ error: err }));
 
     const errors = getAllErrors(res && res.response && res.response.data);
     // console.log({ errors })
     if (errors.length > 0) {
-      return errors.map(err => message.error(err));
+      return errors.map((err) => message.error(err));
     }
     history.push(`/verify-email`);
   };
@@ -156,7 +164,7 @@ const Register = ({ className }) => {
                   }))
                 }
               />
-              <label htmlFor="wholeseller">WholeSeller</label>
+              <label htmlFor="wholeseller">WholeSaler</label>
             </div>
             <div className={classes.row_item}>
               <input
@@ -346,7 +354,7 @@ const Register = ({ className }) => {
                 onClick={renderProps.onClick}
                 type="submit"
                 className={classes.submit_button}
-              // onClick={signInWithGoogle}
+                // onClick={signInWithGoogle}
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                   <svg

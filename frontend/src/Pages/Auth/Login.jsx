@@ -198,7 +198,7 @@ const Login = ({ className }) => {
                   setUserType((p) => (e.target.checked ? e.target.id : p))
                 }
               />
-              <label htmlFor="wholeseller">WholeSeller</label>
+              <label htmlFor="wholeseller">WholeSaler</label>
             </div>
             <div className={classes.row_item}>
               <input
