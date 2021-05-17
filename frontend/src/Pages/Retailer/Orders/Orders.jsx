@@ -59,13 +59,23 @@ class Orders extends React.Component {
     searchText: "",
     searchedColumn: "",
     selectedChannelId: "",
-    modalVisible: true,
-    modalID: "938274923",
+    modalVisible: false,
+    modalID: "",
     delivery_service: "",
     billing_zone: "A",
-    rate_list: sample_rate_list,
-    pickup_pincode: 226029,
-    drop_pincode: 201313,
+    rate_list: [],
+    pickup_pincode: 201313,
+    drop_pincode: 0,
+    invoiceModalVisible: false,
+    invoice_info: {
+      courier_info: null,
+      order_info: null,
+      amounts: {
+        order: 0,
+        total: 0,
+        delivery: 0,
+      },
+    },
   };
 
   async componentDidMount() {
@@ -74,9 +84,9 @@ class Orders extends React.Component {
       additionalInfo: { id },
     } = this.context;
 
-    ImportListActions[0].onClick = () => {
-      this.handleOrderClick("02938402938dhfksjdf");
-    };
+    // ImportListActions[0].onClick = () => {
+    //   this.handleOrderClick("02938402938dhfksjdf");
+    // };
 
     if (this.state.shopifyChannels === null)
       await axiosInstance
@@ -137,6 +147,17 @@ class Orders extends React.Component {
       .catch((error) => {});
   }
 
+  handleInvoiceModalOK = (e) => {
+    this.setState({ is_loading: true });
+    setTimeout(() => {
+      this.setState({ is_loading: false, invoiceModalVisible: false }, () => {
+        message.success(
+          "Order Settled with ID " + this.state.invoice_info.order_info.id
+        );
+      });
+    }, 3000);
+  };
+
   handleFilter = (e) => {
     this.setState({ orderFilter: e.target.value }, () => {
       this.handleChange(this.state.selectedChannelId);
@@ -166,9 +187,10 @@ class Orders extends React.Component {
     );
 
     if (response.data) {
+      const { billing_zone, rate_list } = response.data;
       this.setState({
-        billing_zone: response.data.billing_zone,
-        rate_list: response.data.rate_list,
+        billing_zone,
+        rate_list,
       });
     } else {
       message.error("Error Loading Delivery Services. Please try again.");
@@ -219,9 +241,7 @@ class Orders extends React.Component {
       .catch((error) => {});
   };
 
-  handleOrderClick = (id) => {
-    // const order = this.state.orders.find((x) => x.id === id);
-    // if (!order) return message.error("Something went wrong. Please try again.");
+  handleOrderClick = (order) => {
     this.setState({ is_loading: true, delivery_service: "" });
     this.loadDeliveryServices({
       length: 1,
@@ -229,22 +249,49 @@ class Orders extends React.Component {
       height: 1,
       weight: 1,
       payment_mode: "prepaid",
-    }).then(() =>
-      this.setState({ is_loading: false, modalID: id, modalVisible: true })
-    );
+      drop_pincode: order.shipping_address.zip,
+    }).then(() => {
+      let inv_info = this.state.invoice_info;
+      this.setState({
+        invoice_info: { ...inv_info, order_info: order },
+        drop_pincode: order.shipping_address.zip,
+        pickup_pincode: 201313,
+        is_loading: false,
+        modalVisible: true,
+      });
+    });
   };
 
   handleModalCancel = (e) => {
-    this.setState({ modalVisible: false, modalID: "" });
+    this.setState({ modalVisible: false });
   };
 
-  // Place orde here
+  handleInvoiceModalCancel = (e) => {
+    this.setState({ invoiceModalVisible: false });
+  };
+
+  // Place order here
   handleModalOk = (e) => {
-    this.setState({ modalLoading: false, modalID: "" });
+    this.setState({ modalLoading: false, modalVisible: false });
     const dpart = this.state.rate_list.find(
       (x) => x.courier_id == this.state.delivery_service
     );
-    if (dpart) message.loading(`Delivery Service : ${dpart.courier}`);
+    if (!dpart) return message.error(`Could Not find Delivery Partner`);
+    const { invoice_info } = this.state;
+    this.setState({
+      invoice_info: {
+        ...invoice_info,
+        courier_info: dpart,
+        amounts: {
+          order: this.state.invoice_info.order_info.current_total_price,
+          delivery: dpart.delivered_charges,
+          total:
+            parseFloat(dpart.delivered_charges) +
+            parseFloat(this.state.invoice_info.order_info.current_total_price),
+        },
+      },
+      invoiceModalVisible: true,
+    });
   };
 
   render() {
@@ -320,9 +367,9 @@ class Orders extends React.Component {
                 ...order,
                 callStatus: (
                   <Button
-                    type={"text"}
+                    type={"outlined"}
                     color={"#ef4444"}
-                    onClick={() => this.handleOrderClick(order.id)}
+                    onClick={() => this.handleOrderClick(order)}
                   >
                     Ship
                   </Button>
@@ -339,7 +386,9 @@ class Orders extends React.Component {
         <Modal
           title={<div className="flex gap-x-2">Select Delivery Partner</div>}
           width={"100%"}
-          visible={this.state.modalVisible && this.state.modalID}
+          visible={
+            this.state.modalVisible && !!this.state.invoice_info.order_info
+          }
           confirmLoading={this.state.is_loading}
           onOk={this.handleModalOk}
           onCancel={this.handleModalCancel}
@@ -362,13 +411,17 @@ class Orders extends React.Component {
               <span className="text-xs font-semibold text-gray-400">
                 Pickup Pincode
               </span>
-              <p className="text-sm font-medium text-gray-700">132453</p>
+              <p className="text-sm font-medium text-gray-700">
+                {this.state.pickup_pincode}
+              </p>
             </div>
             <div className="flex flex-col items-end justify-start">
               <span className="text-xs font-semibold text-gray-400">
                 Drop Pincode
               </span>
-              <p className="text-sm font-medium text-gray-700">132453</p>
+              <p className="text-sm font-medium text-gray-700">
+                {this.state.drop_pincode}
+              </p>
             </div>
           </div>
 
@@ -411,6 +464,95 @@ class Orders extends React.Component {
           ) : (
             <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
           )}
+        </Modal>
+
+        <Modal
+          title={<div className="flex gap-x-2">Finalize Delivery</div>}
+          width={"100%"}
+          visible={
+            this.state.invoiceModalVisible &&
+            this.state.invoice_info.courier_info &&
+            this.state.invoice_info.order_info
+          }
+          confirmLoading={this.state.is_loading}
+          okText={"Proceed"}
+          onOk={this.handleInvoiceModalOK}
+          onCancel={this.handleInvoiceModalCancel}
+          style={{
+            borderRadius: "12px",
+            overflow: "hidden",
+            backgroundColor: "white",
+            boxShadow: "none",
+            maxWidth: "520px",
+            paddingBottom: "0px",
+          }}
+          bodyStyle={{
+            boxShadow: "none",
+            height: "100%",
+          }}
+          maskStyle={{ background: "#00000034" }}
+        >
+          <div className="grid grid-cols-2 items-start w-4/5 mx-auto gap-y-2">
+            <div className="text-sm text-gray-600 font-medium">Order ID</div>
+            <div className="text-sm text-gray-700 font-medium">
+              {!!this.state.invoice_info.order_info
+                ? this.state.invoice_info.order_info.id
+                : null}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Customer Name
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              {!!this.state.invoice_info.order_info
+                ? this.state.invoice_info.order_info.shipping_address.name
+                : ""}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Pickup Pincode
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              {this.state.pickup_pincode}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Delivery Pincode
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              {this.state.drop_pincode}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Items Quantity
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              {!!this.state.invoice_info.order_info
+                ? this.state.invoice_info.order_info.line_items.length
+                : 0}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Order Amount
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              ₹ {parseFloat(this.state.invoice_info.amounts.order).toFixed(2)}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Delivery Partner
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              {this.state.invoice_info.courier_info
+                ? this.state.invoice_info.courier_info.courier
+                : ""}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Delivery Charges
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              ₹{" "}
+              {parseFloat(this.state.invoice_info.amounts.delivery).toFixed(2)}
+            </div>
+            <div className="text-sm text-gray-800 font-bold">Total Amount</div>
+            <div className="text-sm text-red-500 font-bold">
+              ₹ {this.state.invoice_info.amounts.total.toFixed(2)}
+            </div>
+          </div>
         </Modal>
       </div>
     );
