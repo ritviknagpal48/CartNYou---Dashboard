@@ -1,5 +1,14 @@
 import { LoadingOutlined } from "@ant-design/icons";
-import { Button, Radio, Select, Spin, Modal, message, Empty } from "antd";
+import {
+  Button,
+  Radio,
+  Select,
+  Spin,
+  Modal,
+  message,
+  Empty,
+  notification,
+} from "antd";
 import Toolbar from "Components/Toolbar";
 import { AuthContext } from "Contexts/Auth";
 import { axiosInstance } from "Contexts/useAxios";
@@ -147,13 +156,28 @@ class Orders extends React.Component {
       .catch((error) => {});
   }
 
-  handleInvoiceModalOK = (e) => {
+  // settle order here
+  handleInvoiceModalOK = () => {
+    const { wallet } = this.context.additionalInfo;
+    const { total } = this.state.invoice_info.amounts;
+    if (wallet < total)
+      return notification.open({
+        message: `Insufficient Balance ${this.context.additionalInfo.wallet}`,
+        type: "error",
+        description: "Please recharge before settling further orders.",
+        placement: "topRight",
+        duration: 1.5,
+      });
     this.setState({ is_loading: true });
     setTimeout(() => {
       this.setState({ is_loading: false, invoiceModalVisible: false }, () => {
-        message.success(
-          "Order Settled with ID " + this.state.invoice_info.order_info.id
-        );
+        return notification.open({
+          message: `Order Settled.`,
+          type: "success",
+          description: `Current Balance ${wallet - total}`,
+          placement: "topRight",
+          duration: 1.5,
+        });
       });
     }, 3000);
   };
@@ -270,7 +294,6 @@ class Orders extends React.Component {
     this.setState({ invoiceModalVisible: false });
   };
 
-  // Place order here
   handleModalOk = (e) => {
     this.setState({ modalLoading: false, modalVisible: false });
     const dpart = this.state.rate_list.find(
@@ -283,11 +306,11 @@ class Orders extends React.Component {
         ...invoice_info,
         courier_info: dpart,
         amounts: {
-          order: this.state.invoice_info.order_info.current_total_price,
+          order: this.state.invoice_info.order_info.price,
           delivery: dpart.delivered_charges,
           total:
             parseFloat(dpart.delivered_charges) +
-            parseFloat(this.state.invoice_info.order_info.current_total_price),
+            parseFloat(this.state.invoice_info.order_info.price),
         },
       },
       invoiceModalVisible: true,
@@ -371,7 +394,7 @@ class Orders extends React.Component {
                     color={"#ef4444"}
                     onClick={() => this.handleOrderClick(order)}
                   >
-                    Ship
+                    Settle
                   </Button>
                 ),
               }))}
@@ -518,14 +541,6 @@ class Orders extends React.Component {
             </div>
             <div className="text-sm text-gray-700 font-medium">
               {this.state.drop_pincode}
-            </div>
-            <div className="text-sm text-gray-600 font-medium">
-              Items Quantity
-            </div>
-            <div className="text-sm text-gray-700 font-medium">
-              {!!this.state.invoice_info.order_info
-                ? this.state.invoice_info.order_info.line_items.length
-                : 0}
             </div>
             <div className="text-sm text-gray-600 font-medium">
               Order Amount

@@ -1,8 +1,21 @@
-import { message, Modal, Space, Button, Empty, Checkbox, Spin, notification } from "antd";
+import {
+  message,
+  Modal,
+  Space,
+  Button,
+  Empty,
+  Checkbox,
+  Spin,
+  notification,
+} from "antd";
 import { AuthContext } from "Contexts/Auth";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { DeleteOutlined, SendOutlined, LoadingOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  SendOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons";
 import { removeItemFromImportList } from "./importListUtils";
 import PushToShopify from "Components/Retailer/PushToShopify";
 
@@ -243,15 +256,15 @@ const ImportListCard = ({
                 setIsPublishing(false);
                 onDeleted(product_id);
                 notification.success({
-                  description: 'Product published successfully.',
-                  message: 'Success',
-                  duration: 2
-                })
-              })
+                  description: "Product published successfully.",
+                  message: "Success",
+                  duration: 2,
+                });
+              });
             }}
             onError={() => {
-              setIsPublishing(false)
-              message.error('Something went wrong.')
+              setIsPublishing(false);
+              message.error("Something went wrong.");
             }}
             onBegin={() => setIsPublishing(true)}
           />
