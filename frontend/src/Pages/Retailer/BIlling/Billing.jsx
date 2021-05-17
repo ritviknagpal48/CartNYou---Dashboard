@@ -8,12 +8,17 @@ import {
   Select,
   Descriptions,
   Space,
+  Spin,
+  message
 } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
 import CODTableHeading from "./CODRemittanceIDHeading";
 import WalletTransactionHeading from "./WalletTransactionHeading";
 import ShippingChargesHeading from "./ShippingChargesHeading";
 import TableComponent from "../../../Components/TableComponent";
 import moment from "moment";
+import { axiosInstance } from 'Contexts/useAxios';
+import { AuthContext } from 'Contexts/Auth'
 import "./Billing.css";
 
 const { TabPane } = Tabs;
@@ -45,6 +50,9 @@ const dateFormat = "YYYY/MM/DD";
 class Billing extends React.Component {
   state = {
     size: "all",
+    allPayments: [],
+    isLoading: true,
+    wallet: this.context.additionalInfo.wallet
   };
 
   handleSizeChange = (e) => {
@@ -55,12 +63,27 @@ class Billing extends React.Component {
     // console.log(`selected ${value}`);
   };
 
+  async componentDidMount() {
+    const { token, additionalInfo: { id } } = this.context;
+
+    await axiosInstance.post('/payments/user', { id }, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then(res => this.setState({ allPayments: res.data.payments, isLoading: false }))
+      .catch(() => {
+        this.setState({ isLoading: false });
+        message.error('Something went wrong.');
+      })
+  }
+
   render() {
-    const { size } = this.state;
+    const { size, isLoading, allPayments, wallet } = this.state;
+    allPayments.sort((a, b) => parseInt(b.transaction_date) - parseInt(a.transaction_date));
 
     return (
       <div className={`${classes.wrapper} retailer-billing-page`}>
-        <div className={classes.header} style={{ background: "#edf2f9" }}>
+        <div className={classes.header} style={{ background: "#fff" }}>
           <div className={classes.title}>Billing</div>
           <div className={classes.buttons}>
             <button button type="button" className={classes.button_input}>
@@ -83,7 +106,10 @@ class Billing extends React.Component {
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-md shadow-xl">
+        <div
+          className="bg-white p-4 rounded-md shadow-xl"
+          style={{ borderRadius: "8px", border: "1px solid #e2e2e2" }}
+        >
           <div className="tabs-group pb-5">
             <Tabs defaultActiveKey="3" type="card" size={size}>
               <TabPane
@@ -119,7 +145,7 @@ class Billing extends React.Component {
                     title="Shipment Charges"
                     bordered
                     column={{ md: 1, sm: 1, xs: 1 }}
-                    // className=" "
+                  // className=" "
                   >
                     <Descriptions.Item label="Shipment Charge (FWD)">
                       ₹ 0<br />
@@ -317,84 +343,86 @@ class Billing extends React.Component {
                 }
                 key="3"
               >
-                <div className="flex  justify-between ">
-                  <Space size={"middle"} style={{ padding: "25px 0px" }}>
-                    <RangePicker
-                      defaultValue={[
-                        moment("2015/01/01", dateFormat),
-                        moment("2015/01/01", dateFormat),
-                      ]}
-                      format={dateFormat}
-                    />
+                <Spin spinning={isLoading} indicator={<LoadingOutlined color={'#ef4444'} spin />}>
+                  <div className="flex  justify-between ">
+                    <Space size={"middle"} style={{ padding: "25px 0px" }}>
+                      <RangePicker
+                        defaultValue={[
+                          moment("2015/01/01", dateFormat),
+                          moment("2015/01/01", dateFormat),
+                        ]}
+                        format={dateFormat}
+                      />
 
-                    <Select
-                      defaultValue="all"
-                      style={{ width: 250 }}
-                      onChange={this.handleChange}
-                    >
-                      <Option value="all">All</Option>
-                      <Option value="codAdjustments">COD Adjustments</Option>
-                      <Option value="razorpay">Recharge - Razorpay</Option>
-                      <Option value="neft">Recharge - NEFT</Option>
-                      <Option value="forwardCharge">Forward Charge</Option>
-                      <Option value="codCharge">COD Charge</Option>
-                      <Option value="processingFee">Processing Fees</Option>
-                    </Select>
+                      <Select
+                        defaultValue="all"
+                        style={{ width: 250 }}
+                        onChange={this.handleChange}
+                      >
+                        <Option value="all">All</Option>
+                        <Option value="codAdjustments">COD Adjustments</Option>
+                        <Option value="razorpay">Recharge - Razorpay</Option>
+                        <Option value="neft">Recharge - NEFT</Option>
+                        <Option value="forwardCharge">Forward Charge</Option>
+                        <Option value="codCharge">COD Charge</Option>
+                        <Option value="processingFee">Processing Fees</Option>
+                      </Select>
 
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      style={{
-                        borderRadius: "4px",
-                        background: "#fc573b",
-                        border: "1px solid #fc573b",
-                      }}
-                    >
-                      Apply
-                    </Button>
-                    <Button
-                      htmlType="button"
-                      onClick={this.onReset}
-                      style={{ borderRadius: "4px" }}
-                    >
-                      Reset
-                    </Button>
-                  </Space>
-                  <div className="col-span-12 sm:col-span-6 md:col-span-3">
-                    <div className="flex flex-row pr-20 bg-white border border-gray-200 rounded-lg p-4">
-                      <div className="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-red-100 text-red-500">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M9 8h6m-5 0a3 3 0 110 6H9l3 3m-3-6h6m6 1a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                      </div>
-                      <div className="flex flex-col flex-grow ml-4">
-                        <div className="text-sm text-gray-500">
-                          Wallet Balance
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        style={{
+                          borderRadius: "4px",
+                          background: "#ef4444",
+                          border: "1px solid #ef4444",
+                        }}
+                      >
+                        Apply
+                      </Button>
+                      <Button
+                        htmlType="button"
+                        onClick={this.onReset}
+                        style={{ borderRadius: "4px" }}
+                      >
+                        Reset
+                      </Button>
+                    </Space>
+                    <div className="col-span-12 sm:col-span-6 md:col-span-3">
+                      <div className="flex flex-row pr-20 bg-white border border-gray-200 rounded-lg p-4">
+                        <div className="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-red-100 text-red-500">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M9 8h6m-5 0a3 3 0 110 6H9l3 3m-3-6h6m6 1a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
                         </div>
-                        <div className="font-bold text-lg"> &#8377; 3200</div>
+                        <div className="flex flex-col flex-grow ml-4">
+                          <div className="text-sm text-gray-500">
+                            Wallet Balance
+                          </div>
+                          <div className="font-bold text-lg"> &#8377; {this.context.additionalInfo.wallet}</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <hr style={{ margin: "20px 0px" }} />
-                <TableComponent
-                  heading={WalletTransactionHeading}
-                  data={""}
-                  isActiveSearch={false}
-                  searchedColumn={""}
-                  defaultSearchColumn={""}
-                />
+                  <hr style={{ margin: "20px 0px" }} />
+                  <TableComponent
+                    heading={WalletTransactionHeading}
+                    data={allPayments}
+                    isActiveSearch={false}
+                    searchedColumn={""}
+                    defaultSearchColumn={""}
+                  />
+                </Spin>
               </TabPane>
               <TabPane
                 tab={
@@ -432,8 +460,8 @@ class Billing extends React.Component {
                     <Input
                       style={{ marginBottom: "0px", padding: "4px 11px" }}
                       placeholder="AWB seperated by coma"
-                      // onChange={handlechange("ProductTags")}
-                      // defaultValue={values.ProductTags}
+                    // onChange={handlechange("ProductTags")}
+                    // defaultValue={values.ProductTags}
                     />
                   </Form.Item>
                   <Button
@@ -441,8 +469,8 @@ class Billing extends React.Component {
                     htmlType="submit"
                     style={{
                       borderRadius: "4px",
-                      background: "#fc573b",
-                      border: "1px solid #fc573b",
+                      background: "#ef4444",
+                      border: "1px solid #ef4444",
                     }}
                   >
                     Apply
@@ -474,4 +502,7 @@ class Billing extends React.Component {
     );
   }
 }
+
+Billing.contextType = AuthContext;
+
 export default Billing;

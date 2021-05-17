@@ -26,14 +26,14 @@
       "required": false
     },
     "product_details": {
-      "via": "product_category",
-      "collection": "product-details"
+      "collection": "product-details",
+      "via": "product_category"
     },
     "sub_categories": {
       "collection": "sub-category",
       "via": "product_category"
     },
-    "commision_percent": {
+    "commision": {
       "type": "integer",
       "default": 0,
       "max": 100,

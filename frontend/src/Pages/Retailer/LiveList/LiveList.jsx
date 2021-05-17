@@ -1,7 +1,13 @@
-import { message } from "antd";
+import { message, Spin, Empty, Pagination } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
 import Toolbar from "Components/Toolbar";
 import LiveListCard from "Pages/Retailer/LiveList/LiveListCard";
-import { LiveListData } from "./LiveListData";
+// import { LiveListData } from "./LiveListData";
+import './LiveList.css'
+import useAxios from "Contexts/useAxios";
+import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "Contexts/Auth";
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4 ",
@@ -24,26 +30,86 @@ const LiveListActions = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    name: "Clear",
+    name: "Clear List",
   }
 ]
 
 const LiveList = () => {
+
+  const { axios, isLoading } = useAxios()
+
+  const { additionalInfo: { id: userId } } = useContext(AuthContext);
+
+  const [livelistItems, setLivelistItems] = useState([]);
+  const [forceUpdate, setForceUpdate] = useState(false);
+  const [paginationState, setPaginationState] = useState({
+    pageSize: 5,
+    currentPage: 1,
+  });
+
+  useEffect(() => {
+    axios.get(`/users/${userId}`).then(result => {
+      if (result.status !== 200) {
+        return message.error(result.statusText);
+      }
+
+      setLivelistItems(result.data.retailer_live_products);
+    }).catch(err => message.error(err.message));
+  }, [forceUpdate])
+
   return (
-    <div className={classes.wrapper}>
+    <div className={'mx-auto'} style={{ width: '96%' }}>
       <Toolbar title={'Live List'} actions={LiveListActions} />
-      <div className={'px-3 py-3 text-gray-700 bg-white rounded-md shadow-lg w-full'}>
-        <div className={'flex flex-row text-sm text-gray-500 mb-2'}>
-          <span className={'w-9/12'}>Product</span>
-          <span className={'w-1/12 text-center'}>Quantity</span>
-          {/* <span className={'w-1/12 text-center'}>Amount</span> */}
-          <span className={'w-2/12 text-center'}>Actions</span>
-        </div>
-        <div className={'w-full h-px bg-gray-200'} />
-        {
-          LiveListData.map(ilistItem => <LiveListCard {...ilistItem} />)
+      <Spin
+        spinning={isLoading}
+        size={"large"}
+        indicator={
+          <LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />
         }
-      </div>
+      >
+        {
+          livelistItems.length > 0 ?
+            livelistItems
+              .slice(
+                (paginationState.currentPage - 1) * paginationState.pageSize,
+                paginationState.currentPage * paginationState.pageSize
+              )
+              .map(ilistItem => <LiveListCard {...ilistItem} />)
+            : <div
+              className="bg-white"
+              style={{ padding: "50px 0px", marginBottom: "30px" }}
+            >
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                imageStyle={{
+                  height: 80,
+                }}
+                description={<span>No product found</span>}
+              />
+            </div>
+        }
+        <hr style={{ margin: "25px 10px" }} />
+        <Pagination
+          total={
+            livelistItems && livelistItems.length ? livelistItems.length : 0
+          }
+          defaultCurrent={1}
+          pageSizeOptions={[2, 5, 10, 20]}
+          pageSize={paginationState.pageSize}
+          current={paginationState.currentPage}
+          onChange={(page, pageSize) => {
+            setPaginationState({
+              currentPage: page,
+              pageSize: pageSize,
+            });
+          }}
+          showSizeChanger
+          showQuickJumper
+          responsive
+          style={{ textAlign: "center" }}
+          showTotal={(total) => `${total} products Live`}
+        />
+      </Spin>
     </div>
   )
 }

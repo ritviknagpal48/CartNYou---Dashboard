@@ -1,10 +1,10 @@
 .retailer-billing-page .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #fc573b !important;
+  color: #ef4444 !important;
   font-weight: 500;
 }
 
 .ant-tabs-tab:hover {
-  color: #fc573b !important;
+  color: #ef4444 !important;
 }
 
 .retailer-billing-page
@@ -36,12 +36,12 @@
   background: #ffeae7 !important;
   border-radius: 6px !important;
   color: white !important;
-  /* border: 1px solid #fc573b !important; */
+  /* border: 1px solid #ef4444 !important; */
 }
 
 .retailer-billing-page .ant-descriptions-title {
   overflow: hidden;
-  color: #fc573b !important;
+  color: #ef4444 !important;
   font-weight: bold;
   font-size: 16px;
   line-height: 1.5715;

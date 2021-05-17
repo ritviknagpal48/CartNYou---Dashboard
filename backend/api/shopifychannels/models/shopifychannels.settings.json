@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shopifychannels",
+  "info": {
+    "name": "Shopifychannels",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "channel_name": {
+      "type": "string",
+      "unique": false,
+      "required": true
+    },
+    "api_key": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "key": {
+      "type": "string",
+      "required": true
+    },
+    "store_url": {
+      "type": "string",
+      "required": true
+    },
+    "shared_secret": {
+      "type": "string",
+      "required": true
+    },
+    "retailersdetails": {
+      "via": "shopifychannels",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "productdetails": {
+      "via": "shopifychannels",
+      "collection": "product-details",
+      "dominant": true
+    }
+  }
+}

@@ -7,7 +7,7 @@ import { MenuItems } from "Components/menuItemsRetailer";
 
 import Dashboard from "Pages/Retailer/Dashboard/Dashboard";
 import Products from "Pages/Retailer/Products/Products";
-import ProductDetails from "Pages/Retailer/Products/ProductDetails";
+import ProductDetails from "Pages/Retailer/Products/ProductDetails.new";
 import ImportList from "Pages/Retailer/ImportList/ImportList";
 import LiveList from "Pages/Retailer/LiveList/LiveList";
 import Shipment from "Pages/Retailer/Shipment/Shipment";
@@ -15,6 +15,10 @@ import Orders from "Pages/Retailer/Orders/Orders";
 import Billing from "Pages/Retailer/BIlling/Billing";
 import Settings from "Pages/Retailer/Settings/Settings";
 import Support from "Pages/Retailer/Support/Support";
+import AddNewChannel from "Pages/Retailer/ChannelList/AddNewChannel";
+import ChannelList from "Pages/Retailer/ChannelList/ChannelList";
+import Warehouses from "Pages/Retailer/Warehouses/Warehouses";
+import AddWarehouse from "Pages/Retailer/Warehouses/AddWarehouse";
 
 const Home = () => {
   return (
@@ -28,7 +32,7 @@ const Home = () => {
         />
         <div
           className={"flex-auto flex-shrink-0 flex-grow md:ml-20"}
-          style={{ background: "#edf2f9" }}
+          style={{ background: "#fff" }}
         >
           <Navbar menuList={MenuItems} />
           <Switch>
@@ -58,6 +62,30 @@ const Home = () => {
             <PrivateRoute path={"/retailer/live-list"} component={LiveList} />
             <PrivateRoute path={"/retailer/setting"} component={Settings} />
             <PrivateRoute path={"/retailer/support"} component={Support} />
+            <PrivateRoute
+              path={"/retailer/channel-list"}
+              component={ChannelList}
+            />
+            <PrivateRoute
+              path={"/retailer/add-new-channel/:name"}
+              component={AddNewChannel}
+            />
+            <PrivateRoute
+              path={"/retailer/edit-channel/:id"}
+              component={AddNewChannel}
+            />
+            <PrivateRoute
+              path={"/retailer/warehouses"}
+              component={Warehouses}
+            />
+            <PrivateRoute
+              path={"/retailer/add-warehouse"}
+              component={AddWarehouse}
+            />
+            <PrivateRoute
+              path={"/retailer/update-warehouse"}
+              component={AddWarehouse}
+            />
           </Switch>
         </div>
       </div>

@@ -623,7 +623,8 @@
                 "upc_number",
                 "ean_number",
                 "hsn_code",
-                "product_description"
+                "product_description",
+                "counrty_origin"
               ],
               "properties": {
                 "id": {
@@ -644,23 +645,11 @@
                 "product_tags": {
                   "type": "string"
                 },
-                "product_status": {
-                  "type": "string"
-                },
                 "product_mrp": {
                   "type": "integer"
                 },
                 "qunatity": {
                   "type": "integer"
-                },
-                "admin_status": {
-                  "type": "string"
-                },
-                "images": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
                 },
                 "weight": {
                   "type": "integer"
@@ -683,9 +672,6 @@
                 "hsn_code": {
                   "type": "integer"
                 },
-                "counrty_origin": {
-                  "type": "object"
-                },
                 "product_description": {
                   "type": "string"
                 },
@@ -701,13 +687,48 @@
                 "measurement_unit": {
                   "type": "string"
                 },
-                "gst_type": {
-                  "type": "object"
-                },
                 "sub_category": {
                   "type": "string"
                 },
                 "sub_sub_category": {
+                  "type": "string"
+                },
+                "users_detail": {
+                  "type": "string"
+                },
+                "counrty_origin": {
+                  "type": "string"
+                },
+                "gst_type": {
+                  "type": "string"
+                },
+                "admin_status": {
+                  "type": "string",
+                  "enum": [
+                    "Approved",
+                    "Pending",
+                    "Rejected"
+                  ]
+                },
+                "product_status": {
+                  "type": "boolean"
+                },
+                "retailers_details": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "shopifychannels": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "images": {
+                  "type": "object"
+                },
+                "warehouse": {
                   "type": "string"
                 },
                 "published_at": {
@@ -766,7 +787,7 @@
               }
             }
           },
-          "commision_percent": {
+          "commision": {
             "type": "integer",
             "default": 0
           },
@@ -796,7 +817,7 @@
               "type": "string"
             }
           },
-          "commision_percent": {
+          "commision": {
             "type": "integer",
             "default": 0
           },

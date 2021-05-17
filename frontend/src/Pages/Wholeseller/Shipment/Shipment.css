@@ -16,7 +16,7 @@
 
 .ant-collapse-borderless {
   background-color: #fff !important;
-  border-radius: 6px !important;
+  border-radius: 8px !important;
 }
 .ant-collapse-borderless > .ant-collapse-item:last-child,
 .ant-collapse-borderless > .ant-collapse-item:last-child .ant-collapse-header {

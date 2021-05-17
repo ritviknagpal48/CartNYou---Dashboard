@@ -1,10 +1,9 @@
 // @ts-nocheck
-import React, { Component } from "react";
-
-import { Form, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { Modal } from "antd";
-
+import { Form, Modal, Upload } from "antd";
+import AWS from "aws-sdk";
+import cryptoRandomString from "crypto-random-string";
+import React, { Component } from "react";
 import "./imageUpload.css";
 
 
@@ -16,6 +15,69 @@ function getBase64(file) {
     reader.onerror = (error) => reject(error);
   });
 }
+
+// var fileList = [];
+
+const props = {
+  // multiple: false,
+  onStart(file) {
+    // console.log("onStart", file, file.name);
+  },
+  onError(err) {
+    // console.log("onError", err);
+  },
+  onProgress({ percent }, file) {
+    // console.log("onProgress", `${percent}%`, file.name);
+  },
+  customRequest({
+    action,
+    data,
+    file,
+    filename,
+    headers,
+    onError,
+    onProgress,
+    onSuccess,
+    withCredentials,
+  }) {
+    AWS.config.update({
+      accessKeyId: "AKIASGWV7K4INWFV66KP",
+      secretAccessKey: "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",
+      sessionToken: "",
+    });
+
+    const S3 = new AWS.S3();
+    // console.log("DEBUG filename", file.name);
+    // console.log("DEBUG file type", file.type);
+
+    const objParams = {
+      Bucket: "cartnyouawsbuket",
+      Key:
+        "product-image" +
+        "/" +
+        cryptoRandomString({ length: 12, type: "alphanumeric" }) +
+        file.name,
+      Body: file,
+      ACL: "public-read",
+      ContentType: file.png, // TODO: You should set content-type because AWS SDK will not automatically set file MIME
+    };
+
+    S3.putObject(objParams)
+      .promise()
+      .then((res) => {
+        const url =
+          res.$response.request.httpRequest.endpoint.hostname +
+          res.$response.request.httpRequest.path;
+        onSuccess(`https://${url}`, file);
+      })
+      .catch((err) => {
+        onError();
+        // console.log("Something went wrong");
+        // console.log(err.code);
+        // console.log(err.message);
+      });
+  },
+};
 
 export class ImageUpload extends Component {
   continue = (e) => {
@@ -30,7 +92,10 @@ export class ImageUpload extends Component {
   state = {
     previewVisible: false,
     previewImage: "",
-    fileList: [],
+    fileList:
+      this.props && this.props.values && this.props.values.images
+        ? this.props.values.images
+        : [],
   };
 
   handleCancel = () => this.setState({ previewVisible: false });
@@ -46,35 +111,60 @@ export class ImageUpload extends Component {
   };
 
   handleChange = ({ fileList }) => {
-
-    this.setState({ fileList });
-    this.props.handleImageUpload(fileList)
-
-  }
+    // console.log({ handleChange: fileList });
+    const newFileList = fileList.filter((x) => x.status === "done");
+    this.setState({ fileList: newFileList }, () => {
+      this.props.handleImageUpload(newFileList);
+    });
+  };
 
   render() {
+    const { previewVisible, previewImage } = this.state;
 
-    const { previewVisible, previewImage, fileList } = this.state;
     const uploadButton = (
       <div>
         <UploadOutlined />
         <div className="ant-upload-text">Upload</div>
       </div>
     );
-
+    // console.log(this.state);
+    // console.log(props);
     return (
       <div className="container my-5">
         <Form onSubmit={this.continue} className="form container">
           <div className="clearfix">
             <Form.Item label="Product Images">
               <Upload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                action="https://cartnyouawsbuket.s3.ap-south-1.amazonaws.com/"
                 listType="picture-card"
-                // fileList={fileList}
+                fileList={this.state.fileList}
+                {...props}
                 onPreview={this.handlePreview}
                 onChange={this.handleChange}
+                onSuccess={(url, file) => {
+                  const obj = {
+                    url,
+                    uid: file.uid,
+                    status: "done",
+                    name: file.name,
+                  };
+
+                  const newFileList = [...this.state.fileList, obj].filter(
+                    (x) => x.status === "done"
+                  );
+
+                  this.setState(
+                    {
+                      fileList: newFileList,
+                    },
+                    () => {
+                      this.props.handleImageUpload(newFileList);
+                      console.log({ fileList: this.state.fileList });
+                    }
+                  );
+                }}
               >
-                {fileList.length >= 8 ? null : uploadButton}
+                {this.state.fileList.length >= 8 ? null : uploadButton}
               </Upload>
               <Modal
                 visible={previewVisible}
@@ -89,7 +179,6 @@ export class ImageUpload extends Component {
               </Modal>
             </Form.Item>
           </div>
-
         </Form>
       </div>
     );

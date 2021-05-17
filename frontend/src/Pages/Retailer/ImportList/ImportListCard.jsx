@@ -1,61 +1,270 @@
-import { Tooltip } from 'antd'
-import { Link } from 'react-router-dom'
+import { message, Modal, Space, Button, Empty, Checkbox, Spin, notification } from "antd";
+import { AuthContext } from "Contexts/Auth";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { DeleteOutlined, SendOutlined, LoadingOutlined } from "@ant-design/icons";
+import { removeItemFromImportList } from "./importListUtils";
+import PushToShopify from "Components/Retailer/PushToShopify";
+
+import ShopifyIcon from "../../../assets/shopify.svg";
+// import { useState } from 'react'
 
 const classes = {
-  wrapper: "grid grid-cols-12 items-center justify-start mt-4"
-}
+  wrapper:
+    "grid grid-cols-4 md:grid-cols-12 gap-4 md:gap-0 items-center justify-start mt-4 bg-white rounded-md shadow-lg py-4",
+};
 
 const ImportListCard = ({
-  sku,
-  displayName,
-  description,
-  quantity,
-  amount,
-  price,
-  image,
+  product_name: displayName,
+  qunatity: quantity,
+  product_mrp: price,
+  images,
+  id: product_id,
+  onDeleted,
+  onSelected,
+  // id: prodId
 }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [showPushToShopifyModal, setshowPushToShopifyModal] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
+  const [isProductAdded, setIsProductAdded] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false);
+  const {
+    additionalInfo: { id: userid },
+    token,
+  } = useContext(AuthContext);
+
   return (
-    <div className={classes.wrapper}>
-      <div className={'col-span-2 col-start-1'}>
-        <img src={image.src} alt={image.alt} className={'w-auto object-cover h-20 rounded-md mx-auto'} />
-      </div>
-      <div className={'col-start-3 col-span-7 flex flex-col items-start justify-start'}>
-        <span className={'text-lg text-gray-700 font-medium'}>{displayName}</span>
-        <span className={'text-sm text-gray-400 font-normal mb-1 overflow-ellipsis overflow-hidden'}>{description}</span>
-        <div className={'flex flex-row items-center justify-start mb-1'}>
-          <Tooltip title={'SKU'} >
-            <Link className={'text-xs text-white bg-gray-600 font-light px-2 py-1 mr-1 rounded-full'} to={'/retailer/products/productId?sku=SKU00011'}>{sku}</Link>
-          </Tooltip>
-          <Tooltip title={'Price'}>
-            <span className={'text-xs text-white bg-red-500 font-light px-2 py-1 mr-1 rounded-full'}>{price}</span>
-          </Tooltip>
+    <div className={"relative"}>
+      <Spin
+        spinning={isPublishing}
+        size={"large"}
+        indicator={
+          <LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />
+        }
+      >
+        <div className={"absolute"} style={{ left: "1.5rem", top: "0.5rem" }}>
+          <Checkbox
+            className={"focus:outline-none text-red-500 border-red-400"}
+            onChange={(e) => {
+              setIsSelected(e.target.checked);
+              if (!!onSelected && typeof onSelected === "function") {
+                onSelected(product_id, e.target.checked);
+              }
+            }}
+          />
         </div>
-      </div>
-      <div className={'text-center'}>{quantity}</div>
-      <div className={'text-center text-red-500'}>{amount}</div>
-      <div className={'text-center'}>
-        <button className={'focus:outline-none mx-auto text-red-500 focus:text-red-900'}>
-          <svg className={'h-5 w-5'} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-          </svg>
-        </button>
-      </div>
-      <div className={'w-full h-px bg-gray-200 my-4 col-span-full'} />
+        <div className={"mb-2 ml-3"}>
+          <div className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center  w-full  md:grid-cols-5">
+            <div className="card-detail">
+              <div className="title-body">
+                {" "}
+                {images && images.length > 0 ? (
+                  <img
+                    className={"w-full h-auto rounded-md "}
+                    src={images[0].url}
+                    alt={displayName}
+                    style={{ width: 74, margin: "auto" }}
+                  />
+                ) : (
+                  <Empty
+                    // className={"text-sm"}
+                    image={Empty.PRESENTED_IMAGE_SIMPLE}
+                    description={"No Image"}
+                    imageStyle={{ height: "52px" }}
+                    style={{ margin: "2px" }}
+                  />
+                )}
+              </div>
+            </div>
+            <div className="card-detail">
+              <div className="head-title">Product Name</div>
+              <div className="title-body">{displayName}</div>
+            </div>
+            <div className="card-detail">
+              <div className="head-title">Quantity</div>
+              <div className="title-body">{quantity}</div>
+            </div>
+            <div className="card-detail">
+              <div className="head-title">Price</div>
+              <div className="title-body">{price}</div>
+            </div>
+            <div className="action card-detail">
+              <Space size="small" direction="vertical">
+                <Link
+                // to={{
+                //   pathname: `/retailer/edit-channel/${ChannelData.id}`,
+                //   // search: `?id=${data.id}`,
+                //   state: {
+                //     edit: true,
+                //     channelData: ChannelData,
+                //   },
+                // }}
+                >
+                  <Button
+                    type="primary"
+                    disabled={isSelected}
+                    onClick={() => setshowPushToShopifyModal(true)}
+                    style={{
+                      color: " #08979c",
+                      background: "#e6fffb",
+                      borderColor: "#87e8de",
+                      borderRadius: "6px",
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    icon={<SendOutlined />}
+                  >
+                    Push Item
+                  </Button>
+                </Link>
+                <Button
+                  style={{
+                    color: "#ef4444",
+                    background: "#fff0f6",
+                    borderColor: "#f1a8a8",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                    borderRadius: "6px",
+                  }}
+                  type="primary"
+                  onClick={() => {
+                    setShowModal(true);
+                  }}
+                  icon={<DeleteOutlined />}
+                >
+                  Delete Item
+                </Button>
+              </Space>
+            </div>
+          </div>
+        </div>
+
+        <Modal
+          title={<div className="flex gap-x-2">Remove from Import List</div>}
+          width={"100%"}
+          visible={showModal}
+          confirmLoading={isProductAdded}
+          onOk={(e) => {
+            setIsProductAdded(true);
+            removeItemFromImportList(userid, product_id, token)
+              .then(() => {
+                message.success("Product removed successfully");
+                if (!!onDeleted && typeof onDeleted === "function")
+                  onDeleted(product_id);
+                setShowModal(false);
+                setIsProductAdded(false);
+              })
+              .catch((err) => {
+                message.error(err.message);
+                setShowModal(false);
+                setIsProductAdded(false);
+              });
+          }}
+          onCancel={() => setShowModal(false)}
+          style={{
+            borderRadius: "12px",
+            overflow: "hidden",
+            backgroundColor: "white",
+            boxShadow: "none",
+            maxWidth: "520px",
+            paddingBottom: "0px",
+          }}
+          bodyStyle={{
+            boxShadow: "none",
+            height: "100%",
+          }}
+          maskStyle={{ background: "#00000034" }}
+        >
+          Remove <span className="font-semibold">{displayName}</span> from your
+          import list?
+          <br />
+          <br />
+          <span className="text-gray-400 font-normal text-sm">
+            Once removed, it cannot be recovered.
+          </span>
+        </Modal>
+
+        <Modal
+          title={
+            <div
+              className="flex gap-x-2"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <img src={ShopifyIcon} style={{ height: "28px" }} />
+              Publish to shopify
+            </div>
+          }
+          width={"100%"}
+          visible={showPushToShopifyModal}
+          footer={null}
+          // confirmLoading={isProductAdded}
+          // onOk={(e) => {
+          //   setIsProductAdded(true);
+          // removeItemFromImportList(userid, product_id, token)
+          //   .then(() => {
+          //     message.success("Product removed successfully");
+          //     if (!!onDeleted && typeof onDeleted === "function")
+          //       onDeleted(product_id);
+          //     setShowModal(false);
+          //     setIsProductAdded(false);
+          //   })
+          //   .catch((err) => {
+          //     message.error(err.message);
+          //     setShowModal(false);
+          //     setIsProductAdded(false);
+          //   });
+          // }}
+
+          onCancel={() => setshowPushToShopifyModal(false)}
+          style={{
+            borderRadius: "12px",
+            overflow: "hidden",
+            backgroundColor: "white",
+            boxShadow: "none",
+            maxWidth: "520px",
+            paddingBottom: "0px",
+          }}
+          bodyStyle={{
+            boxShadow: "none",
+            height: "100%",
+          }}
+          maskStyle={{ background: "#00000034" }}
+        >
+          <PushToShopify
+            data={{ userid, token, product_id, displayName, quantity, price }}
+            onSuccess={(id) => {
+              removeItemFromImportList(userid, id, token).then(() => {
+                setshowPushToShopifyModal(false);
+                setIsPublishing(false);
+                onDeleted(product_id);
+                notification.success({
+                  description: 'Product published successfully.',
+                  message: 'Success',
+                  duration: 2
+                })
+              })
+            }}
+            onError={() => {
+              setIsPublishing(false)
+              message.error('Something went wrong.')
+            }}
+            onBegin={() => setIsPublishing(true)}
+          />
+          {/* Select a channel to add the product */}
+          <br />
+          <br />
+          {/* <span className="text-gray-400 font-normal text-sm">
+          Once removed, it cannot be recovered.
+        </span> */}
+        </Modal>
+      </Spin>
     </div>
-  )
-}
+  );
+};
 
-ImportListCard.defaultProps = {
-  sku: "STD30492",
-  displayName: "Sample Product",
-  description: "Sample product Description.",
-  quantity: 10,
-  amount: 1230,
-  price: 123,
-  image: {
-    src: "https://images.unsplash.com/photo-1590192746144-b92a837f8ddf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    alt: "Sample Image"
-  },
-}
-
-export default ImportListCard
+export default ImportListCard;
