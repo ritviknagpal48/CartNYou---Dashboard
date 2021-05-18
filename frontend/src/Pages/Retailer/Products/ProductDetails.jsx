@@ -21,24 +21,8 @@ const { TabPane } = Tabs;
 
 const defaultImages = [
   {
-    url:
-      "https://images.unsplash.com/photo-1590192746144-b92a837f8ddf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-  },
-  {
-    url:
-      "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1059&q=80",
-  },
-  {
-    url:
-      "https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-  },
-  {
-    url:
-      "https://images.unsplash.com/photo-1598662972299-5408ddb8a3dc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-  },
-  {
-    url:
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1051&q=80",
+    url: "/images/no_image.png",
+    alt: "No Image Available",
   },
 ];
 
@@ -98,6 +82,8 @@ const ProductDetails = () => {
 
   const [imageIndex, setImageIndex] = useState(0);
 
+  const product_images = images && images.length > 0 ? images : defaultImages;
+
   return (
     <div className={classes.wrapper}>
       {/* Card Here */}
@@ -132,13 +118,16 @@ const ProductDetails = () => {
             "col-start-1 row-start-1 col-span-6 row-span-5 h-72 items-center justify-items-center justify-center"
           }
         >
-          <img
-            src={defaultImages[2].url}
-            alt=""
-            className={
-              "h-full object-cover cursor-pointer rounded-lg shadow-xl mx-auto"
-            }
-          />
+          {product_images.map((image, idx) => (
+            <img
+              src={image.url}
+              key={idx}
+              alt={image.name}
+              className={
+                "h-full object-cover cursor-pointer rounded-lg shadow-xl mx-auto"
+              }
+            />
+          ))}
         </div>
         <div
           className={
@@ -146,19 +135,7 @@ const ProductDetails = () => {
           }
         >
           {
-            // images && images.length ?
-            //   (images.map((image, idx) => (
-            //     <img
-            //       src={image.url}
-            //       alt={image.alt}
-            //       className={clsx(
-            //         "h-12 w-12 object-cover mx-2 my-2 cursor-pointer rounded-lg shadow-lg",
-            //         { "ring-2 ring-red-500": idx === imageIndex }
-            //       )}
-            //       onClick={() => setImageIndex(idx)}
-            //     />
-            //   )) ):(
-            defaultImages.map((image, idx) => (
+            product_images.map((image, idx) => (
               <img
                 src={image.url}
                 alt={image.alt}
@@ -192,8 +169,8 @@ const ProductDetails = () => {
               // formats={this.formats}
               style={{ width: "500px" }}
               defaultValue={product_description}
-            // value={values.product_description}
-            // onChange={handleValueChange("product_description")}
+              // value={values.product_description}
+              // onChange={handleValueChange("product_description")}
             />
           </span>
 
@@ -395,8 +372,8 @@ const ProductDetails = () => {
                 // formats={this.formats}
                 style={{ width: "500px" }}
                 defaultValue={product_description || "No Description Available"}
-              // value={values.product_description}
-              // onChange={handleValueChange("product_description")}
+                // value={values.product_description}
+                // onChange={handleValueChange("product_description")}
               />
             </div>
           </TabPane>
