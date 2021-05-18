@@ -73,40 +73,15 @@ const ProductDetails = () => {
   const {
     //general details
     id: product_id,
-    product_status,
     product_category,
-    sub_category,
-    sub_sub_category,
     product_name,
     product_description,
-    product_brand,
-    counrty_origin,
     product_tags,
-    hsn_code,
-    upc_number,
-    ean_number,
-    gst_type,
-    measurement_unit,
-
-    //VARIENT DETAILS
-    colour,
     product_main_sku,
     qunatity,
     product_mrp,
-    gst_percentage,
-
-    //images
-    images,
-
-    //SHIPPING DETAILS
-    weight,
-    dem_length,
-    dem_breadth,
-    dem_height,
-
     //attributes
     custom_attribute,
-    admin_status,
   } = location.state.detail;
 
   const history = useHistory();
@@ -146,10 +121,10 @@ const ProductDetails = () => {
 
       <div
         className={
-          "bg-white flex flex-row w-full   border border-gray-200  px-6 py-6 rounded-xl "
+          "upper-block flex lg:flex-row w-full flex-col  border border-gray-200  sm:p-6 p-3 rounded-xl "
         }
       >
-        <div className={"w-1/2"}>
+        <div className={"image-block lg:w-1/2 w-full"}>
           <div className={"container sm:hidden"} style={{ marginTop: 64 }}>
             <Carousel infinite={true} lazyLoad={true}>
               {defaultImages.map((image) => (
@@ -192,10 +167,10 @@ const ProductDetails = () => {
             </div>
           </div>
         </div>
-        <div className={"ml-4 w-1/2"}>
-          <div className={"flex flex-row justify-between w-full pt-2"}>
+        <div className={"content-block lg:ml-3 lg:w-1/2 w-full"}>
+          <div className={"flex flex-col justify-between w-full pt-2 lg:flex-row"}>
             <div className={"flex flex-col"}>
-              <span className={"text-4xl font-semibold text-gray-800"}>
+              <span className={"text-4xl font-semibold text-gray-700"}>
                 {product_name}
               </span>
               <span className={"text-xl text-red-500 font-semibold my-2"}>
@@ -204,9 +179,9 @@ const ProductDetails = () => {
                   Incl. of all taxes.
                 </span>
               </span>
-              <hr style={{ borderColor: "transparent", marginTop: "20px" }} />
+              <hr style={{ borderColor: "transparent", marginTop: "10px" }} />
               <span
-                className={"text-xs flx flex-row items-center justify-start"}
+                className={"text-xs grid grid-cols-4 lg:grid-cols-5 items-center justify-start"}
               >
                 {product_tags
                   .split(",")
@@ -214,7 +189,7 @@ const ProductDetails = () => {
                   .map((tag) => (
                     <span
                       className={
-                        "text-gray-500 text-xs bg-gray-100 rounded-md mx-1 my-2 px-4 py-2"
+                        "text-gray-500 text-xs bg-gray-100 rounded-md m-1  px-4 py-2"
                       }
                     >
                       {tag}
@@ -223,13 +198,12 @@ const ProductDetails = () => {
               </span>
             </div>
 
-            <div
-              className={"flex flex-col items-start"}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+            <div className={"flex lg:flex-col flex-row  lg:justify-start items-center   justify-around mt-3 lg:mt-0 "}
+              // style={{
+              //   display: "flex",
+              //   justifyContent: "center",
+              //   alignItems: "center",
+              // }}
             >
               <button
                 className={
@@ -298,7 +272,7 @@ const ProductDetails = () => {
               theme="bubble"
               // modules={this.modules}
               // formats={this.formats}
-              style={{ width: "400px" }}
+              style={{ width: "100%", maxWidth:"400px" }}
               defaultValue={product_description}
               // value={values.product_description}
               // onChange={handleValueChange("product_description")}
@@ -307,15 +281,29 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      <div className={"flex flex-row  pt-2"} style={{ width: "100%" }}>
-        <div
-          className={" my-3 border border-gray-200  px-6 py-6 rounded-xl  "}
-          style={{ width: "70%" }}
+      <div className={"flex flex-col gap-4 lg:flex-row pt-2"} style={{ width: "100%" }}>
+        <div  className={" my-3 border border-gray-200 w-full lg:w-2/3 lg:p-6 p-3 rounded-xl  "}
+         
         >
           <Tabs defaultActiveKey={"1"} tabPosition={"top"}>
             <TabPane tab={"Product Variants"} key={"1"}>
               <div>
-                <div
+              <Descriptions
+            // title="Product Details"
+            layout="horizontal"
+            column={{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 1, xs: 1 }}
+            bordered
+          >
+            <Descriptions.Item label="Product SKU">
+            {product_main_sku}
+            </Descriptions.Item>
+            <Descriptions.Item label="Product Name">
+            {product_name}
+            </Descriptions.Item>
+            <Descriptions.Item label="Available Quantity">{qunatity}</Descriptions.Item>
+            <Descriptions.Item label="Price"> ₹ {product_mrp}</Descriptions.Item>
+          </Descriptions>
+                {/* <div
                   className={clsx(
                     "grid grid-cols-2 md:grid-cols-4 gap-2 w-full py-2 px-4"
                   )}
@@ -341,10 +329,10 @@ const ProductDetails = () => {
                   )}
                 >
                   <span className={"text-gray-600 font-normal text-sm mt-1"}>
-                    {product_main_sku}
+                   
                   </span>
                   <span className={"text-gray-600 font-normal text-sm mt-1"}>
-                    {product_name}
+
                   </span>
                   <span className={"text-gray-600 font-normal text-sm mt-1"}>
                     {qunatity}
@@ -352,18 +340,19 @@ const ProductDetails = () => {
                   <span className={"text-red-500 font-normal text-sm mt-1"}>
                     ₹ {product_mrp}
                   </span>
-                </div>
+                </div> */}
                 {/* ) : (
               <span className={"text-gray-600 font-normal text-sm mt-1 py-2"}>
               No Varaints Available for this Product
               </span>
             )} */}
+
               </div>
             </TabPane>
             <TabPane tab={"Product Description"} key={"2"}>
               <div
                 className={
-                  "text-sm font-normal flex-wrap text-gray-500 max-w-sm md:max-w-full"
+                  "text-sm font-normal flex-wrap text-gray-500 max-w-sm md:max-w-4xl"
                 }
               >
                 <ReactQuill
@@ -371,7 +360,7 @@ const ProductDetails = () => {
                   theme="bubble"
                   // modules={this.modules}
                   // formats={this.formats}
-                  style={{ width: "100%", height: "auto" }}
+                  style={{ width: "100%", height: "auto", maxWidth:"100%" }}
                   defaultValue={
                     product_description || "No Description Available"
                   }
@@ -408,10 +397,8 @@ const ProductDetails = () => {
           </Tabs>
         </div>
 
-        <div style={{ width: "2%", height: "2px", maxWidth: "22px" }} />
-        <div
-          className={" my-3  border border-gray-200  px-6 py-6 rounded-xl  "}
-          style={{ width: "28%" }}
+        <div className={" my-3 w-full lg:w-1/3 border border-gray-200  lg:p-6 p-3 rounded-xl  "}
+         
         >
           <Descriptions
             title="Product Details"
@@ -419,7 +406,7 @@ const ProductDetails = () => {
             column={1}
             bordered
           >
-            <Descriptions.Item label="Available Ouantity">
+            <Descriptions.Item label="Available Quantity">
               {qunatity > 0 ? `In Stock (${qunatity})` : "Out of Stock"}
             </Descriptions.Item>
             <Descriptions.Item label=" Category">
@@ -483,7 +470,7 @@ const ProductDetails = () => {
         width={"100%"}
         visible={showModal}
         confirmLoading={isProductAdded}
-        onOk={(e) => {
+        onOk={() => {
           setIsProductAdded(true);
           addItemToImportList(userid, [product_id], token)
             .then(() => {

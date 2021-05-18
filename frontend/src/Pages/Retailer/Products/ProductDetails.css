@@ -9,3 +9,22 @@
 .ql-editor {
   padding-left: 0;
 }
+
+/* .upper-block{
+  background-color: brown;
+  display: flex;
+  flex-direction: row;
+
+  @media (min-width: 768px) {
+    flex-direction:column;
+   }
+}
+
+
+.upper-block .image-block {
+  background-color: chartreuse;
+}
+
+.upper-block .content-block{
+  background-color: cyan;
+} */
