@@ -639,6 +639,13 @@
               "commision": {
                 "type": "integer"
               },
+              "comission_type": {
+                "type": "string",
+                "enum": [
+                  "direct_value",
+                  "percent_value"
+                ]
+              },
               "published_at": {
                 "type": "string"
               },

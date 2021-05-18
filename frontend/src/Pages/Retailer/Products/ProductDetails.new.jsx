@@ -1,12 +1,4 @@
-import {
-  Image,
-  message,
-  Modal,
-  Tabs,
-  Carousel,
-  Divider,
-  Descriptions,
-} from "antd";
+import { Carousel, Descriptions, Image, message, Modal, Tabs } from "antd";
 import clsx from "clsx";
 // import { AddToImportListModal } from 'Components/Modals/AddToImportListModal';
 import { AuthContext } from "Contexts/Auth";
@@ -37,6 +29,7 @@ const { TabPane } = Tabs;
 const defaultImages = [
   {
     url: "/images/no_image.png",
+    name: "No Image Available",
   },
 ];
 
@@ -63,6 +56,10 @@ const ProductDetails = () => {
     product_main_sku,
     qunatity,
     product_mrp,
+
+    //images
+    images,
+
     //attributes
     custom_attribute,
   } = location.state.detail;
@@ -84,12 +81,12 @@ const ProductDetails = () => {
     <div className={classes.wrapper} style={{ maxWidth: "95vw" }}>
       <button
         className={
-          "m-4 px-3 py-3 text-gray-600 bg-gray-100 border border-gray-400 rounded-full shadow-lg focus:outline-none absolute left-2 top-2"
+          "m-4 p-1.5 text-gray-600 bg-gray-50 border border-gray-200 rounded-full shadow-md focus:outline-none absolute left-2 top-2"
         }
         onClick={() => history.goBack()}
       >
         <svg
-          className={"h-5 w-5"}
+          className={"h-4 w-4"}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -113,12 +110,23 @@ const ProductDetails = () => {
           <div className={"container sm:hidden"} style={{ marginTop: 64 }}>
             <Carousel infinite={true} lazyLoad={true}>
               {product_images.map((image) => (
-                <div className={"object-cover w-auto h-auto"}>
+                <div
+                  className={
+                    "object-cover w-auto h-auto overflow-hidden flex items-center justify-center flex-important"
+                  }
+                >
                   <Image
-                    style={{ maxWidth: 480, height: "auto" }}
+                    style={{
+                      maxWidth: 480,
+                      height: "auto",
+                      width: "100%",
+                      maxHeight: 480,
+                      background: "white",
+                    }}
                     className={"rounded-xl"}
                     src={image.url}
-                    placeholder={true}
+                    alt={image.name}
+                    placeholder={false}
                     loading={"eager"}
                   />
                 </div>
@@ -127,33 +135,43 @@ const ProductDetails = () => {
           </div>
           <div className="flex">
             <div
-              className={"hidden sm:flex flex-col items-center justify-start"}
+              className={clsx(
+                "hidden sm:flex flex-col items-center justify-start",
+                { "sm:hidden": product_images.length === 1 }
+              )}
               style={{ marginTop: 64, marginRight: 24 }}
             >
               {product_images.map((image, idx) => (
                 <img
                   onClick={() => setImageIndex(idx)}
                   src={image.url}
-                  alt={image.url}
+                  alt={image.name}
                   className={
                     "my-2 w-12 cursor-pointer h-auto object-cover rounded-md"
                   }
+                  style={{ border: "1px solid rgb(229, 231, 235)" }}
                 />
               ))}
             </div>
-            <div className={"hidden sm:block"}>
+            <div className={"hidden sm:block mx-auto"}>
               <Image
-                style={{ maxWidth: 520, height: "auto" }}
+                style={{
+                  maxWidth: 520,
+                  height: 360,
+                  width: "auto",
+                }}
                 className={"rounded-xl"}
                 src={product_images[imageIndex].url}
-                placeholder={true}
+                placeholder={false}
                 loading={"eager"}
               />
             </div>
           </div>
         </div>
         <div className={"content-block lg:ml-3 lg:w-1/2 w-full"}>
-          <div className={"flex flex-col justify-between w-full pt-2 lg:flex-row"}>
+          <div
+            className={"flex flex-col justify-between w-full pt-2 lg:flex-row"}
+          >
             <div className={"flex flex-col"}>
               <span className={"text-4xl font-semibold text-gray-700"}>
                 {product_name}
@@ -166,7 +184,9 @@ const ProductDetails = () => {
               </span>
               <hr style={{ borderColor: "transparent", marginTop: "10px" }} />
               <span
-                className={"text-xs grid grid-cols-4 lg:grid-cols-5 items-center justify-start"}
+                className={
+                  "text-xs grid grid-cols-4 lg:grid-cols-5 items-center justify-start"
+                }
               >
                 {product_tags
                   .split(",")
@@ -183,7 +203,10 @@ const ProductDetails = () => {
               </span>
             </div>
 
-            <div className={"flex lg:flex-col flex-row  lg:justify-start items-center   justify-around mt-3 lg:mt-0 "}
+            <div
+              className={
+                "flex lg:flex-col flex-row  lg:justify-start items-center   justify-around mt-3 lg:mt-0 "
+              }
               // style={{
               //   display: "flex",
               //   justifyContent: "center",
@@ -257,7 +280,7 @@ const ProductDetails = () => {
               theme="bubble"
               // modules={this.modules}
               // formats={this.formats}
-              style={{ width: "100%", maxWidth:"400px" }}
+              style={{ width: "100%", maxWidth: "400px" }}
               defaultValue={product_description}
               // value={values.product_description}
               // onChange={handleValueChange("product_description")}
@@ -266,28 +289,38 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      <div className={"flex flex-col gap-4 lg:flex-row pt-2"} style={{ width: "100%" }}>
-        <div  className={" my-3 border border-gray-200 w-full lg:w-2/3 lg:p-6 p-3 rounded-xl  "}
-         
+      <div
+        className={"flex flex-col gap-4 lg:flex-row pt-2"}
+        style={{ width: "100%" }}
+      >
+        <div
+          className={
+            " my-3 border border-gray-200 w-full lg:w-2/3 lg:p-6 p-3 rounded-xl  "
+          }
         >
           <Tabs defaultActiveKey={"1"} tabPosition={"top"}>
             <TabPane tab={"Product Variants"} key={"1"}>
               <div>
-              <Descriptions
-            // title="Product Details"
-            layout="horizontal"
-            column={{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 1, xs: 1 }}
-            bordered
-          >
-            <Descriptions.Item label="Product SKU">
-            {product_main_sku}
-            </Descriptions.Item>
-            <Descriptions.Item label="Product Name">
-            {product_name}
-            </Descriptions.Item>
-            <Descriptions.Item label="Available Quantity">{qunatity}</Descriptions.Item>
-            <Descriptions.Item label="Price"> ₹ {product_mrp}</Descriptions.Item>
-          </Descriptions>
+                <Descriptions
+                  // title="Product Details"
+                  layout="horizontal"
+                  column={{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 1, xs: 1 }}
+                  bordered
+                >
+                  <Descriptions.Item label="Product SKU">
+                    {product_main_sku}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Product Name">
+                    {product_name}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Available Quantity">
+                    {qunatity}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Price">
+                    {" "}
+                    ₹ {product_mrp}
+                  </Descriptions.Item>
+                </Descriptions>
                 {/* <div
                   className={clsx(
                     "grid grid-cols-2 md:grid-cols-4 gap-2 w-full py-2 px-4"
@@ -331,7 +364,6 @@ const ProductDetails = () => {
               No Varaints Available for this Product
               </span>
             )} */}
-
               </div>
             </TabPane>
             <TabPane tab={"Product Description"} key={"2"}>
@@ -345,7 +377,7 @@ const ProductDetails = () => {
                   theme="bubble"
                   // modules={this.modules}
                   // formats={this.formats}
-                  style={{ width: "100%", height: "auto", maxWidth:"100%" }}
+                  style={{ width: "100%", height: "auto", maxWidth: "100%" }}
                   defaultValue={
                     product_description || "No Description Available"
                   }
@@ -382,8 +414,10 @@ const ProductDetails = () => {
           </Tabs>
         </div>
 
-        <div className={" my-3 w-full lg:w-1/3 border border-gray-200  lg:p-6 p-3 rounded-xl  "}
-         
+        <div
+          className={
+            " my-3 w-full lg:w-1/3 border border-gray-200  lg:p-6 p-3 rounded-xl  "
+          }
         >
           <Descriptions
             title="Product Details"

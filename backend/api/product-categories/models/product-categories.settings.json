@@ -23,7 +23,8 @@
         "images"
       ],
       "plugin": "upload",
-      "required": false
+      "required": false,
+      "pluginOptions": {}
     },
     "product_details": {
       "collection": "product-details",
@@ -36,8 +37,15 @@
     "commision": {
       "type": "integer",
       "default": 0,
-      "max": 100,
       "min": 0
+    },
+    "comission_type": {
+      "type": "enumeration",
+      "enum": [
+        "direct_value",
+        "percent_value"
+      ],
+      "default": "direct_value"
     }
   }
 }

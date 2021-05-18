@@ -78,11 +78,14 @@ const ProductDetails = () => {
     admin_status,
   } = location.state.detail;
 
+  console.log(location.state.detail);
+
   const history = useHistory();
 
   const [imageIndex, setImageIndex] = useState(0);
 
-  const product_images = images && images.length > 0 ? images : defaultImages;
+  // const product_images = images && images.length > 0 ? images : defaultImages;
+  const product_images = defaultImages;
 
   return (
     <div className={classes.wrapper}>

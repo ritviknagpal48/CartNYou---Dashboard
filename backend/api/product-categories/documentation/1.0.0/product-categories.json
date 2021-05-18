@@ -791,6 +791,14 @@
             "type": "integer",
             "default": 0
           },
+          "comission_type": {
+            "type": "string",
+            "default": "direct_value",
+            "enum": [
+              "direct_value",
+              "percent_value"
+            ]
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -820,6 +828,14 @@
           "commision": {
             "type": "integer",
             "default": 0
+          },
+          "comission_type": {
+            "type": "string",
+            "default": "direct_value",
+            "enum": [
+              "direct_value",
+              "percent_value"
+            ]
           },
           "published_at": {
             "type": "string",
