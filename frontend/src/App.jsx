@@ -5,11 +5,11 @@ import { useContext } from "react";
 import { BrowserRouter, Link, Redirect, Route, Switch } from "react-router-dom";
 import Auth from "./Pages/Auth/Auth";
 import AppDirector from "./Pages/AppDirector";
-import WholesellerHome from "./Pages/Wholeseller/Home/Home";
+import WholesellerHome from "./Pages/Wholesaler/Home/Home";
 import RetailerHome from "./Pages/Retailer/Home/Home";
 import { Result } from "antd";
 
-import './App.css'
+import "./App.css";
 
 const classes = {
   wrapper:
@@ -46,32 +46,48 @@ function App() {
           />
           <PrivateRoute path={"/wholeseller"} component={WholesellerHome} />
           <PrivateRoute path={"/retailer"} component={RetailerHome} />
-          <Route path={"/confirm-email"} exact component={(renderProps) => (
-            <div className={'grid place-items-center h-full'}>
-              <Result
-                {...renderProps}
-                status={'success'}
-                title={'Yaaayyy! Your Email has been verified.'}
-                subTitle={'If you were unable to login, Please try again. If you still face issues, We are there to help.'}
-                extra={[
-                  <Link to={'/auth/login'} className={classes.submit_button}>Login Now</Link>
-                ]}
-              />
-            </div>
-          )} />
-          <Route path={"/verify-email"} exact component={(renderProps) => (
-            <div className={'grid place-items-center h-full'}>
-              <Result
-                {...renderProps}
-                status={'info'}
-                title={'Please Confirm your Email.'}
-                subTitle={'Please check your inbox for our Confirmation mail. Also consider checking your SPAM folder.'}
-                extra={[
-                  <Link to={'/auth/login'} className={classes.submit_button}>Login Now</Link>
-                ]}
-              />
-            </div>
-          )} />
+          <Route
+            path={"/confirm-email"}
+            exact
+            component={(renderProps) => (
+              <div className={"grid place-items-center h-full"}>
+                <Result
+                  {...renderProps}
+                  status={"success"}
+                  title={"Yaaayyy! Your Email has been verified."}
+                  subTitle={
+                    "If you were unable to login, Please try again. If you still face issues, We are there to help."
+                  }
+                  extra={[
+                    <Link to={"/auth/login"} className={classes.submit_button}>
+                      Login Now
+                    </Link>,
+                  ]}
+                />
+              </div>
+            )}
+          />
+          <Route
+            path={"/verify-email"}
+            exact
+            component={(renderProps) => (
+              <div className={"grid place-items-center h-full"}>
+                <Result
+                  {...renderProps}
+                  status={"info"}
+                  title={"Please Confirm your Email."}
+                  subTitle={
+                    "Please check your inbox for our Confirmation mail. Also consider checking your SPAM folder."
+                  }
+                  extra={[
+                    <Link to={"/auth/login"} className={classes.submit_button}>
+                      Login Now
+                    </Link>,
+                  ]}
+                />
+              </div>
+            )}
+          />
           <Route
             component={() => {
               return (
