@@ -52,7 +52,9 @@ class ProductCards extends React.Component {
 
   async componentDidMount() {
     await axiosInstance
-      .get(`/product-details?users_detail=${this.context.additionalInfo.id}`)
+      .get(
+        `/product-details?wholesaler_details=${this.context.additionalInfo.id}`
+      )
       .then((res) => {
         this.setState({
           data: res.data,
