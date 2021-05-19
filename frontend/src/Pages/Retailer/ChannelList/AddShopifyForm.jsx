@@ -88,8 +88,7 @@ class AddShopifyForm extends Component {
       await axios
         .get(`/shopifychannels/${channelId}`, {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+            Authorization: `Bearer ${this.context.token}`,
           },
         })
         .then((res) => {
@@ -117,8 +116,7 @@ class AddShopifyForm extends Component {
     await axios
       .post("/shopifychannels", this.state, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+          Authorization: `Bearer ${this.context.token}`,
         },
       })
       .then((resp) => {

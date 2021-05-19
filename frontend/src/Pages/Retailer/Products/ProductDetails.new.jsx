@@ -103,12 +103,13 @@ const ProductDetails = () => {
 
       <div
         className={
-          "upper-block flex lg:flex-row w-full flex-col  border border-gray-200  sm:p-6 p-3 rounded-xl "
+          "upper-block flex lg:flex-row w-full flex-col  border border-gray-200  sm:p-6 p-3 rounded-xl mx-auto md:mx-0"
         }
+        style={{ maxWidth: "90vw" }}
       >
-        <div className={"image-block lg:w-1/2 w-full"}>
+        <div className={"image-block lg:w-2/5 w-full"}>
           <div className={"container sm:hidden"} style={{ marginTop: 64 }}>
-            <Carousel infinite={true} lazyLoad={true}>
+            <Carousel infinite={true} lazyLoad={true} autoplay={true}>
               {product_images.map((image) => (
                 <div
                   className={
@@ -156,7 +157,7 @@ const ProductDetails = () => {
             <div className={"hidden sm:block mx-auto"}>
               <Image
                 style={{
-                  maxWidth: 520,
+                  maxWidth: 400,
                   height: 360,
                   width: "auto",
                 }}
@@ -168,12 +169,12 @@ const ProductDetails = () => {
             </div>
           </div>
         </div>
-        <div className={"content-block lg:ml-3 lg:w-1/2 w-full"}>
-          <div
-            className={"flex flex-col justify-between w-full pt-2 lg:flex-row"}
-          >
+        <div className={"content-block lg:ml-3 lg:w-3/5 w-full"}>
+          <div className={"flex flex-col justify-between w-full pt-2"}>
             <div className={"flex flex-col"}>
-              <span className={"text-4xl font-semibold text-gray-700"}>
+              <span
+                className={"text-2xl md:text-4xl font-semibold text-gray-700"}
+              >
                 {product_name}
               </span>
               <span className={"text-xl text-red-500 font-semibold my-2"}>
@@ -194,7 +195,7 @@ const ProductDetails = () => {
                   .map((tag) => (
                     <span
                       className={
-                        "text-gray-500 text-xs bg-gray-100 rounded-md m-1  px-4 py-2"
+                        "text-gray-500 text-xs bg-gray-100 rounded-md m-1  px-4 py-2 h-full flex items-center justify-center"
                       }
                     >
                       {tag}
@@ -205,7 +206,7 @@ const ProductDetails = () => {
 
             <div
               className={
-                "flex lg:flex-col flex-row  lg:justify-start items-center   justify-around mt-3 lg:mt-0 "
+                "flex flex-row items-center justify-start mt-4 space-x-4"
               }
               // style={{
               //   display: "flex",
@@ -215,7 +216,7 @@ const ProductDetails = () => {
             >
               <button
                 className={
-                  " transition text-white text-sm flex flex-row items-center justify-center px-2 py-2 focus:outline-none"
+                  " transition text-white text-sm flex flex-row items-center justify-center px-2 py-2 focus:outline-none border border-red-400"
                 }
                 style={{
                   background: "#ef4444",
@@ -242,7 +243,7 @@ const ProductDetails = () => {
               </button>
               <button
                 className={
-                  " transition font-medium text-sm flex flex-row items-center justify-center px-2 py-2 my-3 rounded-2xl focus:outline-none"
+                  " transition font-medium text-sm flex flex-row items-center justify-center px-2 py-2 my-3 rounded-lg focus:outline-none border border-red-400"
                 }
                 style={{
                   color: "#ef4444",
@@ -280,7 +281,7 @@ const ProductDetails = () => {
               theme="bubble"
               // modules={this.modules}
               // formats={this.formats}
-              style={{ width: "100%", maxWidth: "400px" }}
+              style={{ width: "100%", maxWidth: "650px" }}
               defaultValue={product_description}
               // value={values.product_description}
               // onChange={handleValueChange("product_description")}
@@ -290,8 +291,8 @@ const ProductDetails = () => {
       </div>
 
       <div
-        className={"flex flex-col gap-4 lg:flex-row pt-2"}
-        style={{ width: "100%" }}
+        className={"flex flex-col gap-4 lg:flex-row pt-2 mx-auto md:mx-0"}
+        style={{ width: "100%", maxWidth: "90vw" }}
       >
         <div
           className={

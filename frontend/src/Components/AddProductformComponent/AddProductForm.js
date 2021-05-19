@@ -4,6 +4,7 @@ import {
   RightOutlined,
 } from "@ant-design/icons";
 import { Button, message, notification, Spin, Tabs } from "antd";
+import { AuthContext } from "Contexts/Auth";
 import { axiosInstance as axios } from "Contexts/useAxios";
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
@@ -27,26 +28,28 @@ class AddProductForm extends Component {
       haveCategory: false,
 
       //general details
-      users_detail: "",
+      product_name: "",
       product_category: "",
+      product_brand: "",
+      product_tags: "",
+      product_description: "",
+      measurement_unit: "",
       sub_category: "",
       sub_sub_category: "",
-      product_name: "",
-      product_description: "",
-      product_brand: "",
       counrty_origin: "",
-      product_tags: "",
+      gst_type: "",
+      wholesaler_details: "",
+
+      // Numbers
       hsn_code: "",
       upc_number: "",
       ean_number: "",
-      gst_type: "",
-      measurement_unit: "",
 
       //VARIENT DETAILS
-      colour: "",
       product_main_sku: "",
-      qunatity: "",
       product_mrp: "",
+      qunatity: "",
+      colour: "",
       gst_percentage: "",
 
       //images
@@ -89,7 +92,7 @@ class AddProductForm extends Component {
         : false;
 
     this.setState({
-      users_detail: this.props.userID,
+      wholesaler_details: this.props.userID,
     });
 
     if (edit) {
@@ -287,15 +290,11 @@ class AddProductForm extends Component {
     if (input === "product_category") {
       if (value !== undefined) {
         await axios
-          .get(
-            `/product-categories/${value}`
-            // , {
-            //   headers: {
-            //     Authorization:
-            //       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
-            //   },
-            // }
-          )
+          .get(`/product-categories/${value}`, {
+            headers: {
+              Authorization: `Bearer ${this.context.token}`,
+            },
+          })
           .then((res) => {
             this.setState({
               subCatArray:
@@ -324,15 +323,11 @@ class AddProductForm extends Component {
       }
     } else if (input === "sub_category") {
       await axios
-        .get(
-          `/sub-categories/${value}`
-          // , {
-          //   headers: {
-          //     Authorization:
-          //       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
-          //   },
-          // }
-        )
+        .get(`/sub-categories/${value}`, {
+          headers: {
+            Authorization: `Bearer ${this.context.token}`,
+          },
+        })
         .then((res) => {
           this.setState({
             subSubCatArray:
@@ -373,7 +368,7 @@ class AddProductForm extends Component {
 
   handleValidation = () => {
     const {
-      users_detail,
+      wholesaler_details,
       product_category,
       sub_category,
       sub_sub_category,
@@ -402,7 +397,7 @@ class AddProductForm extends Component {
     } = this.state;
 
     const productData = {
-      users_detail,
+      wholesaler_details,
       product_category,
       product_name,
       product_description,
@@ -851,4 +846,5 @@ class AddProductForm extends Component {
   }
 }
 
+AddProductForm.contextType = AuthContext;
 export default withRouter(AddProductForm);

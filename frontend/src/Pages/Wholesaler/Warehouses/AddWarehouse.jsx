@@ -122,18 +122,6 @@ const AddWarehouse = ({ onFinish, history }) => {
           <Form.Item label="Address Line 2" name="address_2">
             <Input multiple={true} defaultValue={""} />
           </Form.Item>
-          <Form.Item label="City" name="city" rules={[{ required: true }]}>
-            <Select
-              allowClear={false}
-              placeholder={"Select City"}
-              defaultValue={getCities(stateIndex)[0]}
-              options={getCities(stateIndex).map((x) => ({
-                value: capitalize(x),
-                label: capitalize(x),
-                title: capitalize(x),
-              }))}
-            ></Select>
-          </Form.Item>
           <Form.Item label="State" name="state" rules={[{ required: true }]}>
             <Select
               allowClear={false}
@@ -148,6 +136,18 @@ const AddWarehouse = ({ onFinish, history }) => {
                 const idx = states.indexOf(val);
                 setStateIndex(idx === -1 ? 0 : idx + 1);
               }}
+            ></Select>
+          </Form.Item>
+          <Form.Item label="City" name="city" rules={[{ required: true }]}>
+            <Select
+              allowClear={false}
+              placeholder={"Select City"}
+              defaultValue={getCities(stateIndex)[0]}
+              options={getCities(stateIndex).map((x) => ({
+                value: capitalize(x),
+                label: capitalize(x),
+                title: capitalize(x),
+              }))}
             ></Select>
           </Form.Item>
           <Form.Item
