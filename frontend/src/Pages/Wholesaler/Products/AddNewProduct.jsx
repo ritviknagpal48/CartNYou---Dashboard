@@ -49,7 +49,7 @@ class AddNewProduct extends React.Component {
                   : "Add New Product"}
               </h3>
               <Link
-                to="/wholeseller/products"
+                to="/wholesaler/products"
                 className={
                   "text-sm  text-red-400  font-semibold flex hover:text-red-600"
                 }

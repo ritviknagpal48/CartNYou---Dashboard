@@ -2,15 +2,15 @@
 import { Redirect, Route } from "react-router";
 import Navbar from "Components/Navbar";
 import Sidebar from "Components/Sidebar";
-import Dashboard from "Pages/Wholeseller/Dashboard/Dashboard";
-import Orders from "Pages/Wholeseller/Orders/Orders";
-import AddNewProduct from "Pages/Wholeseller/Products/AddNewProduct";
-import Products from "Pages/Wholeseller/Products/ProductsPage";
-import Shipment from "Pages/Wholeseller/Shipment/Shipment";
-import Warehouses from "Pages/Wholeseller/Warehouses/Warehouses";
-import AddWarehouse from "Pages/Wholeseller/Warehouses/AddWarehouse";
-import OrderDetails from "Pages/Wholeseller/Orders/OrderDetails";
-import TrackOrder from "Pages/Wholeseller/TrackOrder/TrackOrder";
+import Dashboard from "Pages/Wholesaler/Dashboard/Dashboard";
+import Orders from "Pages/Wholesaler/Orders/Orders";
+import AddNewProduct from "Pages/Wholesaler/Products/AddNewProduct";
+import Products from "Pages/Wholesaler/Products/ProductsPage";
+import Shipment from "Pages/Wholesaler/Shipment/Shipment";
+import Warehouses from "Pages/Wholesaler/Warehouses/Warehouses";
+import AddWarehouse from "Pages/Wholesaler/Warehouses/AddWarehouse";
+import OrderDetails from "Pages/Wholesaler/Orders/OrderDetails";
+import TrackOrder from "Pages/Wholesaler/TrackOrder/TrackOrder";
 import PrivateRoute from "Components/PrivateRoute";
 import { MenuItems } from "Components/menuItems";
 
@@ -30,43 +30,43 @@ const Home = () => {
         >
           <Navbar menuList={MenuItems} />
           <Route
-            path={"/wholeseller"}
+            path={"/wholesaler"}
             exact
-            component={() => <Redirect to={"/wholeseller/dashboard"} />}
+            component={() => <Redirect to={"/wholesaler/dashboard"} />}
           />
-          <PrivateRoute path={"/wholeseller/dashboard"} component={Dashboard} />
-          <PrivateRoute path={"/wholeseller/products"} component={Products} />
+          <PrivateRoute path={"/wholesaler/dashboard"} component={Dashboard} />
+          <PrivateRoute path={"/wholesaler/products"} component={Products} />
           <PrivateRoute
-            path={"/wholeseller/orders/:id"}
+            path={"/wholesaler/orders/:id"}
             exact
             component={OrderDetails}
           />
           <PrivateRoute
-            path={"/wholeseller/track-order/:id"}
+            path={"/wholesaler/track-order/:id"}
             exact
             component={TrackOrder}
           />
-          <PrivateRoute path={"/wholeseller/orders"} exact component={Orders} />
-          <PrivateRoute path={"/wholeseller/shipment"} component={Shipment} />
+          <PrivateRoute path={"/wholesaler/orders"} exact component={Orders} />
+          <PrivateRoute path={"/wholesaler/shipment"} component={Shipment} />
           <PrivateRoute
-            path={"/wholeseller/add-new-product"}
+            path={"/wholesaler/add-new-product"}
             component={AddNewProduct}
           />
           <PrivateRoute
-            path={"/wholeseller/edit-product/:productID"}
+            path={"/wholesaler/edit-product/:productID"}
             component={AddNewProduct}
           />
           P
           <PrivateRoute
-            path={"/wholeseller/warehouses"}
+            path={"/wholesaler/warehouses"}
             component={Warehouses}
           />
           <PrivateRoute
-            path={"/wholeseller/add-warehouse"}
+            path={"/wholesaler/add-warehouse"}
             component={AddWarehouse}
           />
           <PrivateRoute
-            path={"/wholeseller/update-warehouse"}
+            path={"/wholesaler/update-warehouse"}
             component={AddWarehouse}
           />
         </div>

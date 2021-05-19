@@ -195,7 +195,6 @@ class ProductCards extends React.Component {
               )}
               className="site-collapse-custom-collapse"
               style={{ borderRadius: "8px", border: "1px solid #e8e8e8" }}
-              
             >
               <Panel
                 header="Search"
@@ -320,7 +319,7 @@ class ProductCards extends React.Component {
                             <Tooltip placement="topLeft" title={"Edit Data"}>
                               <Link
                                 to={{
-                                  pathname: `/wholeseller/edit-product/${data.id}`,
+                                  pathname: `/wholesaler/edit-product/${data.id}`,
                                   // search: `?id=${data.id}`,
                                   state: { edit: true },
                                 }}

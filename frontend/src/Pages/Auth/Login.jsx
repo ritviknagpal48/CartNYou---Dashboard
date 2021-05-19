@@ -35,7 +35,7 @@ const Login = ({ className }) => {
   const history = useHistory();
   const { setAuth } = useContext(AuthContext);
 
-  const [userType, setUserType] = useState("wholeseller");
+  const [userType, setUserType] = useState("wholesaler");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(true);
   const [username, setUsername] = useState("");
@@ -191,14 +191,14 @@ const Login = ({ className }) => {
               <input
                 type="radio"
                 name="type"
-                id="wholeseller"
+                id="wholesaler"
                 className={"mr-1 text-red-500"}
-                checked={userType === "wholeseller"}
+                checked={userType === "wholesaler"}
                 onChange={(e) =>
                   setUserType((p) => (e.target.checked ? e.target.id : p))
                 }
               />
-              <label htmlFor="wholeseller">WholeSaler</label>
+              <label htmlFor="wholesaler">WholeSaler</label>
             </div>
             <div className={classes.row_item}>
               <input

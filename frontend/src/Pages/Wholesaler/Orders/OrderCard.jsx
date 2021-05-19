@@ -65,7 +65,7 @@ const OrderCard = ({
         <div className={classes.title}>
           <span className={classes.card_title}>Order Details</span>
           <div className={classes.card_info}>
-            <Link to={`/wholeseller/orders/${orderId}`}>{orderId}</Link>
+            <Link to={`/wholesaler/orders/${orderId}`}>{orderId}</Link>
             <br />
             {orderDate}
           </div>
@@ -84,9 +84,7 @@ const OrderCard = ({
             {!tracking ? (
               "Unavailable"
             ) : (
-              <Link to={`/wholeseller/track-order/${tracking}`}>
-                {tracking}
-              </Link>
+              <Link to={`/wholesaler/track-order/${tracking}`}>{tracking}</Link>
             )}
           </div>
         </div>

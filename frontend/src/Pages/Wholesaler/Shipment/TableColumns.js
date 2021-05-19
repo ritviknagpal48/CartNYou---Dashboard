@@ -6,7 +6,7 @@ const OrderDetailsRedirect = ({ order }) => {
   return (
     <Tooltip placement="top" title="Order Details">
       <Button
-        onClick={() => history.push(`/wholeseller/orders/${order}`)}
+        onClick={() => history.push(`/wholesaler/orders/${order}`)}
         style={{
           border: "none",
           padding: "0px",
@@ -27,7 +27,7 @@ const TrackingDetailsRedirect = ({ tracking }) => {
   return (
     <Tooltip placement="top" title="Track Order">
       <Button
-        onClick={() => history.push(`/wholeseller/track-order/${tracking}`)}
+        onClick={() => history.push(`/wholesaler/track-order/${tracking}`)}
         style={{
           border: "none",
           padding: "0px",

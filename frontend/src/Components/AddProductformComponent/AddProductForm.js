@@ -576,8 +576,8 @@ class AddProductForm extends Component {
               this.setState({
                 editProduct: false,
               });
-              // window.location = "/wholeseller/products";
-              this.props.history.push("/wholeseller/products");
+              // window.location = "/wholesaler/products";
+              this.props.history.push("/wholesaler/products");
             }
           })
           .catch((error) => {
@@ -621,7 +621,7 @@ class AddProductForm extends Component {
           .then((resp) => {
             if (resp.status === 200) {
               message.success(`Product Added Successfully`);
-              this.props.history.push("/wholeseller/products");
+              this.props.history.push("/wholesaler/products");
             }
           })
           .catch((error) => {
