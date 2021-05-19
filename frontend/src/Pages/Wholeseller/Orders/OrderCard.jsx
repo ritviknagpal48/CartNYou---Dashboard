@@ -1,10 +1,11 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import DownCircleOutlined from "@ant-design/icons";
 
 const classes = {
   wrapper:
-    "text-gray-700 px-6 py-4 shadow-xl bg-white rounded-xl mx-6 my-4  divide-red-100",
+    "text-gray-700 px-6 py-4 shadow-xl border border-gray-200 bg-white rounded-xl mx-6 my-4  divide-red-100",
   title: "text-sm pl-3 text-left w-3/12 py-2",
   card_info: "mt-2 leading-6",
   card_title: "font-bold tracking-wide",
@@ -54,7 +55,7 @@ const OrderCard = ({
   payment,
   shipTo,
   className,
-  collapse
+  collapse,
 }) => {
   const [isExpanded, setIsExpanded] = useState(!collapse);
 
@@ -80,10 +81,13 @@ const OrderCard = ({
         <div className={classes.title}>
           <span className={classes.card_title}>Traking Details</span>
           <div className={classes.card_info}>
-            {
-              !tracking ? "Unavailable" :
-                <Link to={`/wholeseller/track-order/${tracking}`}>{tracking}</Link>
-            }
+            {!tracking ? (
+              "Unavailable"
+            ) : (
+              <Link to={`/wholeseller/track-order/${tracking}`}>
+                {tracking}
+              </Link>
+            )}
           </div>
         </div>
         <div className={classes.title}>
@@ -91,10 +95,44 @@ const OrderCard = ({
           <div className={classes.card_info}>{status}</div>
         </div>
         <div
-          className={clsx("absolute right-4 bottom-2 cursor-pointer", { "hidden": !collapse })}
+          className={clsx("absolute right-4 bottom-2 cursor-pointer", {
+            hidden: !collapse,
+          })}
           onClick={() => setIsExpanded((p) => !p)}
         >
-          <svg
+          {!isExpanded ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className={"h-5 w-5 text-red-500"}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokelinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className={"h-5 w-5 text-red-500"}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M5 15l7-7 7 7"
+              />
+            </svg>
+          )}
+
+          {/* <svg
             className={"h-5 w-5 text-red-500"}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -107,7 +145,7 @@ const OrderCard = ({
               strokeWidth={2}
               d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
             />
-          </svg>
+          </svg> */}
         </div>
       </div>
       <hr className={"text-red-400"} />

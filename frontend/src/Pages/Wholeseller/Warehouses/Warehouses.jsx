@@ -16,8 +16,7 @@ import { Link, useHistory } from "react-router-dom";
 const classes = {
   wrapper: "w-full pr-14 pl-4",
   card_item: "h-full px-4 py-2 flex-auto font-bold text-sm",
-  card:
-    "bg-white my-2 text-gray-700 font-medium text-base px-4 py-4 rounded-xl border border-gray-200 shadow-lg md:flex md:flex-row grid grid-cols-1 items-start justify-start w-full text-left font-sans-apple-system",
+  card: "bg-white my-2 text-gray-700 font-medium text-base px-4 py-4 rounded-xl border border-gray-200 shadow-lg md:flex md:flex-row grid grid-cols-1 items-start justify-start w-full text-left font-sans-apple-system",
   tiny_header: "block w-full mb-2 text-xs text-gray-400 font-normal",
   buttons: "flex item-center flex-row justify-end",
   button_input:
@@ -232,7 +231,7 @@ const Warehouses = () => {
               style={{ marginRight: "auto", marginLeft: "auto" }}
             />
           )}
-          <div className="flex flex-row justify-end w-full">
+          <div className="flex flex-row justify-end w-full mt-4">
             <Pagination
               total={
                 warehouseList && warehouseList.length ? warehouseList.length : 0

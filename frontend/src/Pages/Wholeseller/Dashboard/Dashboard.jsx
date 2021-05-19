@@ -158,7 +158,7 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 pr-4 md:pr-14 pl-4 gap-6 mt-4 md:grid-cols-2">
-        <div className="flex items-center p-6 justify-center w-full h-32 bg-white rounded-md shadow-sm">
+        <div className="flex items-center p-6 justify-center w-full h-32 bg-white rounded-md border shadow-sm  border-gray-200 ">
           <div className="mb-2 pb-2">
             <h3 className="font-semibold text-lg text-gray-600">Bar Chart</h3>
             <p className="text-sm text-gray-500">
@@ -171,7 +171,7 @@ const Dashboard = () => {
             style={{ height: "240px" }}
           ></div>
         </div>
-        <div className="flex items-center p-6 justify-center w-full h-32 bg-white rounded-md shadow-sm">
+        <div className="flex items-center p-6 justify-center w-full h-32 bg-white rounded-md border  shadow-sm border-gray-200 ">
           <div className="mb-2 pb-2">
             <h3 className="font-semibold text-lg text-gray-600">Bar Chart</h3>
             <p className="text-sm text-gray-500">
@@ -186,12 +186,12 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="container pl-4 pr-4 md:pr-14 py-4 mx-auto">
-        <h3 className="block text-center md:text-left text-xl text-gray-700 font-semibold mb-3">
+        {/* <h3 className="block text-center md:text-left text-xl text-gray-700 font-semibold mb-3">
           Bar Chart
-        </h3>
+        </h3> */}
         <div className="flex">
           <div className="w-1/2">
-            <div className="rounded-md p-6 bg-white shadow">
+            <div className="rounded-md p-6 bg-white border border-gray-200 shadow-sm  ">
               <div className="mb-2 pb-2">
                 <h3 className="font-semibold text-lg text-gray-600">
                   Bar Chart
@@ -208,7 +208,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="w-1/2 ml-4">
-            <div className="rounded-md p-6 bg-white shadow">
+            <div className="rounded-md p-6 bg-white border border-gray-200 shadow-sm  ">
               <div className="mb-2 pb-2">
                 <h3 className="font-semibold text-lg text-gray-600">
                   Bar Chart
