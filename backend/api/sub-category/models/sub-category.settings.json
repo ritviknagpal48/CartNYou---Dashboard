@@ -16,22 +16,29 @@
       "required": true
     },
     "product_category": {
-      "via": "sub_categories",
-      "model": "product-categories"
+      "model": "product-categories",
+      "via": "sub_categories"
     },
     "sub_sub_categories": {
-      "collection": "sub-sub-category",
-      "via": "sub_category"
+      "via": "sub_category",
+      "collection": "sub-sub-category"
     },
-    "commision_percent": {
+    "commission": {
       "type": "integer",
-      "default": 0,
-      "max": 100,
+      "default": 3,
       "min": 0
     },
     "product_details": {
-      "via": "sub_category",
-      "collection": "product-details"
+      "collection": "product-details",
+      "via": "sub_category"
+    },
+    "commission_type": {
+      "type": "enumeration",
+      "enum": [
+        "direct_value",
+        "percentage"
+      ],
+      "default": "percentage"
     }
   }
 }

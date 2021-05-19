@@ -87,17 +87,12 @@
       "via": "product_details"
     },
     "sub_category": {
-      "model": "sub-category",
-      "via": "product_details"
+      "via": "product_details",
+      "model": "sub-category"
     },
     "sub_sub_category": {
-      "model": "sub-sub-category",
-      "via": "product_details"
-    },
-    "users_detail": {
-      "plugin": "users-permissions",
-      "model": "user",
-      "via": "product_details"
+      "via": "product_details",
+      "model": "sub-sub-category"
     },
     "counrty_origin": {
       "type": "string",
@@ -119,12 +114,6 @@
       "type": "boolean",
       "default": true
     },
-    "retailers_details": {
-      "plugin": "users-permissions",
-      "collection": "user",
-      "via": "import_list_products",
-      "dominant": true
-    },
     "shopifychannels": {
       "collection": "shopifychannels",
       "via": "productdetails"
@@ -133,7 +122,19 @@
       "type": "json"
     },
     "warehouse": {
-      "model": "warehouse"
+      "model": "warehouse",
+      "via": "products_available"
+    },
+    "wholesaler_details": {
+      "via": "wholesaler_products",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "imported_by": {
+      "via": "retailer_import_list",
+      "plugin": "users-permissions",
+      "collection": "user",
+      "dominant": true
     }
   }
 }

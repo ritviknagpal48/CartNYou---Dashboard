@@ -23,29 +23,28 @@
         "images"
       ],
       "plugin": "upload",
-      "required": false,
-      "pluginOptions": {}
+      "required": false
     },
     "product_details": {
       "collection": "product-details",
       "via": "product_category"
     },
     "sub_categories": {
-      "collection": "sub-category",
-      "via": "product_category"
+      "via": "product_category",
+      "collection": "sub-category"
     },
-    "commision": {
+    "commission": {
       "type": "integer",
-      "default": 0,
+      "default": 5,
       "min": 0
     },
-    "comission_type": {
+    "commission_type": {
       "type": "enumeration",
       "enum": [
         "direct_value",
-        "percent_value"
+        "percentage"
       ],
-      "default": "direct_value"
+      "default": "percentage"
     }
   }
 }

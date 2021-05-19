@@ -636,14 +636,14 @@
                   "type": "string"
                 }
               },
-              "commision": {
+              "commission": {
                 "type": "integer"
               },
-              "comission_type": {
+              "commission_type": {
                 "type": "string",
                 "enum": [
                   "direct_value",
-                  "percent_value"
+                  "percentage"
                 ]
               },
               "published_at": {
@@ -760,7 +760,7 @@
                   "type": "string"
                 }
               },
-              "commision_percent": {
+              "commission": {
                 "type": "integer"
               },
               "product_details": {
@@ -768,6 +768,13 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "commission_type": {
+                "type": "string",
+                "enum": [
+                  "direct_value",
+                  "percentage"
+                ]
               },
               "published_at": {
                 "type": "string"
@@ -795,7 +802,7 @@
               "sub_category": {
                 "type": "string"
               },
-              "comission_percent": {
+              "commission": {
                 "type": "integer"
               },
               "product_details": {
@@ -804,96 +811,15 @@
                   "type": "string"
                 }
               },
-              "published_at": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "users_detail": {
-            "required": [
-              "id",
-              "username",
-              "email",
-              "type"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "username": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "provider": {
-                "type": "string"
-              },
-              "password": {
-                "type": "string"
-              },
-              "resetPasswordToken": {
-                "type": "string"
-              },
-              "confirmationToken": {
-                "type": "string"
-              },
-              "confirmed": {
-                "type": "boolean"
-              },
-              "blocked": {
-                "type": "boolean"
-              },
-              "role": {
-                "type": "string"
-              },
-              "type": {
+              "commission_type": {
                 "type": "string",
                 "enum": [
-                  "wholeseller",
-                  "retailer",
-                  "guest",
-                  "admin"
+                  "direct_value",
+                  "percentage"
                 ]
               },
-              "product_details": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "import_list_products": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "fullname": {
+              "published_at": {
                 "type": "string"
-              },
-              "mobile": {
-                "type": "string"
-              },
-              "shopifychannels": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "retailer_live_products": {
-                "type": "component"
-              },
-              "wallet": {
-                "type": "number"
-              },
-              "transaction_history": {
-                "type": "component"
               },
               "created_by": {
                 "type": "string"
@@ -921,97 +847,6 @@
           "product_status": {
             "type": "boolean",
             "default": true
-          },
-          "retailers_details": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "username",
-                "email",
-                "type"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "username": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "provider": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                },
-                "resetPasswordToken": {
-                  "type": "string"
-                },
-                "confirmationToken": {
-                  "type": "string"
-                },
-                "confirmed": {
-                  "type": "boolean"
-                },
-                "blocked": {
-                  "type": "boolean"
-                },
-                "role": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "wholeseller",
-                    "retailer",
-                    "guest",
-                    "admin"
-                  ]
-                },
-                "product_details": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "import_list_products": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "fullname": {
-                  "type": "string"
-                },
-                "mobile": {
-                  "type": "string"
-                },
-                "shopifychannels": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "retailer_live_products": {
-                  "type": "component"
-                },
-                "wallet": {
-                  "type": "number"
-                },
-                "transaction_history": {
-                  "type": "component"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
           },
           "shopifychannels": {
             "type": "array",
@@ -1043,14 +878,14 @@
                 "shared_secret": {
                   "type": "string"
                 },
-                "retailersdetails": {
-                  "type": "string"
-                },
                 "productdetails": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   }
+                },
+                "retailersdetails": {
+                  "type": "string"
                 },
                 "published_at": {
                   "type": "string"
@@ -1105,6 +940,12 @@
               "user": {
                 "type": "string"
               },
+              "products_available": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "published_at": {
                 "type": "string"
               },
@@ -1113,6 +954,183 @@
               },
               "updated_by": {
                 "type": "string"
+              }
+            }
+          },
+          "wholesaler_details": {
+            "required": [
+              "id",
+              "username",
+              "email",
+              "type"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmationToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "wholesaler",
+                  "retailer",
+                  "admin"
+                ]
+              },
+              "fullname": {
+                "type": "string"
+              },
+              "mobile": {
+                "type": "string"
+              },
+              "retailer_shopify_channels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "retailer_live_list": {
+                "type": "component"
+              },
+              "wallet": {
+                "type": "number"
+              },
+              "transaction_history": {
+                "type": "component"
+              },
+              "wholesaler_products": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "retailer_import_list": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "imported_by": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "username",
+                "email",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "resetPasswordToken": {
+                  "type": "string"
+                },
+                "confirmationToken": {
+                  "type": "string"
+                },
+                "confirmed": {
+                  "type": "boolean"
+                },
+                "blocked": {
+                  "type": "boolean"
+                },
+                "role": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "wholesaler",
+                    "retailer",
+                    "admin"
+                  ]
+                },
+                "fullname": {
+                  "type": "string"
+                },
+                "mobile": {
+                  "type": "string"
+                },
+                "retailer_shopify_channels": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "retailer_live_list": {
+                  "type": "component"
+                },
+                "wallet": {
+                  "type": "number"
+                },
+                "transaction_history": {
+                  "type": "component"
+                },
+                "wholesaler_products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "retailer_import_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -1203,9 +1221,6 @@
           "sub_sub_category": {
             "type": "string"
           },
-          "users_detail": {
-            "type": "string"
-          },
           "counrty_origin": {
             "type": "string"
           },
@@ -1225,12 +1240,6 @@
             "type": "boolean",
             "default": true
           },
-          "retailers_details": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
           "shopifychannels": {
             "type": "array",
             "items": {
@@ -1242,6 +1251,15 @@
           },
           "warehouse": {
             "type": "string"
+          },
+          "wholesaler_details": {
+            "type": "string"
+          },
+          "imported_by": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "published_at": {
             "type": "string",

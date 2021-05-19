@@ -183,6 +183,7 @@ export class PushToShopify extends Component {
                 <Radio.Group
                   onChange={this.onChannelChange}
                   value={this.state.selectedChannelID}
+                  style={{ width: "100%" }}
                 >
                   {channelList
                     //   .slice(index, index + this.state.pageSize)
