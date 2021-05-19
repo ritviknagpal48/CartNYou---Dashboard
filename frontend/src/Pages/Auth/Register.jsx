@@ -38,6 +38,7 @@ const Register = ({ className }) => {
     confirm: "",
     mobile: "",
     type: "wholesaler",
+    fullname: "",
   });
 
   const signInWithGoogle = async (response) => {
@@ -97,7 +98,7 @@ const Register = ({ className }) => {
 
   const register = async () => {
     // console.log({ payload })
-    const { confirm, fullname, mobile, ...toSend } = payload;
+    const { confirm, ...toSend } = payload;
 
     if (!toSend.username.trim().length) {
       return message.error("Username is Required!");
@@ -111,14 +112,17 @@ const Register = ({ className }) => {
     if (!confirm.trim().length) {
       return message.error("Confirm Password is Required!");
     }
-    if (!mobile.trim().length) {
+    if (!toSend.mobile.trim().length) {
       return message.error("Mobile No. is Required!");
     }
-    if (mobile.trim().length !== 10) {
+    if (toSend.mobile.trim().length !== 10) {
       return message.error("Enter valid 10-digit mobile number");
     }
     if (!toSend.password.trim().length) {
       return message.error("Password is Required!");
+    }
+    if (!toSend.fullname.trim().length) {
+      return message.error("Full Name is Required!");
     }
     if (confirm.trim().length < 6)
       return message.error("Password must be atleast 6 characters long", 1);
