@@ -101,6 +101,10 @@
     "retailer_import_list": {
       "collection": "product-details",
       "via": "imported_by"
+    },
+    "warehouses": {
+      "via": "user",
+      "collection": "warehouse"
     }
   }
 }

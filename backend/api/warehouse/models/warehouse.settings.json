@@ -40,7 +40,8 @@
     },
     "user": {
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "warehouses"
     },
     "products_available": {
       "via": "warehouse",

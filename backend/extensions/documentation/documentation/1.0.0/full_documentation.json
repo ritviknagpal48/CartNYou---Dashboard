@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "05/19/2021 10:45:14 PM"
+    "x-generation-date": "05/20/2021 1:15:02 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -7300,6 +7300,12 @@
                   "type": "string"
                 }
               },
+              "warehouses": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -7384,6 +7390,12 @@
                   }
                 },
                 "retailer_import_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "warehouses": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -7776,6 +7788,12 @@
                 }
               },
               "retailer_import_list": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "warehouses": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -8517,6 +8535,12 @@
                   "type": "string"
                 }
               },
+              "warehouses": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -8854,6 +8878,12 @@
                   }
                 },
                 "retailer_import_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "warehouses": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -9516,6 +9546,64 @@
                 }
               }
             }
+          },
+          "warehouses": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "gst_number": {
+                  "type": "string"
+                },
+                "contact_name": {
+                  "type": "string"
+                },
+                "contact_number": {
+                  "type": "string"
+                },
+                "address_1": {
+                  "type": "string"
+                },
+                "address_2": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "pincode": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "products_available": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -9791,6 +9879,12 @@
             }
           },
           "retailer_import_list": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "warehouses": {
             "type": "array",
             "items": {
               "type": "string"

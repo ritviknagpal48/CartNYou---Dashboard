@@ -1036,6 +1036,12 @@
                   "type": "string"
                 }
               },
+              "warehouses": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -1120,6 +1126,12 @@
                   }
                 },
                 "retailer_import_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "warehouses": {
                   "type": "array",
                   "items": {
                     "type": "string"
