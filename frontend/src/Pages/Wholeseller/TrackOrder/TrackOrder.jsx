@@ -29,7 +29,10 @@ const TrackOrder = () => {
   return (
     <div className={classes.wrapper}>
       <div className={classes.header} style={{ background: "#fff" }}>
-        <button onClick={history.goBack} className={clsx(classes.button_input, 'px-2 py-2')}>
+        <button
+          onClick={history.goBack}
+          className={clsx(classes.button_input, "px-2 py-2")}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -50,7 +53,7 @@ const TrackOrder = () => {
 
       <div className="track-order grid grid-cols-1 gap-6 mt-4 md:grid-cols-3">
         <div>
-          <div className="flex items-center p-6  w-full  bg-white rounded-md shadow-sm">
+          <div className="flex items-center border shadow-lg border-gray-200 p-6  w-full  bg-white rounded-md ">
             <div className="mb-2 pb-2 w-full">
               <h3 className="font-semibold text-lg text-gray-600 ">
                 Order Information
@@ -73,14 +76,14 @@ const TrackOrder = () => {
               <hr />
             </div>
           </div>
-          <div className="flex items-center pl-3 mt-4 w-full h-16 bg-white rounded-md shadow-sm">
+          <div className="flex items-center pl-3 border shadow-lg border-gray-200 mt-4 w-full h-16 bg-white rounded-md ">
             <div className="font-semibold text-md text-gray-600">
               Shopping Solutions by Nimbus
             </div>
           </div>
         </div>
 
-        <div className="flex items-center p-6  w-full col-span-2  bg-white rounded-md mb-5">
+        <div className="flex items-center px-6 pb-6 pt-0 w-full col-span-2  bg-white rounded-md mb-5">
           <div className="mb-2 pb-1 w-full">
             <h3 className="font-semibold text-lg text-gray-600 pb-5">
               Tracking History
@@ -104,11 +107,11 @@ const TrackOrder = () => {
                       }
                     >
                       <div
-                        className="flex items-center  w-full px-4  border-gray-200 border-solid  border py-2 rounded-xl mx-2"
-                      // style={{
-                      //   boxShadow: "0 10px 20px rgb(8 21 66 / 6%)",
-                      //   zIndex: 9,
-                      // }}
+                        className="flex items-center  w-full px-4  border-gray-200 shadow-lg  border py-2 rounded-xl mx-2"
+                        // style={{
+                        //   boxShadow: "0 10px 20px rgb(8 21 66 / 6%)",
+                        //   zIndex: 9,
+                        // }}
                       >
                         <div className="grid grid-cols-1 gap-6 mt-4 md:grid-cols-2 w-full">
                           <div className="flex items-center ">

@@ -92,7 +92,7 @@ class ShipmentTableCard extends React.Component {
     };
 
     return (
-      <div className="w-full ">
+      <div className="w-full shipp ">
         <div className="mb-2">
           <Collapse
             bordered={false}
@@ -101,6 +101,7 @@ class ShipmentTableCard extends React.Component {
               <SearchOutlined rotate={isActive ? 90 : 0} />
             )}
             className="site-collapse-custom-collapse"
+            style={{ borderRadius: "8px", border: "1px solid #e8e8e8" }}
           >
             <Panel
               header="Search"
@@ -154,6 +155,8 @@ class ShipmentTableCard extends React.Component {
         <Table
           rowSelection={rowSelection}
           columns={columns}
+          className="shadow-lg"
+          style={{ border: "1px solid #e8e8e8", borderRadius: "8px" }}
           dataSource={
             !!this.state.searchText
               ? data.filter((x) =>
@@ -171,86 +174,6 @@ class ShipmentTableCard extends React.Component {
           rowClassName="tr-rowClassName"
           onChange={this.onChange}
         />
-
-        {/* {dataSource ? (
-          dataSource.map((data, index) => {
-            return (
-              <div
-                className=" bg-white my-2 text-gray-700 font-medium text-base px-4 py-4 rounded-xl shadow-lg flex flex-row items-center justify-between w-full text-left "
-                style={{ color: "black" }}
-              >
-                <Checkbox onChange={this.onChange}></Checkbox>
-                <div
-                  className="card-detail"
-                  style={{ marginLeft: "-30px", width: "50px" }}
-                >
-                  <div className="head-title">SKU</div>
-                  <div className="title-body">{data.sku}</div>
-                </div>
-                <div className="card-detail max-w-xs w-4/12">
-                  <div className="head-title">Product Info</div>
-                  <div className="title-body">{data.productInfo}</div>
-                </div>
-                <div className="card-detail">
-                  <div className="head-title">MRP</div>
-                  <div className="title-body">{data.mrp}</div>
-                </div>
-                <div className="card-detail">
-                  <div className="head-title">MP</div>
-                  <div className="title-body">{data.mp}</div>
-                </div>
-                <div className="card-detail">
-                  <div className="head-title">B2B</div>
-                  <div className="title-body"> {data.b2b}</div>
-                </div>
-                <div className="card-detail">
-                  <div className="head-title">Quantity</div>
-                  <div className="title-body">{data.quantity}</div>
-                </div>
-                <div className="card-detail">
-                  <div className="head-title">Status</div>
-                  <Switch checked={data.status} />
-                </div>
-                <div className="card-detail">
-                  <div className="head-title">Admin Status</div>
-                  <div className={`{title-body ${data.admin}`}>
-                    {data.admin}
-                  </div>
-                </div>
-                <div className="action">
-                  <Space size="middle">
-                    <Tooltip placement="topLeft" title={"Edit Data"}>
-                      <Button
-                        shape="circle"
-                        style={
-                          {
-                            // background: "rgba(178,80,0,0.1)",
-                            // border: "1px solid rgb(178,80,0)",
-                          }
-                        }
-                        icon={<EditTwoTone twoToneColor="#b25000" />}
-                      />
-                    </Tooltip>
-                    <Tooltip placement="topLeft" title={"Delete"}>
-                      <Button
-                        style={
-                          {
-                            // border: "1px solid rgb(178,80,0)",
-                            // background: "rgba(178,80,0,0.1)",
-                          }
-                        }
-                        shape="circle"
-                        icon={<DeleteTwoTone twoToneColor="#b25000" />}
-                      />
-                    </Tooltip>
-                  </Space>
-                </div>
-              </div>
-            );
-          })
-        ) : (
-          <></>
-        )} */}
       </div>
     );
   }

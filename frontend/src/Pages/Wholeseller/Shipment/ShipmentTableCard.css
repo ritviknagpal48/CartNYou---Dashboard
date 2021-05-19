@@ -7,6 +7,10 @@
   flex-direction: row;
 }
 
+.shipp .ant-table-pagination.ant-pagination {
+  margin: 16px 30px;
+}
+
 .card-detail {
   font-size: 11px;
   color: #bbb;

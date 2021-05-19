@@ -11,7 +11,7 @@ const classes = {
   title: "text-2xl text-gray-600  hidden md:block font-sans-apple-system",
   buttons: "flex item-center flex-row justify-end",
   button_input:
-    "inline-flex items-center px-4 py-1 mx-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-500 bg-white hover:text-red-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-red-500",
+    "inline-flex items-center px-4 py-1 mx-1 rounded-md shadow-sm text-sm font-medium text-gray-700 border border-gray-200 shadow-lg bg-white hover:text-red-400 hover:border hover:border-red-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-red-500",
   action_icons: "md:-ml-1 md:mr-2 h-5 w-5",
   button_title: "hidden md:block",
 };
@@ -138,7 +138,7 @@ const Products = () => {
         </div>
       </div>
 
-      <div className={"mt-4 overflow-y-auto overflow-x-hidden"}>
+      <div className={"mt-4 "}>
         <ProductCards
         // heading={ProductColumn}
         // data={products}

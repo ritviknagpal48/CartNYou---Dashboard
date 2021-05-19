@@ -31,7 +31,7 @@ const TrackingDetailsRedirect = ({ tracking }) => {
         style={{
           border: "none",
           padding: "0px",
-          color: "#44a5fe",
+          color: "#ff4b4b",
           fontSize: "13px",
           fontWeight: 600,
           background: "transparent",
@@ -137,7 +137,7 @@ const columns = [
             color = "volcano";
           }
           return (
-            <Tag color={color} key={tag} style={{ borderRadius: "14px" }}>
+            <Tag color={color} key={tag} style={{ borderRadius: "4px" }}>
               {tag}
             </Tag>
           );

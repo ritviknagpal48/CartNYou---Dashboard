@@ -186,19 +186,22 @@ class ProductCards extends React.Component {
             <LoadingOutlined style={{ fontSize: 24, color: "#ef4444" }} />
           }
         >
-          <div className="mb-2 border border-gray-200 rounded-xl">
+          <div className="mb-2 rounded-xl">
             <Collapse
               bordered={false}
               defaultActiveKey={["0"]}
               expandIcon={({ isActive }) => (
                 <SearchOutlined rotate={isActive ? 90 : 0} />
               )}
-              className="site-collapse-custom-collapse rounded-xl "
+              className="site-collapse-custom-collapse"
+              style={{ borderRadius: "8px", border: "1px solid #e8e8e8" }}
+              
             >
               <Panel
                 header="Search"
                 key="1"
                 className="site-collapse-custom-panel rounded-xl shadow-lg"
+                style={{ borderRadius: "8px" }}
               >
                 <div className="flex my-2">
                   <Select
