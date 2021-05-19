@@ -590,23 +590,10 @@
               "type": {
                 "type": "string",
                 "enum": [
-                  "wholeseller",
+                  "wholesaler",
                   "retailer",
-                  "guest",
                   "admin"
                 ]
-              },
-              "product_details": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "import_list_products": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
               },
               "fullname": {
                 "type": "string"
@@ -614,13 +601,13 @@
               "mobile": {
                 "type": "string"
               },
-              "shopifychannels": {
+              "retailer_shopify_channels": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 }
               },
-              "retailer_live_products": {
+              "retailer_live_list": {
                 "type": "component"
               },
               "wallet": {
@@ -629,11 +616,160 @@
               "transaction_history": {
                 "type": "component"
               },
+              "wholesaler_products": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "retailer_import_list": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
               "updated_by": {
                 "type": "string"
+              }
+            }
+          },
+          "products_available": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "product_name",
+                "product_main_sku",
+                "product_brand",
+                "product_tags",
+                "product_mrp",
+                "qunatity",
+                "weight",
+                "dem_length",
+                "dem_breadth",
+                "upc_number",
+                "ean_number",
+                "hsn_code",
+                "product_description",
+                "counrty_origin"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "product_name": {
+                  "type": "string"
+                },
+                "product_category": {
+                  "type": "string"
+                },
+                "product_main_sku": {
+                  "type": "string"
+                },
+                "product_brand": {
+                  "type": "string"
+                },
+                "product_tags": {
+                  "type": "string"
+                },
+                "product_mrp": {
+                  "type": "integer"
+                },
+                "qunatity": {
+                  "type": "integer"
+                },
+                "weight": {
+                  "type": "integer"
+                },
+                "dem_length": {
+                  "type": "integer"
+                },
+                "dem_breadth": {
+                  "type": "integer"
+                },
+                "dem_height": {
+                  "type": "integer"
+                },
+                "upc_number": {
+                  "type": "integer"
+                },
+                "ean_number": {
+                  "type": "integer"
+                },
+                "hsn_code": {
+                  "type": "integer"
+                },
+                "product_description": {
+                  "type": "string"
+                },
+                "custom_attribute": {
+                  "type": "object"
+                },
+                "colour": {
+                  "type": "string"
+                },
+                "gst_percentage": {
+                  "type": "integer"
+                },
+                "measurement_unit": {
+                  "type": "string"
+                },
+                "sub_category": {
+                  "type": "string"
+                },
+                "sub_sub_category": {
+                  "type": "string"
+                },
+                "counrty_origin": {
+                  "type": "string"
+                },
+                "gst_type": {
+                  "type": "string"
+                },
+                "admin_status": {
+                  "type": "string",
+                  "enum": [
+                    "Approved",
+                    "Pending",
+                    "Rejected"
+                  ]
+                },
+                "product_status": {
+                  "type": "boolean"
+                },
+                "shopifychannels": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "images": {
+                  "type": "object"
+                },
+                "warehouse": {
+                  "type": "string"
+                },
+                "wholesaler_details": {
+                  "type": "string"
+                },
+                "imported_by": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -674,6 +810,12 @@
           },
           "user": {
             "type": "string"
+          },
+          "products_available": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "published_at": {
             "type": "string",

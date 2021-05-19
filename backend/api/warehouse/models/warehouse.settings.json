@@ -41,6 +41,10 @@
     "user": {
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "products_available": {
+      "via": "warehouse",
+      "collection": "product-details"
     }
   }
 }

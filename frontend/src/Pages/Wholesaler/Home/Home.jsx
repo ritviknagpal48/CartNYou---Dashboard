@@ -30,43 +30,43 @@ const Home = () => {
         >
           <Navbar menuList={MenuItems} />
           <Route
-            path={"/wholeseller"}
+            path={"/wholesaler"}
             exact
-            component={() => <Redirect to={"/wholeseller/dashboard"} />}
+            component={() => <Redirect to={"/wholesaler/dashboard"} />}
           />
-          <PrivateRoute path={"/wholeseller/dashboard"} component={Dashboard} />
-          <PrivateRoute path={"/wholeseller/products"} component={Products} />
+          <PrivateRoute path={"/wholesaler/dashboard"} component={Dashboard} />
+          <PrivateRoute path={"/wholesaler/products"} component={Products} />
           <PrivateRoute
-            path={"/wholeseller/orders/:id"}
+            path={"/wholesaler/orders/:id"}
             exact
             component={OrderDetails}
           />
           <PrivateRoute
-            path={"/wholeseller/track-order/:id"}
+            path={"/wholesaler/track-order/:id"}
             exact
             component={TrackOrder}
           />
-          <PrivateRoute path={"/wholeseller/orders"} exact component={Orders} />
-          <PrivateRoute path={"/wholeseller/shipment"} component={Shipment} />
+          <PrivateRoute path={"/wholesaler/orders"} exact component={Orders} />
+          <PrivateRoute path={"/wholesaler/shipment"} component={Shipment} />
           <PrivateRoute
-            path={"/wholeseller/add-new-product"}
+            path={"/wholesaler/add-new-product"}
             component={AddNewProduct}
           />
           <PrivateRoute
-            path={"/wholeseller/edit-product/:productID"}
+            path={"/wholesaler/edit-product/:productID"}
             component={AddNewProduct}
           />
           P
           <PrivateRoute
-            path={"/wholeseller/warehouses"}
+            path={"/wholesaler/warehouses"}
             component={Warehouses}
           />
           <PrivateRoute
-            path={"/wholeseller/add-warehouse"}
+            path={"/wholesaler/add-warehouse"}
             component={AddWarehouse}
           />
           <PrivateRoute
-            path={"/wholeseller/update-warehouse"}
+            path={"/wholesaler/update-warehouse"}
             component={AddWarehouse}
           />
         </div>

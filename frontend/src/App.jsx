@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { BrowserRouter, Link, Redirect, Route, Switch } from "react-router-dom";
 import Auth from "./Pages/Auth/Auth";
 import AppDirector from "./Pages/AppDirector";
-import WholesellerHome from "./Pages/Wholesaler/Home/Home";
+import WholesalerHome from "./Pages/Wholesaler/Home/Home";
 import RetailerHome from "./Pages/Retailer/Home/Home";
 import { Result } from "antd";
 
@@ -44,7 +44,7 @@ function App() {
               </div>
             )}
           />
-          <PrivateRoute path={"/wholeseller"} component={WholesellerHome} />
+          <PrivateRoute path={"/wholesaler"} component={WholesalerHome} />
           <PrivateRoute path={"/retailer"} component={RetailerHome} />
           <Route
             path={"/confirm-email"}

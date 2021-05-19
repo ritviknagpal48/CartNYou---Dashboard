@@ -26,7 +26,7 @@ export const AUTH_ACTIONS = {
 
 export const USER_TYPES = {
   RETAILER: "retailer",
-  WHOLESELLER: "wholeseller",
+  wholesaler: "wholesaler",
 };
 
 export const AuthContext = createContext(defaultState);

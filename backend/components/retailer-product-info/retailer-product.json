@@ -13,6 +13,12 @@
     },
     "product_detail": {
       "model": "product-details"
+    },
+    "wholesaler_name": {
+      "type": "string"
+    },
+    "category_name": {
+      "type": "string"
     }
   }
 }

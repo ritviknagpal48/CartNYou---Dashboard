@@ -37,7 +37,7 @@ const Register = ({ className }) => {
     password: "",
     confirm: "",
     mobile: "",
-    type: "wholeseller",
+    type: "wholesaler",
   });
 
   const signInWithGoogle = async (response) => {
@@ -154,9 +154,9 @@ const Register = ({ className }) => {
               <input
                 type="radio"
                 name="type"
-                id="wholeseller"
+                id="wholesaler"
                 className={"mr-1 text-red-500"}
-                checked={payload.type === "wholeseller"}
+                checked={payload.type === "wholesaler"}
                 onChange={(e) =>
                   setPayload((p) => ({
                     ...p,
@@ -164,7 +164,7 @@ const Register = ({ className }) => {
                   }))
                 }
               />
-              <label htmlFor="wholeseller">WholeSaler</label>
+              <label htmlFor="wholesaler">WholeSaler</label>
             </div>
             <div className={classes.row_item}>
               <input
