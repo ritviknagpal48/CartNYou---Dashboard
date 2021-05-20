@@ -164,7 +164,7 @@ class ProductCards extends React.Component {
   render() {
     // const { defaultSearchColumn } = this.props;
     const { data } = this.state;
-    const dataSource = !!this.state.searchText
+    let dataSource = !!this.state.searchText
       ? data.filter((x) =>
           x[this.state.searchedColumn].toString().toLowerCase().includes(
             this.state.searchText.toString().toLowerCase()
@@ -173,7 +173,9 @@ class ProductCards extends React.Component {
         )
       : data;
 
-    dataSource.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    dataSource = !!dataSource
+      ? dataSource.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      : [];
 
     const productListLength = dataSource && dataSource.length;
     const index = (this.state.currentPage - 1) * this.state.pageSize;
@@ -251,7 +253,7 @@ class ProductCards extends React.Component {
             </Collapse>
           </div>
 
-          {dataSource && dataSource.length ? (
+          {!!dataSource && !!dataSource.length ? (
             <div style={{ marginBottom: "50px" }}>
               <div>
                 {dataSource

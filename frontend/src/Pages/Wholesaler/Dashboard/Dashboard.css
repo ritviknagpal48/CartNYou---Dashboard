@@ -1,0 +1,18 @@
+@media screen and (max-width: 768px) {
+  .block-icons {
+    position: absolute;
+    z-index: 0;
+    opacity: 0.5;
+    right: -15%;
+    bottom: -15%;
+    width: 100px;
+    height: auto;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .block-icons > img {
+    height: auto;
+    width: 100%;
+  }
+}

@@ -1,3 +1,5 @@
+import "./Dashboard.css";
+
 const classes = {
   wrapper: "",
   header: "w-full pr-14 pl-4 py-3 flex flex-row items-center justify-between",
@@ -6,28 +8,33 @@ const classes = {
 
 const Dashboard = () => {
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrapper} style={{ maxWidth: "100vw" }}>
       <div className={classes.header} style={{ background: "#fff" }}>
         <div className={classes.title}>Dashboard</div>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 mt-6 sm:grid-cols-2 lg:grid-cols-4 pr-4 md:pr-14 pl-4">
-        <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white border border-gray-200 ">
+      <div className="grid gap-5 mt-6 grid-cols-2 md:grid-cols-4 pr-4 md:pr-14 pl-4">
+        <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white border border-gray-200 relative overflow-hidden">
           <div className="flex items-start justify-between mx-auto">
             <div className="flex flex-col space-y-1">
-              <span className="text-gray-500">Total Shipment</span>
-              <span className="text-2xl font-bold text-gray-900">1841</span>
+              <span className="text-sm md:text-base text-gray-500">
+                Total Shipment
+              </span>
+              <span className="text-lg md:text-2xl font-bold text-gray-900">
+                1841
+              </span>
             </div>
-            <div className="rounded-md">
+            <div className="rounded-md block-icons">
               <img
-                style={{ height: "50px", marginRight: "10px" }}
+                className="h-11 md:h-12"
+                style={{ marginRight: "10px" }}
                 src="/images/truck.png"
                 alt="Workflow"
               />
             </div>
           </div>
-          <div className="flex flex-row">
-            <span className="flex max-w-min items-center px-2 py-0.5 mr-2 text-sm text-green-600 bg-green-100 rounded-full">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-start space-y-2">
+            <span className="flex max-w-min items-center px-1 md:px-2 py-0.5 mr-2 text-sm text-green-600 bg-green-100 rounded-full">
               <svg
                 className="w-4 h-4"
                 viewBox="0 0 24 24"
@@ -44,25 +51,32 @@ const Dashboard = () => {
               </svg>
               14%
             </span>
-            <span className="text-gray-400">from 2019</span>
+            <span className="text-xs md:text-base text-gray-400">
+              from 2019
+            </span>
           </div>
         </div>
-        <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white border border-gray-200 ">
-          <div className="flex items-start justify-between">
+        <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white border border-gray-200 relative overflow-hidden">
+          <div className="flex items-start justify-between mx-auto">
             <div className="flex flex-col space-y-1">
-              <span className="text-gray-500">Total Delivered</span>
-              <span className="text-2xl font-bold text-gray-900">1240</span>
+              <span className="text-sm md:text-base text-gray-500">
+                Total Delivered
+              </span>
+              <span className="text-lg md:text-2xl font-bold text-gray-900">
+                1240
+              </span>
             </div>
-            <div className=" rounded-md">
+            <div className="rounded-md block-icons">
               <img
-                style={{ height: "50px", marginRight: "10px" }}
+                className="h-11 md:h-12"
+                style={{ marginRight: "10px" }}
                 src="/images/sale.png"
                 alt="Workflow"
               />
             </div>
           </div>
-          <div className="flex flex-row">
-            <span className="flex max-w-min items-center px-2 py-0.5 mr-2 text-sm text-red-600 bg-red-100 rounded-full">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-start space-y-2">
+            <span className="flex max-w-min items-center px-1 md:px-2 py-0.5 mr-2 text-sm text-green-600 bg-green-100 rounded-full">
               <svg
                 className="w-4 h-4"
                 viewBox="0 0 24 24"
@@ -70,7 +84,7 @@ const Dashboard = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M6 9L12 15L18 9"
+                  d="M18 15L12 9L6 15"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
@@ -79,26 +93,32 @@ const Dashboard = () => {
               </svg>
               5%
             </span>
-
-            <span className="text-gray-400">from 2019</span>
+            <span className="text-xs md:text-base text-gray-400">
+              from 2019
+            </span>
           </div>
         </div>
-        <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white border border-gray-200 ">
-          <div className="flex items-start justify-between">
+        <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white border border-gray-200 relative overflow-hidden">
+          <div className="flex items-start justify-between mx-auto">
             <div className="flex flex-col space-y-1">
-              <span className="text-gray-500">Total RTO</span>
-              <span className="text-2xl font-bold text-gray-900">18</span>
+              <span className="text-sm md:text-base text-gray-500">
+                Total RTO
+              </span>
+              <span className="text-lg md:text-2xl font-bold text-gray-900">
+                18
+              </span>
             </div>
-            <div className="rounded-md">
+            <div className="rounded-md block-icons">
               <img
-                style={{ height: "50px", marginRight: "10px" }}
+                className="h-11 md:h-12"
+                style={{ marginRight: "10px" }}
                 src="/images/return.png"
                 alt="Workflow"
               />
             </div>
           </div>
-          <div className="flex flex-row">
-            <span className="flex max-w-min items-center px-2 py-0.5 mr-2 text-sm text-green-600 bg-green-100 rounded-full">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-start space-y-2">
+            <span className="flex max-w-min items-center px-1 md:px-2 py-0.5 mr-2 text-sm text-green-600 bg-green-100 rounded-full">
               <svg
                 className="w-4 h-4"
                 viewBox="0 0 24 24"
@@ -115,27 +135,32 @@ const Dashboard = () => {
               </svg>
               8%
             </span>
-            <span className="text-gray-400">from 2019</span>
+            <span className="text-xs md:text-base text-gray-400">
+              from 2019
+            </span>
           </div>
         </div>
-        <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white border border-gray-200 ">
-          <div className="flex items-start justify-between">
+        <div className="p-4 transition-shadow rounded-lg shadow-sm hover:shadow-lg bg-white border border-gray-200 relative overflow-hidden">
+          <div className="flex items-start justify-between mx-auto">
             <div className="flex flex-col space-y-1">
-              <span className="text-gray-500">Total Earning's</span>
-              <span className="text-2xl font-bold text-gray-900">
+              <span className="text-sm md:text-base text-gray-500">
+                Total Earning
+              </span>
+              <span className="text-lg md:text-2xl font-bold text-gray-900">
                 &#8377; 350
               </span>
             </div>
-            <div className=" rounded-md">
+            <div className="rounded-md block-icons">
               <img
-                style={{ height: "50px", marginRight: "10px" }}
+                className="h-11 md:h-12"
+                style={{ marginRight: "10px" }}
                 src="/images/rupee.png"
-                alt=""
+                alt="Workflow"
               />
             </div>
           </div>
-          <div className="flex flex-row">
-            <span className="flex max-w-min items-center px-2 py-0.5 mr-2 text-sm text-green-600 bg-green-100 rounded-full">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-start space-y-2">
+            <span className="flex max-w-min items-center px-1 md:px-2 py-0.5 mr-2 text-sm text-green-600 bg-green-100 rounded-full">
               <svg
                 className="w-4 h-4"
                 viewBox="0 0 24 24"
@@ -152,7 +177,9 @@ const Dashboard = () => {
               </svg>
               20%
             </span>
-            <span className="text-gray-400 ">from 2019</span>
+            <span className="text-xs md:text-base text-gray-400">
+              from 2019
+            </span>
           </div>
         </div>
       </div>
