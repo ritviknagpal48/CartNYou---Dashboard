@@ -62,26 +62,27 @@ export class PushToShopify extends Component {
         },
       })
       .then((response) => {
+        console.log(response);
         this.setState({
           channelList:
-            response && response.data && response.data.shopifychannels
-              ? response.data.shopifychannels
+            response && response.data && response.data.retailer_shopify_channels
+              ? response.data.retailer_shopify_channels
               : [],
 
           selectedChannelID:
             response &&
             response.data &&
-            response.data.shopifychannels &&
-            response.data.shopifychannels[0] &&
-            response.data.shopifychannels[0].id
-              ? response.data.shopifychannels[0].id
+            response.data.retailer_shopify_channels &&
+            response.data.retailer_shopify_channels[0] &&
+            response.data.retailer_shopify_channels[0].id
+              ? response.data.retailer_shopify_channels[0].id
               : "",
           // selectedChannelID:
           //   response &&
           //   response.data &&
-          //   response.data.shopifychannels &&
-          //   response.data.shopifychannels[0]
-          //     ? response.data.shopifychannels[0]
+          //   response.data.retailer_shopify_channels &&
+          //   response.data.retailer_shopify_channels[0]
+          //     ? response.data.retailer_shopify_channels[0]
           //     : "",
           isfetching: false,
         });
