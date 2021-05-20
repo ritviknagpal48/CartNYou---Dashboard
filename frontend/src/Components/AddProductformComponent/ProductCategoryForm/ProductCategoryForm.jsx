@@ -1,19 +1,15 @@
-import { LoadingOutlined, RightOutlined } from "@ant-design/icons";
-import { Button, Form, message, Select, Spin } from "antd";
-import React, { Component } from "react";
-
-import { Spin, Form, Button, Select, message, Popover } from "antd";
-import "./ProductCategoryForm.css";
-import { axiosInstance } from "../../../Contexts/useAxios";
-import { RightOutlined } from "@ant-design/icons";
 import {
-  LoadingOutlined,
   ExclamationCircleOutlined,
   InfoCircleOutlined,
+  LoadingOutlined,
+  RightOutlined,
 } from "@ant-design/icons";
-import warehouseImage from "../../../assets/warehouse.svg";
-
+import { Button, Form, message, Popover, Select, Spin } from "antd";
+import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import warehouseImage from "../../../assets/warehouse.svg";
+import { axiosInstance } from "../../../Contexts/useAxios";
+import "./ProductCategoryForm.css";
 
 const { Option } = Select;
 
