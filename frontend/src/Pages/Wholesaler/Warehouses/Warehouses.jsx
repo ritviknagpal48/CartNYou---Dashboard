@@ -215,11 +215,13 @@ const Warehouses = () => {
           </div>
         </div>
       </div>
+
+      <hr />
       <Spin
         spinning={isLoading}
         indicator={<LoadingOutlined color="primary" />}
       >
-        <div className={`flex flex-col items-start w-full justify-start`}>
+        <div className={`flex flex-col items-start w-full justify-start my-3`}>
           {warehouseList && warehouseList.length ? (
             warehouseList.map((wh) => {
               return <WarehouseCards {...wh} />;

@@ -14,17 +14,14 @@ class Richtexteditor extends React.Component {
   modules = {
     toolbar: [
       [{ font: [] }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "strike", "blockquote"], // toggled buttons
-      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-      ["link", "image"],
+      [{ header: [1, 2, 3, 4, false] }],
+      ["bold", "italic", "underline"], // toggled buttons
+      // ["bold", "italic", "underline", "strike", "blockquote"], // toggled buttons
+      // [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      [{ color: [] }], // dropdown with defaults from theme
       [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }], // superscript/subscript
-      [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-
       [{ align: [] }],
-
-      ["clean"], // remove formatting button
+      // remove formatting button
     ],
   };
 

@@ -15,7 +15,6 @@ import ProductCategoryForm from "./ProductCategoryForm/ProductCategoryForm";
 import ProductDetail from "./ProductDetail/productDetail";
 import ShippingDetails from "./ShippingDetails/shippingDetails";
 import VariantsDetails from "./VariantsDetails/variantsDetails";
-import WarehouseDetail from "./WarehouseDetail/Warehouse";
 
 const { TabPane } = Tabs;
 
@@ -26,6 +25,9 @@ class AddProductForm extends Component {
       editProduct: false,
       step: 0,
       haveCategory: false,
+      haveWarehouse: false,
+      warehouseSelected: false,
+      warehouseList: [],
 
       //general details
       product_name: "",
@@ -38,7 +40,7 @@ class AddProductForm extends Component {
       sub_sub_category: "",
       counrty_origin: "",
       gst_type: "",
-      wholesaler_details: "",
+      wholesaler_details: this.props.userID,
 
       // Numbers
       hsn_code: "",
@@ -71,8 +73,6 @@ class AddProductForm extends Component {
       subSubCatArray: [],
       loading: false,
     };
-
-    this.handleWarehouse = this.handleWarehouse.bind(this);
   }
 
   async componentDidMount() {
@@ -91,8 +91,10 @@ class AddProductForm extends Component {
         ? this.props.location.state.edit
         : false;
 
+    console.log(this.state.wholesaler_details);
+
     this.setState({
-      wholesaler_details: this.props.userID,
+      loading: true,
     });
 
     if (edit) {
@@ -105,6 +107,7 @@ class AddProductForm extends Component {
         .then((res) => {
           this.setState({
             step: 1,
+            loading: false,
             product_category:
               res.data[0] &&
               res.data[0].product_category &&
@@ -243,6 +246,30 @@ class AddProductForm extends Component {
         editProduct: edit,
         step: 1,
       });
+    } else {
+      await axios
+        .get(`/warehouses`, {
+          params: {
+            user: this.state.wholesaler_details,
+          },
+        })
+        .then((res) => {
+          this.setState({
+            loading: false,
+          });
+          if (res.data.length) {
+            this.setState({
+              // step: 1,
+
+              haveWarehouse: true,
+              warehouseList: res.data ? res.data : [],
+            });
+            console.log(res);
+          }
+        })
+        .catch((err) => {
+          message.error(err.message);
+        });
     }
   }
 
@@ -286,6 +313,22 @@ class AddProductForm extends Component {
       this.setState({
         product_description: "",
       });
+    }
+
+    if (input === "warehouse") {
+      if (value === "") {
+        this.setState({
+          warehouseSelected: false,
+        });
+      } else if (value === undefined) {
+        this.setState({
+          warehouseSelected: false,
+        });
+      } else {
+        this.setState({
+          warehouseSelected: true,
+        });
+      }
     }
     if (input === "product_category") {
       if (value !== undefined) {
@@ -632,13 +675,9 @@ class AddProductForm extends Component {
     }
   };
 
-  handleWarehouse({ warehouse }) {
-    this.setState({ warehouse });
-  }
-
   render() {
     const { step, subCatArray, subSubCatArray, haveCategory } = this.state;
-
+    console.log(this.state);
     const {
       //general details
       product_category,
@@ -673,6 +712,7 @@ class AddProductForm extends Component {
 
       // warehouse info
       warehouse,
+      warehouseList,
 
       //attributes
       custom_attribute,
@@ -725,8 +765,11 @@ class AddProductForm extends Component {
           nextstep={this.nextstep}
           handleValueChange={this.handleValueChange}
           values={values}
-          loading={this.state.editProduct}
+          loading={this.state.loading}
           haveCategory={haveCategory}
+          haveWarehouse={this.state.haveWarehouse}
+          warehouseList={warehouseList}
+          warehouseSelected={this.state.warehouseSelected}
         />
       );
     }
@@ -749,16 +792,10 @@ class AddProductForm extends Component {
         <Tabs
           defaultActiveKey={"1"}
           activeKey={`${this.state.step}`}
-          onChange={this.callback}
-          onTabClick={(key) => {
-            const newStep = parseInt(key);
-            if (newStep > 0) {
-              this.setState({ step: newStep });
-            } else {
-              this.setState({ step: 1 });
-            }
-            // console.log({ key, newStep, step: this.state.step });
-          }}
+          // onChange={this.callback}
+          // onTabClick={() => {
+          //   console.log("tab chanegd");
+          // }}
           tabBarExtraContent={
             <div className="flex">
               <Button
@@ -773,14 +810,14 @@ class AddProductForm extends Component {
               <Button
                 className="continue-form-button"
                 onClick={
-                  this.state.editProduct && this.state.step === 6
+                  this.state.editProduct && this.state.step === 5
                     ? this.updateProduct
-                    : this.state.step === 6
+                    : this.state.step === 5
                     ? this.submitHandler
                     : this.nextstep
                 }
               >
-                {this.state.step === 6 ? "Submit" : "Next"}
+                {this.state.step === 5 ? "Submit" : "Next"}
                 <RightOutlined />
               </Button>
             </div>
@@ -828,16 +865,6 @@ class AddProductForm extends Component {
               handlechange={this.handlechange}
               values={values}
               handleCustomAttribute={this.handleCustomAttribute}
-            />
-          </TabPane>
-          <TabPane tab="Warehouses" key="6">
-            <WarehouseDetail
-              nextstep={this.nextstep}
-              prevstep={this.prevstep}
-              values={values}
-              userid={this.props.userID}
-              token={this.props.token}
-              handleWarehouse={this.handleWarehouse}
             />
           </TabPane>
         </Tabs>

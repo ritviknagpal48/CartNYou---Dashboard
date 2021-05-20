@@ -40,7 +40,7 @@ class AddNewProduct extends React.Component {
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
         <div className=" pr-14 pl-4 w-full">
           {/*content*/}
-          <div className="border-0 rounded-lg mb-8 shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+          <div className=" rounded-lg mb-8 shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none border border-gray-200">
             {/*header*/}
             <div className="flex items-start text-black justify-between p-5 border-b border-solid border-gray-300 rounded-t">
               <h3 className="text-3l font-semibold">

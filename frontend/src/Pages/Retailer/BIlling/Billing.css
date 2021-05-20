@@ -4,7 +4,8 @@
 }
 
 .ant-tabs-tab:hover {
-  color: #ef4444 !important;
+  /* color: #ef4444 !important; */
+  cursor: default;
 }
 
 .retailer-billing-page

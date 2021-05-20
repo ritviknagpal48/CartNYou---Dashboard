@@ -81,7 +81,7 @@ const ProductDetails = () => {
     <div className={classes.wrapper} style={{ maxWidth: "95vw" }}>
       <button
         className={
-          "m-4 p-1.5 text-gray-600 bg-gray-50 border border-gray-200 rounded-full shadow-md focus:outline-none absolute left-2 top-2"
+          "pro-det m-4 p-1.5 text-gray-600 bg-gray-50 border border-gray-200 rounded-full shadow-md focus:outline-none absolute left-2 top-2"
         }
         onClick={() => history.goBack()}
       >
