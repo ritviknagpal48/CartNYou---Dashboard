@@ -227,7 +227,7 @@ class AddProductForm extends Component {
           if (this.state.product_description === "<p><br></p>") {
             // const desc = this.state.product_description.trim();
             const desc = this.state.product_description.replace(
-              /<p><br[\/]?><[\/]?p>/gm,
+              /<p><br[/]?><[/]?p>/gm,
               ""
             );
             this.setState({
@@ -276,7 +276,7 @@ class AddProductForm extends Component {
     });
     if (this.state.product_description === "<p><br></p>") {
       const desc = this.state.product_description.replace(
-        /<p><br[\/]?><[\/]?p>/gm,
+        /<p><br[/]?><[/]?p>/gm,
         ""
       );
       this.setState({
@@ -396,7 +396,7 @@ class AddProductForm extends Component {
       warehouse,
     } = this.state;
 
-    const productData = {
+    let productData = {
       wholesaler_details,
       product_category,
       product_name,
@@ -548,7 +548,7 @@ class AddProductForm extends Component {
 
     if (this.state.product_description === "<p><br></p>") {
       const desc = this.state.product_description.replace(
-        /<p><br[\/]?><[\/]?p>/gm,
+        /<p><br[/]?><[/]?p>/gm,
         ""
       );
       this.setState({

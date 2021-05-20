@@ -9,10 +9,6 @@ const classes = {
 };
 
 class Settings extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleRouting(route) {
     if (!route || !route.trim()) return;
     this.props.history.push(route);
@@ -49,7 +45,7 @@ class Settings extends React.Component {
                 type="primary"
                 onClick={() => {
                   // message.info("Feature available soon");
-                  this.handleRouting("/retailer/warehouses")
+                  this.handleRouting("/retailer/warehouses");
                 }}
               >
                 Manage Your Pickup Location

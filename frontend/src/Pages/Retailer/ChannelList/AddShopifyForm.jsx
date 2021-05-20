@@ -3,14 +3,12 @@ import {
   EyeTwoTone,
   LoadingOutlined,
 } from "@ant-design/icons";
-import { Button, Form, Input, message, Select, Spin } from "antd";
+import { Button, Form, Input, message, Spin } from "antd";
 import { AuthContext } from "Contexts/Auth";
 import { axiosInstance as axios } from "Contexts/useAxios";
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./AddShopifyForm.css";
-
-const { Option } = Select;
 
 class AddShopifyForm extends Component {
   constructor(props) {

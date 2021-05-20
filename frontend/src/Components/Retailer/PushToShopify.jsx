@@ -1,24 +1,9 @@
-import React, { Component } from "react";
-import {
-  Button,
-  Checkbox,
-  Modal,
-  Pagination,
-  Radio,
-  Spin,
-  Space,
-  Descriptions,
-  Divider,
-  Tooltip,
-  InputNumber,
-  Form,
-  message,
-} from "antd";
-import { LoadingOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Button, Descriptions, InputNumber, Radio, Space, Spin } from "antd";
 import { axiosInstance } from "Contexts/useAxios";
-import { addItemToLiveList } from "./PushToShopifyUtils";
-
+import React, { Component } from "react";
 import "./PushToShopify.css";
+import { addItemToLiveList } from "./PushToShopifyUtils";
 
 export class PushToShopify extends Component {
   constructor(props) {
@@ -91,13 +76,13 @@ export class PushToShopify extends Component {
             response.data.shopifychannels[0].id
               ? response.data.shopifychannels[0].id
               : "",
-          selectedChannelID:
-            response &&
-            response.data &&
-            response.data.shopifychannels &&
-            response.data.shopifychannels[0]
-              ? response.data.shopifychannels[0]
-              : "",
+          // selectedChannelID:
+          //   response &&
+          //   response.data &&
+          //   response.data.shopifychannels &&
+          //   response.data.shopifychannels[0]
+          //     ? response.data.shopifychannels[0]
+          //     : "",
           isfetching: false,
         });
       })
@@ -150,7 +135,6 @@ export class PushToShopify extends Component {
       quantity,
       userId,
       userToken,
-      selectedChannelID,
       selectedChannel,
       retailer_price,
     } = this.state;
@@ -158,14 +142,14 @@ export class PushToShopify extends Component {
     const { onSuccess, onError, onBegin } = this.props;
 
     const channelListLength = channelList && channelList.length;
-    const index = (this.state.currentPage - 1) * this.state.pageSize;
+    // const index = (this.state.currentPage - 1) * this.state.pageSize;
 
-    const radioStyle = {
-      display: "block",
-      //   border: "1px solid #"
-      //   height: "30px",
-      //   lineHeight: "30px",
-    };
+    // const radioStyle = {
+    //   display: "block",
+    //   border: "1px solid #"
+    //   height: "30px",
+    //   lineHeight: "30px",
+    // };
 
     if (step === 1) {
       return (

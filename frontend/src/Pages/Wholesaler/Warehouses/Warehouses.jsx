@@ -184,7 +184,7 @@ const Warehouses = () => {
       .then((res) => res.data)
       .then(setWarehouseList)
       .catch((err) => message.error(err.message));
-  }, []);
+  }, [axios, userid]);
 
   return (
     <div className={classes.wrapper}>

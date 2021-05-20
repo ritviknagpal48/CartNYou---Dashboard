@@ -31,33 +31,6 @@ const classes = {
 
 let ImportListActions = OrdersMenuButton;
 
-const sample_rate_list = [
-  {
-    courier_id: 2,
-    delivered_charges: 66.3,
-    courier: "Bluedart Air",
-    returned_charges: 132.6,
-  },
-  {
-    courier_id: 30,
-    delivered_charges: 51.0,
-    courier: "xpressbees",
-    returned_charges: 102.0,
-  },
-  {
-    courier_id: 102,
-    delivered_charges: 66.3,
-    courier: "Ecom Express",
-    returned_charges: 132.6,
-  },
-  {
-    courier_id: 1,
-    delivered_charges: 53.0,
-    courier: "Delhivery Express",
-    returned_charges: 104.0,
-  },
-];
-
 class Orders extends React.Component {
   state = {
     orderFilter: "any",
@@ -309,7 +282,7 @@ class Orders extends React.Component {
   handleModalOk = (e) => {
     this.setState({ modalLoading: false, modalVisible: false });
     const dpart = this.state.rate_list.find(
-      (x) => x.courier_id == this.state.delivery_service
+      (x) => "" + x.courier_id === "" + this.state.delivery_service
     );
     if (!dpart) return message.error(`Could Not find Delivery Partner`);
     const { invoice_info, product_info } = this.state;

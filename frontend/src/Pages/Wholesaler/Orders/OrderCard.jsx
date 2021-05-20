@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import DownCircleOutlined from "@ant-design/icons";
 
 const classes = {
   wrapper:

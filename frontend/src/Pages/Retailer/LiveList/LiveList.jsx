@@ -20,31 +20,6 @@ const classes = {
   button_title: "hidden md:block",
 };
 
-const LiveListActions = [
-  {
-    onClick: () => {
-      message.success("List Cleared");
-    },
-    icon: (
-      <svg
-        className={classes.action_icons}
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
-    ),
-    name: "Clear List",
-  },
-];
-
 const LiveList = () => {
   const { axios, isLoading } = useAxios();
 
@@ -59,6 +34,53 @@ const LiveList = () => {
     currentPage: 1,
   });
 
+  const LiveListActions = [
+    {
+      onClick: () => {
+        setForceUpdate(true);
+      },
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className={classes.action_icons}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          />
+        </svg>
+      ),
+      name: "Refresh",
+    },
+    {
+      onClick: () => {
+        message.success("List Cleared");
+      },
+      icon: (
+        <svg
+          className={classes.action_icons}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      ),
+      name: "Clear List",
+    },
+  ];
+
   useEffect(() => {
     axios
       .get(`/users/${userId}`)
@@ -70,7 +92,7 @@ const LiveList = () => {
         setLivelistItems(result.data.retailer_live_list);
       })
       .catch((err) => message.error(err.message));
-  }, [forceUpdate]);
+  }, [forceUpdate, axios, userId]);
 
   return (
     <div className={"mx-auto"} style={{ width: "96%" }}>

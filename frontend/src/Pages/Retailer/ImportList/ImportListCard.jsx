@@ -22,11 +22,6 @@ import PushToShopify from "Components/Retailer/PushToShopify";
 import ShopifyIcon from "../../../assets/shopify.svg";
 // import { useState } from 'react'
 
-const classes = {
-  wrapper:
-    "grid grid-cols-4 md:grid-cols-12 gap-4 md:gap-0 items-center justify-start mt-4 bg-white rounded-md shadow-lg py-4",
-};
-
 const ImportListCard = ({
   product_name: displayName,
   qunatity: quantity,
@@ -208,7 +203,11 @@ const ImportListCard = ({
               className="flex gap-x-2"
               style={{ display: "flex", alignItems: "center" }}
             >
-              <img src={ShopifyIcon} style={{ height: "28px" }} />
+              <img
+                src={ShopifyIcon}
+                alt={"shopify"}
+                style={{ height: "28px" }}
+              />
               Publish to shopify
             </div>
           }

@@ -105,7 +105,7 @@ const ImportList = () => {
         (err) => {}
         // console.error({ err })
       );
-  }, [id, forceUpdate]);
+  }, [id, forceUpdate, axios]);
 
   const handleSelectionChange = (id, add) => {
     if (add) {

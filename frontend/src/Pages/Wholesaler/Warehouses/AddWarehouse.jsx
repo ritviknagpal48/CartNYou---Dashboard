@@ -69,7 +69,7 @@ const AddWarehouse = ({ onFinish, history }) => {
             state && state.initalValues ? state.initalValues : null
           }
           validateMessages={{
-            required: "'${label}' is required!",
+            required: "Please Fill this field.",
           }}
         >
           <Form.Item

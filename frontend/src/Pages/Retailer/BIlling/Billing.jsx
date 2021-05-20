@@ -9,16 +9,16 @@ import {
   Descriptions,
   Space,
   Spin,
-  message
+  message,
 } from "antd";
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from "@ant-design/icons";
 import CODTableHeading from "./CODRemittanceIDHeading";
 import WalletTransactionHeading from "./WalletTransactionHeading";
 import ShippingChargesHeading from "./ShippingChargesHeading";
 import TableComponent from "../../../Components/TableComponent";
 import moment from "moment";
-import { axiosInstance } from 'Contexts/useAxios';
-import { AuthContext } from 'Contexts/Auth'
+import { axiosInstance } from "Contexts/useAxios";
+import { AuthContext } from "Contexts/Auth";
 import "./Billing.css";
 
 const { TabPane } = Tabs;
@@ -52,7 +52,7 @@ class Billing extends React.Component {
     size: "all",
     allPayments: [],
     isLoading: true,
-    wallet: this.context.additionalInfo.wallet
+    wallet: this.context.additionalInfo.wallet,
   };
 
   handleSizeChange = (e) => {
@@ -64,22 +64,35 @@ class Billing extends React.Component {
   };
 
   async componentDidMount() {
-    const { token, additionalInfo: { id } } = this.context;
+    const {
+      token,
+      additionalInfo: { id },
+    } = this.context;
 
-    await axiosInstance.post('/payments/user', { id }, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).then(res => this.setState({ allPayments: res.data.payments, isLoading: false }))
+    await axiosInstance
+      .post(
+        "/payments/user",
+        { id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) =>
+        this.setState({ allPayments: res.data.payments, isLoading: false })
+      )
       .catch(() => {
         this.setState({ isLoading: false });
-        message.error('Something went wrong.');
-      })
+        message.error("Something went wrong.");
+      });
   }
 
   render() {
-    const { size, isLoading, allPayments, wallet } = this.state;
-    allPayments.sort((a, b) => parseInt(b.transaction_date) - parseInt(a.transaction_date));
+    const { size, isLoading, allPayments } = this.state;
+    allPayments.sort(
+      (a, b) => parseInt(b.transaction_date) - parseInt(a.transaction_date)
+    );
 
     return (
       <div className={`${classes.wrapper} retailer-billing-page`}>
@@ -145,7 +158,7 @@ class Billing extends React.Component {
                     title="Shipment Charges"
                     bordered
                     column={{ md: 1, sm: 1, xs: 1 }}
-                  // className=" "
+                    // className=" "
                   >
                     <Descriptions.Item label="Shipment Charge (FWD)">
                       ₹ 0<br />
@@ -343,7 +356,10 @@ class Billing extends React.Component {
                 }
                 key="3"
               >
-                <Spin spinning={isLoading} indicator={<LoadingOutlined color={'#ef4444'} spin />}>
+                <Spin
+                  spinning={isLoading}
+                  indicator={<LoadingOutlined color={"#ef4444"} spin />}
+                >
                   <div className="flex  justify-between ">
                     <Space size={"middle"} style={{ padding: "25px 0px" }}>
                       <RangePicker
@@ -409,7 +425,10 @@ class Billing extends React.Component {
                           <div className="text-sm text-gray-500">
                             Wallet Balance
                           </div>
-                          <div className="font-bold text-lg"> &#8377; {this.context.additionalInfo.wallet}</div>
+                          <div className="font-bold text-lg">
+                            {" "}
+                            &#8377; {this.context.additionalInfo.wallet}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -460,8 +479,8 @@ class Billing extends React.Component {
                     <Input
                       style={{ marginBottom: "0px", padding: "4px 11px" }}
                       placeholder="AWB seperated by coma"
-                    // onChange={handlechange("ProductTags")}
-                    // defaultValue={values.ProductTags}
+                      // onChange={handlechange("ProductTags")}
+                      // defaultValue={values.ProductTags}
                     />
                   </Form.Item>
                   <Button

@@ -1,10 +1,8 @@
+import { LoadingOutlined, RightOutlined } from "@ant-design/icons";
+import { Button, Form, message, Select, Spin } from "antd";
 import React, { Component } from "react";
-
-import { Spin, Form, Button, Select, message } from "antd";
-import "./ProductCategoryForm.css";
 import { axiosInstance } from "../../../Contexts/useAxios";
-import { RightOutlined } from "@ant-design/icons";
-import { LoadingOutlined } from "@ant-design/icons";
+import "./ProductCategoryForm.css";
 
 const { Option } = Select;
 export class ProductCategoryForm extends Component {
@@ -69,7 +67,7 @@ export class ProductCategoryForm extends Component {
 
   render() {
     const { categories } = this.state;
-    const { values, handleValueChange, loading, haveCategory } = this.props;
+    const { values, handleValueChange, haveCategory } = this.props;
 
     return (
       <div className="container category-container">
