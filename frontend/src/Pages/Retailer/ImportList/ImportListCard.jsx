@@ -20,6 +20,7 @@ import { removeItemFromImportList } from "./importListUtils";
 import PushToShopify from "Components/Retailer/PushToShopify";
 
 import ShopifyIcon from "../../../assets/shopify.svg";
+import "./importList.css";
 // import { useState } from 'react'
 
 const ImportListCard = ({
@@ -62,9 +63,9 @@ const ImportListCard = ({
             }}
           />
         </div>
-        <div className={"mb-2 ml-3"}>
-          <div className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center  w-full  md:grid-cols-5">
-            <div className="card-detail">
+        <div className={"mb-2"}>
+          <div className="import_list_card_wrapper bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center w-full md:grid-cols-5 gap-y-3 md:gap-y-0">
+            <div className="card-detail col-span-2 md:col-span-1">
               <div className="title-body">
                 {" "}
                 {images && images.length > 0 ? (
@@ -85,19 +86,19 @@ const ImportListCard = ({
                 )}
               </div>
             </div>
-            <div className="card-detail">
+            <div className="card-detail col-span-2 md:col-span-1">
               <div className="head-title">Product Name</div>
               <div className="title-body">{displayName}</div>
             </div>
-            <div className="card-detail">
+            <div className="card-detail place-items-center">
               <div className="head-title">Quantity</div>
               <div className="title-body">{quantity}</div>
             </div>
-            <div className="card-detail">
+            <div className="card-detail place-items-center">
               <div className="head-title">Price</div>
               <div className="title-body">{price}</div>
             </div>
-            <div className="action card-detail">
+            <div className="action card-detail col-span-2 md:col-span-1">
               <Space size="small" direction="vertical">
                 <Link
                 // to={{

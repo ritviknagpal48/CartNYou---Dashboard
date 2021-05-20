@@ -11,7 +11,7 @@ import useAxios from "Contexts/useAxios";
 import "./importList.css";
 
 const classes = {
-  wrapper: "pr-4 md:pr-14 pl-4 pb-8",
+  wrapper: "pr-4 pl-4 pb-8 import_list_main_wrapper",
   header: "w-full  py-3 flex flex-row items-center justify-between",
   title: "text-2xl text-gray-600  hidden md:block font-sans-apple-system",
   buttons: "flex item-center flex-row justify-end",
@@ -191,7 +191,7 @@ const ImportList = () => {
 
           axios
             .put(`/users/${id}`, {
-              import_list_products: [],
+              retailer_import_list: [],
             })
             .then((res) => {
               message.success("List Cleared Successfully.");

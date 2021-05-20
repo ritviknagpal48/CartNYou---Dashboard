@@ -10,8 +10,8 @@ export const getLatestImportList = async (userId, token) => {
   if (!userInfo || userInfo.status !== 200)
     return new Error("Cannot Get User info for specified ID.");
 
-  const import_list = !!userInfo.data.import_list_products
-    ? userInfo.data.import_list_products
+  const import_list = !!userInfo.data.retailer_import_list
+    ? userInfo.data.retailer_import_list
     : [];
   return import_list;
 };
@@ -35,7 +35,7 @@ export const addItemToImportList = async (userId, items, token) => {
   const response = await axiosInstance.put(
     `/users/${userId}`,
     {
-      import_list_products: new_import_list,
+      retailer_import_list: new_import_list,
     },
     {
       headers: {
@@ -61,7 +61,7 @@ export const removeItemFromImportList = async (userId, item, token) => {
   const response = await axiosInstance.put(
     `/users/${userId}`,
     {
-      import_list_products: new_import_list,
+      retailer_import_list: new_import_list,
     },
     {
       headers: {
