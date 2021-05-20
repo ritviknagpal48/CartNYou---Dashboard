@@ -2,7 +2,7 @@ export const MenuItems = [
   {
     displayName: "Dashboard",
     key: "dashboard",
-    path: "/wholeseller/dashboard",
+    path: "/wholesaler/dashboard",
     icon: (
       <svg
         className={"h-5 w-5 mr-2"}
@@ -23,7 +23,7 @@ export const MenuItems = [
   {
     displayName: "Products",
     key: "products",
-    path: "/wholeseller/products",
+    path: "/wholesaler/products",
     icon: (
       <svg
         className={"h-5 w-5 mr-2"}
@@ -44,7 +44,7 @@ export const MenuItems = [
   {
     displayName: "Orders",
     key: "orders",
-    path: "/wholeseller/orders",
+    path: "/wholesaler/orders",
     icon: (
       <svg
         className={"h-5 w-5 mr-2"}
@@ -65,7 +65,7 @@ export const MenuItems = [
   {
     displayName: "Shipment",
     key: "shipment",
-    path: "/wholeseller/shipment",
+    path: "/wholesaler/shipment",
     icon: (
       <svg
         className={"h-5 w-5 mr-2"}
@@ -90,7 +90,7 @@ export const MenuItems = [
   {
     displayName: "Warehouses",
     key: "warehouses",
-    path: "/wholeseller/warehouses",
+    path: "/wholesaler/warehouses",
     icon: (
       <svg
         className={"h-5 w-5 mr-2"}

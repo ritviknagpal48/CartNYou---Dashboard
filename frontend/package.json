@@ -13,7 +13,7 @@
     "clsx": "^1.1.1",
     "crypto-random-string": "^4.0.0",
     "moment": "^2.29.1",
-    "postcss": "^8.2.8",
+    "postcss": "^8.2.15",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-google-login": "^5.2.2",
@@ -22,7 +22,7 @@
     "react-router-dom": "^5.2.0",
     "react-s3-uploader": "^5.0.0",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -54,9 +54,9 @@
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^4.0.2",
-    "concurrently": "^6.0.0",
+    "concurrently": "^6.1.0",
     "postcss-cli": "^8.3.1",
-    "tailwindcss": "^2.0.4"
+    "tailwindcss": "^2.1.2"
   },
   "proxy": "http://localhost:1337/"
 }

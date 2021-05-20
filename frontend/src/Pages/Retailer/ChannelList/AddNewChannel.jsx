@@ -1,6 +1,6 @@
+import { List } from "antd";
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { List, Typography, Divider } from "antd";
 import AddShopifyForm from "./AddShopifyForm";
 
 const classes = {

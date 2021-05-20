@@ -3,14 +3,12 @@ import {
   EyeTwoTone,
   LoadingOutlined,
 } from "@ant-design/icons";
-import { Button, Form, Input, message, Select, Spin } from "antd";
+import { Button, Form, Input, message, Spin } from "antd";
 import { AuthContext } from "Contexts/Auth";
 import { axiosInstance as axios } from "Contexts/useAxios";
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./AddShopifyForm.css";
-
-const { Option } = Select;
 
 class AddShopifyForm extends Component {
   constructor(props) {
@@ -88,8 +86,7 @@ class AddShopifyForm extends Component {
       await axios
         .get(`/shopifychannels/${channelId}`, {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+            Authorization: `Bearer ${this.context.token}`,
           },
         })
         .then((res) => {
@@ -117,8 +114,7 @@ class AddShopifyForm extends Component {
     await axios
       .post("/shopifychannels", this.state, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
+          Authorization: `Bearer ${this.context.token}`,
         },
       })
       .then((resp) => {

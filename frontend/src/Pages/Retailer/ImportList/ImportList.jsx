@@ -94,8 +94,8 @@ const ImportList = () => {
       .get(`/users/${id}`)
       .then((res) => {
         const import_list =
-          res.data && res.data.import_list_products
-            ? res.data.import_list_products
+          res.data && res.data.retailer_import_list
+            ? res.data.retailer_import_list
             : [];
 
         setImportListData(import_list);
@@ -105,7 +105,7 @@ const ImportList = () => {
         (err) => {}
         // console.error({ err })
       );
-  }, [id, forceUpdate]);
+  }, [id, forceUpdate, axios]);
 
   const handleSelectionChange = (id, add) => {
     if (add) {

@@ -566,8 +566,15 @@
                   "type": "string"
                 }
               },
-              "commision": {
+              "commission": {
                 "type": "integer"
+              },
+              "commission_type": {
+                "type": "string",
+                "enum": [
+                  "direct_value",
+                  "percentage"
+                ]
               },
               "published_at": {
                 "type": "string"
@@ -597,7 +604,7 @@
                 "sub_category": {
                   "type": "string"
                 },
-                "comission_percent": {
+                "commission": {
                   "type": "integer"
                 },
                 "product_details": {
@@ -605,6 +612,13 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "commission_type": {
+                  "type": "string",
+                  "enum": [
+                    "direct_value",
+                    "percentage"
+                  ]
                 },
                 "published_at": {
                   "type": "string"
@@ -618,9 +632,9 @@
               }
             }
           },
-          "commision_percent": {
+          "commission": {
             "type": "integer",
-            "default": 0
+            "default": 3
           },
           "product_details": {
             "type": "array",
@@ -709,9 +723,6 @@
                 "sub_sub_category": {
                   "type": "string"
                 },
-                "users_detail": {
-                  "type": "string"
-                },
                 "counrty_origin": {
                   "type": "string"
                 },
@@ -729,12 +740,6 @@
                 "product_status": {
                   "type": "boolean"
                 },
-                "retailers_details": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
                 "shopifychannels": {
                   "type": "array",
                   "items": {
@@ -747,6 +752,15 @@
                 "warehouse": {
                   "type": "string"
                 },
+                "wholesaler_details": {
+                  "type": "string"
+                },
+                "imported_by": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -758,6 +772,14 @@
                 }
               }
             }
+          },
+          "commission_type": {
+            "type": "string",
+            "default": "percentage",
+            "enum": [
+              "direct_value",
+              "percentage"
+            ]
           },
           "published_at": {
             "type": "string",
@@ -782,15 +804,23 @@
               "type": "string"
             }
           },
-          "commision_percent": {
+          "commission": {
             "type": "integer",
-            "default": 0
+            "default": 3
           },
           "product_details": {
             "type": "array",
             "items": {
               "type": "string"
             }
+          },
+          "commission_type": {
+            "type": "string",
+            "default": "percentage",
+            "enum": [
+              "direct_value",
+              "percentage"
+            ]
           },
           "published_at": {
             "type": "string",

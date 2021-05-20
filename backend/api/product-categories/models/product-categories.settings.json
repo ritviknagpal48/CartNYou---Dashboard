@@ -30,14 +30,21 @@
       "via": "product_category"
     },
     "sub_categories": {
-      "collection": "sub-category",
-      "via": "product_category"
+      "via": "product_category",
+      "collection": "sub-category"
     },
-    "commision": {
+    "commission": {
       "type": "integer",
-      "default": 0,
-      "max": 100,
+      "default": 5,
       "min": 0
+    },
+    "commission_type": {
+      "type": "enumeration",
+      "enum": [
+        "direct_value",
+        "percentage"
+      ],
+      "default": "percentage"
     }
   }
 }

@@ -19,7 +19,6 @@ const useAxios = () => {
       if (!req.headers["Authorization"]) {
         // let jwt = sessionStorage.getItem(process.env.REACT_APP_JWT_KEY);
         if (!!token) {
-          console.log({ token });
           req.headers = {
             ...req.headers,
             Authorization: `Bearer ${token}`,

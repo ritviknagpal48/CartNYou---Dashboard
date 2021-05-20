@@ -8,13 +8,13 @@
     "client_secret": "ZOPvYm5Ny06NOwiRKNTgVXwI",
     "redirect_uris": [
       "http://localhost:1337/connect/google/callback",
-      "https://backend-cartnyou.herokuapp.com/connect/google/callback"
+      "https://cartnyou-backend.herokuapp.com/connect/google/callback"
     ],
     "javascript_origins": [
       "http://localhost:3000",
       "http://localhost:1337",
       "https://cartnyou-app.netlify.app",
-      "https://backend-cartnyou.herokuapp.com"
+      "https://cartnyou-backend.herokuapp.com/"
     ]
   }
 }

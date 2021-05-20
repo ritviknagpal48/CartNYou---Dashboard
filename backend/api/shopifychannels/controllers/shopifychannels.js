@@ -11,18 +11,10 @@ module.exports = {
     try {
       const { request } = ctx;
       const { targetURL, body, headers } = request.body;
+      console.log(targetURL, headers, body);
       const response = await axios.post(targetURL, body, {
         headers: { ...headers },
       });
-      // const response = await axios.request({
-      //   method: ("" + method).trim().toUpperCase() || "GET",
-      //   headers: {
-      //     ...headers,
-      //   },
-      //   url: targetURL,
-      //   body: body,
-      // });
-      // const response = await axios.post(targetURL, body);
       return response.data;
     } catch (error) {
       return error;
@@ -32,9 +24,25 @@ module.exports = {
   getOrders: async (ctx) => {
     const { request } = ctx;
     const { targetURL } = request.body;
-    console.warn(ctx);
-    console.warn(request.body.targetURL);
     const response = await axios.get(targetURL);
-    return response.data;
+    const { orders } = response.data;
+    if (!orders) return [];
+    let result = [];
+
+    result = orders.flatMap((order) => {
+      return order.line_items.map((x) => ({
+        ...x,
+        order_id: order.id,
+        shipping_address: order.shipping_address,
+        customer: {
+          email: order.customer.email,
+          first_name: order.customer.first_name,
+          last_name: order.customer.last_name,
+        },
+        financial_status: order.financial_status,
+      }));
+    });
+
+    return { orders: result };
   },
 };

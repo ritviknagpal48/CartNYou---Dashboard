@@ -1,5 +1,14 @@
 import { LoadingOutlined } from "@ant-design/icons";
-import { Button, Radio, Select, Spin, Modal, message, Empty } from "antd";
+import {
+  Button,
+  Radio,
+  Select,
+  Spin,
+  Modal,
+  message,
+  Empty,
+  notification,
+} from "antd";
 import Toolbar from "Components/Toolbar";
 import { AuthContext } from "Contexts/Auth";
 import { axiosInstance } from "Contexts/useAxios";
@@ -21,33 +30,6 @@ const classes = {
 };
 
 let ImportListActions = OrdersMenuButton;
-
-const sample_rate_list = [
-  {
-    courier_id: 2,
-    delivered_charges: 66.3,
-    courier: "Bluedart Air",
-    returned_charges: 132.6,
-  },
-  {
-    courier_id: 30,
-    delivered_charges: 51.0,
-    courier: "xpressbees",
-    returned_charges: 102.0,
-  },
-  {
-    courier_id: 102,
-    delivered_charges: 66.3,
-    courier: "Ecom Express",
-    returned_charges: 132.6,
-  },
-  {
-    courier_id: 1,
-    delivered_charges: 53.0,
-    courier: "Delhivery Express",
-    returned_charges: 104.0,
-  },
-];
 
 class Orders extends React.Component {
   state = {
@@ -76,6 +58,7 @@ class Orders extends React.Component {
         delivery: 0,
       },
     },
+    product_info: null,
   };
 
   async componentDidMount() {
@@ -147,13 +130,30 @@ class Orders extends React.Component {
       .catch((error) => {});
   }
 
-  handleInvoiceModalOK = (e) => {
+  // settle order here
+  handleInvoiceModalOK = () => {
+    const { wallet } = this.context.additionalInfo;
+    const { total } = this.state.invoice_info.amounts;
+    if (wallet < total)
+      return notification.open({
+        message: `Insufficient Balance ${wallet}`,
+        type: "error",
+        description: "Please recharge before settling further orders.",
+        placement: "topRight",
+        duration: 1.5,
+      });
     this.setState({ is_loading: true });
+
+    // Process Order here
     setTimeout(() => {
       this.setState({ is_loading: false, invoiceModalVisible: false }, () => {
-        message.success(
-          "Order Settled with ID " + this.state.invoice_info.order_info.id
-        );
+        return notification.open({
+          message: `Order Settled.`,
+          type: "success",
+          description: `Current Balance ${wallet - total}`,
+          placement: "topRight",
+          duration: 1.5,
+        });
       });
     }, 3000);
   };
@@ -241,24 +241,33 @@ class Orders extends React.Component {
       .catch((error) => {});
   };
 
-  handleOrderClick = (order) => {
+  handleOrderClick = async (order) => {
     this.setState({ is_loading: true, delivery_service: "" });
-    this.loadDeliveryServices({
+    await this.loadDeliveryServices({
       length: 1,
       breadth: 1,
       height: 1,
       weight: 1,
       payment_mode: "prepaid",
       drop_pincode: order.shipping_address.zip,
-    }).then(() => {
-      let inv_info = this.state.invoice_info;
-      this.setState({
-        invoice_info: { ...inv_info, order_info: order },
-        drop_pincode: order.shipping_address.zip,
-        pickup_pincode: 201313,
-        is_loading: false,
-        modalVisible: true,
-      });
+    });
+    let inv_info = this.state.invoice_info;
+    const resp = await axiosInstance.get(`/product-details/${order.sku}`, {
+      headers: { Authorization: `Bearer ${this.context.token}` },
+    });
+
+    const prod = resp.data;
+    this.setState({
+      invoice_info: {
+        ...inv_info,
+        order_info: order,
+        amounts: { order: parseFloat(prod.product_mrp), total: 0, delivery: 0 },
+      },
+      drop_pincode: order.shipping_address.zip,
+      pickup_pincode: 201313,
+      is_loading: false,
+      modalVisible: true,
+      product_info: prod,
     });
   };
 
@@ -270,24 +279,23 @@ class Orders extends React.Component {
     this.setState({ invoiceModalVisible: false });
   };
 
-  // Place order here
   handleModalOk = (e) => {
     this.setState({ modalLoading: false, modalVisible: false });
     const dpart = this.state.rate_list.find(
-      (x) => x.courier_id == this.state.delivery_service
+      (x) => "" + x.courier_id === "" + this.state.delivery_service
     );
     if (!dpart) return message.error(`Could Not find Delivery Partner`);
-    const { invoice_info } = this.state;
+    const { invoice_info, product_info } = this.state;
     this.setState({
       invoice_info: {
         ...invoice_info,
         courier_info: dpart,
         amounts: {
-          order: this.state.invoice_info.order_info.current_total_price,
+          order: product_info.product_mrp,
           delivery: dpart.delivered_charges,
           total:
             parseFloat(dpart.delivered_charges) +
-            parseFloat(this.state.invoice_info.order_info.current_total_price),
+            parseFloat(product_info.product_mrp),
         },
       },
       invoiceModalVisible: true,
@@ -371,7 +379,7 @@ class Orders extends React.Component {
                     color={"#ef4444"}
                     onClick={() => this.handleOrderClick(order)}
                   >
-                    Ship
+                    Settle
                   </Button>
                 ),
               }))}
@@ -518,14 +526,6 @@ class Orders extends React.Component {
             </div>
             <div className="text-sm text-gray-700 font-medium">
               {this.state.drop_pincode}
-            </div>
-            <div className="text-sm text-gray-600 font-medium">
-              Items Quantity
-            </div>
-            <div className="text-sm text-gray-700 font-medium">
-              {!!this.state.invoice_info.order_info
-                ? this.state.invoice_info.order_info.line_items.length
-                : 0}
             </div>
             <div className="text-sm text-gray-600 font-medium">
               Order Amount

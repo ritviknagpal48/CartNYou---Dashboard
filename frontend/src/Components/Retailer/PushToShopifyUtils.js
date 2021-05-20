@@ -29,7 +29,6 @@ export const getSelectedProduct = async (id, token) => {
 
 export const getPublishingProduct = async (retailer_price, selectedProduct) => {
   let title = selectedProduct.product_name;
-  let product_id = selectedProduct.id;
   let body_html = selectedProduct.product_description;
   let image = selectedProduct.images;
   let product_type = selectedProduct.product_category.categoryName;
@@ -39,7 +38,7 @@ export const getPublishingProduct = async (retailer_price, selectedProduct) => {
       weight: selectedProduct.weight,
       weight_unit: "g",
       price: retailer_price,
-      sku: selectedProduct.product_main_sku,
+      sku: selectedProduct.id,
     },
   ];
 
@@ -50,7 +49,7 @@ export const getPublishingProduct = async (retailer_price, selectedProduct) => {
     product_type,
     tags,
     variants,
-    product_id,
+    sku: selectedProduct.id,
   };
 
   return shopify_product;
@@ -69,7 +68,7 @@ export const publishToShopify = async (selectedChannel, publishingProduct) => {
     method: "POST",
   };
 
-  return await axiosInstance.post("/proxy", { body }).catch((error) => {
+  return await axiosInstance.post("/proxy", body).catch((error) => {
     // console.log(error);
   });
 };

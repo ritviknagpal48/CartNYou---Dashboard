@@ -4,6 +4,7 @@ import {
   RightOutlined,
 } from "@ant-design/icons";
 import { Button, message, notification, Spin, Tabs } from "antd";
+import { AuthContext } from "Contexts/Auth";
 import { axiosInstance as axios } from "Contexts/useAxios";
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
@@ -14,7 +15,6 @@ import ProductCategoryForm from "./ProductCategoryForm/ProductCategoryForm";
 import ProductDetail from "./ProductDetail/productDetail";
 import ShippingDetails from "./ShippingDetails/shippingDetails";
 import VariantsDetails from "./VariantsDetails/variantsDetails";
-import WarehouseDetail from "./WarehouseDetail/Warehouse";
 
 const { TabPane } = Tabs;
 
@@ -25,28 +25,33 @@ class AddProductForm extends Component {
       editProduct: false,
       step: 0,
       haveCategory: false,
+      haveWarehouse: false,
+      warehouseSelected: false,
+      warehouseList: [],
 
       //general details
-      users_detail: "",
+      product_name: "",
       product_category: "",
+      product_brand: "",
+      product_tags: "",
+      product_description: "",
+      measurement_unit: "",
       sub_category: "",
       sub_sub_category: "",
-      product_name: "",
-      product_description: "",
-      product_brand: "",
       counrty_origin: "",
-      product_tags: "",
+      gst_type: "",
+      wholesaler_details: this.props.userID,
+
+      // Numbers
       hsn_code: "",
       upc_number: "",
       ean_number: "",
-      gst_type: "",
-      measurement_unit: "",
 
       //VARIENT DETAILS
-      colour: "",
       product_main_sku: "",
-      qunatity: "",
       product_mrp: "",
+      qunatity: "",
+      colour: "",
       gst_percentage: "",
 
       //images
@@ -68,8 +73,6 @@ class AddProductForm extends Component {
       subSubCatArray: [],
       loading: false,
     };
-
-    this.handleWarehouse = this.handleWarehouse.bind(this);
   }
 
   async componentDidMount() {
@@ -88,8 +91,10 @@ class AddProductForm extends Component {
         ? this.props.location.state.edit
         : false;
 
+    console.log(this.state.wholesaler_details);
+
     this.setState({
-      users_detail: this.props.userID,
+      loading: true,
     });
 
     if (edit) {
@@ -102,6 +107,7 @@ class AddProductForm extends Component {
         .then((res) => {
           this.setState({
             step: 1,
+            loading: false,
             product_category:
               res.data[0] &&
               res.data[0].product_category &&
@@ -224,7 +230,7 @@ class AddProductForm extends Component {
           if (this.state.product_description === "<p><br></p>") {
             // const desc = this.state.product_description.trim();
             const desc = this.state.product_description.replace(
-              /<p><br[\/]?><[\/]?p>/gm,
+              /<p><br[/]?><[/]?p>/gm,
               ""
             );
             this.setState({
@@ -240,6 +246,30 @@ class AddProductForm extends Component {
         editProduct: edit,
         step: 1,
       });
+    } else {
+      await axios
+        .get(`/warehouses`, {
+          params: {
+            user: this.state.wholesaler_details,
+          },
+        })
+        .then((res) => {
+          this.setState({
+            loading: false,
+          });
+          if (res.data.length) {
+            this.setState({
+              // step: 1,
+
+              haveWarehouse: true,
+              warehouseList: res.data ? res.data : [],
+            });
+            console.log(res);
+          }
+        })
+        .catch((err) => {
+          message.error(err.message);
+        });
     }
   }
 
@@ -273,7 +303,7 @@ class AddProductForm extends Component {
     });
     if (this.state.product_description === "<p><br></p>") {
       const desc = this.state.product_description.replace(
-        /<p><br[\/]?><[\/]?p>/gm,
+        /<p><br[/]?><[/]?p>/gm,
         ""
       );
       this.setState({
@@ -284,18 +314,30 @@ class AddProductForm extends Component {
         product_description: "",
       });
     }
+
+    if (input === "warehouse") {
+      if (value === "") {
+        this.setState({
+          warehouseSelected: false,
+        });
+      } else if (value === undefined) {
+        this.setState({
+          warehouseSelected: false,
+        });
+      } else {
+        this.setState({
+          warehouseSelected: true,
+        });
+      }
+    }
     if (input === "product_category") {
       if (value !== undefined) {
         await axios
-          .get(
-            `/product-categories/${value}`
-            // , {
-            //   headers: {
-            //     Authorization:
-            //       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
-            //   },
-            // }
-          )
+          .get(`/product-categories/${value}`, {
+            headers: {
+              Authorization: `Bearer ${this.context.token}`,
+            },
+          })
           .then((res) => {
             this.setState({
               subCatArray:
@@ -324,15 +366,11 @@ class AddProductForm extends Component {
       }
     } else if (input === "sub_category") {
       await axios
-        .get(
-          `/sub-categories/${value}`
-          // , {
-          //   headers: {
-          //     Authorization:
-          //       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjlhMGU3MzMwNjY3MzZjMGNlNzRhNSIsImlhdCI6MTYxNzgxNTc2OCwiZXhwIjoxNjIwNDA3NzY4fQ.DmAFeVgwlNsTRS8yiBwHfzWmXJZXh3wv1ahXfjeiWAo",
-          //   },
-          // }
-        )
+        .get(`/sub-categories/${value}`, {
+          headers: {
+            Authorization: `Bearer ${this.context.token}`,
+          },
+        })
         .then((res) => {
           this.setState({
             subSubCatArray:
@@ -373,7 +411,7 @@ class AddProductForm extends Component {
 
   handleValidation = () => {
     const {
-      users_detail,
+      wholesaler_details,
       product_category,
       sub_category,
       sub_sub_category,
@@ -401,8 +439,8 @@ class AddProductForm extends Component {
       warehouse,
     } = this.state;
 
-    const productData = {
-      users_detail,
+    let productData = {
+      wholesaler_details,
       product_category,
       product_name,
       product_description,
@@ -553,7 +591,7 @@ class AddProductForm extends Component {
 
     if (this.state.product_description === "<p><br></p>") {
       const desc = this.state.product_description.replace(
-        /<p><br[\/]?><[\/]?p>/gm,
+        /<p><br[/]?><[/]?p>/gm,
         ""
       );
       this.setState({
@@ -576,8 +614,8 @@ class AddProductForm extends Component {
               this.setState({
                 editProduct: false,
               });
-              // window.location = "/wholeseller/products";
-              this.props.history.push("/wholeseller/products");
+              // window.location = "/wholesaler/products";
+              this.props.history.push("/wholesaler/products");
             }
           })
           .catch((error) => {
@@ -621,7 +659,7 @@ class AddProductForm extends Component {
           .then((resp) => {
             if (resp.status === 200) {
               message.success(`Product Added Successfully`);
-              this.props.history.push("/wholeseller/products");
+              this.props.history.push("/wholesaler/products");
             }
           })
           .catch((error) => {
@@ -637,13 +675,9 @@ class AddProductForm extends Component {
     }
   };
 
-  handleWarehouse({ warehouse }) {
-    this.setState({ warehouse });
-  }
-
   render() {
     const { step, subCatArray, subSubCatArray, haveCategory } = this.state;
-
+    console.log(this.state);
     const {
       //general details
       product_category,
@@ -678,6 +712,7 @@ class AddProductForm extends Component {
 
       // warehouse info
       warehouse,
+      warehouseList,
 
       //attributes
       custom_attribute,
@@ -730,8 +765,11 @@ class AddProductForm extends Component {
           nextstep={this.nextstep}
           handleValueChange={this.handleValueChange}
           values={values}
-          loading={this.state.editProduct}
+          loading={this.state.loading}
           haveCategory={haveCategory}
+          haveWarehouse={this.state.haveWarehouse}
+          warehouseList={warehouseList}
+          warehouseSelected={this.state.warehouseSelected}
         />
       );
     }
@@ -754,16 +792,10 @@ class AddProductForm extends Component {
         <Tabs
           defaultActiveKey={"1"}
           activeKey={`${this.state.step}`}
-          onChange={this.callback}
-          onTabClick={(key) => {
-            const newStep = parseInt(key);
-            if (newStep > 0) {
-              this.setState({ step: newStep });
-            } else {
-              this.setState({ step: 1 });
-            }
-            // console.log({ key, newStep, step: this.state.step });
-          }}
+          // onChange={this.callback}
+          // onTabClick={() => {
+          //   console.log("tab chanegd");
+          // }}
           tabBarExtraContent={
             <div className="flex">
               <Button
@@ -778,14 +810,14 @@ class AddProductForm extends Component {
               <Button
                 className="continue-form-button"
                 onClick={
-                  this.state.editProduct && this.state.step === 6
+                  this.state.editProduct && this.state.step === 5
                     ? this.updateProduct
-                    : this.state.step === 6
+                    : this.state.step === 5
                     ? this.submitHandler
                     : this.nextstep
                 }
               >
-                {this.state.step === 6 ? "Submit" : "Next"}
+                {this.state.step === 5 ? "Submit" : "Next"}
                 <RightOutlined />
               </Button>
             </div>
@@ -835,20 +867,11 @@ class AddProductForm extends Component {
               handleCustomAttribute={this.handleCustomAttribute}
             />
           </TabPane>
-          <TabPane tab="Warehouses" key="6">
-            <WarehouseDetail
-              nextstep={this.nextstep}
-              prevstep={this.prevstep}
-              values={values}
-              userid={this.props.userID}
-              token={this.props.token}
-              handleWarehouse={this.handleWarehouse}
-            />
-          </TabPane>
         </Tabs>
       </Spin>
     );
   }
 }
 
+AddProductForm.contextType = AuthContext;
 export default withRouter(AddProductForm);

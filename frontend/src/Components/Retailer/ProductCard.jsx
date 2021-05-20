@@ -4,41 +4,27 @@ import { Link } from "react-router-dom";
 import { addItemToImportList } from "Pages/Retailer/ImportList/importListUtils";
 import { AuthContext } from "Contexts/Auth";
 
-const images = [
-  "https://images.unsplash.com/photo-1590192746144-b92a837f8ddf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-  "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1059&q=80",
-  "https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-  "https://images.unsplash.com/photo-1598662972299-5408ddb8a3dc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-  "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1051&q=80",
-  "https://picsum.photos/200/300?random=1",
-  "https://picsum.photos/200/300?random=5",
-  "https://picsum.photos/200/300?random=7",
-  "https://picsum.photos/200/300?random=6",
-  "https://picsum.photos/200/300?random=2",
-  "https://picsum.photos/200/300?random=3",
-  "https://picsum.photos/200/300?random=4",
-];
+const defaultImage = "/images/no_image.png";
 
 class ProductCard extends React.Component {
-
-
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       modalVisible: false,
       modalLoading: false,
-    }
+    };
   }
 
-
   render() {
-    const randomImg = Math.floor(Math.random() * images.length);
     const productCard = this.props.ProductData;
-
+    const image =
+      productCard.images && productCard.images.length > 0
+        ? productCard.images[0].url
+        : defaultImage;
     return (
       <div className="product-card border border-gray-200 my-2 bg-white rounded cursor-pointer hover:shadow-2xl max-w-xs">
-        <div className="layout">
+        <div className="layout" style={{ position: "relative" }}>
           <div
             className="checkbox"
             style={{
@@ -47,7 +33,6 @@ class ProductCard extends React.Component {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              maxWidth: "260px",
               width: "100%",
             }}
           >
@@ -57,8 +42,8 @@ class ProductCard extends React.Component {
               style={{ borderRadius: "4px", margin: "4px 0px" }}
             >
               {productCard &&
-                productCard.product_category &&
-                productCard.product_category.categoryName
+              productCard.product_category &&
+              productCard.product_category.categoryName
                 ? productCard.product_category.categoryName
                 : ""}
             </Tag>
@@ -79,15 +64,15 @@ class ProductCard extends React.Component {
                 borderRadius: "4px 4px 0 0",
                 overflow: "hidden",
               }}
-            // onClick={() => {
-            //   this.props.history.push(`${productCard.sku}`);
-            // }}
+              // onClick={() => {
+              //   this.props.history.push(`${productCard.sku}`);
+              // }}
             >
               <img
                 width="100%"
                 className={"object-cover object-top"}
                 // style={{ height: "fit-content" }}
-                src={images[randomImg]}
+                src={image}
                 alt=""
               />
             </div>
@@ -156,7 +141,7 @@ class ProductCard extends React.Component {
                 border: "1px solid #ef4444",
               }}
               onClick={() => {
-                this.setState({ modalVisible: true })
+                this.setState({ modalVisible: true });
               }}
             >
               Add to Import List
@@ -164,25 +149,29 @@ class ProductCard extends React.Component {
           </div>
         </div>
         <Modal
-          title={
-            <div className="flex gap-x-2">
-              Add To Import List
-            </div>
-          }
+          title={<div className="flex gap-x-2">Add To Import List</div>}
           width={"100%"}
           visible={this.state.modalVisible}
           confirmLoading={this.state.modalLoading}
-          onOk={e => {
-            this.setState({ modalLoading: true })
-            addItemToImportList(this.context.additionalInfo.id, [productCard.id], this.context.token).then(() => {
-              message.success('Product added successfully');
-              this.setState({ modalVisible: false, modalLoading: false })
-            }).catch(err => {
-              message.error(err.message);
-              this.setState({ modalVisible: false, modalLoading: false })
-            })
+          onOk={(e) => {
+            this.setState({ modalLoading: true });
+            addItemToImportList(
+              this.context.additionalInfo.id,
+              [productCard.id],
+              this.context.token
+            )
+              .then(() => {
+                message.success("Product added successfully");
+                this.setState({ modalVisible: false, modalLoading: false });
+              })
+              .catch((err) => {
+                message.error(err.message);
+                this.setState({ modalVisible: false, modalLoading: false });
+              });
           }}
-          onCancel={() => this.setState({ modalVisible: false, modalLoading: false })}
+          onCancel={() =>
+            this.setState({ modalVisible: false, modalLoading: false })
+          }
           style={{
             borderRadius: "12px",
             overflow: "hidden",
@@ -197,7 +186,8 @@ class ProductCard extends React.Component {
           }}
           maskStyle={{ background: "#00000034" }}
         >
-          Add <span className="font-semibold">{productCard.product_name}</span> to your import list?
+          Add <span className="font-semibold">{productCard.product_name}</span>{" "}
+          to your import list?
         </Modal>
       </div>
     );

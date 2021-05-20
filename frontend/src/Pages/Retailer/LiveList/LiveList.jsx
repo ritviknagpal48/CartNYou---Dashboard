@@ -1,9 +1,9 @@
 import { message, Spin, Empty, Pagination } from "antd";
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from "@ant-design/icons";
 import Toolbar from "Components/Toolbar";
 import LiveListCard from "Pages/Retailer/LiveList/LiveListCard";
 // import { LiveListData } from "./LiveListData";
-import './LiveList.css'
+import "./LiveList.css";
 import useAxios from "Contexts/useAxios";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
@@ -20,25 +20,12 @@ const classes = {
   button_title: "hidden md:block",
 };
 
-const LiveListActions = [
-  {
-    onClick: () => {
-      message.success('List Cleared')
-    },
-    icon: (
-      <svg className={classes.action_icons} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    name: "Clear List",
-  }
-]
-
 const LiveList = () => {
+  const { axios, isLoading } = useAxios();
 
-  const { axios, isLoading } = useAxios()
-
-  const { additionalInfo: { id: userId } } = useContext(AuthContext);
+  const {
+    additionalInfo: { id: userId },
+  } = useContext(AuthContext);
 
   const [livelistItems, setLivelistItems] = useState([]);
   const [forceUpdate, setForceUpdate] = useState(false);
@@ -47,19 +34,69 @@ const LiveList = () => {
     currentPage: 1,
   });
 
-  useEffect(() => {
-    axios.get(`/users/${userId}`).then(result => {
-      if (result.status !== 200) {
-        return message.error(result.statusText);
-      }
+  const LiveListActions = [
+    {
+      onClick: () => {
+        setForceUpdate(true);
+      },
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className={classes.action_icons}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          />
+        </svg>
+      ),
+      name: "Refresh",
+    },
+    {
+      onClick: () => {
+        message.success("List Cleared");
+      },
+      icon: (
+        <svg
+          className={classes.action_icons}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      ),
+      name: "Clear List",
+    },
+  ];
 
-      setLivelistItems(result.data.retailer_live_products);
-    }).catch(err => message.error(err.message));
-  }, [forceUpdate])
+  useEffect(() => {
+    axios
+      .get(`/users/${userId}`)
+      .then((result) => {
+        if (result.status !== 200) {
+          return message.error(result.statusText);
+        }
+
+        setLivelistItems(result.data.retailer_live_list);
+      })
+      .catch((err) => message.error(err.message));
+  }, [forceUpdate, axios, userId]);
 
   return (
-    <div className={'mx-auto'} style={{ width: '96%' }}>
-      <Toolbar title={'Live List'} actions={LiveListActions} />
+    <div className={"mx-auto"} style={{ width: "96%" }}>
+      <Toolbar title={"Live List"} actions={LiveListActions} />
       <Spin
         spinning={isLoading}
         size={"large"}
@@ -67,27 +104,27 @@ const LiveList = () => {
           <LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} spin />
         }
       >
-        {
-          livelistItems.length > 0 ?
-            livelistItems
-              .slice(
-                (paginationState.currentPage - 1) * paginationState.pageSize,
-                paginationState.currentPage * paginationState.pageSize
-              )
-              .map(ilistItem => <LiveListCard {...ilistItem} />)
-            : <div
-              className="bg-white"
-              style={{ padding: "50px 0px", marginBottom: "30px" }}
-            >
-              <Empty
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                imageStyle={{
-                  height: 80,
-                }}
-                description={<span>No product found</span>}
-              />
-            </div>
-        }
+        {livelistItems.length > 0 ? (
+          livelistItems
+            .slice(
+              (paginationState.currentPage - 1) * paginationState.pageSize,
+              paginationState.currentPage * paginationState.pageSize
+            )
+            .map((ilistItem) => <LiveListCard {...ilistItem} />)
+        ) : (
+          <div
+            className="bg-white"
+            style={{ padding: "50px 0px", marginBottom: "30px" }}
+          >
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              imageStyle={{
+                height: 80,
+              }}
+              description={<span>No product found</span>}
+            />
+          </div>
+        )}
         <hr style={{ margin: "25px 10px" }} />
         <Pagination
           total={
@@ -111,7 +148,7 @@ const LiveList = () => {
         />
       </Spin>
     </div>
-  )
-}
+  );
+};
 
-export default LiveList
+export default LiveList;

@@ -7,10 +7,31 @@
   /* margin: 5px; */
 }
 
+@media only screen and (max-width: 600px) {
+  .product-category {
+    /* grid-template-columns: repeat(3,auto); */
+    /* background-color: yellow; */
+display: flex;
+flex-wrap: nowrap;
+overflow-x: auto;
+padding-bottom: 15px;
+max-width: 95vw;
+    /* grid-gap: 3px; */
+  }
+
+  .single-category{
+    min-width: 136px !important;
+    border-radius: 8px;
+    padding: 4px  !important;
+  }
+}
+
+
+
 .single-category {
   /* background: rgb(248, 249, 251); */
   padding: 8px;
-  border-radius: 4px;
+  border-radius: 8px;
   /* margin-left: 5px; */
   min-width: 200px;
   text-align: center;

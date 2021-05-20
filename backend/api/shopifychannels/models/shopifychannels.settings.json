@@ -33,15 +33,15 @@
       "type": "string",
       "required": true
     },
-    "retailersdetails": {
-      "via": "shopifychannels",
-      "plugin": "users-permissions",
-      "model": "user"
-    },
     "productdetails": {
       "via": "shopifychannels",
       "collection": "product-details",
       "dominant": true
+    },
+    "retailersdetails": {
+      "via": "retailer_shopify_channels",
+      "plugin": "users-permissions",
+      "model": "user"
     }
   }
 }

@@ -1,0 +1,68 @@
+const TrackOrder = [
+    {
+        key: "1",
+        status: "Order Placed",
+        activity: "Order placed for Pillow Cart",
+        location: "Delhi",
+        date: " 20 Feb 2021 , Wed",
+        time: "11:40 AM",
+    },
+    {
+        key: "2",
+        status: "Accepted",
+        activity: "Order accepted by warehouse F2k_97",
+        location: "Delhi",
+        date: " 20 Feb 2021 , Wed",
+        time: "11:50 AM",
+    },
+    {
+        key: "3",
+        status: "Dispatched",
+        activity: "Order dispatched from warehouse F2k_97 to Jaipur station",
+        location: "Delhi",
+        date: " 21 Feb 2021 , Thur",
+        time: "5:20 PM",
+    },
+    {
+        key: "4",
+        status: "In Transit",
+        activity: "Order received at Jaipur hub",
+        location: "Jaipur",
+        date: " 22 Feb 2021 , Fri",
+        time: "3:40 AM",
+    },
+    {
+        key: "5",
+        status: "In Transit",
+        activity: "Order shipped to Banglore hub",
+        location: "Jaipur",
+        date: " 22 Feb 2021 , Fri",
+        time: "2:30 PM",
+    },
+    {
+        key: "6",
+        status: "In Transit",
+        activity: "Order received at Banglore hub",
+        location: "Banglore",
+        date: " 23 Feb 2021 , Sat",
+        time: "11:40 AM",
+    },
+    {
+        key: "7",
+        status: "Out For Delivery",
+        activity: "Order out for by Ecart delivery person",
+        location: "Banglore",
+        date: " 24 Feb 2021 , Sun",
+        time: "11:40 AM",
+    },
+    {
+        key: "8",
+        status: "Delivered",
+        activity: "Order delivered successfully",
+        location: "Banglore",
+        date: " 24 Feb 2021 , Sun",
+        time: "2:40 PM",
+    },
+]
+
+export default TrackOrder;

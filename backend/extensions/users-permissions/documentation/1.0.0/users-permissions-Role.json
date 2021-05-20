@@ -565,23 +565,10 @@
                 "type": {
                   "type": "string",
                   "enum": [
-                    "wholeseller",
+                    "wholesaler",
                     "retailer",
-                    "guest",
                     "admin"
                   ]
-                },
-                "product_details": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "import_list_products": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
                 },
                 "fullname": {
                   "type": "string"
@@ -589,13 +576,13 @@
                 "mobile": {
                   "type": "string"
                 },
-                "shopifychannels": {
+                "retailer_shopify_channels": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   }
                 },
-                "retailer_live_products": {
+                "retailer_live_list": {
                   "type": "component"
                 },
                 "wallet": {
@@ -603,6 +590,24 @@
                 },
                 "transaction_history": {
                   "type": "component"
+                },
+                "wholesaler_products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "retailer_import_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "warehouses": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "created_by": {
                   "type": "string"

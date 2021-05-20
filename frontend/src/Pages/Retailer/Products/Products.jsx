@@ -204,15 +204,11 @@ class Products extends React.Component {
       // moment(a.createdAt).format("YYYY-MM-DD")
     );
 
-    const {
-      isSearchBtnActive,
-      activeSearchBtnId,
-      selectedCategory,
-    } = this.state;
+    const { isSearchBtnActive, activeSearchBtnId, selectedCategory } =
+      this.state;
 
     const productListLength = dataSource && dataSource.length;
     const index = (this.state.currentPage - 1) * this.state.pageSize;
-    const totalPages = Math.ceil(productListLength / this.state.pageSize);
 
     return (
       <div className={classes.wrapper}>
