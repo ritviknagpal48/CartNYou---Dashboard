@@ -10,8 +10,8 @@ export const getLatestRetailerProductList = async (userId, token) => {
   if (!userInfo || userInfo.status !== 200)
     return new Error("Cannot Get User info for specified ID.");
 
-  const shopify_list = !!userInfo.data.retailer_live_products
-    ? userInfo.data.retailer_live_products
+  const shopify_list = !!userInfo.data.retailer_live_list
+    ? userInfo.data.retailer_live_list
     : [];
 
   return shopify_list;
@@ -30,7 +30,7 @@ export const getSelectedProduct = async (id, token) => {
 export const getPublishingProduct = async (retailer_price, selectedProduct) => {
   let title = selectedProduct.product_name;
   let body_html = selectedProduct.product_description;
-  let image = selectedProduct.images;
+  let images = selectedProduct.images.map((x) => ({ src: x.url }));
   let product_type = selectedProduct.product_category.categoryName;
   let tags = selectedProduct.product_tags;
   let variants = [
@@ -45,7 +45,7 @@ export const getPublishingProduct = async (retailer_price, selectedProduct) => {
   const shopify_product = {
     title,
     body_html,
-    image,
+    images,
     product_type,
     tags,
     variants,
@@ -105,7 +105,7 @@ export const addItemToLiveList = async (
   const response = await axiosInstance.put(
     `/users/${userId}`,
     {
-      retailer_live_products: shopify_list,
+      retailer_live_list: shopify_list,
     },
     {
       headers: {
@@ -134,7 +134,7 @@ export const removeItemFromLiveList = async (userId, item, token) => {
   const response = await axiosInstance.put(
     `/users/${userId}`,
     {
-      retailer_live_products: new_shopify_list,
+      retailer_live_list: new_shopify_list,
     },
     {
       headers: {

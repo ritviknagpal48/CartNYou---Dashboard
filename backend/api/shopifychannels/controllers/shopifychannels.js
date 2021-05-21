@@ -25,23 +25,29 @@ module.exports = {
     const { request } = ctx;
     const { targetURL } = request.body;
     const response = await axios.get(targetURL);
+    console.log(response.data);
     const { orders } = response.data;
     if (!orders) return [];
     let result = [];
 
-    result = orders.flatMap((order) => {
-      return order.line_items.map((x) => ({
-        ...x,
-        order_id: order.id,
-        shipping_address: order.shipping_address,
-        customer: {
-          email: order.customer.email,
-          first_name: order.customer.first_name,
-          last_name: order.customer.last_name,
-        },
-        financial_status: order.financial_status,
-      }));
-    });
+    result = orders
+      .flatMap((order) => {
+        if (!!order.customer && !!order.shipping_address) {
+          return order.line_items.map((x) => ({
+            ...x,
+            order_id: order.id,
+            shipping_address: order.shipping_address,
+            customer: {
+              email: order.customer.email,
+              first_name: order.customer.first_name,
+              last_name: order.customer.last_name,
+            },
+            financial_status: order.financial_status,
+          }));
+        }
+        return null;
+      })
+      .filter((x) => !!x);
 
     return { orders: result };
   },

@@ -98,6 +98,8 @@ const ImportList = () => {
             ? res.data.retailer_import_list
             : [];
 
+        console.log({ import_list });
+
         setImportListData(import_list);
         setForceUpdate(false);
       })
