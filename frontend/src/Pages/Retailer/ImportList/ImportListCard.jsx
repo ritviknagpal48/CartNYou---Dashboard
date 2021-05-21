@@ -1,26 +1,17 @@
 import {
-  message,
-  Modal,
-  Space,
-  Button,
-  Empty,
-  Checkbox,
-  Spin,
-  notification,
-} from "antd";
+  DeleteOutlined,
+  LoadingOutlined,
+  SendOutlined,
+} from "@ant-design/icons";
+import { Button, Checkbox, Empty, message, Modal, Space, Spin } from "antd";
+import PushToShopify from "Components/Retailer/PushToShopify";
 import { AuthContext } from "Contexts/Auth";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  DeleteOutlined,
-  SendOutlined,
-  LoadingOutlined,
-} from "@ant-design/icons";
-import { removeItemFromImportList } from "./importListUtils";
-import PushToShopify from "Components/Retailer/PushToShopify";
-
 import ShopifyIcon from "../../../assets/shopify.svg";
 import "./importList.css";
+import { removeItemFromImportList } from "./importListUtils";
+
 // import { useState } from 'react'
 
 const ImportListCard = ({
@@ -260,16 +251,17 @@ const ImportListCard = ({
               product_category,
             }}
             onSuccess={(id) => {
-              removeItemFromImportList(userid, id, token).then(() => {
-                setshowPushToShopifyModal(false);
-                setIsPublishing(false);
-                onDeleted(product_id);
-                notification.success({
-                  description: "Product published successfully.",
-                  message: "Success",
-                  duration: 2,
-                });
-              });
+              setshowPushToShopifyModal(false);
+              setIsPublishing(false);
+              onDeleted(product_id);
+              // removeItemFromImportList(userid, id, token).then(() => {
+              //   setIsPublishing(false);
+              //   notification.success({
+              //     description: "Product published successfully.",
+              //     message: "Success",
+              //     duration: 2,
+              //   });
+              // });
             }}
             onError={() => {
               setIsPublishing(false);

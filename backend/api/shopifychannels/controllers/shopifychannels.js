@@ -11,7 +11,7 @@ module.exports = {
     try {
       const { request } = ctx;
       const { targetURL, body, headers } = request.body;
-      console.log(targetURL, headers, body);
+      // console.log(targetURL, headers, body);
       const response = await axios.post(targetURL, body, {
         headers: { ...headers },
       });
@@ -25,7 +25,7 @@ module.exports = {
     const { request } = ctx;
     const { targetURL } = request.body;
     const response = await axios.get(targetURL);
-    console.log(response.data);
+    // console.log(response.data);
     const { orders } = response.data;
     if (!orders) return [];
     let result = [];

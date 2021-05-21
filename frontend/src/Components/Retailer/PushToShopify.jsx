@@ -1,10 +1,9 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import { Button, Descriptions, InputNumber, Radio, Space, Spin } from "antd";
-import { axiosInstance } from "Contexts/useAxios";
 import { AuthContext } from "Contexts/Auth";
+import { axiosInstance } from "Contexts/useAxios";
 import React, { Component } from "react";
 import "./PushToShopify.css";
-import { addItemToLiveList } from "./PushToShopifyUtils";
 
 export class PushToShopify extends Component {
   constructor(props) {
@@ -141,9 +140,7 @@ export class PushToShopify extends Component {
       quantity,
       userId,
       userToken,
-      selectedChannel,
       retailer_price,
-      product_category,
     } = this.state;
 
     const { onSuccess, onError, onBegin } = this.props;
@@ -276,13 +273,6 @@ export class PushToShopify extends Component {
       );
     }
 
-    console.log({
-      retailer_price,
-      product_detail,
-      selectedChannel,
-      wholesaler_name: this.context.user.fname,
-      product_category,
-    });
     if (step === 2) {
       return (
         <div className="addtochannel" style={{ cursor: "default" }}>
@@ -401,16 +391,37 @@ export class PushToShopify extends Component {
             <Button
               onClick={(e) => {
                 onBegin && onBegin();
-                addItemToLiveList(
-                  userId,
-                  { retailer_price, product_detail },
-                  userToken,
-                  selectedChannel
-                )
+
+                axiosInstance
+                  .post(
+                    "/others/publishProduct",
+                    {
+                      userid: userId,
+                      productid: product_detail,
+                      channelid: this.state.selectedChannelID,
+                      retailer_price,
+                    },
+                    {
+                      headers: {
+                        Authorization: `Bearer ${userToken}`,
+                      },
+                    }
+                  )
                   .then(() => {
                     onSuccess && onSuccess(product_detail);
                   })
                   .catch(() => onError && onError());
+
+                // addItemToLiveList(
+                //   userId,
+                //   { retailer_price, product_detail },
+                //   userToken,
+                //   selectedChannel
+                // )
+                //   .then(() => {
+                //     onSuccess && onSuccess(product_detail);
+                //   })
+                //   .catch(() => onError && onError());
               }}
               style={{
                 background: "#ef4444",

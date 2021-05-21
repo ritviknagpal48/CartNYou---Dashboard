@@ -1,40 +1,12 @@
-import { Checkbox, message } from "antd";
-import useAxios from "Contexts/useAxios";
-import { useEffect, useState } from "react";
+import { Checkbox } from "antd";
 import "./LiveList.css";
 
 const LiveListCard = ({
   retailer_price,
-  product_detail: {
-    product_name,
-    admin_status,
-    product_category,
-    users_detail,
-  },
+  product_detail: { product_name, admin_status },
+  wholesaler_name,
+  category_name,
 }) => {
-  const { axios } = useAxios();
-
-  const [extraInfo, setExtraInfo] = useState({
-    category: "",
-    channel: "Default",
-    vendor: "",
-  });
-
-  useEffect(() => {
-    (async function () {
-      const prod_ctg = await axios.get(
-        `/product-categories/${product_category}`
-      );
-      const vendor_info = await axios.get(`/users/${users_detail}`);
-      setExtraInfo({
-        category: prod_ctg.data.categoryName,
-        vendor: vendor_info.data.username,
-        channel: "Default",
-      });
-      // console.log({ prod_ctg, vendor_info })
-    })().catch((err) => message.error(err.message));
-  }, [axios, product_category, users_detail]);
-
   return (
     <div className={""}>
       <div className={"mb-2"}>
@@ -46,17 +18,17 @@ const LiveListCard = ({
             <div className="head-title">Product Name</div>
             <div className="title-body">{product_name}</div>
           </div>
-          <div className="card-detail">
+          {/* <div className="card-detail">
             <div className="head-title">Channel Name</div>
             <div className="title-body">{extraInfo.channel}</div>
-          </div>
+          </div> */}
           <div className="card-detail">
             <div className="head-title">Category</div>
-            <div className="title-body">{extraInfo.category}</div>
+            <div className="title-body">{category_name}</div>
           </div>
           <div className="card-detail">
             <div className="head-title">Vendor Name</div>
-            <div className="title-body">{extraInfo.vendor}</div>
+            <div className="title-body">{wholesaler_name}</div>
           </div>
           <div className="card-detail">
             <div className="head-title">Retailer Price</div>

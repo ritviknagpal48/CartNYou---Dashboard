@@ -26,8 +26,8 @@
     },
     {
       "method": "POST",
-      "path": "/others",
-      "handler": "others.create",
+      "path": "/others/publishProduct",
+      "handler": "others.publishProduct",
       "config": {
         "policies": []
       }

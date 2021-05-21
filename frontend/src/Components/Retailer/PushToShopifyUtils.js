@@ -68,6 +68,7 @@ export const publishToShopify = async (selectedChannel, publishingProduct) => {
     method: "POST",
   };
 
+  // Request saved
   return await axiosInstance.post("/proxy", body).catch((error) => {
     // console.log(error);
   });
@@ -87,10 +88,12 @@ export const addItemToLiveList = async (
 ) => {
   if (!userId || !items) return new Error("UserID and Items are required.");
 
+  // Request 1
   let res = await getLatestRetailerProductList(userId, token);
   let shopify_list = res;
   //   let shopifychannels = res_array[1];
 
+  // Requet 2
   let selectedProduct = await getSelectedProduct(items.product_detail, token);
 
   let publishingProduct = await getPublishingProduct(
@@ -98,10 +101,12 @@ export const addItemToLiveList = async (
     selectedProduct
   );
 
+  // Request 3
   await publishToShopify(selectedChannel, publishingProduct);
 
   shopify_list.push(items);
   // const new_shopify_list = [...new Set([...shopify_list, ...items])];
+  // Request 4
   const response = await axiosInstance.put(
     `/users/${userId}`,
     {

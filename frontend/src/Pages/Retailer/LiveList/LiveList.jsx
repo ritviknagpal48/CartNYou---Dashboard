@@ -89,13 +89,14 @@ const LiveList = () => {
           return message.error(result.statusText);
         }
 
+        console.log({ livelistItems: result.data.retailer_live_list });
         setLivelistItems(result.data.retailer_live_list);
       })
       .catch((err) => message.error(err.message));
   }, [forceUpdate, axios, userId]);
 
   return (
-    <div className={"mx-auto"} style={{ width: "96%" }}>
+    <div className={"mx-auto"} style={{ width: "90vw" }}>
       <Toolbar title={"Live List"} actions={LiveListActions} />
       <Spin
         spinning={isLoading}
