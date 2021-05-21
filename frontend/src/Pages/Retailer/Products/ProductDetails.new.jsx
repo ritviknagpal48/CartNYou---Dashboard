@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import ReactQuill from "react-quill";
 import { useHistory, useLocation } from "react-router-dom";
 import { addItemToImportList } from "../ImportList/importListUtils";
+import { calculateCommissions } from "Components/adminUtils";
 import "./ProductDetails.css";
 
 // import { addItemToImportList } from "../ImportList/importListUtils";
@@ -76,6 +77,8 @@ const ProductDetails = () => {
   const [isProductAdded, setIsProductAdded] = useState(false);
 
   const product_images = images && images.length > 0 ? images : defaultImages;
+
+  const commission_value = calculateCommissions(location.state.detail);
 
   return (
     <div className={classes.wrapper} style={{ maxWidth: "95vw" }}>
@@ -178,7 +181,7 @@ const ProductDetails = () => {
                 {product_name}
               </span>
               <span className={"text-xl text-red-500 font-semibold my-2"}>
-                ₹ {product_mrp}
+                ₹ {parseInt(product_mrp) + commission_value}
                 <span className={"text-xs text-gray-400 font-normal ml-2"}>
                   Incl. of all taxes.
                 </span>

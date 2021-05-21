@@ -89,7 +89,6 @@ const LiveList = () => {
           return message.error(result.statusText);
         }
 
-        console.log({ livelistItems: result.data.retailer_live_list });
         setLivelistItems(result.data.retailer_live_list);
       })
       .catch((err) => message.error(err.message));

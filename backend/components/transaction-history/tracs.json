@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_transaction_history_tracs",
+  "info": {
+    "name": "Tracs",
+    "icon": "adjust"
+  },
+  "options": {},
+  "attributes": {
+    "amount": {
+      "type": "integer"
+    },
+    "Name": {
+      "type": "string"
+    }
+  }
+}

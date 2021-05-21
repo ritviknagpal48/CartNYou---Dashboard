@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import ShopifyIcon from "../../../assets/shopify.svg";
 import "./importList.css";
 import { removeItemFromImportList } from "./importListUtils";
+import { calculateCommissions } from "Components/adminUtils";
 
 // import { useState } from 'react'
 
@@ -23,6 +24,8 @@ const ImportListCard = ({
   id: product_id,
   onDeleted,
   onSelected,
+  sub_category,
+  sub_sub_category,
   // id: prodId
 }) => {
   const [showModal, setShowModal] = useState(false);
@@ -34,6 +37,13 @@ const ImportListCard = ({
     additionalInfo: { id: userid },
     token,
   } = useContext(AuthContext);
+
+  const commissions = calculateCommissions({
+    product_category,
+    product_mrp: price,
+    sub_category,
+    sub_sub_category,
+  });
 
   return (
     <div className={"relative"}>
@@ -88,7 +98,7 @@ const ImportListCard = ({
             </div>
             <div className="card-detail place-items-center">
               <div className="head-title">Price</div>
-              <div className="title-body">{price}</div>
+              <div className="title-body">{parseInt(price) + commissions}</div>
             </div>
             <div className="action card-detail col-span-2 md:col-span-1">
               <Space size="small" direction="vertical">
@@ -226,6 +236,7 @@ const ImportListCard = ({
           // }}
 
           onCancel={() => setshowPushToShopifyModal(false)}
+          confirmLoading={isPublishing}
           style={{
             borderRadius: "12px",
             overflow: "hidden",
@@ -247,7 +258,7 @@ const ImportListCard = ({
               product_id,
               displayName,
               quantity,
-              price,
+              price: parseInt(price) + commissions,
               product_category,
             }}
             onSuccess={(id) => {

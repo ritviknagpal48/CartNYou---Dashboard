@@ -17,6 +17,15 @@ import TableComponent from "../../../Components/TableComponent";
 import "./Orders.css";
 import { OrdersMenuButton } from "./OrdersMenuButton";
 import OrderTableHeading from "./orderTableHeading";
+import { calculateCommissions } from "Components/adminUtils";
+
+// Quantity: 3
+// Published amount : 2500
+// Order amount : 2500 * 3 (Published X Qunatity)
+// Product Mrp : 1500 (wholesaler + cOmmission)
+// Settlement amount : 1500 * 3 (Product Mrp [wholesaler price + commission] X Quantity)
+
+// Total Amount : Selltement + commission + delivery
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4",
@@ -54,9 +63,13 @@ class Orders extends React.Component {
       courier_info: null,
       order_info: null,
       amounts: {
+        settlement: 0,
         order: 0,
         total: 0,
         delivery: 0,
+        mrp: 0,
+        quantity: 0,
+        published: 0,
       },
     },
     product_info: null,
@@ -138,8 +151,8 @@ class Orders extends React.Component {
   // settle order here
   handleInvoiceModalOK = () => {
     const { wallet } = this.context.additionalInfo;
-    const { total } = this.state.invoice_info.amounts;
-    if (wallet < total)
+    const { settlement } = this.state.invoice_info.amounts;
+    if (wallet < settlement)
       return notification.open({
         message: `Insufficient Balance ${wallet}`,
         type: "error",
@@ -155,7 +168,7 @@ class Orders extends React.Component {
         return notification.open({
           message: `Order Settled.`,
           type: "success",
-          description: `Current Balance ${wallet - total}`,
+          description: `Current Balance ${wallet - settlement}`,
           placement: "topRight",
           duration: 1.5,
         });
@@ -243,10 +256,11 @@ class Orders extends React.Component {
           is_loading: false,
         });
       })
-      .catch((error) => {});
+      .catch(() => {});
   };
 
   handleOrderClick = async (order) => {
+    // console.log({ order });
     this.setState({ is_loading: true, delivery_service: "" });
     await this.loadDeliveryServices({
       length: 1,
@@ -266,7 +280,6 @@ class Orders extends React.Component {
       invoice_info: {
         ...inv_info,
         order_info: order,
-        amounts: { order: parseFloat(prod.product_mrp), total: 0, delivery: 0 },
       },
       drop_pincode: order.shipping_address.zip,
       pickup_pincode: 201313,
@@ -284,23 +297,36 @@ class Orders extends React.Component {
     this.setState({ invoiceModalVisible: false });
   };
 
-  handleModalOk = (e) => {
+  handleModalOk = () => {
     this.setState({ modalLoading: false, modalVisible: false });
     const dpart = this.state.rate_list.find(
       (x) => "" + x.courier_id === "" + this.state.delivery_service
     );
     if (!dpart) return message.error(`Could Not find Delivery Partner`);
     const { invoice_info, product_info } = this.state;
+    console.log({ invoice_info, product_info });
+
+    const commission = calculateCommissions(product_info);
+    const quantity = parseInt(invoice_info.order_info.quantity);
+    const settlement =
+      (parseInt(product_info.product_mrp) + commission) * quantity;
+
+    const amounts = {
+      quantity,
+      published: parseInt(invoice_info.order_info.price),
+      mrp: parseInt(product_info.product_mrp) + commission,
+      order: parseInt(invoice_info.order_info.price) * quantity,
+      settlement: settlement,
+      delivery: parseInt(dpart.delivered_charges),
+    };
+
     this.setState({
       invoice_info: {
         ...invoice_info,
         courier_info: dpart,
         amounts: {
-          order: product_info.product_mrp,
-          delivery: dpart.delivered_charges,
-          total:
-            parseFloat(dpart.delivered_charges) +
-            parseFloat(product_info.product_mrp),
+          ...amounts,
+          total: amounts.settlement + amounts.delivery,
         },
       },
       invoiceModalVisible: true,
@@ -382,7 +408,11 @@ class Orders extends React.Component {
                 callStatus: (
                   <Button
                     type={"outlined"}
-                    color={"#ef4444"}
+                    style={{
+                      color: "#ef4444",
+                      border: "1px solid #ef4444",
+                      borderRadius: "6px",
+                    }}
                     onClick={() => this.handleOrderClick(order)}
                   >
                     Settle
@@ -533,11 +563,25 @@ class Orders extends React.Component {
             <div className="text-sm text-gray-700 font-medium">
               {this.state.drop_pincode}
             </div>
+            <div className="text-sm text-gray-600 font-medium">Quantity</div>
+            <div className="text-sm text-gray-700 font-medium">
+              {this.state.invoice_info.amounts.quantity}
+            </div>
             <div className="text-sm text-gray-600 font-medium">
-              Order Amount
+              Published Amount
             </div>
             <div className="text-sm text-gray-700 font-medium">
-              ₹ {parseFloat(this.state.invoice_info.amounts.order).toFixed(2)}
+              ₹ {parseInt(this.state.invoice_info.amounts.published)}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">Product MRP</div>
+            <div className="text-sm text-gray-700 font-medium">
+              ₹ {parseFloat(this.state.invoice_info.amounts.mrp).toFixed(2)}
+            </div>
+            <div className="text-sm text-gray-600 font-medium">
+              Settlement Amount
+            </div>
+            <div className="text-sm text-gray-700 font-medium">
+              ₹ {parseFloat(this.state.invoice_info.amounts.settlement)}
             </div>
             <div className="text-sm text-gray-600 font-medium">
               Delivery Partner

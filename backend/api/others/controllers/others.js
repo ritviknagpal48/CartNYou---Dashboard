@@ -11,12 +11,12 @@ module.exports = {
     try {
       const { body } = ctx.request;
 
-      const { userid, productid, channelid, retailer_price } = body;
+      const { userid: id, productid, channelid, retailer_price } = body;
 
       // get User
       const user = await strapi
         .query("user", "users-permissions")
-        .findOne({ id: userid });
+        .findOne({ id });
 
       // Check user exists
       if (!user) return ctx.res.status(400).json({ error: "User Not found" });
@@ -71,28 +71,108 @@ module.exports = {
         category_name: entity.product_category.categoryName,
       };
 
-      // let new_live_list = [...user.retailer_live_list, newObject];
-      let new_live_list = user.retailer_live_list;
-      new_live_list.push(newObject);
+      let retailer_live_list = [
+        ...user.retailer_live_list.map((x) => {
+          const { id, _id, _v, ...toSend } = x;
+          return toSend;
+        }),
+        // ...user.retailer_live_list,
+        newObject,
+      ];
 
-      let new_import_list = user.retailer_import_list.filter(
-        (x) => x.id !== productid
-      );
+      let retailer_import_list = [];
+      for (item of user.retailer_import_list) {
+        if (item.id === productid) continue;
+        retailer_import_list.push(item);
+      }
+
+      const update_response = await strapi
+        .query("user", "users-permissions")
+        .update(
+          { id },
+          {
+            retailer_live_list,
+            retailer_import_list,
+          }
+        )
+        .catch((error) => console.log({ updateError: error }));
+
+      // Return published shopify item
+      return {
+        status: "success",
+      };
+    } catch (error) {
+      return {
+        status: "error",
+        error,
+      };
+    }
+  },
+  updateImportList: async (ctx) => {
+    try {
+      const { body } = ctx.request;
+      const { userid, items } = body;
+
+      const user = await strapi
+        .query("user", "users-permissions")
+        .findOne({ id: userid });
+
+      let new_import_list = user.retailer_import_list;
+      new_import_list.push(...items);
 
       const strapi_response = await strapi
         .query("user", "users-permissions")
         .update(
           { id: userid },
           {
-            retailer_live_list: new_live_list,
             retailer_import_list: new_import_list,
           }
         );
 
-      // Return published shopify item
       return {
         status: "success",
-        data: new_import_list,
+      };
+    } catch (error) {
+      return {
+        status: "error",
+        data: error,
+      };
+    }
+  },
+  fetchImportList: async (ctx) => {
+    try {
+      const { body } = ctx.request;
+      const { userid } = body;
+
+      const user = await strapi
+        .query("user", "users-permissions")
+        .findOne({ id: userid }, [
+          {
+            path: "retailer_import_list",
+            populate: [
+              {
+                path: "product_category",
+              },
+              {
+                path: "sub_category",
+              },
+              {
+                path: "sub_sub_category",
+              },
+            ],
+          },
+        ]);
+
+      if (!user) throw new Error("User not found");
+
+      const import_list = user.retailer_import_list;
+
+      // const encoded = window.atob(JSON.stringify(import_list));
+
+      return {
+        status: "success",
+        import_list,
+        // encoded,
       };
     } catch (error) {
       return {

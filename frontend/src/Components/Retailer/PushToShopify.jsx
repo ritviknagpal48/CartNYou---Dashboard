@@ -278,167 +278,178 @@ export class PushToShopify extends Component {
         <div className="addtochannel" style={{ cursor: "default" }}>
           {/* <span>Confirm product details</span> */}
           {/* <hr style={{ margin: "10px 0px", borderColor: "transparent" }} /> */}
-
-          <Descriptions
-            title="Confirm product details"
-            bordered
-            layout={"horizontal"}
-            column={1}
-            style={{ borderRadius: "8px" }}
+          <Spin
+            indicator={
+              <LoadingOutlined style={{ fontSize: 36, color: "#ef4444" }} />
+            }
+            spinning={isfetching}
           >
-            <Descriptions.Item label="Product Name">
-              {productName}
-            </Descriptions.Item>
-            <Descriptions.Item label="Available Quantity">
-              {quantity}
-            </Descriptions.Item>
-            <Descriptions.Item label="Product MRP">
-              &#8377; {product_mrp}
-            </Descriptions.Item>
-          </Descriptions>
-
-          <div>
-            <div
-              className=" font-bold"
-              style={{
-                color: "#000000d9",
-                fontSize: "16px",
-                margin: "20px 0px",
-              }}
+            <Descriptions
+              title="Confirm product details"
+              bordered
+              layout={"horizontal"}
+              column={1}
+              style={{ borderRadius: "8px" }}
             >
-              Update Price
-            </div>
+              <Descriptions.Item label="Product Name">
+                {productName}
+              </Descriptions.Item>
+              <Descriptions.Item label="Available Quantity">
+                {quantity}
+              </Descriptions.Item>
+              <Descriptions.Item label="Product MRP">
+                &#8377; {product_mrp}
+              </Descriptions.Item>
+            </Descriptions>
 
-            <div
-              style={{
-                display: "flex",
-                flexdirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                border: "1px solid #f0f0f0",
-                borderRadius: "8px",
-              }}
-            >
+            <div>
               <div
+                className=" font-bold"
                 style={{
-                  padding: "16px 24px",
-                  background: "#fafafa",
-                  minWidth: "209px",
-                  borderRight: "1px solid #f0f0f0",
+                  color: "#000000d9",
+                  fontSize: "16px",
+                  margin: "20px 0px",
                 }}
               >
-                Update product price
+                Update Price
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexdirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  border: "1px solid #f0f0f0",
+                  borderRadius: "8px",
+                }}
+              >
+                <div
+                  style={{
+                    padding: "16px 24px",
+                    background: "#fafafa",
+                    minWidth: "209px",
+                    borderRight: "1px solid #f0f0f0",
+                  }}
+                >
+                  Update product price
+                </div>
+                <div
+                  style={{
+                    padding: "0px 24px",
+                    display: "flex",
+                    alignItems: "center",
+                    //   background: "#fafafa",
+                    //   width: "100%",
+                  }}
+                >
+                  <span style={{ fontSize: "18px", marginRight: "6px" }}>
+                    &#8377;
+                  </span>
+
+                  <InputNumber
+                    required
+                    min={0}
+                    defaultValue={product_mrp}
+                    onChange={this.onPriceChange}
+                  ></InputNumber>
+                </div>
               </div>
               <div
                 style={{
-                  padding: "0px 24px",
+                  fontSize: "12px",
+                  color: "#787878",
+                  margin: "12px 0px 20px",
+                }}
+              >
+                <span
+                  style={{
+                    color: "#ef4444",
+                    fontSize: "16px",
+                    fontWeight: 600,
+                  }}
+                >
+                  *
+                </span>{" "}
+                Add the updated price before publishing the product to shopify.
+                Default price will be product MRP. You won't be able to change
+                it later.
+              </div>
+            </div>
+            <Space direction="horizontal" style={{ float: "right" }}>
+              <Button
+                onClick={this.handleBack}
+                style={{
+                  background: "#fff",
+                  color: "#ef4444",
+                  borderRadius: "6px",
                   display: "flex",
                   alignItems: "center",
-                  //   background: "#fafafa",
-                  //   width: "100%",
+                  padding: "4px 25px",
+                  border: "1px solid #ef4444",
+                  //   float: "right",
+                  // width: "33%",
                 }}
               >
-                <span style={{ fontSize: "18px", marginRight: "6px" }}>
-                  &#8377;
-                </span>
+                Back
+              </Button>
+              <Button
+                onClick={(e) => {
+                  onBegin && onBegin();
+                  this.setState({ isfetching: true }, () => {
+                    axiosInstance
+                      .post(
+                        "/others/publishProduct",
+                        {
+                          userid: userId,
+                          productid: product_detail,
+                          channelid: this.state.selectedChannelID,
+                          retailer_price,
+                        },
+                        {
+                          headers: {
+                            Authorization: `Bearer ${userToken}`,
+                          },
+                        }
+                      )
+                      .then(() => {
+                        this.setState({ isfetching: false });
+                        onSuccess && onSuccess(product_detail);
+                      })
+                      .catch(() => {
+                        this.setState({ isfetching: false });
+                        onError && onError();
+                      });
+                  });
 
-                <InputNumber
-                  required
-                  min={0}
-                  defaultValue={product_mrp}
-                  onChange={this.onPriceChange}
-                ></InputNumber>
-              </div>
-            </div>
-            <div
-              style={{
-                fontSize: "12px",
-                color: "#787878",
-                margin: "12px 0px 20px",
-              }}
-            >
-              <span
+                  // addItemToLiveList(
+                  //   userId,
+                  //   { retailer_price, product_detail },
+                  //   userToken,
+                  //   selectedChannel
+                  // )
+                  //   .then(() => {
+                  //     onSuccess && onSuccess(product_detail);
+                  //   })
+                  //   .catch(() => onError && onError());
+                }}
                 style={{
-                  color: "#ef4444",
-                  fontSize: "16px",
-                  fontWeight: 600,
+                  background: "#ef4444",
+                  color: "white",
+                  borderRadius: "6px",
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "4px 25px",
+                  border: "1px solid transparent",
+                  float: "right",
+                  // width: "33%",
                 }}
               >
-                *
-              </span>{" "}
-              Add the updated price before publishing the product to shopify.
-              Default price will be product MRP. You won't be able to change it
-              later.
-            </div>
-          </div>
-          <Space direction="horizontal" style={{ float: "right" }}>
-            <Button
-              onClick={this.handleBack}
-              style={{
-                background: "#fff",
-                color: "#ef4444",
-                borderRadius: "6px",
-                display: "flex",
-                alignItems: "center",
-                padding: "4px 25px",
-                border: "1px solid #ef4444",
-                //   float: "right",
-                // width: "33%",
-              }}
-            >
-              Back
-            </Button>
-            <Button
-              onClick={(e) => {
-                onBegin && onBegin();
-
-                axiosInstance
-                  .post(
-                    "/others/publishProduct",
-                    {
-                      userid: userId,
-                      productid: product_detail,
-                      channelid: this.state.selectedChannelID,
-                      retailer_price,
-                    },
-                    {
-                      headers: {
-                        Authorization: `Bearer ${userToken}`,
-                      },
-                    }
-                  )
-                  .then(() => {
-                    onSuccess && onSuccess(product_detail);
-                  })
-                  .catch(() => onError && onError());
-
-                // addItemToLiveList(
-                //   userId,
-                //   { retailer_price, product_detail },
-                //   userToken,
-                //   selectedChannel
-                // )
-                //   .then(() => {
-                //     onSuccess && onSuccess(product_detail);
-                //   })
-                //   .catch(() => onError && onError());
-              }}
-              style={{
-                background: "#ef4444",
-                color: "white",
-                borderRadius: "6px",
-                display: "flex",
-                alignItems: "center",
-                padding: "4px 25px",
-                border: "1px solid transparent",
-                float: "right",
-                // width: "33%",
-              }}
-            >
-              Publish
-            </Button>
-            {/* </div> */}
-          </Space>
+                Publish
+              </Button>
+              {/* </div> */}
+            </Space>
+          </Spin>
         </div>
       );
     }

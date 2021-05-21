@@ -81,8 +81,8 @@ class AddShopifyForm extends Component {
       channelId: channelId,
     });
 
-    this.setState({});
     if (edit) {
+      // // this.setState({ isLoading: true });
       await axios
         .get(`/shopifychannels/${channelId}`, {
           headers: {
@@ -102,68 +102,80 @@ class AddShopifyForm extends Component {
     }
   }
 
-  onFinish = async (values) => {
-    this.setState({
-      channel_name: values.channel_name,
-      api_key: values.api_key,
-      key: values.key,
-      store_url: values.store_url,
-      shared_secret: values.shared_secret,
-    });
-
-    await axios
-      .post("/shopifychannels", this.state, {
-        headers: {
-          Authorization: `Bearer ${this.context.token}`,
-        },
-      })
-      .then((resp) => {
-        if (resp.status === 200) {
-          message.success(`Channel Added Successfully`);
-          this.props.history.push("/retailer/channel-list");
-        }
-      })
-      .catch((error) => {
-        if (error.status === 500) {
-          message.error("Something went wrong");
-          this.props.history.push("/retailer/channel-list");
-        } else {
-          message.error(`Please fill all the required fields`);
-        }
-        // console.log(error.message);
-      });
+  onFinish = (values) => {
+    this.setState(
+      {
+        channel_name: values.channel_name,
+        api_key: values.api_key,
+        key: values.key,
+        store_url: values.store_url,
+        shared_secret: values.shared_secret,
+        isLoading: true,
+      },
+      () => {
+        axios
+          .post("/shopifychannels", this.state, {
+            headers: {
+              Authorization: `Bearer ${this.context.token}`,
+            },
+          })
+          .then((resp) => {
+            this.setState({ isLoading: false });
+            if (resp.status === 200) {
+              message.success(`Channel Added Successfully`);
+              this.props.history.push("/retailer/channel-list");
+            }
+          })
+          .catch((error) => {
+            this.setState({ isLoading: false });
+            if (error.status === 500) {
+              message.error("Something went wrong");
+              this.props.history.push("/retailer/channel-list");
+            } else {
+              message.error(`Please fill all the required fields`);
+            }
+            // console.log(error.message);
+          });
+      }
+    );
   };
 
   onUpdateChannel = async (values) => {
-    this.setState({
-      channel_name: values.channel_name,
-      api_key: values.api_key,
-      key: values.key,
-      store_url: values.store_url,
-      shared_secret: values.shared_secret,
-    });
-
-    await axios
-      .put(`/shopifychannels/${this.state.channelId}`, this.state, {
-        headers: {
-          Authorization: `Bearer ${this.context.token}`,
-        },
-      })
-      .then((resp) => {
-        if (resp.status === 200) {
-          message.success(`Channel Updated Successfully`);
-          this.props.history.push("/retailer/channel-list");
-        }
-      })
-      .catch((error) => {
-        if (error.status === 500) {
-          message.error("Something went wrong");
-          this.props.history.push("/retailer/channel-list");
-        } else {
-          message.error(`Please fill all the required fields`);
-        }
-        // console.log(error.message);
-      });
+    this.setState(
+      {
+        channel_name: values.channel_name,
+        api_key: values.api_key,
+        key: values.key,
+        store_url: values.store_url,
+        shared_secret: values.shared_secret,
+        isLoading: true,
+      },
+      () => {
+        axios
+          .put(`/shopifychannels/${this.state.channelId}`, this.state, {
+            headers: {
+              Authorization: `Bearer ${this.context.token}`,
+            },
+          })
+          .then((resp) => {
+            this.setState({ isLoading: false });
+            if (resp.status === 200) {
+              message.success(`Channel Updated Successfully`);
+              this.props.history.push("/retailer/channel-list");
+            }
+          })
+          .catch((error) => {
+            this.setState({ isLoading: false });
+            if (error.status === 500) {
+              message.error("Something went wrong");
+              this.props.history.push("/retailer/channel-list");
+            } else {
+              message.error(`Please fill all the required fields`);
+            }
+            // console.log(error.message);
+          });
+      }
+    );
   };
 
   render() {

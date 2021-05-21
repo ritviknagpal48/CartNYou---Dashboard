@@ -3,6 +3,7 @@ import { Checkbox, Tag, Button, message, Modal } from "antd";
 import { Link } from "react-router-dom";
 import { addItemToImportList } from "Pages/Retailer/ImportList/importListUtils";
 import { AuthContext } from "Contexts/Auth";
+import { calculateCommissions } from "../adminUtils";
 
 const defaultImage = "/images/no_image.png";
 
@@ -18,6 +19,9 @@ class ProductCard extends React.Component {
 
   render() {
     const productCard = this.props.ProductData;
+
+    const commission_value = calculateCommissions(productCard);
+
     const image =
       productCard.images && productCard.images.length > 0
         ? productCard.images[0].url
@@ -106,7 +110,8 @@ class ProductCard extends React.Component {
                     //   padding: "8px 0px",
                   }}
                 >
-                  &#x20b9; {productCard.product_mrp}
+                  &#x20b9;{" "}
+                  {parseInt(productCard.product_mrp) + commission_value}
                 </span>
               </div>
             </div>

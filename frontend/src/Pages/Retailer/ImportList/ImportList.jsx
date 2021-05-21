@@ -91,12 +91,10 @@ const ImportList = () => {
     // }).catch(err => message.error(err.message));
 
     axios
-      .get(`/users/${id}`)
+      .post(`/others/fetchImportList`, { userid: id })
       .then((res) => {
         const import_list =
-          res.data && res.data.retailer_import_list
-            ? res.data.retailer_import_list
-            : [];
+          res.data && res.data.import_list ? res.data.import_list : [];
 
         console.log({ import_list });
 

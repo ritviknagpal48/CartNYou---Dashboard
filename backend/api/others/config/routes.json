@@ -33,9 +33,17 @@
       }
     },
     {
-      "method": "PUT",
-      "path": "/others/:id",
-      "handler": "others.update",
+      "method": "POST",
+      "path": "/others/updateImportList",
+      "handler": "others.updateImportList",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/others/fetchImportList",
+      "handler": "others.fetchImportList",
       "config": {
         "policies": []
       }
