@@ -27,6 +27,7 @@ const ImportListCard = ({
   product_name: displayName,
   qunatity: quantity,
   product_mrp: price,
+  product_category,
   images,
   id: product_id,
   onDeleted,
@@ -249,7 +250,15 @@ const ImportListCard = ({
           maskStyle={{ background: "#00000034" }}
         >
           <PushToShopify
-            data={{ userid, token, product_id, displayName, quantity, price }}
+            data={{
+              userid,
+              token,
+              product_id,
+              displayName,
+              quantity,
+              price,
+              product_category,
+            }}
             onSuccess={(id) => {
               removeItemFromImportList(userid, id, token).then(() => {
                 setshowPushToShopifyModal(false);

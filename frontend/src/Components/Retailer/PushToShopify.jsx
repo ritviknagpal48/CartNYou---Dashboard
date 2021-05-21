@@ -1,6 +1,7 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import { Button, Descriptions, InputNumber, Radio, Space, Spin } from "antd";
 import { axiosInstance } from "Contexts/useAxios";
+import { AuthContext } from "Contexts/Auth";
 import React, { Component } from "react";
 import "./PushToShopify.css";
 import { addItemToLiveList } from "./PushToShopifyUtils";
@@ -21,6 +22,10 @@ export class PushToShopify extends Component {
       product_detail:
         this.props && this.props.data && this.props.data.product_id
           ? this.props.data.product_id
+          : "",
+      product_category:
+        this.props && this.props.data && this.props.data.product_category
+          ? this.props.data.product_category
           : "",
       productName:
         this.props && this.props.data && this.props.data.displayName
@@ -62,27 +67,28 @@ export class PushToShopify extends Component {
         },
       })
       .then((response) => {
+        console.log(response);
         this.setState({
           channelList:
-            response && response.data && response.data.shopifychannels
-              ? response.data.shopifychannels
+            response && response.data && response.data.retailer_shopify_channels
+              ? response.data.retailer_shopify_channels
               : [],
 
           selectedChannelID:
             response &&
             response.data &&
-            response.data.shopifychannels &&
-            response.data.shopifychannels[0] &&
-            response.data.shopifychannels[0].id
-              ? response.data.shopifychannels[0].id
+            response.data.retailer_shopify_channels &&
+            response.data.retailer_shopify_channels[0] &&
+            response.data.retailer_shopify_channels[0].id
+              ? response.data.retailer_shopify_channels[0].id
               : "",
-          // selectedChannelID:
-          //   response &&
-          //   response.data &&
-          //   response.data.shopifychannels &&
-          //   response.data.shopifychannels[0]
-          //     ? response.data.shopifychannels[0]
-          //     : "",
+          selectedChannel:
+            response &&
+            response.data &&
+            response.data.retailer_shopify_channels &&
+            response.data.retailer_shopify_channels[0]
+              ? response.data.retailer_shopify_channels[0]
+              : "",
           isfetching: false,
         });
       })
@@ -137,6 +143,7 @@ export class PushToShopify extends Component {
       userToken,
       selectedChannel,
       retailer_price,
+      product_category,
     } = this.state;
 
     const { onSuccess, onError, onBegin } = this.props;
@@ -268,6 +275,14 @@ export class PushToShopify extends Component {
         </div>
       );
     }
+
+    console.log({
+      retailer_price,
+      product_detail,
+      selectedChannel,
+      wholesaler_name: this.context.user.fname,
+      product_category,
+    });
     if (step === 2) {
       return (
         <div className="addtochannel" style={{ cursor: "default" }}>
@@ -419,4 +434,5 @@ export class PushToShopify extends Component {
   }
 }
 
+PushToShopify.contextType = AuthContext;
 export default PushToShopify;

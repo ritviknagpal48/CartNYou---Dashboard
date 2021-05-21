@@ -98,7 +98,7 @@ const Login = ({ className }) => {
       },
       wallet: user.wallet,
     });
-    message.success(`Welcome Back, ${user.username}`, 1);
+    message.success(`Welcome, ${user.username}`, 1);
     history.push(`/${userType}/dashboard`);
   };
 
@@ -169,7 +169,7 @@ const Login = ({ className }) => {
         if (!rememberMe) {
           setAuth(AUTH_ACTIONS.REMOVE_LOCAL);
         }
-        message.success(`Welcome Back, ${user.username}`, 1);
+        message.success(`Welcome, ${user.username}`, 1);
         history.push(`/${userType}/dashboard`);
       });
   };

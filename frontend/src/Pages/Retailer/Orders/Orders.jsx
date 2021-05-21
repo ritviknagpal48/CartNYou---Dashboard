@@ -34,13 +34,14 @@ let ImportListActions = OrdersMenuButton;
 class Orders extends React.Component {
   state = {
     orderFilter: "any",
-    shopifyChannels: null,
+    retailer_shopify_channels: null,
     targetURL: "",
     orders: [],
     is_loading: true,
     searchText: "",
     searchedColumn: "",
     selectedChannelId: "",
+    selectedChannel: "",
     modalVisible: false,
     modalID: "",
     delivery_service: "",
@@ -71,7 +72,7 @@ class Orders extends React.Component {
     //   this.handleOrderClick("02938402938dhfksjdf");
     // };
 
-    if (this.state.shopifyChannels === null)
+    if (this.state.retailer_shopify_channels === null)
       await axiosInstance
         .get(`/users/${id}`, {
           headers: {
@@ -80,8 +81,8 @@ class Orders extends React.Component {
         })
         .then((response) => {
           const firstChannel =
-            response.data && response.data.shopifychannels[0]
-              ? response.data.shopifychannels[0]
+            response.data && response.data.retailer_shopify_channels[0]
+              ? response.data.retailer_shopify_channels[0]
               : null;
           const username =
             firstChannel && firstChannel.api_key ? firstChannel.api_key : "";
@@ -93,13 +94,17 @@ class Orders extends React.Component {
               : "";
 
           this.setState({
-            shopifyChannels:
-              response.data && response.data.shopifychannels
-                ? response.data.shopifychannels
+            retailer_shopify_channels:
+              response.data && response.data.retailer_shopify_channels
+                ? response.data.retailer_shopify_channels
                 : [],
             selectedChannelId:
-              response.data && response.data.shopifychannels[0]
-                ? response.data.shopifychannels[0].id
+              response.data && response.data.retailer_shopify_channels[0]
+                ? response.data.retailer_shopify_channels[0].id
+                : "",
+            selectedChannel:
+              response.data && response.data.retailer_shopify_channels
+                ? response.data.retailer_shopify_channels[0]
                 : "",
             targetURL: `https://${username}:${password}@${storeurl}/admin/api/2021-04/orders.json?status=any"`,
 
@@ -159,8 +164,9 @@ class Orders extends React.Component {
   };
 
   handleFilter = (e) => {
+    const { selectedChannelId } = this.state;
     this.setState({ orderFilter: e.target.value }, () => {
-      this.handleChange(this.state.selectedChannelId);
+      this.handleChange(selectedChannelId);
     });
   };
 
@@ -201,29 +207,28 @@ class Orders extends React.Component {
     this.setState({ is_loading: true });
     const { token } = this.context;
 
-    const selectedChannel = this.state.shopifyChannels.find(
+    const selectedChannel = this.state.retailer_shopify_channels.find(
       (channel) => channel.id === value
     );
 
-    const username =
-      selectedChannel && selectedChannel.api_key ? selectedChannel.api_key : "";
-    const password =
-      selectedChannel && selectedChannel.key ? selectedChannel.key : "";
-    const storeurl =
-      selectedChannel && selectedChannel.store_url
-        ? selectedChannel.store_url
-        : "";
+    if (!selectedChannel) return message.error("Something went wrong.");
+
+    const username = selectedChannel.api_key ? selectedChannel.api_key : "";
+    const password = selectedChannel.key ? selectedChannel.key : "";
+    const storeurl = selectedChannel.store_url ? selectedChannel.store_url : "";
 
     const targetURL = `https://${username}:${password}@${storeurl}/admin/api/2021-04/orders.json?status=${this.state.orderFilter}`;
     this.setState({
       targetURL,
+      selectedChannel,
+      selectedChannelId: value,
     });
 
     await axiosInstance
       .post(
         "/getOrders",
         {
-          targetURL: targetURL,
+          targetURL,
         },
         {
           headers: {
@@ -303,7 +308,7 @@ class Orders extends React.Component {
   };
 
   render() {
-    const { orderFilter, shopifyChannels } = this.state;
+    const { orderFilter, retailer_shopify_channels } = this.state;
 
     return (
       <div className={`${classes.wrapper} retailer-order-page`}>
@@ -334,7 +339,8 @@ class Orders extends React.Component {
                 </Radio.Group>
               </div>
 
-              {shopifyChannels && shopifyChannels.length > 0 ? (
+              {retailer_shopify_channels &&
+              retailer_shopify_channels.length > 0 ? (
                 <div
                   style={{ display: "flex", alignItems: "center" }}
                   className="pb-5"
@@ -355,7 +361,7 @@ class Orders extends React.Component {
                     style={{ width: 250 }}
                     onChange={this.handleChange}
                   >
-                    {shopifyChannels.map((channel, index) => {
+                    {retailer_shopify_channels.map((channel, index) => {
                       return (
                         <Select.Option key={index} value={channel.id}>
                           {channel.channel_name}
