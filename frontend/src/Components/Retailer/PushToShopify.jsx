@@ -66,7 +66,7 @@ export class PushToShopify extends Component {
         },
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           channelList:
             response && response.data && response.data.retailer_shopify_channels
