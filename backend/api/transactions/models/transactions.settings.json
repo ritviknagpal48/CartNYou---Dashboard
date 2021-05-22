@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "Transactions",
+  "info": {
+    "name": "Transactions",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "NAme": {
+      "type": "string"
+    },
+    "Amount": {
+      "type": "integer"
+    },
+    "rec": {
+      "type": "component",
+      "repeatable": true,
+      "component": "transaction-history.tracs"
+    }
+  }
+}

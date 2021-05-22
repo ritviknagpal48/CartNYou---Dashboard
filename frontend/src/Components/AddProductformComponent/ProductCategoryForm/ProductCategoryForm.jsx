@@ -189,7 +189,7 @@ export class ProductCategoryForm extends Component {
                 width={"250px"}
                 style={{ marginBottom: "15px" }}
                 src={warehouseImage}
-                alt="Warehouse Image"
+                alt="Warehouse"
               />
               You don't have any warehouse linked to add a product.
               <br />

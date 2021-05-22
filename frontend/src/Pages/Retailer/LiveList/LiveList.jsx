@@ -95,7 +95,7 @@ const LiveList = () => {
   }, [forceUpdate, axios, userId]);
 
   return (
-    <div className={"mx-auto"} style={{ width: "96%" }}>
+    <div className={"mx-auto"} style={{ width: "90vw" }}>
       <Toolbar title={"Live List"} actions={LiveListActions} />
       <Spin
         spinning={isLoading}

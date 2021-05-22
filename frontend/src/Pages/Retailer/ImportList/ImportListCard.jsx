@@ -1,35 +1,31 @@
 import {
-  message,
-  Modal,
-  Space,
-  Button,
-  Empty,
-  Checkbox,
-  Spin,
-  notification,
-} from "antd";
+  DeleteOutlined,
+  LoadingOutlined,
+  SendOutlined,
+} from "@ant-design/icons";
+import { Button, Checkbox, Empty, message, Modal, Space, Spin } from "antd";
+import PushToShopify from "Components/Retailer/PushToShopify";
 import { AuthContext } from "Contexts/Auth";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  DeleteOutlined,
-  SendOutlined,
-  LoadingOutlined,
-} from "@ant-design/icons";
-import { removeItemFromImportList } from "./importListUtils";
-import PushToShopify from "Components/Retailer/PushToShopify";
-
 import ShopifyIcon from "../../../assets/shopify.svg";
+import "./importList.css";
+import { removeItemFromImportList } from "./importListUtils";
+import { calculateCommissions } from "Components/adminUtils";
+
 // import { useState } from 'react'
 
 const ImportListCard = ({
   product_name: displayName,
   qunatity: quantity,
   product_mrp: price,
+  product_category,
   images,
   id: product_id,
   onDeleted,
   onSelected,
+  sub_category,
+  sub_sub_category,
   // id: prodId
 }) => {
   const [showModal, setShowModal] = useState(false);
@@ -41,6 +37,13 @@ const ImportListCard = ({
     additionalInfo: { id: userid },
     token,
   } = useContext(AuthContext);
+
+  const commissions = calculateCommissions({
+    product_category,
+    product_mrp: price,
+    sub_category,
+    sub_sub_category,
+  });
 
   return (
     <div className={"relative"}>
@@ -62,9 +65,9 @@ const ImportListCard = ({
             }}
           />
         </div>
-        <div className={"mb-2 ml-3"}>
-          <div className="bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center  w-full  md:grid-cols-5">
-            <div className="card-detail">
+        <div className={"mb-2"}>
+          <div className="import_list_card_wrapper bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center w-full md:grid-cols-5 gap-y-3 md:gap-y-0">
+            <div className="card-detail col-span-2 md:col-span-1">
               <div className="title-body">
                 {" "}
                 {images && images.length > 0 ? (
@@ -85,19 +88,19 @@ const ImportListCard = ({
                 )}
               </div>
             </div>
-            <div className="card-detail">
+            <div className="card-detail col-span-2 md:col-span-1">
               <div className="head-title">Product Name</div>
               <div className="title-body">{displayName}</div>
             </div>
-            <div className="card-detail">
+            <div className="card-detail place-items-center">
               <div className="head-title">Quantity</div>
               <div className="title-body">{quantity}</div>
             </div>
-            <div className="card-detail">
+            <div className="card-detail place-items-center">
               <div className="head-title">Price</div>
-              <div className="title-body">{price}</div>
+              <div className="title-body">{parseInt(price) + commissions}</div>
             </div>
-            <div className="action card-detail">
+            <div className="action card-detail col-span-2 md:col-span-1">
               <Space size="small" direction="vertical">
                 <Link
                 // to={{
@@ -233,6 +236,7 @@ const ImportListCard = ({
           // }}
 
           onCancel={() => setshowPushToShopifyModal(false)}
+          confirmLoading={isPublishing}
           style={{
             borderRadius: "12px",
             overflow: "hidden",
@@ -248,18 +252,27 @@ const ImportListCard = ({
           maskStyle={{ background: "#00000034" }}
         >
           <PushToShopify
-            data={{ userid, token, product_id, displayName, quantity, price }}
+            data={{
+              userid,
+              token,
+              product_id,
+              displayName,
+              quantity,
+              price: parseInt(price) + commissions,
+              product_category,
+            }}
             onSuccess={(id) => {
-              removeItemFromImportList(userid, id, token).then(() => {
-                setshowPushToShopifyModal(false);
-                setIsPublishing(false);
-                onDeleted(product_id);
-                notification.success({
-                  description: "Product published successfully.",
-                  message: "Success",
-                  duration: 2,
-                });
-              });
+              setshowPushToShopifyModal(false);
+              setIsPublishing(false);
+              onDeleted(product_id);
+              // removeItemFromImportList(userid, id, token).then(() => {
+              //   setIsPublishing(false);
+              //   notification.success({
+              //     description: "Product published successfully.",
+              //     message: "Success",
+              //     duration: 2,
+              //   });
+              // });
             }}
             onError={() => {
               setIsPublishing(false);

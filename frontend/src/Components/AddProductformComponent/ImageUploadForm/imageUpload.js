@@ -3,9 +3,9 @@ import { UploadOutlined } from "@ant-design/icons";
 import { Form, Modal, Upload } from "antd";
 import AWS from "aws-sdk";
 import cryptoRandomString from "crypto-random-string";
+import { extname } from "path";
 import React, { Component } from "react";
 import "./imageUpload.css";
-
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -47,35 +47,30 @@ const props = {
     });
 
     const S3 = new AWS.S3();
-    // console.log("DEBUG filename", file.name);
-    // console.log("DEBUG file type", file.type);
 
-    const objParams = {
-      Bucket: "cartnyouawsbuket",
-      Key:
-        "product-image" +
-        "/" +
-        cryptoRandomString({ length: 12, type: "alphanumeric" }) +
-        file.name,
-      Body: file,
-      ACL: "public-read",
-      ContentType: file.png, // TODO: You should set content-type because AWS SDK will not automatically set file MIME
-    };
+    file
+      .arrayBuffer()
+      .then((buffer) => {
+        const objParams = {
+          Bucket: "cartnyouawsbuket",
+          Key:
+            cryptoRandomString({ length: 16, type: "alphanumeric" }) +
+            extname(file.name),
+          Body: buffer,
+          ACL: "public-read",
+          ContentType: file.type, // TODO: You should set content-type because AWS SDK will not automatically set file MIME
+        };
 
-    S3.putObject(objParams)
-      .promise()
+        return S3.putObject(objParams).promise();
+      })
       .then((res) => {
         const url =
           res.$response.request.httpRequest.endpoint.hostname +
           res.$response.request.httpRequest.path;
-        onSuccess(`https://${url}`, file);
+
+        return onSuccess(`https://${url}`, file);
       })
-      .catch((err) => {
-        onError();
-        // console.log("Something went wrong");
-        // console.log(err.code);
-        // console.log(err.message);
-      });
+      .catch(onError);
   },
 };
 

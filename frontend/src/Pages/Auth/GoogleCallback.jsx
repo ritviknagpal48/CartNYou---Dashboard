@@ -83,7 +83,7 @@ const GoogleCallback = () => {
             ...user,
           },
         });
-        message.success(`Welcome Back, ${user.username}`, 1);
+        message.success(`Welcome, ${user.username}`, 1);
         history.push(`/${userType}/dashboard`);
       });
     });

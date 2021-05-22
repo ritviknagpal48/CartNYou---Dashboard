@@ -1,0 +1,14 @@
+{
+  "collectionName": "others",
+  "info": {
+    "name": "others",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false,
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {}
+}
