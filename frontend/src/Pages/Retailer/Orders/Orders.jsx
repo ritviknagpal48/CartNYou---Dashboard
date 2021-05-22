@@ -27,6 +27,8 @@ import { calculateCommissions } from "Components/adminUtils";
 
 // Total Amount : Selltement + commission + delivery
 
+const PICKRR_AUTH_TOKEN = "480054b2d5b28e22c91a52faaa23ee2c130720";
+
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4",
   header: "w-full  py-3 flex flex-row items-center justify-between",
@@ -149,9 +151,9 @@ class Orders extends React.Component {
   }
 
   // settle order here
-  handleInvoiceModalOK = () => {
-    const { wallet } = this.context.additionalInfo;
-    const { settlement } = this.state.invoice_info.amounts;
+  handleInvoiceModalOK = async () => {
+    const { wallet, id: retailer_id } = this.context.additionalInfo;
+    const { settlement, quantity } = this.state.invoice_info.amounts;
     if (wallet < settlement)
       return notification.open({
         message: `Insufficient Balance ${wallet}`,
@@ -163,6 +165,35 @@ class Orders extends React.Component {
     this.setState({ is_loading: true });
 
     // Process Order here
+    const shipping_address =
+      this.state.invoice_info.order_info.shipping_address;
+    const product_id = "";
+    const wholesaler_id = "";
+
+    if (
+      !shipping_address ||
+      !product_id ||
+      !wholesaler_id ||
+      !quantity ||
+      !this.state.invoice_info.amounts.total
+    )
+      return notification.error({
+        message: "Something went wrong.",
+      });
+
+    // TODO: Collect All Required Data
+    const body = {
+      shipping_address,
+      retailer_id,
+      quantity,
+      product_id,
+      wholesaler_id,
+      settlement_amount: this.state.invoice_info.amounts.total,
+    };
+
+    // TODO: Send All Data to API
+    await axiosInstance.post("/others/settleOrders", body);
+
     setTimeout(() => {
       this.setState({ is_loading: false, invoiceModalVisible: false }, () => {
         return notification.open({
@@ -190,12 +221,13 @@ class Orders extends React.Component {
       });
   };
 
+  // TODO: Fetching Almost Complete
   loadDeliveryServices = async (options) => {
     const response = await axiosInstance.get(
       "https://pickrr.com/api-v2/client/fetch-price-calculator-generic/",
       {
         params: {
-          auth_token: "480054b2d5b28e22c91a52faaa23ee2c130720",
+          auth_token: PICKRR_AUTH_TOKEN,
           shipment_type: "forward",
           pickup_pincode: this.state.pickup_pincode,
           drop_pincode: this.state.drop_pincode,
@@ -262,6 +294,7 @@ class Orders extends React.Component {
   handleOrderClick = async (order) => {
     // console.log({ order });
     this.setState({ is_loading: true, delivery_service: "" });
+    // FIXME: yaha dimensions aayengi product ki
     await this.loadDeliveryServices({
       length: 1,
       breadth: 1,

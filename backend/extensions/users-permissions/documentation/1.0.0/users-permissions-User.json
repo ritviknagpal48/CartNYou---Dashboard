@@ -1853,6 +1853,54 @@
                 }
               }
             }
+          },
+          "delivery_requests": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "wholesaler_id": {
+                  "type": "string"
+                },
+                "product_id": {
+                  "type": "string"
+                },
+                "product_quantity": {
+                  "type": "integer"
+                },
+                "retailer_id": {
+                  "type": "string"
+                },
+                "shipping_address": {
+                  "type": "object"
+                },
+                "order_response": {
+                  "type": "object"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "pending",
+                    "accepted",
+                    "rejected"
+                  ]
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -2134,6 +2182,12 @@
             }
           },
           "warehouses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "delivery_requests": {
             "type": "array",
             "items": {
               "type": "string"

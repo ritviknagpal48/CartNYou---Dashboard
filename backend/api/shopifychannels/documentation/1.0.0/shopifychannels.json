@@ -906,6 +906,12 @@
                   "type": "string"
                 }
               },
+              "delivery_requests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },

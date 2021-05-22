@@ -49,6 +49,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/others/settleOrder",
+      "handler": "others.settleOrder",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "DELETE",
       "path": "/others/:id",
       "handler": "others.delete",

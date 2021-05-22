@@ -1042,6 +1042,12 @@
                   "type": "string"
                 }
               },
+              "delivery_requests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -1132,6 +1138,12 @@
                   }
                 },
                 "warehouses": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "delivery_requests": {
                   "type": "array",
                   "items": {
                     "type": "string"

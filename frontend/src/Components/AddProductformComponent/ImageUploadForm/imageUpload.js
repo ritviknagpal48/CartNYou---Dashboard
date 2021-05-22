@@ -58,7 +58,7 @@ const props = {
             extname(file.name),
           Body: buffer,
           ACL: "public-read",
-          ContentType: file.type, // TODO: You should set content-type because AWS SDK will not automatically set file MIME
+          ContentType: file.type,
         };
 
         return S3.putObject(objParams).promise();

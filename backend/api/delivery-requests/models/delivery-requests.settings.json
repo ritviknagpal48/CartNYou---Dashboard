@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "delivery_requests",
+  "info": {
+    "name": "DeliveryRequests",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "wholesaler_id": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "delivery_requests"
+    },
+    "product_id": {
+      "model": "product-details"
+    },
+    "product_quantity": {
+      "type": "integer",
+      "min": 1
+    },
+    "retailer_id": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "shipping_address": {
+      "type": "json"
+    },
+    "order_response": {
+      "type": "json"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "accepted",
+        "rejected"
+      ],
+      "default": "pending"
+    }
+  }
+}

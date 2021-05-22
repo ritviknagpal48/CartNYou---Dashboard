@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "05/21/2021 11:37:05 PM"
+    "x-generation-date": "05/22/2021 11:41:41 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -45,6 +45,530 @@
     }
   ],
   "paths": {
+    "/delivery-requests": {
+      "get": {
+        "deprecated": false,
+        "description": "Find all the delivery-requests's records",
+        "responses": {
+          "200": {
+            "description": "Retrieve delivery-requests document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Delivery-requests"
+        ],
+        "parameters": [
+          {
+            "name": "_limit",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of results possible",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "required": false,
+            "description": "Sort according to a specific field.",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "required": false,
+            "description": "Skip a specific number of entries (especially useful for pagination)",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "=",
+            "in": "query",
+            "required": false,
+            "description": "Get entries that matches exactly your input",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_ne",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are not equals to something",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lt",
+            "in": "query",
+            "required": false,
+            "description": "Get record that are lower than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are lower than or equal to a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gt",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than  or equal a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_contains",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_containss",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains (case sensitive) a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_in",
+            "in": "query",
+            "required": false,
+            "description": "Get records that matches any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_nin",
+            "in": "query",
+            "required": false,
+            "description": "Get records that doesn't match any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          }
+        ]
+      },
+      "post": {
+        "deprecated": false,
+        "description": "Create a new delivery-requests record",
+        "responses": {
+          "200": {
+            "description": "Retrieve delivery-requests document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Delivery-requests"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewDelivery-requests"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/delivery-requests/count": {
+      "get": {
+        "deprecated": false,
+        "description": "Retrieve the numver of delivery-requests documents",
+        "responses": {
+          "200": {
+            "description": "Retrieve delivery-requests document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Delivery-requests"
+        ],
+        "parameters": []
+      }
+    },
+    "/delivery-requests/{id}": {
+      "get": {
+        "deprecated": false,
+        "description": "Find one delivery-requests record",
+        "responses": {
+          "200": {
+            "description": "Retrieve delivery-requests document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Delivery-requests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "deprecated": false,
+        "description": "Update a single delivery-requests record",
+        "responses": {
+          "200": {
+            "description": "Retrieve delivery-requests document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Delivery-requests"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewDelivery-requests"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "deprecated": false,
+        "description": "Delete a single delivery-requests record",
+        "responses": {
+          "200": {
+            "description": "deletes a single delivery-requests based on the ID supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Delivery-requests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
     "/measurement-units": {
       "get": {
         "deprecated": false,
@@ -1089,6 +1613,77 @@
       }
     },
     "/others/fetchImportList": {
+      "post": {
+        "deprecated": false,
+        "description": "Create a new others record",
+        "responses": {
+          "200": {
+            "description": "Retrieve others document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Others"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/others/settleOrder": {
       "post": {
         "deprecated": false,
         "description": "Create a new others record",
@@ -7225,6 +7820,411 @@
   },
   "components": {
     "schemas": {
+      "Delivery-requests": {
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "wholesaler_id": {
+            "required": [
+              "id",
+              "username",
+              "email",
+              "type"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmationToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "wholesaler",
+                  "retailer",
+                  "admin"
+                ]
+              },
+              "fullname": {
+                "type": "string"
+              },
+              "mobile": {
+                "type": "string"
+              },
+              "retailer_shopify_channels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "retailer_live_list": {
+                "type": "component"
+              },
+              "wallet": {
+                "type": "number"
+              },
+              "transaction_history": {
+                "type": "component"
+              },
+              "wholesaler_products": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "retailer_import_list": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "warehouses": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "delivery_requests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "product_id": {
+            "required": [
+              "id",
+              "product_name",
+              "product_main_sku",
+              "product_brand",
+              "product_tags",
+              "product_mrp",
+              "qunatity",
+              "weight",
+              "dem_length",
+              "dem_breadth",
+              "upc_number",
+              "ean_number",
+              "hsn_code",
+              "product_description",
+              "counrty_origin"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "product_name": {
+                "type": "string"
+              },
+              "product_category": {
+                "type": "string"
+              },
+              "product_main_sku": {
+                "type": "string"
+              },
+              "product_brand": {
+                "type": "string"
+              },
+              "product_tags": {
+                "type": "string"
+              },
+              "product_mrp": {
+                "type": "integer"
+              },
+              "qunatity": {
+                "type": "integer"
+              },
+              "weight": {
+                "type": "integer"
+              },
+              "dem_length": {
+                "type": "integer"
+              },
+              "dem_breadth": {
+                "type": "integer"
+              },
+              "dem_height": {
+                "type": "integer"
+              },
+              "upc_number": {
+                "type": "integer"
+              },
+              "ean_number": {
+                "type": "integer"
+              },
+              "hsn_code": {
+                "type": "integer"
+              },
+              "product_description": {
+                "type": "string"
+              },
+              "custom_attribute": {
+                "type": "object"
+              },
+              "colour": {
+                "type": "string"
+              },
+              "gst_percentage": {
+                "type": "integer"
+              },
+              "measurement_unit": {
+                "type": "string"
+              },
+              "sub_category": {
+                "type": "string"
+              },
+              "sub_sub_category": {
+                "type": "string"
+              },
+              "counrty_origin": {
+                "type": "string"
+              },
+              "gst_type": {
+                "type": "string"
+              },
+              "admin_status": {
+                "type": "string",
+                "enum": [
+                  "Approved",
+                  "Pending",
+                  "Rejected"
+                ]
+              },
+              "product_status": {
+                "type": "boolean"
+              },
+              "shopifychannels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "images": {
+                "type": "object"
+              },
+              "warehouse": {
+                "type": "string"
+              },
+              "wholesaler_details": {
+                "type": "string"
+              },
+              "imported_by": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "product_quantity": {
+            "type": "integer"
+          },
+          "retailer_id": {
+            "required": [
+              "id",
+              "username",
+              "email",
+              "type"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmationToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "wholesaler",
+                  "retailer",
+                  "admin"
+                ]
+              },
+              "fullname": {
+                "type": "string"
+              },
+              "mobile": {
+                "type": "string"
+              },
+              "retailer_shopify_channels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "retailer_live_list": {
+                "type": "component"
+              },
+              "wallet": {
+                "type": "number"
+              },
+              "transaction_history": {
+                "type": "component"
+              },
+              "wholesaler_products": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "retailer_import_list": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "warehouses": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "delivery_requests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "shipping_address": {
+            "type": "object"
+          },
+          "order_response": {
+            "type": "object"
+          },
+          "status": {
+            "type": "string",
+            "default": "pending",
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected"
+            ]
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "NewDelivery-requests": {
+        "properties": {
+          "wholesaler_id": {
+            "type": "string"
+          },
+          "product_id": {
+            "type": "string"
+          },
+          "product_quantity": {
+            "type": "integer"
+          },
+          "retailer_id": {
+            "type": "string"
+          },
+          "shipping_address": {
+            "type": "object"
+          },
+          "order_response": {
+            "type": "object"
+          },
+          "status": {
+            "type": "string",
+            "default": "pending",
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected"
+            ]
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "updated_by": {
+            "type": "string"
+          }
+        }
+      },
       "Measurement-unit": {
         "required": [
           "id",
@@ -8223,6 +9223,12 @@
                   "type": "string"
                 }
               },
+              "delivery_requests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -8313,6 +9319,12 @@
                   }
                 },
                 "warehouses": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "delivery_requests": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -8711,6 +9723,12 @@
                 }
               },
               "warehouses": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "delivery_requests": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -9538,6 +10556,12 @@
                   "type": "string"
                 }
               },
+              "delivery_requests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -9881,6 +10905,12 @@
                   }
                 },
                 "warehouses": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "delivery_requests": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -10601,6 +11631,54 @@
                 }
               }
             }
+          },
+          "delivery_requests": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "wholesaler_id": {
+                  "type": "string"
+                },
+                "product_id": {
+                  "type": "string"
+                },
+                "product_quantity": {
+                  "type": "integer"
+                },
+                "retailer_id": {
+                  "type": "string"
+                },
+                "shipping_address": {
+                  "type": "object"
+                },
+                "order_response": {
+                  "type": "object"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "pending",
+                    "accepted",
+                    "rejected"
+                  ]
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -10882,6 +11960,12 @@
             }
           },
           "warehouses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "delivery_requests": {
             "type": "array",
             "items": {
               "type": "string"

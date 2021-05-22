@@ -105,6 +105,10 @@
     "warehouses": {
       "via": "user",
       "collection": "warehouse"
+    },
+    "delivery_requests": {
+      "via": "wholesaler_id",
+      "collection": "delivery-requests"
     }
   }
 }

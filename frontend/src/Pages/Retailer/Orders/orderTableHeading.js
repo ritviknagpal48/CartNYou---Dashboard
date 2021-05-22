@@ -1,5 +1,3 @@
-import moment from "moment";
-
 const orderTableHeading = [
   {
     id: "1",
@@ -10,12 +8,7 @@ const orderTableHeading = [
     id: "2",
     title: "Order Id",
     dataIndex: "order_id",
-    render: (order_id) => {
-      return moment(order_id).format("DD MMM YYYY");
-    },
-
-    sorter: (a, b) => moment.utc(a.order_id).diff(moment.utc(b.order_id)),
-    // sortOrder: sortedInfo.columnKey === 'created_at' && sortedInfo.order,
+    sorter: (a, b) => parseInt(a.order_id) - parseInt(b.order_id),
   },
   {
     id: "3",
@@ -56,12 +49,11 @@ const orderTableHeading = [
       { text: "Pending", value: "pending" },
       { text: "Paid", value: "paid" },
     ],
-    // filteredValue: filteredInfo.name || null,
     onFilter: (value, record) => record.financial_status.includes(value),
   },
   {
     id: "9",
-    title: "Settlements",
+    title: "Call Status",
     dataIndex: "callStatus",
   },
 ];

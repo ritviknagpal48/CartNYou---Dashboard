@@ -181,4 +181,40 @@ module.exports = {
       };
     }
   },
+  settleOrder: async (ctx) => {
+    try {
+      const { body } = ctx.request;
+      // const PICKRR_AUTH_KEY = "480054b2d5b28e22c91a52faaa23ee2c130720";
+      const {
+        product_id,
+        shipping_address,
+        retailer_id,
+        wholesaler_id,
+        product_quantity,
+      } = body;
+
+      // FIXME: Check correct body structure
+      return {
+        body,
+      };
+
+      // TODO: Generate Pickrr Info Object
+
+      // TODO: #1 Call Pickrr API to place order
+
+      // TODO: #2 Combine Response and Order Info
+
+      // TODO: #3 Pass Data to wholesaler
+
+      // TODO: #4 Return Status
+      // return {
+      //   status: "success",
+      // };
+    } catch (error) {
+      return {
+        status: "error",
+        error,
+      };
+    }
+  },
 };
