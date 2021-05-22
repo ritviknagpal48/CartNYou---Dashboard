@@ -68,21 +68,28 @@ const ImportListCard = ({
         <div className={"mb-2"}>
           <div className="import_list_card_wrapper bg-white my-2 text-gray-700 border border-gray-200 text-left font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-2 items-center w-full md:grid-cols-5 gap-y-3 md:gap-y-0">
             <div className="card-detail col-span-2 md:col-span-1">
-              <div className="title-body">
+              <div
+                className="title-body"
+                style={{
+                  width: 70,
+                  height: 70,
+                  margin: "auto",
+                  overflow: "hidden",
+                }}
+              >
                 {" "}
                 {images && images.length > 0 ? (
                   <img
-                    className={"w-full h-auto rounded-md "}
+                    className={"w-auto h-auto rounded-md "}
                     src={images[0].url}
                     alt={displayName}
-                    style={{ width: 74, margin: "auto" }}
                   />
                 ) : (
                   <Empty
                     // className={"text-sm"}
                     image={Empty.PRESENTED_IMAGE_SIMPLE}
                     description={"No Image"}
-                    imageStyle={{ height: "52px" }}
+                    imageStyle={{ height: "42px" }}
                     style={{ margin: "2px" }}
                   />
                 )}

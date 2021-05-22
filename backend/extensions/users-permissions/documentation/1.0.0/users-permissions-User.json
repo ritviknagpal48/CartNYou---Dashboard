@@ -1472,6 +1472,9 @@
                 },
                 "category_name": {
                   "type": "string"
+                },
+                "channel_name": {
+                  "type": "string"
                 }
               }
             }
@@ -2118,6 +2121,9 @@
                   "type": "string"
                 },
                 "category_name": {
+                  "type": "string"
+                },
+                "channel_name": {
                   "type": "string"
                 }
               }
