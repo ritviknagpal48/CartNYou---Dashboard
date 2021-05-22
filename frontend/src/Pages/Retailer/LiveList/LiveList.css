@@ -1,3 +1,26 @@
-.md\:grid-cols-6 {
+/* .md\:grid-cols-6 {
   grid-template-columns: repeat(6, minmax(0, 1fr));
+} */
+
+@media screen and (min-width: 768px) {
+  .liveList-card {
+    display: grid;
+    grid-template-columns: 1fr 3fr repeat(5, 1fr) !important;
+  }
+
+  .liveList-card {
+    max-width: 92vw !important;
+  }
+}
+
+.liveList-card {
+  max-width: 100vw;
+}
+
+.liveList-card .card-detail {
+  font-size: 11px;
+  color: cadetblue;
+  /* padding: 0px 10px; */
+  display: flex;
+  flex-direction: column;
 }

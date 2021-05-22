@@ -69,6 +69,7 @@ module.exports = {
         retailer_price,
         wholesaler_name: entity.wholesaler_details.fullname,
         category_name: entity.product_category.categoryName,
+        channel_name: channel.channel_name,
       };
 
       let retailer_live_list = [

@@ -19,6 +19,9 @@
     },
     "category_name": {
       "type": "string"
+    },
+    "channel_name": {
+      "type": "string"
     }
   }
 }
