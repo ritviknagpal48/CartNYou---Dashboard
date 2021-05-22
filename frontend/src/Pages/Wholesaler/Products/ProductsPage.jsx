@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import ProductCards from "./ProductCards";
 
 const classes = {
-  wrapper: "pr-4 md:pr-14 pl-4",
+  wrapper: "pr-4 md:pr-14 pl-4 mobile-max-w",
   header: "w-full  py-3 flex flex-row items-center justify-between",
   title: "text-2xl text-gray-600  hidden md:block font-sans-apple-system",
   buttons: "flex item-center flex-row justify-end",

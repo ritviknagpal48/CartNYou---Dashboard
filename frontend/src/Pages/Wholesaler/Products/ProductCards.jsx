@@ -25,7 +25,7 @@ import {
 } from "@ant-design/icons";
 import { AuthContext } from "Contexts/Auth";
 
-// import "./ProductCards.css";
+import "./ProductCards.css";
 
 const { Panel } = Collapse;
 const { Option } = Select;
@@ -262,14 +262,25 @@ class ProductCards extends React.Component {
                     return (
                       <div
                         key={index}
-                        className="bg-white my-2 border border-gray-200  text-gray-700 font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-4 gap-2 items-center md:justify-between w-full text-left md:flex md:flex-row"
+                        className="bg-white my-2 border border-gray-200  text-gray-700 font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-3 gap-2 items-center md:justify-between w-full text-left wh-product-card relative"
                         style={{ color: "black" }}
                       >
-                        <div className={"flex flex-row items-center"}>
-                          <Checkbox onChange={this.onChange}></Checkbox>
+                        <Checkbox
+                          className="absolute top-3 right-3 hide-on-med"
+                          onChange={this.onChange}
+                        ></Checkbox>
+                        <div
+                          className={
+                            "flex flex-row items-center col-span-3 md:col-span-1"
+                          }
+                        >
+                          <Checkbox
+                            className={"hide-on-small"}
+                            onChange={this.onChange}
+                          ></Checkbox>
                           <div
-                            className="card-detail ml-2"
-                            style={{ width: "150px", paddingLeft: "6px" }}
+                            className="card-detail md:ml-3"
+                            style={{ width: "150px" }}
                           >
                             <div className="head-title">SKU</div>
                             <div className="title-body">
@@ -277,20 +288,20 @@ class ProductCards extends React.Component {
                             </div>
                           </div>
                         </div>
-                        <div className="card-detail max-w-xs w-full md:w-4/12 col-start-2 col-span-3 md:flex-auto">
+                        <div className="card-detail col-span-3 md:col-span-1">
                           <div className="head-title">Product Info</div>
                           <div className="title-body">{data.product_name}</div>
                         </div>
-                        <div className="card-detail ml-6 md:ml-0">
+                        <div className="card-detail">
                           <div className="head-title">MRP</div>
                           <div className="title-body">{data.product_mrp}</div>
                         </div>
-                        <div className="card-detail">
+                        <div className="card-detail items-center">
                           <div className="head-title">Quantity</div>
                           <div className="title-body">{data.qunatity}</div>
                         </div>
 
-                        <div className="card-detail w-1/2 md:w-auto ml-6 md:ml-0">
+                        <div className="card-detail items-center">
                           <div className="head-title">Status</div>
                           <Tooltip
                             title={
@@ -305,17 +316,18 @@ class ProductCards extends React.Component {
                               loading={this.state.statusChange}
                               defaultChecked
                               onChange={this.handleStatus(data.id)}
+                              style={{ maxWidth: 50 }}
                             />
                           </Tooltip>
                         </div>
-                        <div className="card-detail">
+                        <div className="card-detail col-span-2 md:col-span-1">
                           <div className="head-title">Admin Status</div>
                           <div className={`title-body ${data.admin_status}`}>
                             {data.admin_status}
                             {/* Approved */}
                           </div>
                         </div>
-                        <div className="action card-detail justify-self-center mx-auto md:mx-0 col-span-2">
+                        <div className="action card-detail justify-self-center mx-auto md:mx-0">
                           <div className={"head-title"}>Actions</div>
                           <Space size="small">
                             <Tooltip placement="topLeft" title={"Edit Data"}>

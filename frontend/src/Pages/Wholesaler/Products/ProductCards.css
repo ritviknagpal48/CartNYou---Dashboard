@@ -25,12 +25,6 @@
   flex-direction: column;
 }
 
-@media (max-width: 420px) {
-  .card-detail {
-    flex-direction: row;
-  }
-}
-
 .title-body {
   font-weight: 500;
   font-size: 15px;
@@ -75,4 +69,28 @@
   border-color: #ef4444 !important;
   text-shadow: none !important;
   box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+}
+
+@media screen and (min-width: 768px) {
+  .wh-product-card {
+    grid-template-columns: 2fr 4fr repeat(5, 1fr);
+  }
+
+  .mobile-max-w {
+    max-width: 95vw !important;
+  }
+
+  .hide-on-med {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hide-on-small {
+    display: none !important;
+  }
+}
+
+.mobile-max-w {
+  max-width: 100vw;
 }
