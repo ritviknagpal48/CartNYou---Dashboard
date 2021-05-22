@@ -96,7 +96,7 @@ const ImportList = () => {
         const import_list =
           res.data && res.data.import_list ? res.data.import_list : [];
 
-        console.log({ import_list });
+        // console.log({ import_list });
 
         setImportListData(import_list);
         setForceUpdate(false);

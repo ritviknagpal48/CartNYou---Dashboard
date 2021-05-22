@@ -304,7 +304,7 @@ class Orders extends React.Component {
     );
     if (!dpart) return message.error(`Could Not find Delivery Partner`);
     const { invoice_info, product_info } = this.state;
-    console.log({ invoice_info, product_info });
+    // console.log({ invoice_info, product_info });
 
     const commission = calculateCommissions(product_info);
     const quantity = parseInt(invoice_info.order_info.quantity);

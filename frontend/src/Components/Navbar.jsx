@@ -124,9 +124,9 @@ const Navbar = ({ menuList }) => {
                       aria-expanded="false"
                       aria-haspopup="true"
                       onClick={() => setIsOpen((p) => !p)}
-                    // style={{
-                    //   border: "1px solid #e2e2e2",
-                    // }}
+                      // style={{
+                      //   border: "1px solid #e2e2e2",
+                      // }}
                     >
                       <span className="sr-only">Open user menu</span>
                       {/* <img
@@ -156,15 +156,16 @@ const Navbar = ({ menuList }) => {
                     </button>
                   </div>
                   <div
-                    className={`origin-top-right absolute right-0 mt-2 w-48 rounded-md z-30 shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${isOpen ? "block" : "hidden"
-                      }`}
+                    className={`origin-top-right absolute right-0 mt-2 w-48 rounded-md z-30 shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${
+                      isOpen ? "block" : "hidden"
+                    }`}
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="user-menu"
                   >
                     <Link
                       onClick={() => {
-                        console.log({ additionalInfo })
+                        // console.log({ additionalInfo })
                       }}
                       to="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -341,7 +342,7 @@ const Navbar = ({ menuList }) => {
               <Link
                 to="#"
                 onClick={() => {
-                  console.log({ additionalInfo })
+                  // console.log({ additionalInfo });
                 }}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
               >
@@ -380,7 +381,7 @@ const Navbar = ({ menuList }) => {
           openPaymentWindow({
             currency: "INR",
             amount: rechargeAmount,
-            description: paymentDescription || 'Wallet Recharge',
+            description: paymentDescription || "Wallet Recharge",
           })
             .then((resp) => {
               // console.log(resp);

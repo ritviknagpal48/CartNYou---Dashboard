@@ -78,7 +78,7 @@ const ProductDetails = () => {
     admin_status,
   } = location.state.detail;
 
-  console.log(location.state.detail);
+  // console.log(location.state.detail);
 
   const history = useHistory();
 

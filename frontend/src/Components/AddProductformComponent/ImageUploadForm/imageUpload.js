@@ -154,7 +154,7 @@ export class ImageUpload extends Component {
                     },
                     () => {
                       this.props.handleImageUpload(newFileList);
-                      console.log({ fileList: this.state.fileList });
+                      // console.log({ fileList: this.state.fileList });
                     }
                   );
                 }}

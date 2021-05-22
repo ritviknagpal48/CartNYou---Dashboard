@@ -91,7 +91,7 @@ class AddProductForm extends Component {
         ? this.props.location.state.edit
         : false;
 
-    console.log(this.state.wholesaler_details);
+    // console.log(this.state.wholesaler_details);
 
     this.setState({
       loading: true,
@@ -264,7 +264,7 @@ class AddProductForm extends Component {
               haveWarehouse: true,
               warehouseList: res.data ? res.data : [],
             });
-            console.log(res);
+            // console.log(res);
           }
         })
         .catch((err) => {
@@ -393,7 +393,7 @@ class AddProductForm extends Component {
     message.success(`Attributes Added Successfully`);
   };
   handleImageUpload = (value) => {
-    console.log("img add", value);
+    // console.log("img add", value);
     this.setState({
       images: value ? value : [],
     });
@@ -647,7 +647,7 @@ class AddProductForm extends Component {
 
     const productData = await this.handleValidation();
 
-    console.log({ productData });
+    // console.log({ productData });
 
     if (!this.state.isError) {
       if (productData) {
@@ -677,7 +677,7 @@ class AddProductForm extends Component {
 
   render() {
     const { step, subCatArray, subSubCatArray, haveCategory } = this.state;
-    console.log(this.state);
+    // console.log(this.state);
     const {
       //general details
       product_category,

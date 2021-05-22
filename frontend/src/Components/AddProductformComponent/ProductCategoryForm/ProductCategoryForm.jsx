@@ -97,7 +97,7 @@ export class ProductCategoryForm extends Component {
   }
 
   async componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
     // await Promise.all([
     //   axiosInstance.get("/product-categories"),
 
@@ -158,7 +158,7 @@ export class ProductCategoryForm extends Component {
       warehouseList,
       warehouseSelected,
     } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
 
     if (loading) {
       return (

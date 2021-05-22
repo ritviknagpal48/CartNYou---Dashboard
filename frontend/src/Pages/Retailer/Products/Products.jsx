@@ -203,7 +203,7 @@ class Products extends React.Component {
       // moment(b.createdAt).format("YYYY-MM-DD") -
       // moment(a.createdAt).format("YYYY-MM-DD")
     );
-    console.log(dataSource);
+    // console.log(dataSource);
 
     const { isSearchBtnActive, activeSearchBtnId, selectedCategory } =
       this.state;
