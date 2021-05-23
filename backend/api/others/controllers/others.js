@@ -1,5 +1,4 @@
-const axios = require("axios");
-("use strict");
+const axios = require("axios").default;
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -87,7 +86,7 @@ module.exports = {
         retailer_import_list.push(item);
       }
 
-      const update_response = await strapi
+      await strapi
         .query("user", "users-permissions")
         .update(
           { id },
@@ -121,14 +120,12 @@ module.exports = {
       let new_import_list = user.retailer_import_list;
       new_import_list.push(...items);
 
-      const strapi_response = await strapi
-        .query("user", "users-permissions")
-        .update(
-          { id: userid },
-          {
-            retailer_import_list: new_import_list,
-          }
-        );
+      await strapi.query("user", "users-permissions").update(
+        { id: userid },
+        {
+          retailer_import_list: new_import_list,
+        }
+      );
 
       return {
         status: "success",
@@ -185,32 +182,97 @@ module.exports = {
   settleOrder: async (ctx) => {
     try {
       const { body } = ctx.request;
-      // const PICKRR_AUTH_KEY = "480054b2d5b28e22c91a52faaa23ee2c130720";
+      const PICKRR_AUTH_KEY = "480054b2d5b28e22c91a52faaa23ee2c130720";
       const {
         product_id,
         shipping_address,
         retailer_id,
-        wholesaler_id,
         product_quantity,
+        settlement_amount,
       } = body;
 
-      // FIXME: Check correct body structure
-      return {
-        body,
+      // Fetch Items from IDs
+      const product = await strapi
+        .query("product-details")
+        .findOne({ id: product_id }, [
+          {
+            path: "warehouse",
+          },
+          {
+            path: "wholesaler_details",
+          },
+        ]);
+
+      const warehouse = product.warehouse;
+      const invoice_number = Math.random().toFixed(12).split(".")[1];
+
+      const pickrr_payload = {
+        auth_token: PICKRR_AUTH_KEY,
+        item_name: product.product_name,
+
+        from_name: warehouse.name,
+        from_phone_number: warehouse.contact_number,
+        from_address: [
+          warehouse.address_1 || "",
+          warehouse.address_2 || "",
+          warehouse.city || "",
+          warehouse.state || "",
+          warehouse.pincode || "",
+        ]
+          .filter((x) => !!x)
+          .join(", "),
+        from_pincode: warehouse.pincode,
+
+        to_name: shipping_address.name || "",
+        to_phone_number: shipping_address.phone || "",
+        to_pincode: shipping_address.zip || "",
+        to_address: [
+          shipping_address.address1 || "",
+          shipping_address.address2 || "",
+          shipping_address.city || "",
+          shipping_address.province || "",
+          shipping_address.zip || "",
+        ]
+          .filter((x) => !!x)
+          .join(", "),
+
+        quantity: product_quantity,
+        invoice_value: settlement_amount,
+        item_breadth: product.dem_breadth,
+        item_length: product.dem_length,
+        item_height: product.dem_height,
+        item_weight: product.weight,
+        is_reverse: false,
+        invoice_number: invoice_number,
+        has_surface: true,
       };
 
-      // TODO: Generate Pickrr Info Object
+      const response = await axios.post(
+        "https://pickrr.com/api/place-order/",
+        pickrr_payload
+      );
+      const order_response = response.data;
 
-      // TODO: #1 Call Pickrr API to place order
-
-      // TODO: #2 Combine Response and Order Info
+      const delivery_request = {
+        retailer_id,
+        wholesaler_id: product.wholesaler_details.id,
+        product_id,
+        product_quantity,
+        order_response,
+        shipping_address,
+        status: "pending",
+      };
 
       // TODO: #3 Pass Data to wholesaler
+      const delivery = await strapi
+        .query("delivery-requests")
+        .create(delivery_request);
 
       // TODO: #4 Return Status
-      // return {
-      //   status: "success",
-      // };
+      return {
+        status: "success",
+        delivery,
+      };
     } catch (error) {
       return {
         status: "error",
