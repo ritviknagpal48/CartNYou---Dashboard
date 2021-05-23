@@ -197,7 +197,6 @@ class Orders extends React.Component {
       });
     }
 
-    // TODO: Collect All Required Data
     const body = {
       product_id,
       shipping_address,
@@ -206,7 +205,6 @@ class Orders extends React.Component {
       settlement_amount: this.state.invoice_info.amounts.total,
     };
 
-    // TODO: Send All Data to API
     await axiosInstance.post("/others/settleOrder", body);
 
     setTimeout(() => {
@@ -236,7 +234,6 @@ class Orders extends React.Component {
       });
   };
 
-  // TODO: Fetching Almost Complete
   loadDeliveryServices = async (options) => {
     const response = await axiosInstance.get(
       "https://pickrr.com/api-v2/client/fetch-price-calculator-generic/",
@@ -308,7 +305,7 @@ class Orders extends React.Component {
 
   handleOrderClick = async (order) => {
     this.setState({ is_loading: true, delivery_service: "" });
-    // FIXME: yaha dimensions aayengi product ki
+    // FIXME: hatana h isko
     await this.loadDeliveryServices({
       length: 1,
       breadth: 1,
