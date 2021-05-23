@@ -318,13 +318,11 @@
           "id": {
             "type": "string"
           },
-          "NAme": {
-            "type": "string"
+          "balance": {
+            "type": "integer",
+            "default": "0"
           },
-          "Amount": {
-            "type": "integer"
-          },
-          "rec": {
+          "transactions": {
             "type": "array",
             "items": {
               "type": "object",
@@ -335,11 +333,57 @@
                 "id": {
                   "type": "string"
                 },
-                "amount": {
+                "commission_amount": {
                   "type": "integer"
                 },
-                "Name": {
-                  "type": "string"
+                "transaction_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "delivery_request": {
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "wholesaler_id": {
+                      "type": "string"
+                    },
+                    "product_id": {
+                      "type": "string"
+                    },
+                    "product_quantity": {
+                      "type": "integer"
+                    },
+                    "retailer_id": {
+                      "type": "string"
+                    },
+                    "shipping_address": {
+                      "type": "object"
+                    },
+                    "order_response": {
+                      "type": "object"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "pending",
+                        "accepted",
+                        "rejected"
+                      ]
+                    },
+                    "published_at": {
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "type": "string"
+                    },
+                    "updated_by": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -352,13 +396,11 @@
       },
       "NewTransactions": {
         "properties": {
-          "NAme": {
-            "type": "string"
+          "balance": {
+            "type": "integer",
+            "default": "0"
           },
-          "Amount": {
-            "type": "integer"
-          },
-          "rec": {
+          "transactions": {
             "type": "array",
             "items": {
               "type": "object",
@@ -369,11 +411,57 @@
                 "id": {
                   "type": "string"
                 },
-                "amount": {
+                "commission_amount": {
                   "type": "integer"
                 },
-                "Name": {
-                  "type": "string"
+                "transaction_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "delivery_request": {
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "wholesaler_id": {
+                      "type": "string"
+                    },
+                    "product_id": {
+                      "type": "string"
+                    },
+                    "product_quantity": {
+                      "type": "integer"
+                    },
+                    "retailer_id": {
+                      "type": "string"
+                    },
+                    "shipping_address": {
+                      "type": "object"
+                    },
+                    "order_response": {
+                      "type": "object"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "pending",
+                        "accepted",
+                        "rejected"
+                      ]
+                    },
+                    "published_at": {
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "type": "string"
+                    },
+                    "updated_by": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }

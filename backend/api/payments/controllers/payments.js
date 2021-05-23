@@ -60,10 +60,12 @@ module.exports = {
       newTxHistory = newTxHistory.concat(old_t_history);
     }
 
-    newTxHistory = newTxHistory.map((x) => {
-      const { id, _id, __v, ...rest } = x;
-      return rest;
-    });
+    newTxHistory = newTxHistory
+      .filter((x) => !!x)
+      .map((x) => {
+        const { id, _id, __v, ...rest } = x;
+        return rest;
+      });
 
     newTxHistory.push(incoming_tx);
 

@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "05/23/2021 2:18:17 PM"
+    "x-generation-date": "05/23/2021 9:49:58 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1405,69 +1405,6 @@
             }
           }
         ]
-      },
-      "delete": {
-        "deprecated": false,
-        "description": "Delete a single others record",
-        "responses": {
-          "200": {
-            "description": "deletes a single others based on the ID supplied",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int64"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Others"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
       }
     },
     "/others/publishProduct": {
@@ -1684,6 +1621,77 @@
       }
     },
     "/others/settleOrder": {
+      "post": {
+        "deprecated": false,
+        "description": "Create a new others record",
+        "responses": {
+          "200": {
+            "description": "Retrieve others document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Others"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/others/sandbox": {
       "post": {
         "deprecated": false,
         "description": "Create a new others record",
@@ -10364,13 +10372,11 @@
           "id": {
             "type": "string"
           },
-          "NAme": {
-            "type": "string"
+          "balance": {
+            "type": "integer",
+            "default": "0"
           },
-          "Amount": {
-            "type": "integer"
-          },
-          "rec": {
+          "transactions": {
             "type": "array",
             "items": {
               "type": "object",
@@ -10381,11 +10387,57 @@
                 "id": {
                   "type": "string"
                 },
-                "amount": {
+                "commission_amount": {
                   "type": "integer"
                 },
-                "Name": {
-                  "type": "string"
+                "transaction_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "delivery_request": {
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "wholesaler_id": {
+                      "type": "string"
+                    },
+                    "product_id": {
+                      "type": "string"
+                    },
+                    "product_quantity": {
+                      "type": "integer"
+                    },
+                    "retailer_id": {
+                      "type": "string"
+                    },
+                    "shipping_address": {
+                      "type": "object"
+                    },
+                    "order_response": {
+                      "type": "object"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "pending",
+                        "accepted",
+                        "rejected"
+                      ]
+                    },
+                    "published_at": {
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "type": "string"
+                    },
+                    "updated_by": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -10398,13 +10450,11 @@
       },
       "NewTransactions": {
         "properties": {
-          "NAme": {
-            "type": "string"
+          "balance": {
+            "type": "integer",
+            "default": "0"
           },
-          "Amount": {
-            "type": "integer"
-          },
-          "rec": {
+          "transactions": {
             "type": "array",
             "items": {
               "type": "object",
@@ -10415,11 +10465,57 @@
                 "id": {
                   "type": "string"
                 },
-                "amount": {
+                "commission_amount": {
                   "type": "integer"
                 },
-                "Name": {
-                  "type": "string"
+                "transaction_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "delivery_request": {
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "wholesaler_id": {
+                      "type": "string"
+                    },
+                    "product_id": {
+                      "type": "string"
+                    },
+                    "product_quantity": {
+                      "type": "integer"
+                    },
+                    "retailer_id": {
+                      "type": "string"
+                    },
+                    "shipping_address": {
+                      "type": "object"
+                    },
+                    "order_response": {
+                      "type": "object"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "pending",
+                        "accepted",
+                        "rejected"
+                      ]
+                    },
+                    "published_at": {
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "type": "string"
+                    },
+                    "updated_by": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }

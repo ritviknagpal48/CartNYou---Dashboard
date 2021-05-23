@@ -57,9 +57,9 @@
       }
     },
     {
-      "method": "DELETE",
-      "path": "/others/:id",
-      "handler": "others.delete",
+      "method": "POST",
+      "path": "/others/sandbox",
+      "handler": "others.sandbox",
       "config": {
         "policies": []
       }

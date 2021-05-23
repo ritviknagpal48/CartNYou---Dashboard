@@ -6,6 +6,10 @@ const axios = require("axios").default;
  */
 
 module.exports = {
+  /**
+   * Publishing Product Api Request
+   */
+
   publishProduct: async (ctx) => {
     try {
       const { body } = ctx.request;
@@ -108,6 +112,11 @@ module.exports = {
       };
     }
   },
+
+  /**
+   * Updating Import List
+   */
+
   updateImportList: async (ctx) => {
     try {
       const { body } = ctx.request;
@@ -137,6 +146,10 @@ module.exports = {
       };
     }
   },
+
+  /**
+   * Fetching Import List
+   */
   fetchImportList: async (ctx) => {
     try {
       const { body } = ctx.request;
@@ -179,6 +192,11 @@ module.exports = {
       };
     }
   },
+
+  /**
+   * Retailer to wholesaler Order Settlement Via Admin
+   */
+
   settleOrder: async (ctx) => {
     try {
       const { body } = ctx.request;
@@ -205,6 +223,8 @@ module.exports = {
 
       const warehouse = product.warehouse;
       const invoice_number = Math.random().toFixed(12).split(".")[1];
+
+      // Pickrr payload generated
 
       const pickrr_payload = {
         auth_token: PICKRR_AUTH_KEY,
@@ -247,6 +267,8 @@ module.exports = {
         has_surface: true,
       };
 
+      //Pickrr payload sent for delivery request
+
       const response = await axios.post(
         "https://pickrr.com/api/place-order/",
         pickrr_payload
@@ -263,21 +285,65 @@ module.exports = {
         status: "pending",
       };
 
-      // TODO: #3 Pass Data to wholesaler
       const delivery = await strapi
         .query("delivery-requests")
         .create(delivery_request);
 
-      // TODO: #4 Return Status
+      const commission =
+        settlement_amount - product.product_mrp * product_quantity;
+
+      let new_transaction = {
+        commission_amount: commission,
+        transaction_date: new Date().toISOString(),
+        delivery_request: delivery.id,
+      };
+
+      // Transcation delivery_requst and commsssion
+      let transactions = await strapi.query("transactions").find({ _limit: 1 });
+
+      if (transactions && transactions.length > 0) {
+        transactions = transactions[0];
+        const prev = (transactions.transactions || []).map((x) => ({
+          id: x.id,
+        }));
+
+        const new_amount =
+          parseInt(transactions.balance || "0") +
+          new_transaction.commission_amount;
+
+        const new_list = [new_transaction, ...prev];
+        await strapi.query("transactions").update(
+          { id: transactions.id },
+          {
+            balance: new_amount,
+            transactions: new_list,
+          }
+        );
+      } else {
+        await strapi.query("transactions").create({
+          balance: new_transaction.commission_amount,
+          transactions: [new_transaction],
+        });
+      }
+
       return {
         status: "success",
-        delivery,
       };
     } catch (error) {
       return {
         status: "error",
         error,
       };
+    }
+  },
+  sandbox: async (_ctx) => {
+    try {
+      return {
+        status: "success",
+      };
+    } catch (error) {
+      console.log(error);
+      return { error };
     }
   },
 };

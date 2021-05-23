@@ -1,16 +1,20 @@
 {
-  "collectionName": "components_transaction_history_tracs",
+  "collectionName": "components_transaction_history_admin_transactions",
   "info": {
-    "name": "Tracs",
-    "icon": "adjust"
+    "name": "AdminTransactions",
+    "icon": "wallet",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "amount": {
+    "commission_amount": {
       "type": "integer"
     },
-    "Name": {
-      "type": "string"
+    "transaction_date": {
+      "type": "datetime"
+    },
+    "delivery_request": {
+      "model": "delivery-requests"
     }
   }
 }

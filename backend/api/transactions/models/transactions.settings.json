@@ -11,13 +11,12 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "NAme": {
-      "type": "string"
+    "balance": {
+      "type": "biginteger",
+      "min": "0",
+      "default": "0"
     },
-    "Amount": {
-      "type": "integer"
-    },
-    "rec": {
+    "transactions": {
       "type": "component",
       "repeatable": true,
       "component": "transaction-history.tracs"

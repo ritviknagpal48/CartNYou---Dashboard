@@ -167,35 +167,47 @@ class Orders extends React.Component {
     // Process Order here
     const shipping_address =
       this.state.invoice_info.order_info.shipping_address;
-    const product_id = "";
-    const wholesaler_id = "";
+    const product_id =
+      this.state.product_info && this.state.product_info.id
+        ? this.state.product_info.id
+        : null;
+    const settlement_amount = this.state.invoice_info.amounts.total;
 
     if (
       !shipping_address ||
       !product_id ||
-      !wholesaler_id ||
+      !retailer_id ||
       !quantity ||
-      !this.state.invoice_info.amounts.total
-    )
-      return notification.error({
-        message: "Incomplete Information Provided.",
-        description:
-          "Please go through the process again and validate all the details.",
-        duration: 3000,
+      !settlement_amount
+    ) {
+      console.log({
+        shipping_address,
+        product_id,
+        retailer_id,
+        quantity,
+        settlement_amount,
       });
+      this.setState({ is_loading: false, invoiceModalVisible: false }, () => {
+        return notification.error({
+          message: "Incomplete Information Provided.",
+          description:
+            "Please go through the process again and validate all the details.",
+          duration: 3000,
+        });
+      });
+    }
 
     // TODO: Collect All Required Data
     const body = {
+      product_id,
       shipping_address,
       retailer_id,
-      quantity,
-      product_id,
-      wholesaler_id,
+      product_quantity: quantity,
       settlement_amount: this.state.invoice_info.amounts.total,
     };
 
     // TODO: Send All Data to API
-    await axiosInstance.post("/others/settleOrders", body);
+    await axiosInstance.post("/others/settleOrder", body);
 
     setTimeout(() => {
       this.setState({ is_loading: false, invoiceModalVisible: false }, () => {
@@ -295,7 +307,6 @@ class Orders extends React.Component {
   };
 
   handleOrderClick = async (order) => {
-    // console.log({ order });
     this.setState({ is_loading: true, delivery_service: "" });
     // FIXME: yaha dimensions aayengi product ki
     await this.loadDeliveryServices({
