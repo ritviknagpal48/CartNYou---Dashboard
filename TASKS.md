@@ -1,4 +1,4 @@
-## TASKS
+// //  TASKS
 
     All the tasks that are in hand and need to be done in near future.
 
@@ -82,3 +82,36 @@
     ]
 }
 ```
+
+----------
+
+**Place Delivery Order Payload JSON**
+
+```json
+{
+  "auth_token": "YOUR_AUTH_TOKEN",
+  "item_name": "Polo Shirts x 1",   
+
+  "from_name": "Bruce Wayne",
+  "from_phone_number": "7351857301",
+  "from_address": "Basement, 1007 Mountain Drive",  
+  "from_pincode": "110022",
+
+  "to_name": "Clark Kent",
+  "to_phone_number": "7738828473",
+  "to_pincode": "120002",
+  "to_address": "344 Clinton Street",  
+
+  "quantity": 4,  
+  "invoice_value": 3550, 
+  "item_breadth": 10, 
+  "item_length": 10, 
+  "item_height": 5, 
+  "item_weight": 0.5,
+  "is_reverse": false,
+  "invoice_number":"657",
+  "has_surface": true
+}
+```
+
+<!-- FIXME: Gst ka kya krna h -->

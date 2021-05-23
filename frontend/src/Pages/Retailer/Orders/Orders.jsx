@@ -178,7 +178,10 @@ class Orders extends React.Component {
       !this.state.invoice_info.amounts.total
     )
       return notification.error({
-        message: "Something went wrong.",
+        message: "Incomplete Information Provided.",
+        description:
+          "Please go through the process again and validate all the details.",
+        duration: 3000,
       });
 
     // TODO: Collect All Required Data
