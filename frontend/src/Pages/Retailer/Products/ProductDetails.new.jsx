@@ -57,7 +57,7 @@ const ProductDetails = () => {
     product_main_sku,
     qunatity,
     product_mrp,
-
+    warehouse,
     //images
     images,
 
@@ -437,7 +437,9 @@ const ProductDetails = () => {
                 ? product_category.categoryName
                 : "-"}
             </Descriptions.Item>
-            <Descriptions.Item label="Wholesaler">Default</Descriptions.Item>
+            <Descriptions.Item label="Wholesaler">
+              {warehouse && warehouse.name ? warehouse.name : "Lokesh"}
+            </Descriptions.Item>
           </Descriptions>
 
           {/* <span

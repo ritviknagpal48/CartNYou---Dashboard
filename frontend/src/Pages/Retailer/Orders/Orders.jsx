@@ -1,23 +1,22 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import {
   Button,
+  message,
+  Modal,
+  notification,
   Radio,
   Select,
   Spin,
-  Modal,
-  message,
-  Empty,
-  notification,
 } from "antd";
+import { calculateCommissions } from "Components/adminUtils";
 import Toolbar from "Components/Toolbar";
-import { AuthContext } from "Contexts/Auth";
+import { AuthContext, AUTH_ACTIONS } from "Contexts/Auth";
 import { axiosInstance } from "Contexts/useAxios";
 import React from "react";
 import TableComponent from "../../../Components/TableComponent";
 import "./Orders.css";
 import { OrdersMenuButton } from "./OrdersMenuButton";
 import OrderTableHeading from "./orderTableHeading";
-import { calculateCommissions } from "Components/adminUtils";
 
 // Quantity: 3
 // Published amount : 2500
@@ -27,7 +26,7 @@ import { calculateCommissions } from "Components/adminUtils";
 
 // Total Amount : Selltement + commission + delivery
 
-const PICKRR_AUTH_TOKEN = "480054b2d5b28e22c91a52faaa23ee2c130720";
+// const PICKRR_AUTH_TOKEN = "480054b2d5b28e22c91a52faaa23ee2c130720";
 
 const classes = {
   wrapper: "pr-4 md:pr-14 pl-4",
@@ -65,13 +64,13 @@ class Orders extends React.Component {
       courier_info: null,
       order_info: null,
       amounts: {
-        settlement: 0,
-        order: 0,
-        total: 0,
-        delivery: 0,
-        mrp: 0,
-        quantity: 0,
-        published: 0,
+        settlement: 0, // Amount to settle
+        order: 0, // Order Price (price * quantity) [Shopify]
+        total: 0, // Total Amount (mrp * quantity)
+        delivery: 0, // TODO: Delivery Charges (To be Removed)
+        mrp: 0, // MRP + commission
+        quantity: 0, // Quantity
+        published: 0, // Shopify Price
       },
     },
     product_info: null,
@@ -172,12 +171,14 @@ class Orders extends React.Component {
         ? this.state.product_info.id
         : null;
     const settlement_amount = this.state.invoice_info.amounts.total;
+    const client_order_id = this.state.invoice_info.order_info.id;
 
     if (
       !shipping_address ||
       !product_id ||
       !retailer_id ||
       !quantity ||
+      !client_order_id ||
       !settlement_amount
     ) {
       console.log({
@@ -192,7 +193,7 @@ class Orders extends React.Component {
           message: "Incomplete Information Provided.",
           description:
             "Please go through the process again and validate all the details.",
-          duration: 3000,
+          duration: 1.5,
         });
       });
     }
@@ -203,21 +204,33 @@ class Orders extends React.Component {
       retailer_id,
       product_quantity: quantity,
       settlement_amount: this.state.invoice_info.amounts.total,
+      client_order_id,
     };
 
-    await axiosInstance.post("/others/settleOrder", body);
+    const settle_response = await axiosInstance.post(
+      "/others/settleOrder",
+      body
+    );
 
-    setTimeout(() => {
-      this.setState({ is_loading: false, invoiceModalVisible: false }, () => {
-        return notification.open({
-          message: `Order Settled.`,
-          type: "success",
-          description: `Current Balance ${wallet - settlement}`,
-          placement: "topRight",
+    this.setState({ is_loading: false, invoiceModalVisible: false }, () => {
+      if (settle_response.data.status === "error") {
+        return notification.error({
+          message:
+            settle_response.data.error || "Invalid Information Provided.",
+          description: "Please go through the details again and try again.",
           duration: 1.5,
         });
+      }
+      this.context.setAuth(AUTH_ACTIONS.UPDATE, {
+        wallet: settle_response.data.retailer_wallet,
       });
-    }, 3000);
+      this.componentDidMount();
+      return notification.success({
+        message: `Order Settled.`,
+        description: `Current Balance ${wallet - settlement}`,
+        duration: 1.5,
+      });
+    });
   };
 
   handleFilter = (e) => {
@@ -234,31 +247,31 @@ class Orders extends React.Component {
       });
   };
 
-  loadDeliveryServices = async (options) => {
-    const response = await axiosInstance.get(
-      "https://pickrr.com/api-v2/client/fetch-price-calculator-generic/",
-      {
-        params: {
-          auth_token: PICKRR_AUTH_TOKEN,
-          shipment_type: "forward",
-          pickup_pincode: this.state.pickup_pincode,
-          drop_pincode: this.state.drop_pincode,
-          delivery_mode: "express",
-          ...options,
-        },
-      }
-    );
+  // loadDeliveryServices = async (options) => {
+  //   const response = await axiosInstance.get(
+  //     "https://pickrr.com/api-v2/client/fetch-price-calculator-generic/",
+  //     {
+  //       params: {
+  //         auth_token: PICKRR_AUTH_TOKEN,
+  //         shipment_type: "forward",
+  //         pickup_pincode: this.state.pickup_pincode,
+  //         drop_pincode: this.state.drop_pincode,
+  //         delivery_mode: "express",
+  //         ...options,
+  //       },
+  //     }
+  //   );
 
-    if (response.data) {
-      const { billing_zone, rate_list } = response.data;
-      this.setState({
-        billing_zone,
-        rate_list,
-      });
-    } else {
-      message.error("Error Loading Delivery Services. Please try again.");
-    }
-  };
+  //   if (response.data) {
+  //     const { billing_zone, rate_list } = response.data;
+  //     this.setState({
+  //       billing_zone,
+  //       rate_list,
+  //     });
+  //   } else {
+  //     message.error("Error Loading Delivery Services. Please try again.");
+  //   }
+  // };
 
   handleChange = async (value) => {
     this.setState({ is_loading: true });
@@ -304,33 +317,51 @@ class Orders extends React.Component {
   };
 
   handleOrderClick = async (order) => {
-    this.setState({ is_loading: true, delivery_service: "" });
     // FIXME: hatana h isko
-    await this.loadDeliveryServices({
-      length: 1,
-      breadth: 1,
-      height: 1,
-      weight: 1,
-      payment_mode: "prepaid",
-      drop_pincode: order.shipping_address.zip,
-    });
-    let inv_info = this.state.invoice_info;
+    // await this.loadDeliveryServices({
+    //   length: 1,
+    //   breadth: 1,
+    //   height: 1,
+    //   weight: 1,
+    //   payment_mode: "prepaid",
+    //   drop_pincode: order.shipping_address.zip,
+    // });
+    this.setState({ delivery_service: "Automatic", is_loading: true });
+    const invoice_info = this.state.invoice_info;
     const resp = await axiosInstance.get(`/product-details/${order.sku}`, {
       headers: { Authorization: `Bearer ${this.context.token}` },
     });
 
-    const prod = resp.data;
-    this.setState({
+    const product_info = resp.data;
+    const commission = calculateCommissions(product_info);
+    const quantity = parseInt(order.quantity);
+    const settlement =
+      (parseInt(product_info.product_mrp) + commission) * quantity;
+
+    const new_state = {
       invoice_info: {
-        ...inv_info,
+        ...invoice_info,
         order_info: order,
+        amounts: {
+          ...invoice_info.amounts,
+          quantity,
+          published: parseInt(order.price),
+          mrp: parseInt(product_info.product_mrp) + commission,
+          order: parseInt(order.price) * quantity,
+          settlement: settlement,
+          delivery: 0,
+          total: settlement,
+        },
       },
       drop_pincode: order.shipping_address.zip,
       pickup_pincode: 201313,
       is_loading: false,
-      modalVisible: true,
-      product_info: prod,
-    });
+      product_info,
+      invoiceModalVisible: true,
+    };
+
+    console.log({ new_state });
+    this.setState(new_state);
   };
 
   handleModalCancel = (e) => {
@@ -342,39 +373,36 @@ class Orders extends React.Component {
   };
 
   handleModalOk = () => {
-    this.setState({ modalLoading: false, modalVisible: false });
-    const dpart = this.state.rate_list.find(
-      (x) => "" + x.courier_id === "" + this.state.delivery_service
-    );
-    if (!dpart) return message.error(`Could Not find Delivery Partner`);
-    const { invoice_info, product_info } = this.state;
+    // this.setState({ modalLoading: false, modalVisible: false });
+    // const dpart = this.state.rate_list.find(
+    //   (x) => "" + x.courier_id === "" + this.state.delivery_service
+    // );
+    // if (!dpart) return message.error(`Could Not find Delivery Partner`);
+    // const { invoice_info, product_info } = this.state;
     // console.log({ invoice_info, product_info });
-
-    const commission = calculateCommissions(product_info);
-    const quantity = parseInt(invoice_info.order_info.quantity);
-    const settlement =
-      (parseInt(product_info.product_mrp) + commission) * quantity;
-
-    const amounts = {
-      quantity,
-      published: parseInt(invoice_info.order_info.price),
-      mrp: parseInt(product_info.product_mrp) + commission,
-      order: parseInt(invoice_info.order_info.price) * quantity,
-      settlement: settlement,
-      delivery: parseInt(dpart.delivered_charges),
-    };
-
-    this.setState({
-      invoice_info: {
-        ...invoice_info,
-        courier_info: dpart,
-        amounts: {
-          ...amounts,
-          total: amounts.settlement + amounts.delivery,
-        },
-      },
-      invoiceModalVisible: true,
-    });
+    // const commission = calculateCommissions(product_info);
+    // const quantity = parseInt(invoice_info.order_info.quantity);
+    // const settlement =
+    //   (parseInt(product_info.product_mrp) + commission) * quantity;
+    // const amounts = {
+    //   quantity,
+    //   published: parseInt(invoice_info.order_info.price),
+    //   mrp: parseInt(product_info.product_mrp) + commission,
+    //   order: parseInt(invoice_info.order_info.price) * quantity,
+    //   settlement: settlement,
+    //   // delivery: parseInt(dpart.delivered_charges),
+    // };
+    // this.setState({
+    //   invoice_info: {
+    //     ...invoice_info,
+    //     // courier_info: dpart,
+    //     amounts: {
+    //       ...amounts,
+    //       total: amounts.settlement + amounts.delivery,
+    //     },
+    //   },
+    //   invoiceModalVisible: true,
+    // });
   };
 
   render() {
@@ -471,7 +499,7 @@ class Orders extends React.Component {
           </div>
         </Spin>
 
-        <Modal
+        {/* <Modal
           title={<div className="flex gap-x-2">Select Delivery Partner</div>}
           width={"100%"}
           visible={
@@ -552,15 +580,13 @@ class Orders extends React.Component {
           ) : (
             <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
           )}
-        </Modal>
+        </Modal> */}
 
         <Modal
           title={<div className="flex gap-x-2">Finalize Delivery</div>}
           width={"100%"}
           visible={
-            this.state.invoiceModalVisible &&
-            this.state.invoice_info.courier_info &&
-            this.state.invoice_info.order_info
+            this.state.invoiceModalVisible && this.state.invoice_info.order_info
           }
           confirmLoading={this.state.is_loading}
           okText={"Proceed"}
@@ -620,6 +646,14 @@ class Orders extends React.Component {
             <div className="text-sm text-gray-600 font-medium">Product MRP</div>
             <div className="text-sm text-gray-700 font-medium">
               ₹ {parseFloat(this.state.invoice_info.amounts.mrp).toFixed(2)}
+              <span className={"font-semibold text-xs text-green-400 mx-1"}>
+                (+
+                {(
+                  parseFloat(this.state.invoice_info.amounts.published) -
+                  parseFloat(this.state.invoice_info.amounts.mrp)
+                ).toFixed(2)}
+                )
+              </span>
             </div>
             <div className="text-sm text-gray-600 font-medium">
               Settlement Amount
@@ -627,21 +661,7 @@ class Orders extends React.Component {
             <div className="text-sm text-gray-700 font-medium">
               ₹ {parseFloat(this.state.invoice_info.amounts.settlement)}
             </div>
-            <div className="text-sm text-gray-600 font-medium">
-              Delivery Partner
-            </div>
-            <div className="text-sm text-gray-700 font-medium">
-              {this.state.invoice_info.courier_info
-                ? this.state.invoice_info.courier_info.courier
-                : ""}
-            </div>
-            <div className="text-sm text-gray-600 font-medium">
-              Delivery Charges
-            </div>
-            <div className="text-sm text-gray-700 font-medium">
-              ₹{" "}
-              {parseFloat(this.state.invoice_info.amounts.delivery).toFixed(2)}
-            </div>
+            <hr className={"col-span-2"} />
             <div className="text-sm text-gray-800 font-bold">Total Amount</div>
             <div className="text-sm text-red-500 font-bold">
               ₹ {this.state.invoice_info.amounts.total.toFixed(2)}

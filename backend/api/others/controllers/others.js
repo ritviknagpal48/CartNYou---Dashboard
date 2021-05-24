@@ -209,6 +209,19 @@ module.exports = {
         settlement_amount,
       } = body;
 
+      const retailer = await strapi
+        .query("user", "users-permissions")
+        .findOne({ id: retailer_id });
+
+      const retailer_wallet = retailer.wallet;
+      console.log({
+        retailer_wallet,
+        settlement_amount,
+        diff: retailer_wallet - settlement_amount,
+      });
+      if (settlement_amount > retailer_wallet)
+        throw new Error("Insufficient Wallet Balance");
+
       // Fetch Items from IDs
       const product = await strapi
         .query("product-details")
@@ -274,6 +287,7 @@ module.exports = {
         pickrr_payload
       );
       const order_response = response.data;
+      if (!order_response.success) throw new Error(order_response.err);
 
       const delivery_request = {
         retailer_id,
@@ -326,16 +340,41 @@ module.exports = {
         });
       }
 
+      const wholesaler = await strapi
+        .query("user", "users-permissions")
+        .findOne({ id: delivery_request.wholesaler_id });
+
+      const wholesaler_wallet = wholesaler.wallet;
+
+      await strapi
+        .query("user", "users-permissions")
+        .update(
+          { id: retailer_id },
+          { wallet: retailer_wallet - settlement_amount }
+        );
+
+      await strapi
+        .query("user", "users-permissions")
+        .update(
+          { id: delivery_request.wholesaler_id },
+          { wallet: wholesaler_wallet + settlement_amount - commission }
+        );
+
       return {
         status: "success",
+        retailer_wallet: retailer_wallet - settlement_amount,
       };
     } catch (error) {
       return {
         status: "error",
-        error,
+        error: error.message,
       };
     }
   },
+
+  /**
+   * For Development and Testing purpose
+   */
   sandbox: async (_ctx) => {
     try {
       return {

@@ -115,3 +115,18 @@
 ```
 
 <!-- FIXME: Gst ka kya krna h -->
+
+---
+
+**Next Stage of delivery API**
+
+> Send product for delivery (Pickrr API)
+
+> Update delivery product in Database collection
+
+> Wallet Transaction Update (Wholesaler + Retailer)
+
+> Admin Transaction Page Update
+
+> Transaction History for both Wholesaler & Retailer
+
