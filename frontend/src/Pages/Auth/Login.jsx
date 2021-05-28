@@ -152,6 +152,7 @@ const Login = ({ className }) => {
         axios.defaults.headers = {
           Authorization: `Bearer ${jwt}`,
         };
+
         setAuth(AUTH_ACTIONS.LOGIN, {
           isLoggedIn: true,
           token: jwt,
@@ -164,6 +165,7 @@ const Login = ({ className }) => {
           additionalInfo: {
             ...user,
           },
+          wallet: user.wallet,
         });
 
         if (!rememberMe) {

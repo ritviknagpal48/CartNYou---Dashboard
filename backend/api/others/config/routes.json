@@ -57,6 +57,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/others/wholesalerOrders/:id",
+      "handler": "others.getWholesalerOrders",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/others/sandbox",
       "handler": "others.sandbox",

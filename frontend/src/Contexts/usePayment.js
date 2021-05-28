@@ -42,7 +42,7 @@ export const usePayment = () => {
         amount: data.amount,
         name: "CartNYou - Wallet Recharge",
         description: "Wallet Recharge for CartNYou",
-        image: "http://localhost:1337/logo.png",
+        image: "/images/logo.png",
         order_id: data.id,
         handler: function (response, error) {
           // console.log(response);

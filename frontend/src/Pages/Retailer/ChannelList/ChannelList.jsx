@@ -46,8 +46,7 @@ export class ChannelList extends Component {
         `/shopifychannels?retailersdetails=${this.context.additionalInfo.id}`,
         {
           headers: {
-            Authorization:
-              `Bearer ${this.context.token}`,
+            Authorization: `Bearer ${this.context.token}`,
           },
         }
       )
@@ -337,7 +336,7 @@ export class ChannelList extends Component {
             }}
             maskStyle={{ background: "#00000034" }}
           >
-            <p>Product once deleted can not be recovered again.</p>
+            <p>Channel once deleted can not be recovered again.</p>
           </Modal>
         </Spin>
         <Modal

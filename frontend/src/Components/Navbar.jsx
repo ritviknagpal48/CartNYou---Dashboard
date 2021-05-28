@@ -25,6 +25,7 @@ const Navbar = ({ menuList }) => {
     const s2 = s1.split("/")[0];
     const page = s2.replace("/", "");
     setActiveMenu(page);
+    console.log(user, wallet);
   }, [pathname]);
 
   const signOut = () => {
@@ -59,7 +60,7 @@ const Navbar = ({ menuList }) => {
                   className="flex flex-row pr-20 bg-white border border-gray-200 rounded-lg p-2 cursor-pointer hover:shadow-lg transition"
                   style={{ alignItems: "center" }}
                   onClick={() => {
-                    setIsPaymentModalOpen(true);
+                    user.type === "retailer" && setIsPaymentModalOpen(true);
                   }}
                 >
                   <div className="flex items-center justify-center flex-shrink-0 h-7 w-7 text-red-500">

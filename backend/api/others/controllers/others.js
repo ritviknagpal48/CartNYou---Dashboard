@@ -372,6 +372,33 @@ module.exports = {
     }
   },
 
+  getWholesalerOrders: async (ctx) => {
+    try {
+      const wholesaler_id = ctx.params.id;
+      const wholesaler = await strapi
+        .query("user", "users-permissions")
+        .findOne({ id: wholesaler_id }, [
+          {
+            path: "delivery_requests",
+            populate: {
+              path: "product_id"
+            }
+          },
+        ]);
+
+      const orders = wholesaler.delivery_requests;
+      return {
+        status: "success",
+        orders,
+      };
+    } catch (error) {
+      return {
+        status: "error",
+        error: error.message,
+      };
+    }
+  },
+
   /**
    * For Development and Testing purpose
    */

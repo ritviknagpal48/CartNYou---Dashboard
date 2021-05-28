@@ -262,7 +262,7 @@ class ProductCards extends React.Component {
                     return (
                       <div
                         key={index}
-                        className="bg-white my-2 border border-gray-200  text-gray-700 font-medium text-base px-4 py-3 rounded-xl shadow-lg grid grid-cols-3 gap-2 items-center md:justify-between w-full text-left wh-product-card relative"
+                        className="bg-white my-2 border border-gray-200  text-gray-700 font-medium text-base px-4 py-3 rounded-xl shadow-lg grid  gap-2 items-center md:justify-between w-full text-left wh-product-card relative"
                         style={{ color: "black" }}
                       >
                         <Checkbox

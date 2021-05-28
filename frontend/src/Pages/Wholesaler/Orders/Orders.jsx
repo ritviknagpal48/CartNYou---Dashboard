@@ -1,6 +1,9 @@
 // @ts-ignore
-import dummy_data from "./orders.db.json";
 import OrderCard from "./OrderCard";
+import { useContext, useEffect, useState } from "react";
+import useAxios from "Contexts/useAxios";
+import { AuthContext } from "Contexts/Auth";
+import { notification, Spin } from "antd";
 
 const classes = {
   wrapper: "",
@@ -20,6 +23,30 @@ const ActionButton = ({ title, icon }) => {
 };
 
 const Orders = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [orderList, setOrderList] = useState([]);
+  const { axios } = useAxios();
+  const {
+    additionalInfo: { id: userid },
+  } = useContext(AuthContext);
+
+  useEffect(() => {
+    setIsLoading(true);
+    axios.get("/others/wholesalerOrders/" + userid).then((resp) => {
+      const { orders, status, error } = resp.data;
+      if (status === "success") {
+        setOrderList(orders);
+      } else {
+        setOrderList([]);
+        notification.error({
+          message: error,
+          duration: 3,
+        });
+      }
+      setIsLoading(false);
+    });
+  }, []);
+
   return (
     <div className={classes.wrapper}>
       <div className={classes.header}>
@@ -65,14 +92,15 @@ const Orders = () => {
           />
         </div>
       </div>
-
-      <div
-        className={"overflow-y-auto overflow-x-hidden px-4 h-full flex-auto"}
-      >
-        {dummy_data.map((order) => (
-          <OrderCard key={order.orderId} {...order} collapse={true} />
-        ))}
-      </div>
+      <Spin spinning={isLoading}>
+        <div
+          className={"overflow-y-auto overflow-x-hidden px-4 h-full flex-auto"}
+        >
+          {orderList.map((order) => (
+            <OrderCard key={order.id} {...order} collapse={false} />
+          ))}
+        </div>
+      </Spin>
     </div>
   );
 };

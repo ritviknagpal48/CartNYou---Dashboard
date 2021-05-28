@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { message, notification, Radio } from "antd";
 
 const classes = {
   wrapper:
@@ -10,7 +11,13 @@ const classes = {
   card_title: "font-bold tracking-wide",
 };
 
-const ItemRow = ({ sku, description, mrp: price, qty }) => {
+const ItemRow = ({
+  product_sku,
+  product_name,
+  product_mrp: price,
+  product_quantity,
+  images,
+}) => {
   return (
     <div className={"flex flex-row items-center justify-start"}>
       <div
@@ -21,14 +28,14 @@ const ItemRow = ({ sku, description, mrp: price, qty }) => {
         )}
       >
         <img
-          src="/images/logo.png"
-          alt={sku}
+          src={images[0].url}
+          alt={images[0].uid}
           className={
-            "h-6 w-auto col-auto col-start-1 row-start-1 row-span-3 self-center"
+            "h-16 max-h-16 w-auto col-auto col-start-1 row-start-1 row-span-3 self-center"
           }
         />
-        <span className={"text-sm font-normal mb-l"}>SKU: {sku}</span>
-        <span className={"text-sm font-light mb-1"}>{description}</span>
+        <span className={"text-sm font-light mb-1"}>{product_name}</span>
+        <span className={"text-sm font-normal mb-l"}>SKU: {product_sku}</span>
         <span
           className={
             "text-xs font-bold bg-green-200 text-gray-700 rounded-lg w-max px-2"
@@ -37,26 +44,35 @@ const ItemRow = ({ sku, description, mrp: price, qty }) => {
           ₹ {price}
         </span>
       </div>
-      <div className={clsx(classes.title, classes.card_title)}>{qty}</div>
       <div className={clsx(classes.title, classes.card_title)}>
-        ₹ {price * qty}
+        {product_quantity}
+      </div>
+      <div className={clsx(classes.title, classes.card_title)}>
+        ₹ {price * product_quantity}
       </div>
     </div>
   );
 };
 
 const OrderCard = ({
-  orderId,
-  items,
-  status,
-  tracking,
-  orderDate,
-  payment,
-  shipTo,
+  id,
   className,
   collapse,
+  product_quantity,
+  order_response,
+  shipping_address,
+  product_id,
+  createdAt,
+  status,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(!collapse);
+  const [isExpanded] = useState(!collapse);
+  const [newStatus, setValue] = useState(status);
+
+  const onChange = (e) => {
+    console.log("radio checked", e.target.value);
+    setValue(e.target.value);
+    message.success("API under development");
+  };
 
   return (
     <div className={clsx(classes.wrapper, className)}>
@@ -64,85 +80,40 @@ const OrderCard = ({
         <div className={classes.title}>
           <span className={classes.card_title}>Order Details</span>
           <div className={classes.card_info}>
-            <Link to={`/wholesaler/orders/${orderId}`}>{orderId}</Link>
+            <Link to={`/wholesaler/orders/${id}`}>{id.toUpperCase()}</Link>
             <br />
-            {orderDate}
+            {new Date(createdAt).toLocaleString("en-IN", {
+              dateStyle: "long",
+              timeStyle: "short",
+              hour12: true,
+            })}
           </div>
         </div>
         <div className={classes.title}>
-          <span className={classes.card_title}>Payment Method</span>
-          <div className={classes.card_info}>{payment}</div>
-        </div>
-        <div className={classes.title}>
           <span className={classes.card_title}>Ship To</span>
-          <div className={classes.card_info}>{shipTo}</div>
+          <div className={classes.card_info}>{shipping_address.name}</div>
+          <div className={classes.card_info} style={{ marginTop: 0 }}>
+            {shipping_address.city}
+          </div>
         </div>
         <div className={classes.title}>
           <span className={classes.card_title}>Traking Details</span>
           <div className={classes.card_info}>
-            {!tracking ? (
-              "Unavailable"
-            ) : (
-              <Link to={`/wholesaler/track-order/${tracking}`}>{tracking}</Link>
-            )}
+            <Link to={`/wholesaler/track-order/${order_response.tracking_id}`}>
+              {order_response.tracking_id}
+            </Link>
           </div>
         </div>
         <div className={classes.title}>
           <span className={classes.card_title}>Status</span>
-          <div className={classes.card_info}>{status}</div>
-        </div>
-        <div
-          className={clsx("absolute right-4 bottom-2 cursor-pointer", {
-            hidden: !collapse,
-          })}
-          onClick={() => setIsExpanded((p) => !p)}
-        >
-          {!isExpanded ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={"h-5 w-5 text-red-500"}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokelinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={"h-5 w-5 text-red-500"}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 15l7-7 7 7"
-              />
-            </svg>
-          )}
 
-          {/* <svg
-            className={"h-5 w-5 text-red-500"}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg> */}
+          <div className={classes.card_info}>
+            <Radio.Group onChange={onChange} value={newStatus}>
+              <Radio value={"accepted"}>Accept</Radio>
+              <Radio value={"pending"}>Pending</Radio>
+              <Radio value={"rejected"}>Reject</Radio>
+            </Radio.Group>
+          </div>
         </div>
       </div>
       <hr className={"text-red-400"} />
@@ -161,7 +132,7 @@ const OrderCard = ({
         <div className={clsx(classes.title, classes.card_title)}>Amount</div>
       </div>
       <hr className={"text-red-400"} />
-      {isExpanded && items && items.map((item) => <ItemRow {...item} />)}
+      <ItemRow {...product_id} product_quantity={product_quantity} />
       {isExpanded && <hr className={"text-red-400"} />}
       <div className={"flex flex-row items-center justify-start"}>
         <div
@@ -170,9 +141,7 @@ const OrderCard = ({
             classes.card_title,
             "w-9/12 text-center"
           )}
-        >
-          Total
-        </div>
+        ></div>
         <div
           className={clsx(
             classes.title,
@@ -180,12 +149,7 @@ const OrderCard = ({
             "flex flex-col items-start justify-center"
           )}
         >
-          <span>
-            {items.reduce((total, val) => {
-              total += parseInt(val.qty);
-              return total;
-            }, 0)}
-          </span>
+          <span>Total</span>
         </div>
         <div
           className={clsx(
@@ -196,10 +160,9 @@ const OrderCard = ({
         >
           <span className={"text-red-400"}>
             ₹{" "}
-            {items.reduce((total, val) => {
-              total += parseFloat(val.mrp) * parseInt(val.qty);
-              return total;
-            }, 0)}
+            {(
+              parseFloat(product_id.product_mrp) * parseFloat(product_quantity)
+            ).toFixed(2)}
           </span>
         </div>
       </div>
