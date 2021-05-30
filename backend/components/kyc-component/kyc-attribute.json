@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_kyc_component_kyc_attributes",
+  "info": {
+    "name": "kyc_attribute",
+    "icon": "address-card"
+  },
+  "options": {},
+  "attributes": {
+    "id_number": {
+      "type": "string"
+    },
+    "id_url": {
+      "type": "string"
+    },
+    "id_type": {
+      "type": "string"
+    }
+  }
+}

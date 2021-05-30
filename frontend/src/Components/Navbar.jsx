@@ -25,7 +25,6 @@ const Navbar = ({ menuList }) => {
     const s2 = s1.split("/")[0];
     const page = s2.replace("/", "");
     setActiveMenu(page);
-    console.log(user, wallet);
   }, [pathname]);
 
   const signOut = () => {

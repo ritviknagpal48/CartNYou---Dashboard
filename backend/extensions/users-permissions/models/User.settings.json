@@ -109,6 +109,19 @@
     "delivery_requests": {
       "via": "wholesaler_id",
       "collection": "delivery-requests"
+    },
+    "kyc": {
+      "via": "user",
+      "model": "kyc-information"
+    },
+    "verification_status": {
+      "type": "enumeration",
+      "enum": [
+        "rejected",
+        "pending",
+        "verified"
+      ],
+      "default": "pending"
     }
   }
 }

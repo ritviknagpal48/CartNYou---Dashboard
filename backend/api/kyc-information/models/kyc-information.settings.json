@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "kyc_informations",
+  "info": {
+    "name": "kyc_information"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "user": {
+      "via": "kyc",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "account_holder": {
+      "type": "string"
+    },
+    "account_number": {
+      "type": "string",
+      "regex": "\\d+"
+    },
+    "ifsc_code": {
+      "type": "string"
+    },
+    "bank_details": {
+      "type": "json"
+    },
+    "cancelled_cheque_url": {
+      "type": "string"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "individual",
+        "company",
+        "unknown"
+      ]
+    },
+    "pan": {
+      "type": "component",
+      "repeatable": false,
+      "component": "kyc-component.kyc-attribute"
+    },
+    "additional_id": {
+      "type": "component",
+      "repeatable": false,
+      "component": "kyc-component.kyc-attribute"
+    }
+  }
+}

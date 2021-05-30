@@ -45,7 +45,7 @@ const Orders = () => {
       }
       setIsLoading(false);
     });
-  }, []);
+  }, [axios, userid]);
 
   return (
     <div className={classes.wrapper}>

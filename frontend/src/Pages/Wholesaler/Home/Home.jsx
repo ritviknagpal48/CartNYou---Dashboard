@@ -2,6 +2,8 @@
 import { Redirect, Route } from "react-router";
 import Navbar from "Components/Navbar";
 import Sidebar from "Components/Sidebar";
+import PrivateRoute from "Components/PrivateRoute";
+import { MenuItems } from "Components/menuItems";
 import Dashboard from "Pages/Wholesaler/Dashboard/Dashboard";
 import Orders from "Pages/Wholesaler/Orders/Orders";
 import AddNewProduct from "Pages/Wholesaler/Products/AddNewProduct";
@@ -11,8 +13,8 @@ import Warehouses from "Pages/Wholesaler/Warehouses/Warehouses";
 import AddWarehouse from "Pages/Wholesaler/Warehouses/AddWarehouse";
 import OrderDetails from "Pages/Wholesaler/Orders/OrderDetails";
 import TrackOrder from "Pages/Wholesaler/TrackOrder/TrackOrder";
-import PrivateRoute from "Components/PrivateRoute";
-import { MenuItems } from "Components/menuItems";
+import KYC from "Pages/KYC_component/kyc";
+import Settings from "Pages/Wholesaler/Settings/Settings";
 
 const Home = () => {
   return (
@@ -56,7 +58,6 @@ const Home = () => {
             path={"/wholesaler/edit-product/:productID"}
             component={AddNewProduct}
           />
-          P
           <PrivateRoute
             path={"/wholesaler/warehouses"}
             component={Warehouses}
@@ -69,6 +70,8 @@ const Home = () => {
             path={"/wholesaler/update-warehouse"}
             component={AddWarehouse}
           />
+          <PrivateRoute path={"/wholesaler/settings"} component={Settings} />
+          <PrivateRoute path={"/wholesaler/kyc-information"} component={KYC} />
         </div>
       </div>
     </div>

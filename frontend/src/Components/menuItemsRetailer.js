@@ -169,9 +169,9 @@ export const MenuItems = [
     ),
   },
   {
-    displayName: "Setting",
-    key: "setting",
-    path: "/retailer/setting",
+    displayName: "Settings",
+    key: "settings",
+    path: "/retailer/settings",
     icon: (
       <svg
         className={"h-5 w-5 mr-2"}

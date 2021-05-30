@@ -1904,6 +1904,66 @@
                 }
               }
             }
+          },
+          "kyc": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              },
+              "account_holder": {
+                "type": "string"
+              },
+              "account_number": {
+                "type": "string"
+              },
+              "ifsc_code": {
+                "type": "string"
+              },
+              "bank_details": {
+                "type": "object"
+              },
+              "cancelled_cheque_url": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string",
+                "enum": [
+                  "individual",
+                  "company",
+                  "unknown"
+                ]
+              },
+              "pan": {
+                "type": "component"
+              },
+              "additional_id": {
+                "type": "component"
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "verification_status": {
+            "type": "string",
+            "default": "pending",
+            "enum": [
+              "rejected",
+              "pending",
+              "verified"
+            ]
           }
         }
       },
@@ -2198,6 +2258,18 @@
             "items": {
               "type": "string"
             }
+          },
+          "kyc": {
+            "type": "string"
+          },
+          "verification_status": {
+            "type": "string",
+            "default": "pending",
+            "enum": [
+              "rejected",
+              "pending",
+              "verified"
+            ]
           },
           "created_by": {
             "type": "string"

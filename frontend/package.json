@@ -12,6 +12,8 @@
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "crypto-random-string": "^4.0.0",
+    "ifsc": "^1.5.13",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "postcss": "^8.2.15",
     "react": "^17.0.1",

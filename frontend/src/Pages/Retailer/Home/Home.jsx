@@ -19,6 +19,7 @@ import AddNewChannel from "Pages/Retailer/ChannelList/AddNewChannel";
 import ChannelList from "Pages/Retailer/ChannelList/ChannelList";
 import Warehouses from "Pages/Retailer/Warehouses/Warehouses";
 import AddWarehouse from "Pages/Retailer/Warehouses/AddWarehouse";
+import KYC from "Pages/KYC_component/kyc";
 
 const Home = () => {
   return (
@@ -60,7 +61,7 @@ const Home = () => {
               component={ImportList}
             />
             <PrivateRoute path={"/retailer/live-list"} component={LiveList} />
-            <PrivateRoute path={"/retailer/setting"} component={Settings} />
+            <PrivateRoute path={"/retailer/settings"} component={Settings} />
             <PrivateRoute path={"/retailer/support"} component={Support} />
             <PrivateRoute
               path={"/retailer/channel-list"}
@@ -86,6 +87,7 @@ const Home = () => {
               path={"/retailer/update-warehouse"}
               component={AddWarehouse}
             />
+            <PrivateRoute path={"/retailer/kyc-information"} component={KYC} />
           </Switch>
         </div>
       </div>

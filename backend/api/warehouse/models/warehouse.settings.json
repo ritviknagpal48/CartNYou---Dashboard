@@ -39,9 +39,9 @@
       "type": "string"
     },
     "user": {
+      "via": "warehouses",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "warehouses"
+      "model": "user"
     },
     "products_available": {
       "via": "warehouse",

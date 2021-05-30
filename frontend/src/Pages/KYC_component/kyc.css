@@ -1,0 +1,25 @@
+.ant-radio-checked .ant-radio-inner {
+  border-color: #ef4444 !important;
+  color: #ef4444 !important;
+}
+.ant-radio-inner::after {
+  border-color: #ef4444 !important;
+  color: #ef4444 !important;
+  background-color: #ef4444 !important;
+}
+
+.categoryStyle {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  margin: 0 0 1rem 0;
+  align-items: center;
+}
+
+@media screen and (max-width: 480px) {
+  .categoryStyle {
+    flex-direction: column;
+  }
+}

@@ -1,7 +1,7 @@
+import { message, Radio } from "antd";
 import clsx from "clsx";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { message, notification, Radio } from "antd";
 
 const classes = {
   wrapper:

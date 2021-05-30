@@ -147,7 +147,7 @@ export class ChannelList extends Component {
           <div className="flex " style={{ alignItems: "center" }}>
             <button
               className={
-                "mx-4  px-3 py-2 text-gray-600 border border-gray-200 bg-white rounded-full shadow-lg focus:outline-none"
+                "mx-4 h-8 w-8 flex justify-center items-center text-gray-600 border border-gray-200 bg-white rounded-full shadow-lg focus:outline-none"
               }
               onClick={() => this.props.history.goBack()}
             >

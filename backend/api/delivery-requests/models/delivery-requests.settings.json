@@ -12,9 +12,9 @@
   },
   "attributes": {
     "wholesaler_id": {
+      "via": "delivery_requests",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "delivery_requests"
+      "model": "user"
     },
     "product_id": {
       "model": "product-details"

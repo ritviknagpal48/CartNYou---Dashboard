@@ -640,6 +640,17 @@
                   "type": "string"
                 }
               },
+              "kyc": {
+                "type": "string"
+              },
+              "verification_status": {
+                "type": "string",
+                "enum": [
+                  "rejected",
+                  "pending",
+                  "verified"
+                ]
+              },
               "created_by": {
                 "type": "string"
               },

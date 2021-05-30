@@ -799,7 +799,7 @@ class AddProductForm extends Component {
           tabBarExtraContent={
             <div className="flex">
               <Button
-                className="back-form-button"
+                className="mx-4 h-8 w-8 flex justify-center items-center text-gray-600 border border-gray-200 bg-white rounded-full shadow-lg focus:outline-none"
                 style={{ marginRight: "10px" }}
                 onClick={this.prevstep}
                 disabled={step === 1 || step === 0}
