@@ -18,6 +18,34 @@
   align-items: center;
 }
 
+.categoryStyle .ant-form-item {
+  margin-bottom: 0px !important;
+}
+
+.upload-grid .ant-row.ant-form-item {
+  width: 100%;
+  flex-direction: column-reverse !important;
+}
+
+.upload-grid .ant-row.ant-form-item .ant-upload.ant-upload-select-picture-card {
+  margin: 0 !important;
+  margin-bottom: 8px !important;
+}
+
+.upload-grid .ant-row.ant-form-item .ant-form-item-control {
+  align-items: center !important;
+}
+
+.upload-grid .ant-row.ant-form-item .ant-form-item-label {
+  text-align: center !important;
+  max-width: 100%;
+  word-break: normal;
+}
+
+.upload-grid .ant-row.ant-form-item .ant-form-item-required::before {
+  display: none !important;
+}
+
 @media screen and (max-width: 480px) {
   .categoryStyle {
     flex-direction: column;

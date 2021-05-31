@@ -708,6 +708,15 @@
               }
             }
           },
+          "verification_status": {
+            "type": "string",
+            "default": "pending",
+            "enum": [
+              "pending",
+              "verified",
+              "rejected"
+            ]
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -781,6 +790,15 @@
                 "type": "string"
               }
             }
+          },
+          "verification_status": {
+            "type": "string",
+            "default": "pending",
+            "enum": [
+              "pending",
+              "verified",
+              "rejected"
+            ]
           },
           "published_at": {
             "type": "string",

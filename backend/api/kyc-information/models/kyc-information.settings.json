@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "kyc_informations",
   "info": {
-    "name": "kyc_information"
+    "name": "kyc_information",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -48,6 +49,15 @@
       "type": "component",
       "repeatable": false,
       "component": "kyc-component.kyc-attribute"
+    },
+    "verification_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "verified",
+        "rejected"
+      ],
+      "default": "pending"
     }
   }
 }

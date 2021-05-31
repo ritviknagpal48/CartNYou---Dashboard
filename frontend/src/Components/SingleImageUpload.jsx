@@ -86,11 +86,9 @@ class UploadSingleImage extends Component {
 
   state = {
     previewVisible: false,
-    previewImage: "",
+    previewImage: this.props.intialValue ? this.props.intialValue : "",
     fileList:
-      this.props && this.props.values && this.props.values.images
-        ? this.props.values.images
-        : [],
+      this.props && this.props.intialValue ? [this.props.intialValue] : [],
     loading: false,
   };
 
@@ -131,6 +129,7 @@ class UploadSingleImage extends Component {
     // console.log(props);
     return (
       <Form.Item
+        required
         label={`${this.props.title.split("_").map(capitalize).join(" ")}`}
         //   className={"single-image-upload"}
       >

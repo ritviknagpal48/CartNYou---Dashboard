@@ -1945,6 +1945,14 @@
               "additional_id": {
                 "type": "component"
               },
+              "verification_status": {
+                "type": "string",
+                "enum": [
+                  "pending",
+                  "verified",
+                  "rejected"
+                ]
+              },
               "published_at": {
                 "type": "string"
               },
